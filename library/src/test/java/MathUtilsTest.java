@@ -48,12 +48,14 @@ class MathUtilsTest {
     class DivideTest {
         @Test
         void testDivide(){
-            assertEquals(3,mathUtils.divide(6,2), "Divide method should divide two numbers");
+            assertEquals(3,mathUtils.divide(6,2),
+                    "Divide method should divide two numbers");
         }
 
         @Test
         void testDivideThrowsOnDivideByZero(){
-            assertThrows(ArithmeticException.class, () -> mathUtils.divide(1,0), "Divide by zero should throw");
+            assertThrows(ArithmeticException.class, () -> mathUtils.divide(1,0),
+                    "Divide by zero should throw");
         }
     }
 
