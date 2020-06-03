@@ -14,27 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import java.util.List;
+import org.yaml.snakeyaml.Yaml;
 
-public class MathUtils {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Map;
 
-  public int add(int a, int b) {
-    return a + b;
-  }
+public class YamlUtils {
 
-  public int sumOfArray(List<Integer> numbers) {
-    int sum = 0;
-    for (Integer number : numbers) {
-      sum += number;
-    }
-    return sum;
-  }
+  public Map<String, Object> convertYamlFileToMap(String pathname) throws FileNotFoundException {
+    Yaml yaml = new Yaml();
 
-  public double divide(int a, int b) {
-    return a / b;
-  }
+    File file = new File(pathname);
+    InputStream stream = new FileInputStream(file);
 
-  public int computeArea(int r) {
-    return (int) (Math.PI * Math.pow(r, 2));
+    Map<String, Object> yamlMap = yaml.load(stream);
+
+    return yamlMap;
   }
 }
