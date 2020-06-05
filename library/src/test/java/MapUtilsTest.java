@@ -36,26 +36,37 @@ class MapUtilsTest {
 
   // TODO merge maps test once function is complete
 
-  //  @Test
-  //  void testMergeMaps() throws FileNotFoundException {
-  //    Map<String, Object> map1 =
-  //        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore.yaml");
-  //    Map<String, Object> map2 =
-  //        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore2.yaml");
-  //    Map<String, Object> expected =
-  //        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstoremerged.yaml");
-  //
-  //    assertEquals(expected, mapUtils.mergeMaps(map1, map2));
-  //  }
+    @Test
+    void testMergeMaps() throws FileNotFoundException {
+      Map<String, Object> map1 =
+          yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore.yaml");
+      Map<String, Object> map2 =
+          yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore2.yaml");
+      Map<String, Object> expected =
+          yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstoremerged.yaml");
 
-  @Test
-  void testConvertMapToYaml() throws IOException {
-    Map<String, Object> map1 =
-        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore.yaml");
-
-    String expected =
-        new String(Files.readAllBytes(Paths.get("src/test/resources/simplepetstore.yaml")));
-
-    assertEquals(expected, mapUtils.convertMapToYaml(map1));
-  }
+      assertEquals(expected, mapUtils.mergeMaps(map1, map2));
+    }
+//  @Test
+//  void testMergeMaps2() throws FileNotFoundException {
+//    Map<String, Object> map1 =
+//        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore.yaml");
+//    Map<String, Object> map2 =
+//        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore2.yaml");
+//    Map<String, Object> expected =
+//        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstoremerged.yaml");
+//
+//      assertEquals(expected, mapUtils.mergeMaps(map2, map1));
+//  }
+//
+//  @Test
+//  void testConvertMapToYaml() throws IOException {
+//    Map<String, Object> map1 =
+//        yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore.yaml");
+//
+//    String expected =
+//        new String(Files.readAllBytes(Paths.get("src/test/resources/simplepetstore.yaml")));
+//
+//    assertEquals(expected, mapUtils.convertMapToYaml(map1));
+//  }
 }

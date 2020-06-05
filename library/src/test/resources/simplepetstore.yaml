@@ -3,3 +3,26 @@ info:
   title: Swagger Petstore
   license:
     name: MIT
+paths:
+  /pets:
+    get:
+      tags:
+        - dogs
+      responses:
+        '201':
+          description: Null response
+    post:
+      summary: Create a pet
+  /pets/{petId}:
+    get:
+      summary: hello
+      parameters:
+        - name: petId2
+          in: path2
+  /newPath:
+    get:
+      parameters:
+        - name: petId
+          schema:
+            type: string
+
