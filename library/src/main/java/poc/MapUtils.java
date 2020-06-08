@@ -26,6 +26,20 @@ import java.util.Map;
 
 public class MapUtils {
 
+  public String convertMapToYaml(Map<String, Object> yamlMap) {
+    DumperOptions options = new DumperOptions();
+    options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+
+    options.setIndent(4);
+    options.setIndicatorIndent(2);
+    Yaml yaml = new Yaml(options);
+
+    StringWriter writer = new StringWriter();
+    yaml.dump(yamlMap, writer);
+
+    return writer.toString();
+  }
+
   public Map<String, Object> mergeMaps(Map<String, Object> map1, Map<String, Object> map2) {
     // traverse map2
     for (Map.Entry<String, Object> entry : map2.entrySet()) {
@@ -58,19 +72,5 @@ public class MapUtils {
     }
 
     return map1;
-  }
-
-  public String convertMapToYaml(Map<String, Object> yamlMap) {
-    DumperOptions options = new DumperOptions();
-    options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-
-    options.setIndent(4);
-    options.setIndicatorIndent(2);
-    Yaml yaml = new Yaml(options);
-
-    StringWriter writer = new StringWriter();
-    yaml.dump(yamlMap, writer);
-
-    return writer.toString();
   }
 }
