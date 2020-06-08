@@ -1,4 +1,4 @@
-/*
+package poc;/*
 Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import poc.YamlUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,6 +54,6 @@ class YamlUtilsTest {
     expected.put("info", info);
 
     assertEquals(
-        expected, yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore.yaml"));
+        expected, yamlUtils.convertYamlFileToMap("src/test/resources/simplepetstore3.yaml"));
   }
 }

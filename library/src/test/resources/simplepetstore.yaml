@@ -6,6 +6,7 @@ info:
 paths:
   /pets:
     get:
+      summary: List all pets
       tags:
         - dogs
       responses:

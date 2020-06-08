@@ -1,4 +1,4 @@
-/*
+package poc;/*
 Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,11 +16,17 @@ limitations under the License.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.StringWriter;
 import java.util.Map;
+import org.yaml.snakeyaml.introspector.Property;
+import org.yaml.snakeyaml.nodes.MappingNode;
+import org.yaml.snakeyaml.nodes.NodeTuple;
+import org.yaml.snakeyaml.nodes.Tag;
+import org.yaml.snakeyaml.representer.Representer;
 
 public class MapUtils {
 
@@ -62,6 +68,8 @@ public class MapUtils {
     DumperOptions options = new DumperOptions();
     options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
+    options.setIndent(4);
+    options.setIndicatorIndent(2);
     Yaml yaml = new Yaml(options);
 
     StringWriter writer = new StringWriter();
