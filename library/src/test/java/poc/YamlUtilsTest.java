@@ -1,4 +1,4 @@
-package poc;/*
+/*
 Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,13 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+package poc;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import poc.YamlUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

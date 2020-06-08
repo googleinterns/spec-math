@@ -1,4 +1,4 @@
-package poc;/*
+/*
 Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,19 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+package poc;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.StringWriter;
 import java.util.Map;
-import org.yaml.snakeyaml.introspector.Property;
-import org.yaml.snakeyaml.nodes.MappingNode;
-import org.yaml.snakeyaml.nodes.NodeTuple;
-import org.yaml.snakeyaml.nodes.Tag;
-import org.yaml.snakeyaml.representer.Representer;
 
 public class MapUtils {
 
