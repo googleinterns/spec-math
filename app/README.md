@@ -1,3 +1,12 @@
+## Spec Math Client Application
+
+This app is the front end of the **Spec Math** project as part of the Summer 2020 internship project under Google Cloud Apigee.
+
+## Dependencies
+
+- [Angular](https://angular.io/)
+- [Material Design Components](https://material.io/components/)
+
 # App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
