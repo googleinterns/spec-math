@@ -11,3 +11,21 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.padded {
+  padding: 2rem;
+}
+
+.left-panel {
+  width: 15%;
+  box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.5);
+}
+
+.right-panel {
+  width: 85%;
+}
