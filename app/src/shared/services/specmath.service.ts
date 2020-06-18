@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { SpecOperation, FilesRequestBody } from '../interfaces';
 import { routes } from '../routes';
+import { Observable } from 'rxjs';
 
 const requestOptions = {
   headers: new HttpHeaders({
@@ -15,9 +16,9 @@ export class SpecMathService {
 
   constructor() {
 
-  }
+  };
 
-  uploadFiles(specs: string[], driverFile: string, operation: SpecOperation) {
+  uploadFiles(specs: string[], driverFile: string, operation: SpecOperation): Observable<any> {
     const requestBody: FilesRequestBody = {
       specs,
       driverFile,
@@ -25,5 +26,5 @@ export class SpecMathService {
     };
 
     return this.http.post(routes.processFiles, requestBody, requestOptions);
-  }
-}
+  };
+};

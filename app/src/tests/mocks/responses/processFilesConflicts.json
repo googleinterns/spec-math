@@ -1,0 +1,22 @@
+{
+  "files": [
+    "file",
+    "file"
+  ],
+  "driverFile": "file",
+  "operation": "merge",
+  "conflitcs": [
+    {
+      "optionA": "Option A",
+      "optionB": "Option B"
+    },
+    {
+      "optionA": "Option A",
+      "optionB": "Option B"
+    },
+    {
+      "optionA": "Option A",
+      "optionB": "Option B"
+    }
+  ]
+}

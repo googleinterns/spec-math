@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info: 
+  title: Spec Math
+  version: 1.0.0
+paths:
+  /processFiles:
+    post:
+      operationId: processFiles
+      description: Main endpoint for uploading files, processing files and solving merge conflicts
+      requestBody:
+        description: Perform spec math operation
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/processFilesBody"
+      responses: 
+        '200':
+          description: Operation was successful 
+          content:
+            application/json:
+              schema:
+                properties:
+                  result:
+                    type: string
+        '406':
+          description: Merge conflicts detected
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/conflictResponse"
+                
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: array        
+
+components:
+  schemas:
+    processFilesBody:
+      type: object
+      # required: -specs
+      properties:
+        specs:
+          type: array
+        driverFile:
+          type: array
+        operation:
+          type: string
+
+    conflictResponse:
+      type: object
+      properties:
+        keypath:
+          type: string
+          example: "paths:/pet:post:summary"
+        optionA:
+          type: string
+          example: "Post a single pet"
+        optionB:
+          type: string
+          example: "Post several pets"
