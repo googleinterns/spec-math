@@ -10,7 +10,7 @@ const requestOptions = {
 };
 
 @Injectable()
-export class ApiService {
+export class SpecMathService {
   private http: HttpClient;
 
   constructor() {
