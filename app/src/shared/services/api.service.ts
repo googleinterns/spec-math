@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SpecOperation, FilesRequestBody } from './interfaces';
-import { Observable } from 'rxjs';
+import { SpecOperation, FilesRequestBody } from '../interfaces';
+import { routes } from '../routes';
 
 const requestOptions = {
   headers: new HttpHeaders({
@@ -14,7 +14,7 @@ export class ApiService {
   private http: HttpClient;
 
   constructor() {
-    
+
   }
 
   uploadFiles(specs: string[], driverFile: string, operation: SpecOperation) {
@@ -24,6 +24,6 @@ export class ApiService {
       operation,
     };
 
-    return this.http.post( '/', requestBody, requestOptions);
+    return this.http.post(routes.processFiles, requestBody, requestOptions);
   }
 }
