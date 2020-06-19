@@ -1,7 +1,7 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { SpecMathService } from '../shared/services/specmath.service';
 
-fdescribe('Call the Spec Math service', () => {
+describe('Call the Spec Math service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SpecMathService],
