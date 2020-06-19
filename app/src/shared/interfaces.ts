@@ -1,5 +1,3 @@
-import { HttpHeaders } from "@angular/common/http";
-
 export interface SpecOperation {
   string: "merge" | "filter",
 }
