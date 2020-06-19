@@ -33,6 +33,8 @@ $material-grey: #dadce0;
 
   &.left-panel {
     width: 15%;
+    flex-direction: column;
+    align-items: flex-start;
   }
   
   &.right-panel {
@@ -41,7 +43,6 @@ $material-grey: #dadce0;
     align-items: flex-start;
   }
 }
-
 
 .nav-bar {
   background-color: $white;
@@ -54,13 +55,30 @@ $material-grey: #dadce0;
   border-bottom: 1px solid #dadce0;
 }
 
-#empty-specs-text {
+#empty-specs-text-container {
   margin: 10rem auto auto auto;
   text-align: center;
 }
 
 .mdc-fab--extended {
   position: relative;
-  top: 1rem;
-  left: 1rem;
+
+}
+
+.operation-container {
+  margin: 1rem;
+}
+
+.label-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.side-label {
+  margin: 0 0 0 0.5rem;
 }

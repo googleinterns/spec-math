@@ -17,19 +17,32 @@ limitations under the License. -->
 </div>
 
 <mat-drawer-container class="container">
-  <mat-drawer class="main left-panel padded" mode="side" opened>
-    <button class="mdc-fab mdc-fab--extended new-button">
-      <div class="mdc-fab__ripple"></div>
-      <span class="material-icons mdc-fab__icon">add</span>
-      <span class="mdc-fab__label">New</span>
-    </button>
+  <mat-drawer class="main left-panel" mode="side" opened>
+    <div class="operation-container">
+      <button class="mdc-fab mdc-fab--extended new-button" [mat-menu-trigger-for]="operationMenu">
+        <div class="mdc-fab__ripple"></div>
+        <span class="material-icons mdc-fab__icon">add</span>
+        <span class="mdc-fab__label">New</span>
+      </button>
+      <mat-menu overlapTrigger #operationMenu="matMenu">
+        <button mat-menu-item>Merge</button>
+        <button mat-menu-item>Overlay</button>
+      </mat-menu>
+    </div>
+    <div class="label-container">
+      <mat-icon class="spec-icon">history</mat-icon>
+      <p class="side-label mat-body-strong">
+        Recent specs
+      </p>
+    </div>
+    <mat-divider></mat-divider>
   </mat-drawer>
   <mat-drawer-content class="main right-panel padded">
-    <div id="empty-specs-text">
-      <h2>
+    <div id="empty-specs-text-container">
+      <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
-      <h4>
+      <h4 class="mat-h4 mat-subheading-1">
         Use the "New" button to get started
       </h4>
     </div>
