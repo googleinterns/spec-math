@@ -20,4 +20,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  debug = true;
+  sampleFiles = [
+    {
+      name: "File 1"
+    },
+    {
+      name: "File 2"
+    }
+  ]
 }

@@ -18,6 +18,7 @@ limitations under the License. -->
 
 <mat-drawer-container class="container">
   <mat-drawer class="main left-panel" mode="side" opened>
+
     <div class="operation-container">
       <button class="mdc-fab mdc-fab--extended new-button" [mat-menu-trigger-for]="operationMenu">
         <div class="mdc-fab__ripple"></div>
@@ -29,16 +30,35 @@ limitations under the License. -->
         <button mat-menu-item>Overlay</button>
       </mat-menu>
     </div>
-    <div class="label-container">
-      <mat-icon class="spec-icon">history</mat-icon>
-      <p class="side-label mat-body-strong">
+
+    <div class="side-container label">
+      <mat-icon>history</mat-icon>
+      <p class="mat-body-strong">
         Recent specs
       </p>
     </div>
+
     <mat-divider></mat-divider>
+
+    <div class="side-container file" *ngFor="let item of sampleFiles">
+      <p class="mat-body-strong">
+        {{item.name}}
+      </p>
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+    <div class="side-container debug">
+      <p class="mat-body-strong">
+        There's nothing here!
+      </p>
+    </div>
+
   </mat-drawer>
   <mat-drawer-content class="main right-panel padded">
     <div id="empty-specs-text-container">
+      
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
@@ -46,5 +66,6 @@ limitations under the License. -->
         Use the "New" button to get started
       </h4>
     </div>
+
   </mat-drawer-content>
 </mat-drawer-container>

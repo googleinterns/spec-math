@@ -62,14 +62,10 @@ $material-grey: #dadce0;
 
 .mdc-fab--extended {
   position: relative;
-
-}
-
-.operation-container {
   margin: 1rem;
 }
 
-.label-container {
+.side-container {
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding-right: 1rem;
@@ -77,8 +73,17 @@ $material-grey: #dadce0;
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  & p {
+    margin: 0 0 0 0;
+  }
+
+  &.label p {
+    margin-left: 1rem;
+  }
+
+  &.file {
+    justify-content: space-between;
+  }
 }
 
-.side-label {
-  margin: 0 0 0 0.5rem;
-}
