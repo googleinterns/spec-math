@@ -17,6 +17,7 @@
 $black: #000;
 $white: #fff;
 $material-grey: #dadce0;
+$primary-orange: #fc4c02;
 
 .container {
   display: flex;
@@ -65,6 +66,12 @@ $material-grey: #dadce0;
   margin: 1rem;
 }
 
+.nav-logo {
+  display: block;
+  object-fit: contain;
+  height: 90%;
+}
+
 .side-container {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -85,5 +92,9 @@ $material-grey: #dadce0;
   &.file {
     justify-content: space-between;
   }
+}
+
+.mdc-fab {
+  background-color: $primary-orange;
 }
 
