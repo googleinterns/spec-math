@@ -17,7 +17,6 @@
 $black: #000;
 $white: #fff;
 $material-grey: #dadce0;
-$primary-orange: #fc4c02;
 
 .container {
   display: flex;
@@ -47,13 +46,14 @@ $primary-orange: #fc4c02;
 
 .nav-bar {
   background-color: $white;
-  height: calc(5vh - 1px);
-  width: 100%;
+  width: calc(100% - 16px);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #dadce0;
+  margin-top: -1px;
+  padding: 8px;
 }
 
 #empty-specs-text-container {
@@ -69,7 +69,10 @@ $primary-orange: #fc4c02;
 .nav-logo {
   display: block;
   object-fit: contain;
-  height: 90%;
+  height: 48px;
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 12px;
 }
 
 .side-container {
@@ -95,6 +98,13 @@ $primary-orange: #fc4c02;
 }
 
 .mdc-fab {
-  background-color: $primary-orange;
+  background-color: $white;
+  color: $black;
+  padding-left: 12px;
+  padding-right: 24px;
 }
 
+.mdc-fab__label {
+  text-transform: none;
+  margin-left: 12px;
+}
