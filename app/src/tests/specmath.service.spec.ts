@@ -19,7 +19,7 @@ describe('SpecMathService', () => {
     httpMockObject = TestBed.get(HttpTestingController);
     service = TestBed.get(SpecMathService);
 
-    mockProcessFilesCall = service.uploadFiles(
+    mockProcessFilesCall = service.processFiles(
       processFilesMockRequest.specs,
       processFilesMockRequest.operation,
       processFilesMockRequest.driverFile

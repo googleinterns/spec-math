@@ -16,7 +16,7 @@ export class SpecMathService {
 
   };
 
-  uploadFiles(specs: string[], operation: SpecOperation, driverFile?: string): Observable<any> {
+  processFiles(specs: string[], operation: SpecOperation, driverFile?: string): Observable<any> {
     const requestBody: FilesRequestBody = {
       specs,
       operation,
