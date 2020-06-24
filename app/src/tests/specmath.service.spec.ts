@@ -19,6 +19,14 @@ describe('SpecMathService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('uploadFiles() should return an object with a result spec when non-conflicting specs are sent', () => {
+    
+  });
+
+  it('uploadFiles() should return an object with a list of merge conflicts when conflicting specs are sent', () => {
+
+  });
+
   afterEach(() => {
     // Verifies that there are no pending requests at the end of each test
     httpMockObject.verify();

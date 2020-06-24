@@ -18,11 +18,11 @@ export class SpecMathService {
 
   };
 
-  uploadFiles(specs: string[], driverFile: string, operation: SpecOperation): Observable<any> {
+  uploadFiles(specs: string[], operation: SpecOperation, driverFile?: string): Observable<any> {
     const requestBody: FilesRequestBody = {
       specs,
-      driverFile,
       operation,
+      driverFile
     };
 
     return this.http.post(routes.processFiles, requestBody, requestOptions);
