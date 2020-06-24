@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SpecMathService } from '../shared/services/specmath.service';
 import { processFilesMockRequest } from './mocks/mockRequests';
-import { processFilesMockResponseNonConflict } from './mocks/mockResponses';
+import { processFilesMockResponseNonConflict, processFilesMockResponseConflict, processFilesMockResponseError } from './mocks/mockResponses';
 import { routes } from 'src/shared/routes';
 
 describe('SpecMathService', () => {
@@ -37,7 +37,31 @@ describe('SpecMathService', () => {
   });
 
   it('uploadFiles() should return an object with a list of merge conflicts when conflicting specs are sent', () => {
+    service.uploadFiles(
+      processFilesMockRequest.specs,
+      processFilesMockRequest.operation,
+      processFilesMockRequest.driverFile
+    ).subscribe((res) => {
+      expect(res).toEqual(processFilesMockResponseConflict);
+    });
 
+    const mockRequest = httpMockObject.expectOne(routes.processFiles);
+    expect(mockRequest.request.method).toBe('POST');
+    mockRequest.flush(processFilesMockResponseConflict);
+  });
+
+  it(`uploadFiles() should return an error when there's an error with the operation on the backend`, () => {
+    service.uploadFiles(
+      processFilesMockRequest.specs,
+      processFilesMockRequest.operation,
+      processFilesMockRequest.driverFile
+    ).subscribe((res) => {
+      expect(res).toEqual(processFilesMockResponseError);
+    });
+
+    const mockRequest = httpMockObject.expectOne(routes.processFiles);
+    expect(mockRequest.request.method).toBe('POST');
+    mockRequest.flush(processFilesMockResponseError);
   });
 
   afterEach(() => {
