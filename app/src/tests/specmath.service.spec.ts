@@ -27,7 +27,7 @@ describe('SpecMathService', () => {
       processFilesMockRequest.specs,
       processFilesMockRequest.operation,
       processFilesMockRequest.driverFile
-    ).subscribe((res) => {
+    ).subscribe((res: object) => {
       expect(res).toEqual(processFilesMockResponseNonConflict);
     });
 
@@ -41,7 +41,7 @@ describe('SpecMathService', () => {
       processFilesMockRequest.specs,
       processFilesMockRequest.operation,
       processFilesMockRequest.driverFile
-    ).subscribe((res) => {
+    ).subscribe((res: object) => {
       expect(res).toEqual(processFilesMockResponseConflict);
     });
 
@@ -55,7 +55,7 @@ describe('SpecMathService', () => {
       processFilesMockRequest.specs,
       processFilesMockRequest.operation,
       processFilesMockRequest.driverFile
-    ).subscribe((res) => {
+    ).subscribe((res: object) => {
       expect(res).toEqual(processFilesMockResponseError);
     });
 
