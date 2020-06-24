@@ -9,7 +9,7 @@ export const processFilesMockResponseConflict = {
   ],
   driverFile: "file",
   operation: "merge",
-  conflitcs: [
+  conflicts: [
     {
       optionA: "Option A",
       optionB: "Option B"
