@@ -3,24 +3,24 @@ export const processFilesMockResponseNonConflict = {
 };
 
 export const processFilesMockResponseConflict = {
-  specs: [
-    "file1",
-    "file2"
-  ],
-  driverFile: "file",
-  operation: "merge",
   conflicts: [
     {
+      keypath: "sample keypath",
       optionA: "Option A",
-      optionB: "Option B"
+      optionB: "Option B",
+      resolvedValue: "Option A"
     },
     {
+      keypath: "sample keypath",
       optionA: "Option A",
-      optionB: "Option B"
+      optionB: "Option B",
+      resolvedValue: "Option A"
     },
     {
+      keypath: "sample keypath",
       optionA: "Option A",
-      optionB: "Option B"
+      optionB: "Option B",
+      resolvedValue: "Option A"
     }
   ]
 };
