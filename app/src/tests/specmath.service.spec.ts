@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Observable } from 'rxjs';
 import { SpecMathService } from '../shared/services/specmath.service';
 import { processFilesMockRequest } from './mocks/mockRequests';
 import { processFilesMockResponseNonConflict, processFilesMockResponseConflict, processFilesMockResponseError } from './mocks/mockResponses';
-import { routes } from 'src/shared/routes';
-import { FunctionCall } from '@angular/compiler';
-import { Observable } from 'rxjs';
+import { routes } from '../shared/routes';
 
 describe('SpecMathService', () => {
   let httpMockObject: HttpTestingController;
