@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { SpecMathService } from '../shared/services/specmath.service';
 
 describe('SpecMathService', () => {
-  let httpMockObject: HttpClientTestingModule;
+  let httpMockObject: HttpTestingController;
   let service: SpecMathService;
 
   beforeEach(() => {
@@ -11,11 +11,16 @@ describe('SpecMathService', () => {
       imports: [HttpClientTestingModule],
       providers: [SpecMathService],
     });
-    httpMockObject = TestBed.get(HttpClientTestingModule);
+    httpMockObject = TestBed.get(HttpTestingController);
     service = TestBed.get(SpecMathService);
   });
 
   it('should be instantiated', () => {
     expect(service).toBeTruthy();
+  });
+
+  afterEach(() => {
+    // Verifies that there are no pending requests at the end of each test
+    httpMockObject.verify();
   });
 });
