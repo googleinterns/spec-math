@@ -1,4 +1,4 @@
-export type SpecOperation = 'merge' | 'filter';
+export type SpecOperation = 'merge' | 'filter' | 'overlay';
 
 export interface FilesRequestBody {
   spec1: string,
