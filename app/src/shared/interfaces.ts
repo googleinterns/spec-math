@@ -1,6 +1,5 @@
-export interface SpecOperation {
-  string: "merge" | "filter",
-}
+import { type } from 'os'
+export type SpecOperation = 'merge' | 'filter';
 
 export interface FilesRequestBody {
   specs: string [],
