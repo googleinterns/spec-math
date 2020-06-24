@@ -1,3 +1,3 @@
 export const routes = {
-  processFiles: '/1.0/processFiles',
+  processFiles: '/1.0/specMath',
 }

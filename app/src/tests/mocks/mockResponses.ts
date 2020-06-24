@@ -6,20 +6,20 @@ export const processFilesMockResponseConflict = {
   conflicts: [
     {
       keypath: "sample keypath",
-      optionA: "Option A",
-      optionB: "Option B",
+      option1: "Option A",
+      option2: "Option B",
       resolvedValue: "Option A"
     },
     {
       keypath: "sample keypath",
-      optionA: "Option A",
-      optionB: "Option B",
+      option1: "Option A",
+      option2: "Option B",
       resolvedValue: "Option A"
     },
     {
       keypath: "sample keypath",
-      optionA: "Option A",
-      optionB: "Option B",
+      option1: "Option A",
+      option2: "Option B",
       resolvedValue: "Option A"
     }
   ]
