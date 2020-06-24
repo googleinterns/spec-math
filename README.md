@@ -1,3 +1,3 @@
 # Spec Math
 
-Spec Math is a tool to merge openAPI specifications together.
+A tool that merges OpenAPI Specifications.
