@@ -2,41 +2,31 @@ openapi: 3.0.0
 info: 
   title: Spec Math API Server
   version: 1.0.0
-  description: An API that exposes some operations from the Spec Math Library.
+  description: An API that exposes some operations from the Spec Math Library
 servers:
   - description: Spec Math API Server
     url: http://specmath.cloud.google.com/v1
 paths:
-  /specMath:
+  /specMath/union:
     post:
-      operationId: specMath
-      description: main endpoint for performing Spec Math operations relevant to the UI.
-      parameters:
-        - name: operation
-          description: the operation (union)
-          in: query
-          required: true
-          schema:
-            type: string
-            example: union
+      description: perform a union on two specs, with optional defaults file and conflict resolutions
+      operationId: specMathUnion
       requestBody:
-        description: data needed for the spec math operation provided in the query
+        description: data needed for the union operation
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/specMathBody"
+              $ref: "#/components/schemas/UnionBody"
       responses: 
         '200':
-          description: operation was successful, return the merged spec 
+          description: operation was successful, returns the resultant spec 
           content:
             application/json:
               schema:
-                properties:
-                  result:
-                    type: string
+                "$ref": "#/components/schemas/OperationSuccess"
         '406':
-          description: return information relevant to the merge conflict in case of a failed union.
+          description: return information relevant to the merge conflict in case of a failed union
           content:
             application/json:
               schema:
@@ -45,27 +35,78 @@ paths:
                   conflicts:
                     type: array
                     items:
-                      "$ref":  "#/components/schemas/conflictObject"
-                  
+                      "$ref": "#/components/schemas/UnionConflictObject"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                "$ref":  "#/components/schemas/Error"  
+
+  /specMath/overlay:
+    post:
+      description: perform an overlay on a spec
+      operationId: specMathOverlay
+      requestBody:
+        description: data needed for the overlay operation
+        required: true
+        content: 
+          application/json:
+            schema: 
+              "$ref": "#/components/schemas/OverlayBody"
+        
+      responses:
+        '200':
+          description: operation was successful, returns the resultant spec 
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/OperationSuccess"   
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                "$ref":  "#/components/schemas/Error"                
 components:
   schemas:
-    specMathBody:
-      description: holds data required for the operation
+    UnionBody:
+      description: holds data required for the union operation
       type: object
-      required: 
-        - specs
-        - operation
+      required:
+        - spec1
+        - spec2
       properties:
         spec1:
+          description: an OpenAPI specification
           type: string
         spec2:
+          description: an OpenAPI specification
           type: string
-        conflicts:
+        defaults:
+          description: an OpenAPI specification fragment which contains metadata about the merged spec
+          type: string
+        conflictResolutions:
+          description: an array of UnionConflictObjects which specifies resolutions to conflicting keypaths
           type: array
           items:
-            "$ref": "#/components/schemas/conflictObject"
+            "$ref": "#/components/schemas/UnionConflictObject"
+    
+    OverlayBody:
+      description: holds data required for the overlay operation
+      type: object
+      required:
+        - spec
+        - overlay
+      properties:
+        spec:
+          description: an OpenAPI specification
+          type: string
+        overlay:
+          description: an OpenAPI specification fragment which contains metadata about the merged spec
+          type: string
 
-    conflictObject:
+    UnionConflictObject:
       description: an individual conflict
       type: object
       properties:
@@ -81,4 +122,24 @@ components:
         resolvedValue:
           type: string
           example: Post a single pet
+    
+    OperationSuccess:
+      description: a successful operation result
+      type: object
+      properties:
+        result:
+          description: the result of the operation, an OpenAPI specification
+          type: string
+    
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
             
