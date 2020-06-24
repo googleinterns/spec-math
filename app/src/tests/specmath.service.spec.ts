@@ -36,7 +36,8 @@ describe('uploadFiles()', () => {
     service = TestBed.get(SpecMathService);
 
     mockProcessFilesCall = service.processFiles(
-      processFilesMockRequest.specs,
+      processFilesMockRequest.spec1,
+      processFilesMockRequest.spec2,
       processFilesMockRequest.operation,
       processFilesMockRequest.driverFile
     );

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SpecOperation, FilesRequestBody } from '../interfaces';
 import { routes } from '../routes';
 import { Observable } from 'rxjs';
@@ -16,9 +16,10 @@ export class SpecMathService {
 
   };
 
-  processFiles(specs: string[], operation: SpecOperation, driverFile?: string): Observable<any> {
+  processFiles(spec1: string, spec2: string, operation: SpecOperation, driverFile?: string): Observable<any> {
     const requestBody: FilesRequestBody = {
-      specs,
+      spec1,
+      spec2,
       operation,
       driverFile
     };
