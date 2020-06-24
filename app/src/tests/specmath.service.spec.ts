@@ -22,9 +22,9 @@ describe('SpecMathService', () => {
 
   it('uploadFiles() should return an object with a result spec when non-conflicting specs are sent', () => {
     service.uploadFiles(processFilesMockRequest.specs, processFilesMockRequest.operation, processFilesMockRequest.driverFile)
-      .subscribe(() => {
+      .subscribe((res) => {
         
-      })
+      });
   });
 
   it('uploadFiles() should return an object with a list of merge conflicts when conflicting specs are sent', () => {
