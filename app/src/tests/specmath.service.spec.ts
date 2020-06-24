@@ -3,10 +3,26 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Observable } from 'rxjs';
 import { SpecMathService } from '../shared/services/specmath.service';
 import { processFilesMockRequest } from './mocks/mockRequests';
-import { processFilesMockResponseNonConflict, processFilesMockResponseConflict, processFilesMockResponseError } from './mocks/mockResponses';
+import { processFilesMockResponseNonConflict } from './mocks/mockResponses';
 import { routes } from '../shared/routes';
 
 describe('SpecMathService', () => {
+  let service: SpecMathService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [SpecMathService]
+    });
+    service = TestBed.get(SpecMathService);
+  });
+
+  it('is instantiated', () => {
+    expect(service).toBeTruthy();
+  });
+});
+
+describe('uploadFiles()', () => {
   let httpMockObject: HttpTestingController;
   let service: SpecMathService;
   let mockProcessFilesCall: Observable<any>;
@@ -26,11 +42,7 @@ describe('SpecMathService', () => {
     );
   });
 
-  it('should be instantiated', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('uploadFiles() should return an object with a result spec when non-conflicting specs are sent', () => {
+  it('receives a response when a POST request is sent to the backend', () => {
     mockProcessFilesCall.subscribe((res: object) => {
       expect(res).toEqual(processFilesMockResponseNonConflict);
     });
@@ -38,26 +50,6 @@ describe('SpecMathService', () => {
     const mockRequest = httpMockObject.expectOne(routes.processFiles);
     expect(mockRequest.request.method).toBe('POST');
     mockRequest.flush(processFilesMockResponseNonConflict);
-  });
-
-  it('uploadFiles() should return an object with a list of merge conflicts when conflicting specs are sent', () => {
-    mockProcessFilesCall.subscribe((res: object) => {
-      expect(res).toEqual(processFilesMockResponseConflict);
-    });
-
-    const mockRequest = httpMockObject.expectOne(routes.processFiles);
-    expect(mockRequest.request.method).toBe('POST');
-    mockRequest.flush(processFilesMockResponseConflict);
-  });
-
-  it(`uploadFiles() should return an error when there's an error with the operation on the backend`, () => {
-    mockProcessFilesCall.subscribe((res: object) => {
-      expect(res).toEqual(processFilesMockResponseError);
-    });
-
-    const mockRequest = httpMockObject.expectOne(routes.processFiles);
-    expect(mockRequest.request.method).toBe('POST');
-    mockRequest.flush(processFilesMockResponseError);
   });
 
   afterEach(() => {
