@@ -4,10 +4,13 @@ import { SpecMathService } from '../shared/services/specmath.service';
 import { processFilesMockRequest } from './mocks/mockRequests';
 import { processFilesMockResponseNonConflict, processFilesMockResponseConflict, processFilesMockResponseError } from './mocks/mockResponses';
 import { routes } from 'src/shared/routes';
+import { FunctionCall } from '@angular/compiler';
+import { Observable } from 'rxjs';
 
 describe('SpecMathService', () => {
   let httpMockObject: HttpTestingController;
   let service: SpecMathService;
+  let mockProcessFilesCall: Observable<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,6 +19,12 @@ describe('SpecMathService', () => {
     });
     httpMockObject = TestBed.get(HttpTestingController);
     service = TestBed.get(SpecMathService);
+
+    mockProcessFilesCall = service.uploadFiles(
+      processFilesMockRequest.specs,
+      processFilesMockRequest.operation,
+      processFilesMockRequest.driverFile
+    );
   });
 
   it('should be instantiated', () => {
@@ -23,11 +32,7 @@ describe('SpecMathService', () => {
   });
 
   it('uploadFiles() should return an object with a result spec when non-conflicting specs are sent', () => {
-    service.uploadFiles(
-      processFilesMockRequest.specs,
-      processFilesMockRequest.operation,
-      processFilesMockRequest.driverFile
-    ).subscribe((res: object) => {
+    mockProcessFilesCall.subscribe((res: object) => {
       expect(res).toEqual(processFilesMockResponseNonConflict);
     });
 
@@ -37,11 +42,7 @@ describe('SpecMathService', () => {
   });
 
   it('uploadFiles() should return an object with a list of merge conflicts when conflicting specs are sent', () => {
-    service.uploadFiles(
-      processFilesMockRequest.specs,
-      processFilesMockRequest.operation,
-      processFilesMockRequest.driverFile
-    ).subscribe((res: object) => {
+    mockProcessFilesCall.subscribe((res: object) => {
       expect(res).toEqual(processFilesMockResponseConflict);
     });
 
@@ -51,11 +52,7 @@ describe('SpecMathService', () => {
   });
 
   it(`uploadFiles() should return an error when there's an error with the operation on the backend`, () => {
-    service.uploadFiles(
-      processFilesMockRequest.specs,
-      processFilesMockRequest.operation,
-      processFilesMockRequest.driverFile
-    ).subscribe((res: object) => {
+    mockProcessFilesCall.subscribe((res: object) => {
       expect(res).toEqual(processFilesMockResponseError);
     });
 
