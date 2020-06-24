@@ -132,6 +132,7 @@ components:
           type: string
     
     Error:
+      description: generic error object
       type: object
       required:
         - code
