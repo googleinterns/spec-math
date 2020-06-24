@@ -7,7 +7,7 @@ servers:
   - description: Spec Math API Server
     url: http://specmath.cloud.google.com/v1
 paths:
-  /specMath/union:
+  /specMath/merge:
     post:
       description: perform a union on two specs, with optional defaults file and conflict resolutions
       operationId: specMathUnion
@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UnionBody"
+              $ref: "#/components/schemas/MergeBody"
       responses: 
         '200':
           description: operation was successful, returns the resultant spec 
@@ -26,7 +26,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/OperationSuccess"
         '406':
-          description: return information relevant to the merge conflict in case of a failed union
+          description: return information relevant to the conflict in case of a failed union
           content:
             application/json:
               schema:
@@ -35,7 +35,7 @@ paths:
                   conflicts:
                     type: array
                     items:
-                      "$ref": "#/components/schemas/UnionConflictObject"
+                      "$ref": "#/components/schemas/MergeConflictObject"
         default:
           description: error
           content:
@@ -54,7 +54,6 @@ paths:
           application/json:
             schema: 
               "$ref": "#/components/schemas/OverlayBody"
-        
       responses:
         '200':
           description: operation was successful, returns the resultant spec 
@@ -70,7 +69,7 @@ paths:
                 "$ref":  "#/components/schemas/Error"                
 components:
   schemas:
-    UnionBody:
+    MergeBody:
       description: holds data required for the union operation
       type: object
       required:
@@ -87,10 +86,10 @@ components:
           description: an OpenAPI specification fragment which contains metadata about the merged spec
           type: string
         conflictResolutions:
-          description: an array of UnionConflictObjects which specifies resolutions to conflicting keypaths
+          description: an array of MergeConflictObjects which specify resolutions to conflicting keypaths
           type: array
           items:
-            "$ref": "#/components/schemas/UnionConflictObject"
+            "$ref": "#/components/schemas/MergeConflictObject"
     
     OverlayBody:
       description: holds data required for the overlay operation
@@ -106,7 +105,7 @@ components:
           description: an OpenAPI specification fragment which contains metadata about the merged spec
           type: string
 
-    UnionConflictObject:
+    MergeConflictObject:
       description: an individual conflict
       type: object
       properties:
