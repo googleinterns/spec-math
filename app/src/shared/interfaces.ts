@@ -6,3 +6,16 @@ export interface FilesRequestBody {
   driverFile: string,
   operation: SpecOperation,
 }
+
+export interface OperationConflict {
+  keypath: string,
+  option1: string,
+  option2: string,
+  resolvedValue: string
+}
+
+export interface SpecMathResponse {
+  status: string,
+  result?: string,
+  conflicts?: OperationConflict [],
+}

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SpecOperation, FilesRequestBody } from '../interfaces';
+import { SpecOperation, FilesRequestBody, SpecMathResponse } from '../interfaces';
 import { routes } from '../routes';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const requestOptions = {
   headers: new HttpHeaders({
@@ -16,7 +17,7 @@ export class SpecMathService {
 
   };
 
-  processFiles(spec1: string, spec2: string, operation: SpecOperation, driverFile?: string): Observable<any> {
+  processFiles(spec1: string, spec2: string, operation: SpecOperation, driverFile?: string): Observable<SpecMathResponse> {
     const requestBody: FilesRequestBody = {
       spec1,
       spec2,
@@ -24,6 +25,8 @@ export class SpecMathService {
       driverFile
     };
 
-    return this.http.post(routes.processFiles, requestBody, requestOptions);
+    // Using a pipe to be able to convert the response object to a SpecMathResponse type
+    return this.http.post(routes.processFiles, requestBody, requestOptions)
+      .pipe(map(response => response as any as SpecMathResponse));
   };
 };
