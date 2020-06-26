@@ -15,26 +15,26 @@ describe('SpecMathService', () => {
       imports: [HttpClientTestingModule],
       providers: [SpecMathService]
     });
-    service = TestBed.get(SpecMathService);
+    service = TestBed.inject(SpecMathService);
   });
 
   it('is instantiated', () => {
     expect(service).toBeTruthy();
   });
-  
+
   describe('uploadFiles()', () => {
     let httpMockObject: HttpTestingController;
     let mockProcessFilesCall: Observable<SpecMathResponse>;
 
     beforeEach(() => {
-      httpMockObject = TestBed.get(HttpTestingController);
-      service = TestBed.get(SpecMathService);
+      httpMockObject = TestBed.inject(HttpTestingController);
+      service = TestBed.inject(SpecMathService);
 
       mockProcessFilesCall = service.processFiles(
         processFilesMockRequest.spec1,
         processFilesMockRequest.spec2,
         processFilesMockRequest.operation,
-        processFilesMockRequest.driverFile
+        processFilesMockRequest.defaultsFile
       );
     });
 
@@ -42,12 +42,12 @@ describe('SpecMathService', () => {
       mockProcessFilesCall.subscribe((res: object) => {
         expect(res).toEqual(processFilesMockResponseNonConflict);
       });
-  
+
       const mockRequest = httpMockObject.expectOne(routes.processFiles);
       expect(mockRequest.request.method).toBe('POST');
       mockRequest.flush(processFilesMockResponseNonConflict);
     });
-  
+
     afterEach(() => {
       // Verifies that there are no pending requests at the end of each test
       httpMockObject.verify();

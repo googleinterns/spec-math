@@ -15,18 +15,23 @@ const requestOptions = {
 export class SpecMathService {
   constructor(private http: HttpClient) {
 
-  };
+  }
 
-  processFiles(spec1: string, spec2: string, operation: SpecOperation, driverFile?: string): Observable<SpecMathResponse> {
+  processFiles(
+    spec1: string,
+    spec2: string,
+    operation: SpecOperation,
+    defaultsFile?: string
+  ): Observable<SpecMathResponse> {
     const requestBody: FilesRequestBody = {
       spec1,
       spec2,
       operation,
-      driverFile
+      defaultsFile
     };
 
     // Using a pipe to be able to convert the response object to a SpecMathResponse type
     return this.http.post(routes.processFiles, requestBody, requestOptions)
       .pipe(map(response => response as any as SpecMathResponse));
-  };
-};
+  }
+}
