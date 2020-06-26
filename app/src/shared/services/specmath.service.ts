@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SpecOperation, FilesRequestBody, SpecMathResponse } from '../interfaces';
+import { SpecOperation, SpecMathRequest, SpecMathResponse } from '../interfaces';
 import { routes } from '../routes';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class SpecMathService {
     operation: SpecOperation,
     defaultsFile?: string
   ): Observable<SpecMathResponse> {
-    const requestBody: FilesRequestBody = {
+    const requestBody: SpecMathRequest = {
       spec1,
       spec2,
       operation,
