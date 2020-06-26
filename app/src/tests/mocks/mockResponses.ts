@@ -1,4 +1,4 @@
-export const mergeFilesMockResponse = {
+export const mergeSpecsMockResponse = {
   status: 'conflict detected',
   conflicts: [
     {

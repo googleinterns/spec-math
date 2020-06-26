@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Observable } from 'rxjs';
 import { SpecMathService } from '../shared/services/specmath.service';
 import { mergeSpecsMockRequest } from './mocks/mockRequests';
-import { mergeFilesMockResponse } from './mocks/mockResponses';
+import { mergeSpecsMockResponse } from './mocks/mockResponses';
 import { routes } from '../shared/routes';
 import { SpecMathMergeResponse } from 'src/shared/interfaces';
 
@@ -39,12 +39,12 @@ describe('SpecMathService', () => {
 
     it('receives a response when a POST request is sent to the merge endpoint', () => {
       mergeSpecsMockCall.subscribe((res: object) => {
-        expect(res).toEqual(mergeFilesMockResponse);
+        expect(res).toEqual(mergeSpecsMockResponse);
       });
 
       const mockRequest = httpMockObject.expectOne(routes.mergeSpecs);
       expect(mockRequest.request.method).toBe('POST');
-      mockRequest.flush(mergeFilesMockResponse);
+      mockRequest.flush(mergeSpecsMockResponse);
     });
 
     afterEach(() => {
