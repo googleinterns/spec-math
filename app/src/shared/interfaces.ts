@@ -1,5 +1,3 @@
-export type SpecOperation = 'merge' | 'filter' | 'overlay';
-
 export interface SpecMathMergeRequest {
   spec1: string;
   spec2: string;
