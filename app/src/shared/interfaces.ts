@@ -1,10 +1,9 @@
 export type SpecOperation = 'merge' | 'filter' | 'overlay';
 
-export interface SpecMathRequest {
+export interface SpecMathMergeRequest {
   spec1: string;
   spec2: string;
   defaultsFile: string;
-  operation: SpecOperation;
 }
 
 export interface MergeConflict {
@@ -14,7 +13,7 @@ export interface MergeConflict {
   resolvedValue: string;
 }
 
-export interface SpecMathResponse {
+export interface SpecMathMergeResponse {
   status: string;
   result?: string;
   conflicts?: MergeConflict [];

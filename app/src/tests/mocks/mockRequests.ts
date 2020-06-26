@@ -1,8 +1,7 @@
-import { SpecMathRequest } from 'src/shared/interfaces';
+import { SpecMathMergeRequest } from 'src/shared/interfaces';
 
-export const processFilesMockRequest: SpecMathRequest = {
+export const processFilesMockRequest: SpecMathMergeRequest = {
   spec1: 'file1',
   spec2: 'file2',
   defaultsFile: 'file',
-  operation: 'merge'
 };

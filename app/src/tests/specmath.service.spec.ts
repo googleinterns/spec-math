@@ -5,7 +5,7 @@ import { SpecMathService } from '../shared/services/specmath.service';
 import { processFilesMockRequest } from './mocks/mockRequests';
 import { processFilesMockResponseNonConflict } from './mocks/mockResponses';
 import { routes } from '../shared/routes';
-import { SpecMathResponse } from 'src/shared/interfaces';
+import { SpecMathMergeResponse } from 'src/shared/interfaces';
 
 describe('SpecMathService', () => {
   let service: SpecMathService;
@@ -24,26 +24,25 @@ describe('SpecMathService', () => {
 
   describe('uploadFiles()', () => {
     let httpMockObject: HttpTestingController;
-    let mockProcessFilesCall: Observable<SpecMathResponse>;
+    let mockProcessFilesCall: Observable<SpecMathMergeResponse>;
 
     beforeEach(() => {
       httpMockObject = TestBed.inject(HttpTestingController);
       service = TestBed.inject(SpecMathService);
 
-      mockProcessFilesCall = service.processFiles(
+      mockProcessFilesCall = service.mergeFiles(
         processFilesMockRequest.spec1,
         processFilesMockRequest.spec2,
-        processFilesMockRequest.operation,
         processFilesMockRequest.defaultsFile
       );
     });
 
-    it('receives a response when a POST request is sent to the backend', () => {
+    it('receives a response when a POST request is sent to the merge endpoint', () => {
       mockProcessFilesCall.subscribe((res: object) => {
         expect(res).toEqual(processFilesMockResponseNonConflict);
       });
 
-      const mockRequest = httpMockObject.expectOne(routes.processFiles);
+      const mockRequest = httpMockObject.expectOne(routes.mergeFiles);
       expect(mockRequest.request.method).toBe('POST');
       mockRequest.flush(processFilesMockResponseNonConflict);
     });
