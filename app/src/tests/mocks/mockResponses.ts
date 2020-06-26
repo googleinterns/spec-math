@@ -1,4 +1,6 @@
-export const mergeSpecsMockResponse = {
+import { SpecMathMergeResponse } from 'src/shared/interfaces';
+
+export const mergeSpecsMockResponse: SpecMathMergeResponse = {
   status: 'conflict detected',
   conflicts: [
     {
