@@ -28,22 +28,24 @@ paths:
               $ref: "#/components/schemas/MergeBody"
       responses: 
         '200':
-          description: operation was successful, returns the resultant spec 
+          description: |
+          operation was successful, returns the resultant spec with status "success", or
+          conflicts with status "conflict"
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/OperationSuccess"
-        '406':
-          description: return information relevant to the conflict in case of a failed union
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  conflicts:
-                    type: array
-                    items:
-                      "$ref": "#/components/schemas/MergeConflictObject"
+#        '400':
+#          description: return information relevant to the conflict in case of a failed union
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  conflicts:
+#                    type: array
+#                    items:
+#                      "$ref": "#/components/schemas/MergeConflictObject"
         default:
           description: error
           content:
@@ -133,13 +135,18 @@ components:
           type: string
           example: Post a single pet
     
-    OperationSuccess:
-      description: a successful operation result
+    MergeOperationResult:
+      description: the result of the merge operation
       type: object
       properties:
         result:
           description: the result of the operation, an OpenAPI specification
           type: string
+      conflicts:
+          description: an array of MergeConflictObjects which specify resolutions to conflicting keypaths
+        type: array
+        items:
+          "$ref": "#/components/schemas/MergeConflictObject"
     
     Error:
       description: generic error object
