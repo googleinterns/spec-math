@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
 import { SpecMathService } from '../shared/services/specmath.service';
-import { processFilesMockRequest } from './mocks/mockRequests';
-import { processFilesMockResponseNonConflict } from './mocks/mockResponses';
+import { mergeSpecsMockRequest } from './mocks/mockRequests';
+import { mergeFilesMockResponse } from './mocks/mockResponses';
 import { routes } from '../shared/routes';
 import { SpecMathMergeResponse } from 'src/shared/interfaces';
 
@@ -24,27 +24,27 @@ describe('SpecMathService', () => {
 
   describe('uploadFiles()', () => {
     let httpMockObject: HttpTestingController;
-    let mockProcessFilesCall: Observable<SpecMathMergeResponse>;
+    let mergeSpecsMockCall: Observable<SpecMathMergeResponse>;
 
     beforeEach(() => {
       httpMockObject = TestBed.inject(HttpTestingController);
       service = TestBed.inject(SpecMathService);
 
-      mockProcessFilesCall = service.mergeFiles(
-        processFilesMockRequest.spec1,
-        processFilesMockRequest.spec2,
-        processFilesMockRequest.defaultsFile
+      mergeSpecsMockCall = service.mergeSpecs(
+        mergeSpecsMockRequest.spec1,
+        mergeSpecsMockRequest.spec2,
+        mergeSpecsMockRequest.defaultsFile
       );
     });
 
     it('receives a response when a POST request is sent to the merge endpoint', () => {
-      mockProcessFilesCall.subscribe((res: object) => {
-        expect(res).toEqual(processFilesMockResponseNonConflict);
+      mergeSpecsMockCall.subscribe((res: object) => {
+        expect(res).toEqual(mergeFilesMockResponse);
       });
 
-      const mockRequest = httpMockObject.expectOne(routes.mergeFiles);
+      const mockRequest = httpMockObject.expectOne(routes.mergeSpecs);
       expect(mockRequest.request.method).toBe('POST');
-      mockRequest.flush(processFilesMockResponseNonConflict);
+      mockRequest.flush(mergeFilesMockResponse);
     });
 
     afterEach(() => {

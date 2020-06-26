@@ -22,7 +22,7 @@ export class SpecMathService {
    * @param spec2 - The second spec file to be used in the operation
    * @param defaultsFile - An optional file which indicates some rules to perform this operation on the backend
    */
-  mergeFiles(
+  mergeSpecs(
     spec1: string,
     spec2: string,
     defaultsFile?: string
@@ -34,7 +34,7 @@ export class SpecMathService {
     };
 
     // Using a pipe to be able to convert the response object to a SpecMathResponse type
-    return this.http.post(routes.mergeFiles, requestBody, requestOptions)
+    return this.http.post(routes.mergeSpecs, requestBody, requestOptions)
       .pipe(map(response => response as any as SpecMathMergeResponse));
   }
 }
