@@ -7,7 +7,7 @@ export interface SpecMathRequest {
   operation: SpecOperation;
 }
 
-export interface OperationConflict {
+export interface MergeConflict {
   keypath: string;
   option1: string;
   option2: string;
@@ -17,5 +17,5 @@ export interface OperationConflict {
 export interface SpecMathResponse {
   status: string;
   result?: string;
-  conflicts?: OperationConflict [];
+  conflicts?: MergeConflict [];
 }
