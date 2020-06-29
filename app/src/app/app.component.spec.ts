@@ -15,11 +15,30 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SpecMathNavBarModule } from './components/specmath-navbar/specmath-navbar.module';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
+      ],
+      imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatMenuModule,
+        MatIconModule,
+        MatDividerModule,
+        MatButtonModule,
+        SpecMathNavBarModule,
       ],
     }).compileComponents();
   }));
