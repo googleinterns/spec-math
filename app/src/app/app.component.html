@@ -12,13 +12,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-<div class="nav-bar">
-  <img src="../assets//img/specmath logo.svg" class="nav-logo" />
-</div>
+<app-specmath-navbar></app-specmath-navbar>
 
 <mat-drawer-container class="container">
   <mat-drawer class="main left-panel" mode="side" opened>
-
     <div class="operation-container">
       <button class="mdc-fab mdc-fab--extended new-button" [mat-menu-trigger-for]="operationMenu">
         <div class="mdc-fab__ripple"></div>
@@ -30,34 +27,10 @@ limitations under the License. -->
         <button mat-menu-item>Overlay</button>
       </mat-menu>
     </div>
-
-    <div class="side-container label">
-      <mat-icon>history</mat-icon>
-      <p class="mat-body-strong">
-        Recent specs
-      </p>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="side-container file" *ngFor="let item of sampleFiles">
-      <p class="mat-body-strong">
-        {{item.name}}
-      </p>
-      <button mat-icon-button>
-        <mat-icon>more_vert</mat-icon>
-      </button>
-    </div>
-
-    <div class="side-container debug">
-      <p class="mat-body-strong">
-        There's nothing here!
-      </p>
-    </div>
-
   </mat-drawer>
+
   <mat-drawer-content class="main right-panel padded">
-    <div id="empty-specs-text-container">
+    <div id="empty-text-container">
       
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet

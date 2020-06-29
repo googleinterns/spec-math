@@ -13,10 +13,7 @@
 // limitations under the License.
 
 @use "@material/fab/mdc-fab";
-
-$black: #000;
-$white: #fff;
-$material-grey: #dadce0;
+@import "../shared/constants.scss";
 
 .container {
   display: flex;
@@ -32,31 +29,18 @@ $material-grey: #dadce0;
   display: flex;
 
   &.left-panel {
-    width: 15%;
     flex-direction: column;
     align-items: flex-start;
   }
   
   &.right-panel {
-    width: 85%;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
-.nav-bar {
-  background-color: $white;
-  width: calc(100% - 16px);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #dadce0;
-  margin-top: -1px;
-  padding: 8px;
-}
-
-#empty-specs-text-container {
+#empty-text-container {
   margin: 10rem auto auto auto;
   text-align: center;
 }
@@ -64,37 +48,6 @@ $material-grey: #dadce0;
 .mdc-fab--extended {
   position: relative;
   margin: 1rem;
-}
-
-.nav-logo {
-  display: block;
-  object-fit: contain;
-  height: 48px;
-  margin-left: 0;
-  margin-right: auto;
-  padding-left: 12px;
-}
-
-.side-container {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  & p {
-    margin: 0 0 0 0;
-  }
-
-  &.label p {
-    margin-left: 1rem;
-  }
-
-  &.file {
-    justify-content: space-between;
-  }
 }
 
 .mdc-fab {
