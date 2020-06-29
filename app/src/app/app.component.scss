@@ -17,7 +17,7 @@
 
 .container {
   display: flex;
-  height: 95vh;
+  height: calc(100% - 64px);
 }
 
 .padded {
