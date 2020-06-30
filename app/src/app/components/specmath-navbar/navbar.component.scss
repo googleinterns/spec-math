@@ -12,11 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
+@import "../../../shared/constants.scss";
+
+.nav-bar {
+  background-color: $white;
+  width: calc(100% - 16px);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #dadce0;
+  margin-top: -1px;
+  padding: 8px;
+}
+
+.nav-logo {
+  display: block;
+  object-fit: contain;
+  height: 48px;  
 }

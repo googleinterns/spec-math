@@ -12,11 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+import { NgModule } from '@angular/core';
+import { NavBarComponent } from './navbar.component';
+
+@NgModule({
+  declarations: [
+    NavBarComponent
+  ],
+  exports: [
+    NavBarComponent
+  ],
+  bootstrap: [NavBarComponent]
 })
-export class AppComponent {
-}
+export class NavBarModule { }

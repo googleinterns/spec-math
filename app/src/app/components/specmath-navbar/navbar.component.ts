@@ -14,9 +14,10 @@
 
 import { Component } from '@angular/core';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
-export class AppComponent {
+export class NavBarComponent {
+  debug = true;
 }
