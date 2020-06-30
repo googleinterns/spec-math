@@ -53,11 +53,36 @@
 .mdc-fab {
   background-color: $white;
   color: $black;
-  padding-left: 12px;
-  padding-right: 24px;
+
+  &.desktop {
+    padding-left: 12px;
+    padding-right: 24px;
+  }
+
+  &.mobile {
+    position: absolute;
+    bottom: 5rem;
+    right: 2rem;
+  }
 }
 
 .mdc-fab__label {
   text-transform: none;
   margin-left: 12px;
+}
+
+@media (max-width: 768px) {
+  #operation-menu-button-desktop {
+    display: none;
+  }
+
+  #operation-menu-button-mobile {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  #operation-menu-button-mobile {
+    display: none;
+  }
 }

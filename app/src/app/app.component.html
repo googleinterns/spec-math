@@ -16,8 +16,8 @@ limitations under the License. -->
 
 <mat-drawer-container class="container">
   <mat-drawer class="main left-panel" mode="side" opened>
-    <div class="operation-container">
-      <button class="mdc-fab mdc-fab--extended new-button" [mat-menu-trigger-for]="operationMenu">
+    <div class="operation-menu-container">
+      <button id="operation-menu-button-desktop" class="mdc-fab desktop mdc-fab--extended new-button" [mat-menu-trigger-for]="operationMenu">
         <div class="mdc-fab__ripple"></div>
         <img src="../assets/img/fab-icon.png" />
         <span class="mdc-fab__label">New</span>
@@ -29,7 +29,7 @@ limitations under the License. -->
     </div>
   </mat-drawer>
 
-  <mat-drawer-content class="main right-panel padded">
+  <mat-drawer-content id="main-container" class="main right-panel padded">
     <div id="empty-text-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
@@ -38,5 +38,9 @@ limitations under the License. -->
         Use the "New" button to get started
       </h4>
     </div>
+    <button id="operation-menu-button-mobile" class="mdc-fab mobile" [mat-menu-trigger-for]="operationMenu">
+      <div class="mdc-fab__ripple"></div>
+      <img src="../assets/img/fab-icon.png" />
+    </button>
   </mat-drawer-content>
 </mat-drawer-container>
