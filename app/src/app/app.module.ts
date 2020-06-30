@@ -13,10 +13,16 @@
 // limitations under the License.
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavBarModule } from './components/specmath-navbar/navbar.module';
+
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    NavBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

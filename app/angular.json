@@ -31,6 +31,12 @@
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/",
+                "src/sass"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -96,7 +102,13 @@
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/",
+                "src/sass"
+              ]
+            }
           }
         },
         "lint": {
