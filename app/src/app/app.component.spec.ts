@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SpecMathNavBarModule } from './components/specmath-navbar/specmath-navbar.module';
+import { NavBarModule } from './components/specmath-navbar/navbar.module';
 import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
@@ -42,7 +42,7 @@ describe('AppComponent', () => {
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
-        SpecMathNavBarModule,
+        NavBarModule,
       ],
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(AppComponent);

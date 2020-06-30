@@ -12,12 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
-@Component({
-  selector: 'app-specmath-navbar',
-  templateUrl: './specmath-navbar.component.html',
-  styleUrls: ['./specmath-navbar.component.scss']
-})
-export class SpecMathNavBarComponent {
-  debug = true;
-}
+import { TestBed, async } from '@angular/core/testing';
+import { NavBarComponent } from './navbar.component';
+
+describe('NavBarComponent', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        NavBarComponent
+      ],
+    }).compileComponents();
+  }));
+
+  it('creates the navbar component', () => {
+    const fixture = TestBed.createComponent(NavBarComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+});

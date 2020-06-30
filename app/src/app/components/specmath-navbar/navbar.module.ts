@@ -13,15 +13,15 @@
 // limitations under the License.
 
 import { NgModule } from '@angular/core';
-import { SpecMathNavBarComponent } from './specmath-navbar.component';
+import { NavBarComponent } from './navbar.component';
 
 @NgModule({
   declarations: [
-    SpecMathNavBarComponent
+    NavBarComponent
   ],
   exports: [
-    SpecMathNavBarComponent
+    NavBarComponent
   ],
-  bootstrap: [SpecMathNavBarComponent]
+  bootstrap: [NavBarComponent]
 })
-export class SpecMathNavBarModule { }
+export class NavBarModule { }
