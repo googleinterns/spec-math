@@ -1,0 +1,6 @@
+openapi: 3.0.0
+info:
+  title: The New and Improved Swagger Petstore With Cats and Dogs
+  license:
+    name: MIT
+  version: 1.0.0
