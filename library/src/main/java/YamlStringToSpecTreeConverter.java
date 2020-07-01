@@ -21,13 +21,13 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import org.yaml.snakeyaml.Yaml;
 
-/** Provides static functions for converting YAML files and strings into Maps */
+/** Provides functions for converting YAML files and strings into Maps */
 public class YamlStringToSpecTreeConverter {
 
   /**
-   * deserializes a YAML file at the given {@code pathname} into a map
+   * Deserializes a YAML file at the given {@code pathname} into a map.
    *
-   * @param pathname
+   * @param pathname a path to a local file
    * @return a map representing the YAML file at {@code pathname}
    * @throws FileNotFoundException
    */
@@ -44,9 +44,9 @@ public class YamlStringToSpecTreeConverter {
   }
 
   /**
-   * deserializes a YAML string {@code yamlString} into a map
+   * Deserializes a YAML string {@code yamlString} into a map.
    *
-   * @param yamlString
+   * @param yamlString a YAML string
    * @return a map representing the YAML string
    * @throws FileNotFoundException
    */
