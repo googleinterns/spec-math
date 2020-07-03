@@ -12,4 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { NgModule } from '@angular/core';
+import { ModalComponent } from './modal.component';
 
+@NgModule({
+  declarations: [
+    ModalComponent
+  ],
+  imports: [
+
+  ],
+  providers: [],
+  bootstrap: [ModalComponent]
+})
+export class ModalModule { }
