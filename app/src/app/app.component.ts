@@ -13,10 +13,32 @@
 // limitations under the License.
 
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from './components/specmath-modal/modal.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  sampleMessage: string;
+
+  constructor(public dialog: MatDialog) {
+
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '4rem',
+      data: {
+        sampleMessage: this.sampleMessage
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('this has been closed');
+      this.sampleMessage = result.result;
+    });
+  }
 }

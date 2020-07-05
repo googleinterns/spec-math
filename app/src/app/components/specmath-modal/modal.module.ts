@@ -22,6 +22,9 @@ import { ModalComponent } from './modal.component';
   imports: [
 
   ],
+  exports: [
+    ModalComponent
+  ],
   providers: [],
   bootstrap: [ModalComponent]
 })

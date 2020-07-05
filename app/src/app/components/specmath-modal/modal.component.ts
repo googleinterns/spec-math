@@ -12,11 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
+  // sampleMessage: string;
+
+  constructor() {
+
+  }
+
+  // openDialog(): void {
+  //   const dialogRef = this.dialog.open(ModalComponent, {
+  //     width: '4rem',
+  //     data: {
+  //       sampleMessage: this.sampleMessage
+  //     }
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('this has been closed');
+  //     this.sampleMessage = result.result;
+  //   });
+  // }
 }

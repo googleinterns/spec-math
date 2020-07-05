@@ -25,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { ModalModule } from './components/specmath-modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AppComponent } from './app.component';
     MatButtonModule,
     NavBarModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

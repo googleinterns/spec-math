@@ -24,24 +24,24 @@ limitations under the License. -->
         <span class="mdc-fab__label">New</span>
       </button>
       <mat-menu id="operation-menu" overlapTrigger #operationMenu="matMenu">
-        <button mat-menu-item>Merge</button>
+        <button mat-menu-item (click)="openDialog()">Merge</button>
         <button mat-menu-item>Overlay</button>
       </mat-menu>
     </div>
   </mat-drawer>
 
   <mat-drawer-content id="main-container" class="main right-panel padded">
-    <!-- <div id="empty-text-container">
+    <div id="empty-text-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
       <h4 class="mat-h4 mat-subheading-1">
         Use the "New" button to get started
       </h4>
-    </div> -->
+    </div>
 
-    
-    
+    <app-modal></app-modal>
+
     <button id="operation-menu-button-mobile" class="mdc-fab mobile" [mat-menu-trigger-for]="operationMenu">
       <div class="mdc-fab__ripple"></div>
       <img src="../assets/img/fab-icon.png" />
