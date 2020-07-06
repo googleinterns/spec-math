@@ -34,20 +34,19 @@ public class ListUtils {
     HashSet<Object> seenElements = new HashSet<>();
     List<Object> output = new ArrayList<>();
 
-    for (Object element : list2) {
-      if (!seenElements.contains(element)) {
-        output.add(element);
-        seenElements.add(element);
-      }
-    }
-
-    for (Object element : list1) {
-      if (!seenElements.contains(element)) {
-        output.add(element);
-        seenElements.add(element);
-      }
-    }
+    addListToOutput(list2, seenElements, output);
+    addListToOutput(list1, seenElements, output);
 
     return output;
+  }
+
+  private static void addListToOutput(
+      List<Object> list, HashSet<Object> seenElements, List<Object> output) {
+    for (Object element : list) {
+      if (!seenElements.contains(element)) {
+        output.add(element);
+        seenElements.add(element);
+      }
+    }
   }
 }
