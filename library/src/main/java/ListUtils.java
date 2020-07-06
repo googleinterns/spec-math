@@ -23,10 +23,10 @@ public class ListUtils {
 
   /**
    * Performs the union operation on two lists. Will add elements from list2 and then list1,
-   * avoiding duplicates
+   * avoiding duplicates.
    *
-   * @param list1 a list to do the second union
-   * @param list2
+   * @param list1 the list that is added second in the output order.
+   * @param list2 the list that is added first in the output order.
    * @return a new list containing list2 and list1
    */
   public static List<Object> listUnion(List<Object> list1, List<Object> list2) {
