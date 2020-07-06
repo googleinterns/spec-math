@@ -24,31 +24,19 @@ public class MapUtils {
   /**
    * Adds all root to leaf node keypaths in {@code map} to {@code keypaths} HashSet.
    *
-   * <p>
-   * SuppressWarnings was used here and in a few other places in the library. When deserializing
-   * the YAML file within the library (in the YamlStringToSpecTreeConverter class), it becomes a
-   * LinkedHashMap<String, Object> which is a Map<String, Object>. The value of map could be another
-   * Map, or other stuff i.e. List, String, Integer, Boolean. This piece of recursive code assumes
-   * that the provided Map fits this criteria, namely that if the value is a Map, then it will
-   * always be a Map<String, Object>. Usage of this function is internal in the library where we can
-   * guarantee that the map parameter provided is Map<String, Object> where if the Object value is a
-   * Map, and it passes the (value instanceof Map) condition, then it must be some Map<String,
-   * Object>.
-   *
-   * @param map the map which we will find all the keypaths for
-   * @param keypath the path of keys taken to get to a leaf node in the map
+   * @param map the map which we will find all the keypaths for.
+   * @param keypath the path of keys taken to get to a leaf node in the map.
    * @param keypaths a HashSet of Strings which this function will add all the keypaths of leaf
-   *     nodes to during the traversal
+   *     nodes to during the traversal.
    */
-  @SuppressWarnings("unchecked")
   static void getKeypathsFromMap(
       Map<String, Object> map, Stack<String> keypath, HashSet<String> keypaths) {
     for (Map.Entry<String, Object> entry : map.entrySet()) {
       String key = entry.getKey();
       Object value = entry.getValue();
       keypath.push(key);
-      if (value instanceof Map) {
-        Map<String, Object> nmap = (Map<String, Object>) value;
+      if (TypeChecker.isObjectMap(value)) {
+        Map<String, Object> nmap = ObjectCaster.castObjectToStringObjectMap(value);
         getKeypathsFromMap(nmap, keypath, keypaths);
       } else {
         // this is a leaf node, so add the keypath and then we are done
