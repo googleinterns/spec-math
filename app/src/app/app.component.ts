@@ -30,7 +30,6 @@ export class AppComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ModalComponent, {
-      width: '4rem',
       data: {
         sampleMessage: this.sampleMessage
       }
