@@ -12,8 +12,71 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-<div>
-  <h2>
-    Hello there
-  </h2>
+<div class="modal-container">
+  <mat-dialog-content>
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step>
+        <div class="modal-step-container">
+          <div class="modal-step-controls-container">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+          <!-- <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form> -->
+          <h2>
+            This is step 1
+          </h2>
+        </div>
+      </mat-step>
+      <mat-step [optional]="true">
+        <!-- <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form> -->
+        <h2>
+          This is step 2
+        </h2>
+      </mat-step>
+      <mat-step>
+        <!-- <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form> -->
+        <h2>
+          This is step 3
+        </h2>
+      </mat-step>
+      <mat-step>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+        <button mat-button mat-dialog-close>Back</button>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-dialog-content>
 </div>

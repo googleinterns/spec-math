@@ -14,13 +14,18 @@
 
 import { NgModule } from '@angular/core';
 import { ModalComponent } from './modal.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     ModalComponent
   ],
   imports: [
-
+    MatStepperModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   exports: [
     ModalComponent

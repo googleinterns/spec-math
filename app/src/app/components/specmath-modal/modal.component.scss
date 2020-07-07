@@ -12,4 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+.modal-container {
+  height: 60vh;
+  width: 60vw;
+}
 
+.mat-horizontal-stepper-header-container {
+  display: none;
+}
+
+.modal-step {
+  &-controls {
+    &-container {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: flex;
+    }
+  }
+
+  &-container {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.mat-dialog-content {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .modal-container {
+    height: 80vh;
+    width: calc(100vw - 6rem);
+  }
+}
