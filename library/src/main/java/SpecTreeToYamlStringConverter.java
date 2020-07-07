@@ -22,7 +22,7 @@ public class SpecTreeToYamlStringConverter {
   }
 
   /**
-   * Helper function for Serializing a spec tree represented as a {@code LinkedHashMap} to a YAML
+   * Helper function for serializing a spec tree represented as a {@code LinkedHashMap} to a YAML
    * string.
    *
    * @param yamlMap a spec tree which is a LinkedHashMap with String keys and Object values
