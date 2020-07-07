@@ -17,58 +17,29 @@ limitations under the License. -->
     <mat-horizontal-stepper linear #stepper>
       <mat-step>
         <div class="modal-step-container">
-          <!-- <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Fill out your name</ng-template>
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form> -->
-          <div>
+          <div class="modal-step-header">
             <h3>
               Merge specs <b class="step-indicator">1/4</b>
             </h3>
-            <button mat-button mat-dialog-close></button>
+            <button mat-dialog-close mat-icon-button color="grey" aria-label="Example icon button with a home icon">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="modal-step-content">
+            
           </div>
           <div class="modal-step-controls-container">
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperPrevious class="modal-step-button-secondary">Back</button>
+            <button mat-button matStepperNext class="modal-step-button-main">Next</button>
           </div>
         </div>
       </mat-step>
       <mat-step [optional]="true">
-        <!-- <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Fill out your address</ng-template>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form> -->
         <h2>
           This is step 2
         </h2>
       </mat-step>
       <mat-step>
-        <!-- <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Fill out your address</ng-template>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form> -->
         <h2>
           This is step 3
         </h2>

@@ -20,7 +20,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
+  newFileName: string;
+
   constructor() {
 
   }
+
 }

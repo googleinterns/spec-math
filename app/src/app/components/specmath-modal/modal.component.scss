@@ -12,29 +12,52 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@import '../../../shared/constants.scss';
+
 .modal-container {
   height: 60vh;
   width: 60vw;
 }
 
 .modal-step {
+  &-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &-controls {
     &-container {
-      margin-right: 0;
-      margin-left: auto;
+      display: flex;
+      flex-direction: row;
       margin-bottom: 0;
       margin-top: auto;
-      display: flex;
+      align-items: center;
+      justify-content: flex-end;
 
       :last-child {
-        margin-left: 4px;
+        margin-left: 8px;
       }
     }
   }
 
-  &-container {
-    height: 100%;
-    width: 100%;
+  &-button {
+    &-main {
+      background-color: $material-blue-600;
+      color: $white;
+    }
+
+    &-secondary {
+      color: $material-blue-600;
+    }
   }
 }
 

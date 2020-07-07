@@ -28,6 +28,15 @@ body {
   display: none !important;
 }
 
+.mat-horizontal-stepper-content {
+  height: 100%;
+}
+
+.mat-stepper-horizontal {
+  height: 100%;
+}
+
 .mat-horizontal-content-container {
   padding: 8px !important;
+  height: calc(100% - 16px);
 }
