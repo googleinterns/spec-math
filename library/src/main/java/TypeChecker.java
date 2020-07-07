@@ -39,7 +39,7 @@ public class TypeChecker {
   static boolean isObjectPrimitive(Object value) {
     return value instanceof String
         || value instanceof Boolean
-        || value instanceof Integer
-        || value instanceof Double;
+        || value instanceof Number
+        || value instanceof Character;
   }
 }
