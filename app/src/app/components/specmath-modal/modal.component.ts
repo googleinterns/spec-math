@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-modal',
@@ -24,6 +25,19 @@ export class ModalComponent {
 
   constructor() {
 
+  }
+
+  fileNameFormControl = new FormControl('', [
+    Validators.required,
+    this.whiteSpaceValidator
+  ]);
+
+  private whiteSpaceValidator(control: FormControl) {
+    if (control.value) {
+      console.log(control.value);
+    }
+
+    return { whitespace: true };
   }
 
 }

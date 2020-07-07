@@ -26,7 +26,15 @@ limitations under the License. -->
             </button>
           </div>
           <div class="modal-step-content">
-            
+            <p class="mat-caption">
+              Enter the name of the new spec
+            </p>
+            <form class="file-name-form">
+              <mat-form-field class="file-name-field">
+                <input type="text" matInput [formControl]="fileNameFormControl" placeholder="File name">
+                <span matSuffix>.yaml</span>
+              </mat-form-field>
+            </form>            
           </div>
           <div class="modal-step-controls-container">
             <button mat-button matStepperPrevious class="modal-step-button-secondary">Back</button>
