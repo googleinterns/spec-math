@@ -17,17 +17,18 @@
   width: 60vw;
 }
 
-.mat-horizontal-stepper-header-container {
-  display: none;
-}
-
 .modal-step {
   &-controls {
     &-container {
-      position: absolute;
-      bottom: 0;
-      right: 0;
+      margin-right: 0;
+      margin-left: auto;
+      margin-bottom: 0;
+      margin-top: auto;
       display: flex;
+
+      :last-child {
+        margin-left: 4px;
+      }
     }
   }
 
@@ -35,6 +36,10 @@
     height: 100%;
     width: 100%;
   }
+}
+
+.step-indicator {
+  margin-left: 8px;
 }
 
 .mat-dialog-content {

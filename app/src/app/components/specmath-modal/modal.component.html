@@ -17,10 +17,6 @@ limitations under the License. -->
     <mat-horizontal-stepper linear #stepper>
       <mat-step>
         <div class="modal-step-container">
-          <div class="modal-step-controls-container">
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
           <!-- <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Fill out your name</ng-template>
             <mat-form-field>
@@ -31,9 +27,16 @@ limitations under the License. -->
               <button mat-button matStepperNext>Next</button>
             </div>
           </form> -->
-          <h2>
-            This is step 1
-          </h2>
+          <div>
+            <h3>
+              Merge specs <b class="step-indicator">1/4</b>
+            </h3>
+            <button mat-button mat-dialog-close></button>
+          </div>
+          <div class="modal-step-controls-container">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
         </div>
       </mat-step>
       <mat-step [optional]="true">
