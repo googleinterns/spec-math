@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class Conflict {
   private String keypath;
-
   private Object optionA;
   private Object optionB;
   private Object resolvedValue;
@@ -40,9 +39,7 @@ public class Conflict {
     this.optionB = optionB;
   }
 
-  /**
-   * getters are required for serialization of JSON string to conflict objects
-   */
+  /** getters are required for serialization of JSON string to conflict objects */
   public Object getOptionA() {
     return optionA;
   }
