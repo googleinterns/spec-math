@@ -15,4 +15,50 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
 
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 
+describe('ModalComponent', () => {
+  let fixture: ComponentFixture<ModalComponent>;
+  let modal: ModalComponent;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        ModalComponent
+      ],
+      imports: [
+        MatStepperModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatTooltipModule,
+        BrowserModule,
+      ]
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(ModalComponent);
+      modal = fixture.componentInstance;
+    });
+  }));
+
+  it('creates the modal component', () => {
+    expect(modal).toBeTruthy();
+  });
+
+  it('hides the modal when the cancel button is pressed', () => {
+    const cancelButton = fixture.debugElement.query(By.css('#modal-cancel-button-step-1')).nativeElement;
+    cancelButton.click();
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.modal-container'))).toBeFalsy();
+  });
+});
