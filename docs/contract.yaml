@@ -11,10 +11,10 @@ paths:
     post:
       description: |
         perform a union on two specs, with optional defaults file and conflict resolutions.
-        The endpoint may return a success, which is the result of a successful union,
-        or a failure, which means some unhandled conflicts occurred in the union. In the latter case,
-        a 406 code will be sent along with an array of conflict objects. The user now has two ways
-        to resolve the conflicts. First, they may iterate through the conflicts and add a value to the
+        The endpoint may return a "success" status code along with the merged spec, which is the
+        result of a successful union, or a "conflicts" code, which means some unhandled conflicts occurred
+        in the union. In the latter case, an array of conflict objects will be sent. The user now has two
+        ways to resolve the conflicts. First, they may iterate through the conflicts and add a value to the
         resolvedValue property based on the options available. They could also manually resolve the
         conflicts in the original YAML files. In either case, they can send another request to this
         endpoint with the conflicts resolved.
@@ -88,7 +88,7 @@ components:
           description: an OpenAPI specification fragment which contains metadata about the merged spec
           type: string
         conflictResolutions:
-          description: an array of MergeConflict which specify resolutions to conflicting keypaths
+          description: an array of MergeConflict objects which specify resolutions to conflicting keypaths
           type: array
           items:
             "$ref": "#/components/schemas/MergeConflict"
@@ -134,7 +134,7 @@ components:
           description: the result of the operation, an OpenAPI specification
           type: string
         conflicts:
-            description: an array of MergeConflict which specify resolutions to conflicting keypaths
+            description: an array of MergeConflict objects which specify resolutions to conflicting keypaths
             type: array
             items:
               "$ref": "#/components/schemas/MergeConflict"
