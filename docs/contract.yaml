@@ -125,7 +125,7 @@ components:
           example: Post a single pet
     
     OperationResponse:
-      description: the result of a 200 response
+      description: the result of a 200 response on an operations/ endpoint
       type: object
       required:
         - status
