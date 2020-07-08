@@ -3,5 +3,4 @@ info:
   version: 1.0.0
   title: The new and improved petstore
   license:
-    name:
-      MIT
+    name: MIT
