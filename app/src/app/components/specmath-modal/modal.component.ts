@@ -24,20 +24,11 @@ export class ModalComponent {
   newFileName: string;
 
   constructor() {
-
+    this.newFileName = '';
   }
 
   fileNameFormControl = new FormControl('', [
     Validators.required,
-    this.whiteSpaceValidator
+    // Validators.pattern('[^A-Z0-9]')
   ]);
-
-  private whiteSpaceValidator(control: FormControl) {
-    if (control.value) {
-      console.log(control.value);
-    }
-
-    return { whitespace: true };
-  }
-
 }

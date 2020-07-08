@@ -31,14 +31,16 @@ limitations under the License. -->
             </p>
             <form class="file-name-form">
               <mat-form-field class="file-name-field">
-                <input type="text" matInput [formControl]="fileNameFormControl" placeholder="File name">
+                <input class="file-name-input" type="text" matInput [formControl]="fileNameFormControl"
+                  [(ngModel)]="newFileName" placeholder="File name">
                 <span matSuffix>.yaml</span>
               </mat-form-field>
-            </form>            
+            </form>
           </div>
           <div class="modal-step-controls-container">
             <button mat-button matStepperPrevious class="modal-step-button-secondary">Back</button>
-            <button mat-button matStepperNext class="modal-step-button-main">Next</button>
+            <button [disabled]="newFileName === ''" mat-button matStepperNext
+              class="modal-step-button-main">Next</button>
           </div>
         </div>
       </mat-step>
@@ -46,6 +48,9 @@ limitations under the License. -->
         <h2>
           This is step 2
         </h2>
+        <h4>
+          {{newFileName}}
+        </h4>
       </mat-step>
       <mat-step>
         <h2>
