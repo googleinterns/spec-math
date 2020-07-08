@@ -39,8 +39,9 @@ limitations under the License. -->
           </div>
           <div class="modal-step-controls-container">
             <button mat-button matStepperPrevious class="modal-step-button-secondary">Back</button>
-            <button [disabled]="newFileName === ''" mat-button matStepperNext
-              class="modal-step-button-main">Next</button>
+            <button [disabled]="newFileName === ''" mat-button matStepperNext #tooltip="matTooltip"
+              matTooltip="You must name your new spec" matTooltipPosition="above"
+              [matTooltipDisabled]="newFileName !== ''" class="modal-step-button-main">Next</button>
           </div>
         </div>
       </mat-step>
