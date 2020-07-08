@@ -33,6 +33,10 @@ public class Conflict {
     this.resolvedValue = "";
   }
 
+  /**
+   * Create this Conflict object with a conflicting keypath, and the two options for resolving the
+   * conflicts.
+   */
   public Conflict(String keypath, Object optionA, Object optionB) {
     this.keypath = keypath;
     this.optionA = optionA;
