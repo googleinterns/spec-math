@@ -34,6 +34,9 @@ limitations under the License. -->
                 <input class="file-name-input" type="text" matInput [formControl]="fileNameFormControl"
                   [(ngModel)]="newFileName" placeholder="File name">
                 <span matSuffix>.yaml</span>
+                <mat-error *ngIf="fileNameFormControl.hasError('required')">
+                  Naming your new spec file is <b>required</b>
+                </mat-error>
               </mat-form-field>
             </form>
           </div>
