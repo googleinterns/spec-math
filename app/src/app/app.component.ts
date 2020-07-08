@@ -22,22 +22,11 @@ import { ModalComponent } from './components/specmath-modal/modal.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  sampleMessage: string;
-
   constructor(public dialog: MatDialog) {
 
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      data: {
-        sampleMessage: this.sampleMessage
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('this has been closed');
-      this.sampleMessage = result.result;
-    });
+    this.dialog.open(ModalComponent);
   }
 }

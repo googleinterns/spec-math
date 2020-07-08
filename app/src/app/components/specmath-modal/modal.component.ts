@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -20,15 +20,18 @@ import { FormControl, Validators } from '@angular/forms';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
   newFileName: string;
 
   constructor() {
-    this.newFileName = '';
   }
 
   fileNameFormControl = new FormControl('', [
     Validators.required,
     // Validators.pattern('[^A-Z0-9]')
   ]);
+
+  ngOnInit() {
+    this.newFileName = '';
+  }
 }
