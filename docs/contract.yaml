@@ -124,7 +124,7 @@ components:
           type: string
           example: Post a single pet
     
-    Success:
+    OperationResponse:
       description: the result of a 200 response
       type: object
       required:
