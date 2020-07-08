@@ -36,7 +36,7 @@ import { BrowserModule } from '@angular/platform-browser';
     FormsModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    BrowserModule
+    BrowserModule,
   ],
   exports: [
     ModalComponent

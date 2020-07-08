@@ -21,7 +21,8 @@ limitations under the License. -->
             <h3>
               Merge specs <b class="step-indicator">1/4</b>
             </h3>
-            <button id="modal-cancel-button-step-1" mat-dialog-close mat-icon-button color="grey" aria-label="Example icon button with a home icon">
+            <button id="modal-cancel-button-step-1" mat-dialog-close mat-icon-button color="grey"
+              aria-label="Example icon button with a home icon">
               <mat-icon>close</mat-icon>
             </button>
           </div>
@@ -41,10 +42,13 @@ limitations under the License. -->
             </form>
           </div>
           <div class="modal-step-controls-container">
-            <button mat-button matStepperPrevious class="modal-step-button-secondary">Back</button>
-            <button [disabled]="newFileName === ''" mat-button matStepperNext #tooltip="matTooltip"
-              matTooltip="You must name your new spec" matTooltipPosition="above"
-              [matTooltipDisabled]="newFileName !== ''" class="modal-step-button-main">Next</button>
+            <button id="modal-step-1-back" mat-button matStepperPrevious
+              class="modal-step-button-secondary">Back</button>
+            <div matTooltip="You must name your new spec" matTooltipPosition="above"
+              [matTooltipDisabled]="newFileName !== ''">
+              <button id="modal-step-1-next" [disabled]="newFileName === ''" mat-button matStepperNext
+                class="modal-step-button-main">Next</button>
+            </div>
           </div>
         </div>
       </mat-step>
