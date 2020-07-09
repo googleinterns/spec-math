@@ -16,19 +16,19 @@ limitations under the License.
 
 import java.util.ArrayList;
 
+/**
+ * A conflict thrown when a union operation resulted in one more conflicts, represented as {@code
+ * Conflict} objects
+ */
 public class UnionConflictException extends Exception {
   private ArrayList<Conflict> conflicts;
 
-  /**
-   * Create this exception, initialized with an array of {@code Conflict} objects.
-   */
+  /** Create this exception, initialized with an array of {@code Conflict} objects. */
   public UnionConflictException(ArrayList<Conflict> conflicts) {
     this.conflicts = conflicts;
   }
 
-  /**
-   * @return the array of {@code Conflict} objects contained within this exception
-   */
+  /** @return the array of {@code Conflict} objects contained within this exception */
   public ArrayList<Conflict> getConflicts() {
     return conflicts;
   }

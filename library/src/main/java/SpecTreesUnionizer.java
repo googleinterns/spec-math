@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+/**
+ * Provides functions for performing union operations on spec trees represented as Maps.
+ */
 public class SpecTreesUnionizer {
   /**
    * Performs a union on {@code map1} and {@code map2} and returns the result.

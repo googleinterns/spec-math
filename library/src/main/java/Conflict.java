@@ -16,6 +16,7 @@ limitations under the License.
 
 import java.util.Objects;
 
+/** POJO which is used to represent a Conflict resulting from a union operation. */
 public class Conflict {
   private String keypath;
   private Object optionA;
