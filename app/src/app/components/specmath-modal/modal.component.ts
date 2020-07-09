@@ -22,6 +22,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
+  currentStep: number;
   newFileName: string;
 
   constructor(public dialogRef: MatDialogRef<ModalComponent>) {
@@ -29,7 +30,7 @@ export class ModalComponent implements OnInit {
 
   fileNameFormControl = new FormControl('', [
     Validators.required,
-    // Validators.pattern('[^A-Z0-9]')
+    Validators.pattern('[a-zA-Z0-9]*')
   ]);
 
   ngOnInit() {
