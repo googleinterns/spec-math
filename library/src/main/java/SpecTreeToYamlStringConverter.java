@@ -34,7 +34,7 @@ public class SpecTreeToYamlStringConverter {
    * @return a YAML string which represents the serialization of {@code yamlMap} as a YAML string
    */
   public String convertSpecTreeToYamlString(LinkedHashMap<String, Object> yamlMap)
-      throws UnexpectedDataException {
+      throws UnexpectedTypeException {
     return convertSpecTreeToYamlString(yamlMap, 0, false);
   }
 
@@ -50,7 +50,7 @@ public class SpecTreeToYamlStringConverter {
    */
   private String convertSpecTreeToYamlString(
       LinkedHashMap<String, Object> yamlMap, int level, boolean firstListElement)
-      throws UnexpectedDataException {
+      throws UnexpectedTypeException {
     StringBuilder str = new StringBuilder();
     for (Map.Entry<String, Object> entry : yamlMap.entrySet()) {
       String key = entry.getKey();
@@ -67,7 +67,7 @@ public class SpecTreeToYamlStringConverter {
       } else if (TypeChecker.isObjectPrimitive(value)) {
         handlePrimitiveValue(str, key, value);
       } else {
-        throw new UnexpectedDataException("Unexpected Data During Serialization");
+        throw new UnexpectedTypeException("Unexpected Data During Serialization");
       }
     }
 
@@ -135,7 +135,7 @@ public class SpecTreeToYamlStringConverter {
    * @param value the map value to process further
    */
   private void handleMapValue(int level, StringBuilder str, LinkedHashMap<String, Object> value)
-      throws UnexpectedDataException {
+      throws UnexpectedTypeException {
     LinkedHashMap<String, Object> valueMap = value;
 
     str.append("\n");
@@ -150,7 +150,7 @@ public class SpecTreeToYamlStringConverter {
    * @param value the list of values to process
    */
   private void handleListValues(int level, StringBuilder str, List<Object> value)
-      throws UnexpectedDataException {
+      throws UnexpectedTypeException {
     int listLevel = level + 1;
 
     str.append("\n");

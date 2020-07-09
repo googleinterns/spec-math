@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 /** An exception thrown when there was unexpected data when performing an operation */
-public class UnexpectedDataException extends Exception {
-  public UnexpectedDataException(String message) {
+public class UnexpectedTypeException extends Exception {
+  public UnexpectedTypeException(String message) {
     super(message);
   }
 }
