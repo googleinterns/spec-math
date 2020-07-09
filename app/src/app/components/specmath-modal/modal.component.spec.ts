@@ -90,17 +90,6 @@ describe('ModalComponent', () => {
     expect(nextButton.disabled).toBeTruthy();
   });
 
-  it('next button is enabled on step 1 when the new file name is valid', () => {
-    dialog.open(ModalComponent);
-    fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-
-    specNameField.setValue('testname');
-    fixture.detectChanges();
-    expect(nextButton.disabled).toBeFalsy();
-  });
-
   it('new file name form validity', () => {
     const specNameField = modal.specNameFormControl;
 
@@ -114,5 +103,20 @@ describe('ModalComponent', () => {
 
     specNameField.setValue('test_spec');
     expect(specNameField.valid).toBeTruthy();
+  });
+
+  it('calls nextStep() when the new file name is valid and the next button is clicked', () => {
+    dialog.open(ModalComponent);
+    fixture.detectChanges();
+    const specNameField = modal.specNameFormControl;
+    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
+    const spy = spyOn(modal, 'nextStep');
+
+    specNameField.setValue('test_spec');
+    fixture.detectChanges();
+    expect(nextButton.disabled).toBeFalsy();
+
+    nextButton.click();
+    expect(spy).toHaveBeenCalled();
   });
 });
