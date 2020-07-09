@@ -17,6 +17,10 @@ limitations under the License.
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * Provides casting for {@code Object} into other data structures to be used only during Spec Tree
+ * traversal.
+ */
 public class ObjectCaster {
   /**
    * Cast an object into a LinkedHashMap<String, Object>.

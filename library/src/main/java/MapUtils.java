@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Stack;
 
-/** Provides static functions for some operations on Maps */
+/** Provides functions for some operations on Maps */
 public class MapUtils {
 
   /**

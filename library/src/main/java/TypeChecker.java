@@ -17,6 +17,9 @@ limitations under the License.
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * Provides functions for checking common types used throughout the library.
+ */
 public class TypeChecker {
 
   /**
