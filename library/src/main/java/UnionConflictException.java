@@ -17,7 +17,7 @@ limitations under the License.
 import java.util.ArrayList;
 
 /**
- * A conflict thrown when a union operation resulted in one more conflicts, represented as {@code
+ * An exception thrown when a union operation resulted in one more conflicts, represented as {@code
  * Conflict} objects
  */
 public class UnionConflictException extends Exception {
