@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { exception } from 'console';
 
 const queryElement = (targetFixture: ComponentFixture<ModalComponent>, targetClass: string) => {
   return targetFixture.debugElement.query(By.css(targetClass));
@@ -61,7 +62,6 @@ describe('ModalComponent', () => {
       dialog = TestBed.inject(MatDialog);
       fixture = TestBed.createComponent(ModalComponent);
       modal = fixture.componentInstance;
-      dialog.open(ModalComponent);
     });
   }));
 
@@ -70,25 +70,49 @@ describe('ModalComponent', () => {
   });
 
   it('is opened', () => {
+    dialog.open(ModalComponent);
     expect(queryElement(fixture, '.modal-container')).toBeTruthy();
   });
 
   it('is closed', () => {
     const spy = spyOn(modal.dialogRef, 'close').and.callThrough();
     const cancelButton = queryElement(fixture, '#modal-cancel-button').nativeElement;
+
     cancelButton.click();
     expect(spy).toHaveBeenCalled();
   });
 
-  describe('Step 1', () => {
-    beforeEach(() => {
-      dialog.open(ModalComponent);
-      fixture.detectChanges();
-    });
+  it('next button is disabled on step 1 when the new file name input is empty', () => {
+    dialog.open(ModalComponent);
+    fixture.detectChanges();
+    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
 
-    it('next button is disabled on step 1 when the new file name input is empty', () => {
-      const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-      expect(nextButton.disabled).toBeTruthy();
-    });
+    expect(nextButton.disabled).toBeTruthy();
+  });
+
+  it('next button is enabled on step 1 when the new file name is valid', () => {
+    dialog.open(ModalComponent);
+    fixture.detectChanges();
+    const specNameField = modal.specNameFormControl;
+    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
+
+    specNameField.setValue('testname');
+    fixture.detectChanges();
+    expect(nextButton.disabled).toBeFalsy();
+  });
+
+  it('new file name form validity', () => {
+    const specNameField = modal.specNameFormControl;
+
+    expect(specNameField.valid).toBeFalsy();
+
+    specNameField.setValue('invalid input!');
+    expect(specNameField.hasError('pattern')).toBeTruthy();
+
+    specNameField.setValue('');
+    expect(specNameField.hasError('required')).toBeTruthy();
+
+    specNameField.setValue('test_spec');
+    expect(specNameField.valid).toBeTruthy();
   });
 });
