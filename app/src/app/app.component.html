@@ -24,8 +24,8 @@ limitations under the License. -->
         <span class="mdc-fab__label">New</span>
       </button>
       <mat-menu id="operation-menu" overlapTrigger #operationMenu="matMenu">
-        <button mat-menu-item (click)="openDialog()">Merge</button>
-        <button mat-menu-item>Overlay</button>
+        <button id="operation-menu-merge-button" mat-menu-item (click)="openDialog()">Merge</button>
+        <button id="operation-menu-overlay-button" mat-menu-item>Overlay</button>
       </mat-menu>
     </div>
   </mat-drawer>

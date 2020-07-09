@@ -15,18 +15,19 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
 
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { By, BrowserModule } from '@angular/platform-browser';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { By } from '@angular/platform-browser';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ModalComponent', () => {
-  let fixture: ComponentFixture<ModalComponent>;
+  let dialog: MatDialog;
+  let modalFixture: ComponentFixture<ModalComponent>;
   let modal: ModalComponent;
 
   beforeEach(async(() => {
@@ -44,10 +45,13 @@ describe('ModalComponent', () => {
         ReactiveFormsModule,
         MatTooltipModule,
         BrowserModule,
+        MatDialogModule,
+        BrowserAnimationsModule
       ]
     }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(ModalComponent);
-      modal = fixture.componentInstance;
+      dialog = TestBed.inject(MatDialog);
+      modalFixture = TestBed.createComponent(ModalComponent);
+      modal = modalFixture.componentInstance;
     });
   }));
 
@@ -55,10 +59,9 @@ describe('ModalComponent', () => {
     expect(modal).toBeTruthy();
   });
 
-  it('hides the modal when the cancel button is pressed', () => {
-    const cancelButton = fixture.debugElement.query(By.css('#modal-cancel-button-step-1')).nativeElement;
-    cancelButton.click();
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('.modal-container'))).toBeFalsy();
+  it('opens the modal compoennt', () => {
+    dialog.open(ModalComponent);
+    modalFixture.detectChanges();
+    expect(modalFixture.debugElement.query(By.css('.modal-container'))).toBeTruthy();
   });
 });
