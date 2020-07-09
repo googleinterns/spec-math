@@ -207,4 +207,19 @@ class SpecTreesUnionizerTest {
 
     assertThrows(UnexpectedDataException.class, () -> SpecTreesUnionizer.union(map1, map2));
   }
+
+  @Test
+  void testApplyOverlayMaps() throws UnexpectedDataException {
+    LinkedHashMap<String, Object> specString =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/elgoogMarketing.yaml");
+    LinkedHashMap<String, Object> overlay =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/elgoogMetadata.yaml");
+    LinkedHashMap<String, Object> expected =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/elgoogBillingOverlayedWithMetadata.yaml");
+
+    assertThat(SpecTreesUnionizer.applyOverlay(overlay, specString)).isEqualTo(expected);
+  }
 }
