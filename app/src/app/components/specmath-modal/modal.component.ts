@@ -14,6 +14,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal',
@@ -23,7 +24,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class ModalComponent implements OnInit {
   newFileName: string;
 
-  constructor() {
+  constructor(public dialogRef: MatDialogRef<ModalComponent>) {
   }
 
   fileNameFormControl = new FormControl('', [

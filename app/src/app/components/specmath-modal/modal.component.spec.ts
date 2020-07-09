@@ -15,7 +15,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
 
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { By, BrowserModule } from '@angular/platform-browser';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,9 +25,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+const queryElement = (targetFixture: ComponentFixture<ModalComponent>, targetClass: string) => {
+  return targetFixture.debugElement.query(By.css(targetClass));
+};
+
 describe('ModalComponent', () => {
   let dialog: MatDialog;
-  let modalFixture: ComponentFixture<ModalComponent>;
+  let fixture: ComponentFixture<ModalComponent>;
   let modal: ModalComponent;
 
   beforeEach(async(() => {
@@ -47,11 +51,16 @@ describe('ModalComponent', () => {
         BrowserModule,
         MatDialogModule,
         BrowserAnimationsModule
+      ],
+      providers: [
+        {
+          provide: MatDialogRef, useValue: { close: () => {} }
+        },
       ]
     }).compileComponents().then(() => {
       dialog = TestBed.inject(MatDialog);
-      modalFixture = TestBed.createComponent(ModalComponent);
-      modal = modalFixture.componentInstance;
+      fixture = TestBed.createComponent(ModalComponent);
+      modal = fixture.componentInstance;
     });
   }));
 
@@ -59,9 +68,24 @@ describe('ModalComponent', () => {
     expect(modal).toBeTruthy();
   });
 
-  it('opens the modal compoennt', () => {
-    dialog.open(ModalComponent);
-    modalFixture.detectChanges();
-    expect(modalFixture.debugElement.query(By.css('.modal-container'))).toBeTruthy();
+  describe('is opened', () => {
+    beforeEach(() => {
+      dialog.open(ModalComponent);
+      fixture.detectChanges();
+      expect(queryElement(fixture, '.modal-container')).toBeTruthy();
+    });
+
+    it('shows the tooltip when hovering on the next button', () => {
+      const cancelButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
+      cancelButton.dispatchEvent(new MouseEvent('mouseover'));
+      expect(queryElement(fixture, 'modal-name-tooltip')).toBeTruthy();
+    });
+
+    it('is closed', () => {
+      const spy = spyOn(modal.dialogRef, 'close').and.callThrough();
+      const cancelButton = queryElement(fixture, '#modal-cancel-button-step-1').nativeElement;
+      cancelButton.click();
+      expect(spy).toHaveBeenCalled();
+    });
   });
 });
