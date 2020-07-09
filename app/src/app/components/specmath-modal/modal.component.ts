@@ -33,7 +33,20 @@ export class ModalComponent implements OnInit {
     Validators.pattern('[a-zA-Z0-9_-]*')
   ]);
 
+  nextStep(): void {
+    if (this.currentStep < 4) {
+      this.currentStep++;
+    }
+  }
+
+  previousStep(): void {
+    if (this.currentStep > 0) {
+      this.currentStep--;
+    }
+  }
+
   ngOnInit() {
     this.newFileName = '';
+    this.currentStep = 1;
   }
 }

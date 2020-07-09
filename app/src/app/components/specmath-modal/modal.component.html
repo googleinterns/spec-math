@@ -14,66 +14,86 @@ limitations under the License. -->
 
 <div class="modal-container">
   <mat-dialog-content>
+    <div class="modal-step-header">
+      <h3>
+        Merge specs <b class="step-indicator">{{ currentStep }}/4</b>
+      </h3>
+      <button
+        id="modal-cancel-button"
+        mat-dialog-close
+        mat-icon-button
+        color="grey"
+        aria-label="Close modal button"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
     <mat-horizontal-stepper linear #stepper>
       <mat-step>
         <div class="modal-step-container">
-          <div class="modal-step-header">
-            <h3>
-              Merge specs <b class="step-indicator">1/4</b>
-            </h3>
-            <button id="modal-cancel-button-step-1" mat-dialog-close mat-icon-button color="grey"
-              aria-label="Example icon button with a home icon">
-              <mat-icon>close</mat-icon>
-            </button>
-          </div>
           <div class="modal-step-content">
             <p class="mat-caption">
               Enter the name of the new spec
             </p>
             <form class="file-name-form">
               <mat-form-field class="file-name-field">
-                <input class="file-name-input" type="text" matInput [formControl]="fileNameFormControl"
-                  [(ngModel)]="newFileName" placeholder="File name">
+                <input
+                  class="file-name-input"
+                  type="text"
+                  matInput
+                  [formControl]="fileNameFormControl"
+                  [(ngModel)]="newFileName"
+                  placeholder="File name"
+                />
                 <span matSuffix>.yaml</span>
                 <mat-error *ngIf="fileNameFormControl.hasError('required')">
                   Naming your new spec file is required
                 </mat-error>
                 <mat-error *ngIf="fileNameFormControl.hasError('pattern')">
-                  The name can only contain alpha-numerical characters, underscores, and dashes
+                  The name can only contain alpha-numerical characters,
+                  underscores, and dashes
                 </mat-error>
               </mat-form-field>
             </form>
           </div>
           <div class="modal-step-controls-container">
-            <button id="modal-step-1-back" mat-button matStepperPrevious
-              class="modal-step-button-secondary">Back</button>
-            <div matTooltipClass="modal-name-tooltip" matTooltip="You must name your new spec" matTooltipPosition="above"
-              [matTooltipDisabled]="!fileNameFormControl.invalid">
-              <button id="modal-step-1-next" [disabled]="fileNameFormControl.invalid" mat-button matStepperNext
-                class="modal-step-button-main">Next</button>
+            <button
+              id="modal-step-1-back"
+              mat-button
+              matStepperPrevious
+              class="modal-step-button-secondary"
+              aria-label="Back button for step 1"
+            >
+              Back
+            </button>
+            <div
+              matTooltip="You must name your new spec"
+              matTooltipPosition="above"
+              [matTooltipDisabled]="!fileNameFormControl.invalid"
+            >
+              <button
+                (click)="nextStep()"
+                id="modal-step-1-next"
+                [disabled]="fileNameFormControl.invalid"
+                mat-button
+                matStepperNext
+                class="modal-step-button-main"
+                aria-label="Next button for step 1"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
       </mat-step>
       <mat-step [optional]="true">
-        <h2>
-          This is step 2
-        </h2>
-        <h4>
-          {{newFileName}}
-        </h4>
+        
       </mat-step>
       <mat-step>
-        <h2>
-          This is step 3
-        </h2>
+        
       </mat-step>
       <mat-step>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
-        </div>
-        <button mat-button mat-dialog-close>Back</button>
+        
       </mat-step>
     </mat-horizontal-stepper>
   </mat-dialog-content>

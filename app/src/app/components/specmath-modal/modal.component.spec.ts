@@ -82,7 +82,7 @@ describe('ModalComponent', () => {
 
     it('is closed', () => {
       const spy = spyOn(modal.dialogRef, 'close').and.callThrough();
-      const cancelButton = queryElement(fixture, '#modal-cancel-button-step-1').nativeElement;
+      const cancelButton = queryElement(fixture, '#modal-cancel-button').nativeElement;
       cancelButton.click();
       expect(spy).toHaveBeenCalled();
     });
