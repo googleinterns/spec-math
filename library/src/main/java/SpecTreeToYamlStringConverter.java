@@ -21,11 +21,7 @@ import java.util.Map;
 /** Provides the ability to serialize Spec Trees represented as LinkedHashMaps into YAML strings */
 public class SpecTreeToYamlStringConverter {
 
-  int indent;
-
-  public SpecTreeToYamlStringConverter() {
-    this.indent = 2;
-  }
+  public static final int SPACES_TO_INDENT = 2;
 
   /**
    * Serializes a spec tree represented as a {@code LinkedHashMap} into a YAML string.
@@ -33,7 +29,7 @@ public class SpecTreeToYamlStringConverter {
    * @param yamlMap a spec tree which is a LinkedHashMap with String keys and Object values
    * @return a YAML string which represents the serialization of {@code yamlMap} as a YAML string
    */
-  public String convertSpecTreeToYamlString(LinkedHashMap<String, Object> yamlMap)
+  public static String convertSpecTreeToYamlString(LinkedHashMap<String, Object> yamlMap)
       throws UnexpectedTypeException {
     return convertSpecTreeToYamlString(yamlMap, 0, false);
   }
@@ -48,7 +44,7 @@ public class SpecTreeToYamlStringConverter {
    *     the first element of a list, which needs to be processed in a special way
    * @return a YAML string which represents the serialization of {@code yamlMap} as a YAML string
    */
-  private String convertSpecTreeToYamlString(
+  private static String convertSpecTreeToYamlString(
       LinkedHashMap<String, Object> yamlMap, int level, boolean firstListElement)
       throws UnexpectedTypeException {
     StringBuilder str = new StringBuilder();
@@ -84,7 +80,7 @@ public class SpecTreeToYamlStringConverter {
    * @param str the StringBuilder which we append to during the traversal
    * @return {@code false} if {@code firstListElement} was initially true. Otherwise it returns true
    */
-  private boolean handleFirstListElementSpacing(
+  private static boolean handleFirstListElementSpacing(
       int level, boolean firstListElement, StringBuilder str) {
     if (!firstListElement) {
       str.append(spaces(level));
@@ -101,7 +97,7 @@ public class SpecTreeToYamlStringConverter {
    * @param key the key which we want to append to the StringBuilder, which is handled in special
    *     ways depending on the key
    */
-  private void handleKey(StringBuilder str, String key) {
+  private static void handleKey(StringBuilder str, String key) {
     if ((key.chars().allMatch(Character::isDigit))) {
       // the key is a digit, which should be  surrounded by single quotes
       str.append(String.format("'%s':", key));
@@ -118,7 +114,7 @@ public class SpecTreeToYamlStringConverter {
    *     certain keys
    * @param value the primitive value to add to the StringBuilder
    */
-  private void handlePrimitiveValue(StringBuilder str, String key, Object value) {
+  private static void handlePrimitiveValue(StringBuilder str, String key, Object value) {
     if (key.equals("$ref")) {
       // a "$ref" tag should be handled in a special way, with the value in double quotes.
       str.append(String.format(" \"%s\"\n", value));
@@ -134,7 +130,8 @@ public class SpecTreeToYamlStringConverter {
    * @param str the StringBuilder which we append to during the traversal
    * @param value the map value to process further
    */
-  private void handleMapValue(int level, StringBuilder str, LinkedHashMap<String, Object> value)
+  private static void handleMapValue(
+      int level, StringBuilder str, LinkedHashMap<String, Object> value)
       throws UnexpectedTypeException {
     LinkedHashMap<String, Object> valueMap = value;
 
@@ -149,7 +146,7 @@ public class SpecTreeToYamlStringConverter {
    * @param str the StringBuilder which we append to during the traversal
    * @param value the list of values to process
    */
-  private void handleListValues(int level, StringBuilder str, List<Object> value)
+  private static void handleListValues(int level, StringBuilder str, List<Object> value)
       throws UnexpectedTypeException {
     int listLevel = level + 1;
 
@@ -171,80 +168,11 @@ public class SpecTreeToYamlStringConverter {
   }
 
   /** Returns a string with {@code level} * {@code this.indent} spaces. */
-  private String spaces(int level) {
+  private static String spaces(int level) {
     StringBuilder str = new StringBuilder();
-    for (int i = 0; i < level * this.indent; i++) {
+    for (int i = 0; i < level * SPACES_TO_INDENT; i++) {
       str.append(" ");
     }
     return str.toString();
   }
-
-  //  public String convertSpecTreeToYamlString(LinkedHashMap<String, Object> yamlMap)
-  //      throws IOException {
-  //    //The representer allows us to ignore null properties, and to leave off the class
-  // definitions
-  ////    Representer representer = new Representer() {
-  ////      //ignore null properties
-  ////      @Override
-  ////      protected NodeTuple representJavaBeanProperty(Object javaBean, Property property, Object
-  // propertyValue, Tag customTag) {
-  ////        // if value of property is null, ignore it.
-  ////        if (propertyValue == null) {
-  ////          return null;
-  ////        }
-  ////        else {
-  ////          return super.representJavaBeanProperty(javaBean, property, propertyValue,
-  // customTag);
-  ////        }
-  ////      }
-  ////
-  ////      //Don't print the class definition
-  ////      @Override
-  ////      protected MappingNode representJavaBean(Set<Property> properties, Object javaBean) {
-  ////        if (!classTags.containsKey(javaBean.getClass())){
-  ////          addClassTag(javaBean.getClass(), Tag.MAP);
-  ////        }
-  ////
-  ////        return super.representJavaBean(properties, javaBean);
-  ////      }
-  ////    };
-  ////
-  //    DumperOptions options = new DumperOptions();
-  //    options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-  //
-  //    YAMLFactory yamlFactory = new YAMLFactory();
-  //
-  //    options.setIndent(4);
-  //    options.setIndicatorIndent(2);
-  //
-  //    StringWriter writer = new StringWriter();
-  //
-  //    Yaml yaml = new Yaml(options);
-  //    yaml.dump(yamlMap, writer);
-  //
-  //    return writer.toString();
-  ////
-  ////    Writer swriter = new StringWriter();
-  ////    yaml.dump(yamlMap, writer);
-  //
-  ////    YamlWriter writer = new YamlWriter(swriter);
-  ////    writer.getConfig().writeConfig.setIndentSize(2);
-  ////    writer.getConfig().writeConfig.setAutoAnchor(false);
-  //////    writer.getConfig().writeConfig.setWriteRootTags(false);
-  //////    writer.getConfig().writeConfig.setWriteDefaultValues(false);
-  ////    writer.getConfig().writeConfig.setKeepBeanPropertyOrder(true);
-  //////    writer.getConfig().writeConfig.setUseVerbatimTags(false);
-  //////    writer.getConfig().writeConfig.setWriteRootElementTags(false);
-  ////    writer.getConfig().writeConfig.setWriteClassname(YamlConfig.WriteClassName.NEVER);
-  //////    writer.getConfig().setClassTag("", LinkedHashMap.class);
-  //////    writer.getConfig().writeConfig.setWriteClassname(YamlConfig.WriteClassName.NEVER);
-  ////
-  ////
-  //////    writer.getConfig().writeConfig.setWriteRootTags(false);
-  //////    writer.getConfig().writeConfig.
-  ////    writer.write(yamlMap);
-  ////
-  ////
-  ////    return swriter.toString();
-  //  }
 }

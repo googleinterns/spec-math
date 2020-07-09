@@ -30,9 +30,7 @@ class SpecTreeToYamlStringConverterTest {
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/serializationSample.yaml");
 
-    var specTreeToYamlStringsConverter = new SpecTreeToYamlStringConverter();
-
-    assertThat(specTreeToYamlStringsConverter.convertSpecTreeToYamlString(map1))
+    assertThat(SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(map1))
         .isEqualTo(Files.readString(Path.of("src/test/resources/serializationSample.yaml")));
   }
 
@@ -42,10 +40,8 @@ class SpecTreeToYamlStringConverterTest {
 
     map1.put("key", null);
 
-    var specTreeToYamlStringsConverter = new SpecTreeToYamlStringConverter();
-
     assertThrows(
         UnexpectedTypeException.class,
-        () -> specTreeToYamlStringsConverter.convertSpecTreeToYamlString(map1));
+        () -> SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(map1));
   }
 }
