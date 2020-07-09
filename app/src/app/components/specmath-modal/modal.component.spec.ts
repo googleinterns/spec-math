@@ -61,6 +61,7 @@ describe('ModalComponent', () => {
       dialog = TestBed.inject(MatDialog);
       fixture = TestBed.createComponent(ModalComponent);
       modal = fixture.componentInstance;
+      dialog.open(ModalComponent);
     });
   }));
 
@@ -68,23 +69,26 @@ describe('ModalComponent', () => {
     expect(modal).toBeTruthy();
   });
 
-  describe('is opened', () => {
+  it('is opened', () => {
+    expect(queryElement(fixture, '.modal-container')).toBeTruthy();
+  });
+
+  it('is closed', () => {
+    const spy = spyOn(modal.dialogRef, 'close').and.callThrough();
+    const cancelButton = queryElement(fixture, '#modal-cancel-button').nativeElement;
+    cancelButton.click();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  describe('Step 1', () => {
     beforeEach(() => {
       dialog.open(ModalComponent);
       fixture.detectChanges();
-      expect(queryElement(fixture, '.modal-container')).toBeTruthy();
     });
 
     it('next button is disabled on step 1 when the new file name input is empty', () => {
       const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
       expect(nextButton.disabled).toBeTruthy();
-    });
-
-    it('is closed', () => {
-      const spy = spyOn(modal.dialogRef, 'close').and.callThrough();
-      const cancelButton = queryElement(fixture, '#modal-cancel-button').nativeElement;
-      cancelButton.click();
-      expect(spy).toHaveBeenCalled();
     });
   });
 });
