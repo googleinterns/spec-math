@@ -1,7 +1,24 @@
+/*
+Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/** Provides the ability to serialize Spec Trees represented as LinkedHashMaps into YAML strings */
 public class SpecTreeToYamlStringConverter {
 
   int indent;
@@ -22,7 +39,7 @@ public class SpecTreeToYamlStringConverter {
   }
 
   /**
-   * Helper function for serializing a spec tree represented as a {@code LinkedHashMap} to a YAML
+   * Helper function for Serializing a spec tree represented as a {@code LinkedHashMap} to a YAML
    * string.
    *
    * @param yamlMap a spec tree which is a LinkedHashMap with String keys and Object values
@@ -161,4 +178,73 @@ public class SpecTreeToYamlStringConverter {
     }
     return str.toString();
   }
+
+  //  public String convertSpecTreeToYamlString(LinkedHashMap<String, Object> yamlMap)
+  //      throws IOException {
+  //    //The representer allows us to ignore null properties, and to leave off the class
+  // definitions
+  ////    Representer representer = new Representer() {
+  ////      //ignore null properties
+  ////      @Override
+  ////      protected NodeTuple representJavaBeanProperty(Object javaBean, Property property, Object
+  // propertyValue, Tag customTag) {
+  ////        // if value of property is null, ignore it.
+  ////        if (propertyValue == null) {
+  ////          return null;
+  ////        }
+  ////        else {
+  ////          return super.representJavaBeanProperty(javaBean, property, propertyValue,
+  // customTag);
+  ////        }
+  ////      }
+  ////
+  ////      //Don't print the class definition
+  ////      @Override
+  ////      protected MappingNode representJavaBean(Set<Property> properties, Object javaBean) {
+  ////        if (!classTags.containsKey(javaBean.getClass())){
+  ////          addClassTag(javaBean.getClass(), Tag.MAP);
+  ////        }
+  ////
+  ////        return super.representJavaBean(properties, javaBean);
+  ////      }
+  ////    };
+  ////
+  //    DumperOptions options = new DumperOptions();
+  //    options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+  //
+  //    YAMLFactory yamlFactory = new YAMLFactory();
+  //
+  //    options.setIndent(4);
+  //    options.setIndicatorIndent(2);
+  //
+  //    StringWriter writer = new StringWriter();
+  //
+  //    Yaml yaml = new Yaml(options);
+  //    yaml.dump(yamlMap, writer);
+  //
+  //    return writer.toString();
+  ////
+  ////    Writer swriter = new StringWriter();
+  ////    yaml.dump(yamlMap, writer);
+  //
+  ////    YamlWriter writer = new YamlWriter(swriter);
+  ////    writer.getConfig().writeConfig.setIndentSize(2);
+  ////    writer.getConfig().writeConfig.setAutoAnchor(false);
+  //////    writer.getConfig().writeConfig.setWriteRootTags(false);
+  //////    writer.getConfig().writeConfig.setWriteDefaultValues(false);
+  ////    writer.getConfig().writeConfig.setKeepBeanPropertyOrder(true);
+  //////    writer.getConfig().writeConfig.setUseVerbatimTags(false);
+  //////    writer.getConfig().writeConfig.setWriteRootElementTags(false);
+  ////    writer.getConfig().writeConfig.setWriteClassname(YamlConfig.WriteClassName.NEVER);
+  //////    writer.getConfig().setClassTag("", LinkedHashMap.class);
+  //////    writer.getConfig().writeConfig.setWriteClassname(YamlConfig.WriteClassName.NEVER);
+  ////
+  ////
+  //////    writer.getConfig().writeConfig.setWriteRootTags(false);
+  //////    writer.getConfig().writeConfig.
+  ////    writer.write(yamlMap);
+  ////
+  ////
+  ////    return swriter.toString();
+  //  }
 }
