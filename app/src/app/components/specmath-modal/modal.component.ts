@@ -30,7 +30,7 @@ export class ModalComponent implements OnInit {
 
   fileNameFormControl = new FormControl('', [
     Validators.required,
-    Validators.pattern('[a-zA-Z0-9]*')
+    Validators.pattern('[a-zA-Z0-9_-]*')
   ]);
 
   ngOnInit() {

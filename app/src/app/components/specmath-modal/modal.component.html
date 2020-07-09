@@ -38,6 +38,9 @@ limitations under the License. -->
                 <mat-error *ngIf="fileNameFormControl.hasError('required')">
                   Naming your new spec file is required
                 </mat-error>
+                <mat-error *ngIf="fileNameFormControl.hasError('pattern')">
+                  The name can only contain alpha-numerical characters, underscores, and dashes
+                </mat-error>
               </mat-form-field>
             </form>
           </div>
@@ -45,8 +48,8 @@ limitations under the License. -->
             <button id="modal-step-1-back" mat-button matStepperPrevious
               class="modal-step-button-secondary">Back</button>
             <div matTooltipClass="modal-name-tooltip" matTooltip="You must name your new spec" matTooltipPosition="above"
-              [matTooltipDisabled]="newFileName !== ''">
-              <button id="modal-step-1-next" [disabled]="newFileName === ''" mat-button matStepperNext
+              [matTooltipDisabled]="!fileNameFormControl.invalid">
+              <button id="modal-step-1-next" [disabled]="fileNameFormControl.invalid" mat-button matStepperNext
                 class="modal-step-button-main">Next</button>
             </div>
           </div>

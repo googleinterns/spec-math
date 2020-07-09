@@ -37,5 +37,6 @@ body {
 }
 
 .mat-horizontal-content-container {
-  height: calc(100% - 16px);
+  padding: 0 !important;
+  height: calc(100%);
 }
