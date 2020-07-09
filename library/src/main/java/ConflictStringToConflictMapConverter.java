@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+/** Provides functions for deserializing representations of {@code Conflict} objects. */
 public class ConflictStringToConflictMapConverter {
 
   /**
