@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this spec except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -23,12 +23,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ModalComponent implements OnInit {
   currentStep: number;
-  newFileName: string;
+  newSpecName: string;
 
   constructor(public dialogRef: MatDialogRef<ModalComponent>) {
   }
 
-  fileNameFormControl = new FormControl('', [
+  specNameFormControl = new FormControl('', [
     Validators.required,
     Validators.pattern('[a-zA-Z0-9_-]*')
   ]);
@@ -46,7 +46,7 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.newFileName = '';
+    this.newSpecName = '';
     this.currentStep = 1;
   }
 }

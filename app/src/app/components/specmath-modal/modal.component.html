@@ -1,7 +1,7 @@
 <!-- Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
+you may not use this spec except in compliance with the License.
 You may obtain a copy of the License at
 
     https://www.apache.org/licenses/LICENSE-2.0
@@ -35,21 +35,21 @@ limitations under the License. -->
             <p class="mat-caption">
               Enter the name of the new spec
             </p>
-            <form class="file-name-form">
-              <mat-form-field class="file-name-field">
+            <form class="spec-name-form">
+              <mat-form-field class="spec-name-field">
                 <input
-                  class="file-name-input"
+                  class="spec-name-input"
                   type="text"
                   matInput
-                  [formControl]="fileNameFormControl"
-                  [(ngModel)]="newFileName"
-                  placeholder="File name"
+                  [formControl]="specNameFormControl"
+                  [(ngModel)]="newSpecName"
+                  placeholder="Spec name"
                 />
                 <span matSuffix>.yaml</span>
-                <mat-error *ngIf="fileNameFormControl.hasError('required')">
-                  Naming your new spec file is required
+                <mat-error *ngIf="specNameFormControl.hasError('required')">
+                  Naming your new spec spec is required
                 </mat-error>
-                <mat-error *ngIf="fileNameFormControl.hasError('pattern')">
+                <mat-error *ngIf="specNameFormControl.hasError('pattern')">
                   The name can only contain alpha-numerical characters,
                   underscores, and dashes
                 </mat-error>
@@ -69,12 +69,12 @@ limitations under the License. -->
             <div
               matTooltip="You must name your new spec"
               matTooltipPosition="above"
-              [matTooltipDisabled]="!fileNameFormControl.invalid"
+              [matTooltipDisabled]="!specNameFormControl.invalid"
             >
               <button
                 (click)="nextStep()"
                 id="modal-step-1-next"
-                [disabled]="fileNameFormControl.invalid"
+                [disabled]="specNameFormControl.invalid"
                 mat-button
                 matStepperNext
                 class="modal-step-button-main"
