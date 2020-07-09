@@ -74,7 +74,7 @@ describe('ModalComponent', () => {
     expect(queryElement(fixture, '.modal-container')).toBeTruthy();
   });
 
-  it('is closed', () => {
+  it('is closed when then cancel button is pressed', () => {
     const spy = spyOn(modal.dialogRef, 'close').and.callThrough();
     const cancelButton = queryElement(fixture, '#modal-cancel-button').nativeElement;
 

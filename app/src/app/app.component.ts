@@ -22,7 +22,7 @@ import { ModalComponent } from './components/specmath-modal/modal.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public dialog: MatDialog) {
+  constructor(readonly dialog: MatDialog) {
 
   }
 

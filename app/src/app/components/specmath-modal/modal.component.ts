@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit {
   maxSteps: number;
   minSteps: number;
 
-  constructor(dialogRef: MatDialogRef<ModalComponent>) {
+  constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
   }
 
