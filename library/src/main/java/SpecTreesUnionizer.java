@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-/**
- * Provides functions for performing union operations on spec trees represented as Maps.
- */
+/** Provides functions for performing union operations on spec trees represented as Maps. */
 public class SpecTreesUnionizer {
   /**
    * Performs a union on {@code map1} and {@code map2} and returns the result.
@@ -36,7 +34,7 @@ public class SpecTreesUnionizer {
    */
   static LinkedHashMap<String, Object> union(
       LinkedHashMap<String, Object> map1, LinkedHashMap<String, Object> map2)
-      throws UnionConflictException, UnexpectedDataException {
+      throws UnionConflictException, UnexpectedTypeException {
     UnionizerUnionParams unionizerUnionParams = UnionizerUnionParams.builder().build();
 
     return union(map1, map2, unionizerUnionParams);
@@ -57,7 +55,7 @@ public class SpecTreesUnionizer {
       LinkedHashMap<String, Object> map1,
       LinkedHashMap<String, Object> map2,
       UnionizerUnionParams unionizerUnionParams)
-      throws UnionConflictException, UnexpectedDataException {
+      throws UnionConflictException, UnexpectedTypeException {
     var conflicts = new ArrayList<Conflict>();
     LinkedHashMap<String, Object> mergedMap =
         union(
@@ -112,7 +110,7 @@ public class SpecTreesUnionizer {
    */
   static LinkedHashMap<String, Object> applyOverlay(
       LinkedHashMap<String, Object> defaults, LinkedHashMap<String, Object> map2)
-      throws UnexpectedDataException {
+      throws UnexpectedTypeException {
     return union(
         defaults,
         map2,
@@ -144,7 +142,7 @@ public class SpecTreesUnionizer {
       Stack<String> keypath,
       ArrayList<Conflict> conflicts,
       HashMap<String, Object> conflictResolutions)
-      throws UnexpectedDataException {
+      throws UnexpectedTypeException {
 
     for (Map.Entry<String, Object> entry : map2.entrySet()) {
       String key = entry.getKey();
@@ -175,7 +173,7 @@ public class SpecTreesUnionizer {
           } else {
             // Either an unexpected type was met, or one map had a different type (primitive, map,
             // list) as a value compared to the other.
-            throw new UnexpectedDataException("Unexpected Data During Union");
+            throw new UnexpectedTypeException("Unexpected Data During Union");
           }
         }
 
@@ -210,7 +208,7 @@ public class SpecTreesUnionizer {
       String key,
       Object valueMap2,
       Object valueMap1)
-      throws UnexpectedDataException {
+      throws UnexpectedTypeException {
     LinkedHashMap<String, Object> value1Map = ObjectCaster.castObjectToStringObjectMap(valueMap1);
     LinkedHashMap<String, Object> value2Map = ObjectCaster.castObjectToStringObjectMap(valueMap2);
     map1.put(

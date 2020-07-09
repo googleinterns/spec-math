@@ -34,7 +34,7 @@ class SpecTreesUnionizerTest {
 
   @Test
   void testUnionMapsWithoutConflicts()
-      throws FileNotFoundException, UnionConflictException, UnexpectedDataException {
+      throws FileNotFoundException, UnionConflictException, UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/noConflict1.yaml");
@@ -51,7 +51,7 @@ class SpecTreesUnionizerTest {
 
   @Test
   void testUnionMapsWithConflictResolutionsAndDefaults()
-      throws FileNotFoundException, UnionConflictException, UnexpectedDataException {
+      throws FileNotFoundException, UnionConflictException, UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/conflict1.yaml");
@@ -63,7 +63,7 @@ class SpecTreesUnionizerTest {
             "src/test/resources/conflictDefaults.yaml");
 
     HashMap<String, Object> conflictResolutions = new HashMap<>();
-    conflictResolutions.put("[paths, /pets, get, summary]", "CONFLICT RESOLVED");
+    conflictResolutions.put("[paths, /pets, get, summary]", "get the pets");
 
     UnionizerUnionParams unionizerUnionParams =
         UnionizerUnionParams.builder()
@@ -104,7 +104,7 @@ class SpecTreesUnionizerTest {
 
   @Test
   void testUnionMapsWithConflictsFixedByDefaults()
-      throws FileNotFoundException, UnionConflictException, UnexpectedDataException {
+      throws FileNotFoundException, UnionConflictException, UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/simplepetstore.yaml");
@@ -127,7 +127,7 @@ class SpecTreesUnionizerTest {
 
   @Test
   void testUnionMapsWithConflictsFixedByConflictResolutions()
-      throws FileNotFoundException, UnionConflictException, UnexpectedDataException {
+      throws FileNotFoundException, UnionConflictException, UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/conflict1.yaml");
@@ -136,7 +136,7 @@ class SpecTreesUnionizerTest {
             "src/test/resources/conflict2.yaml");
 
     HashMap<String, Object> conflictResolutions = new HashMap<>();
-    conflictResolutions.put("[paths, /pets, get, summary]", "CONFLICT RESOLVED");
+    conflictResolutions.put("[paths, /pets, get, summary]", "get the pets");
 
     UnionizerUnionParams unionizerUnionParams =
         UnionizerUnionParams.builder().conflictResolutions(conflictResolutions).build();
@@ -171,7 +171,7 @@ class SpecTreesUnionizerTest {
 
   @Test
   void testUnionMapsDoesNotApplyUnnecessaryConflictResolutions()
-      throws FileNotFoundException, UnionConflictException, UnexpectedDataException {
+      throws FileNotFoundException, UnionConflictException, UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/noConflict1.yaml");
@@ -205,11 +205,11 @@ class SpecTreesUnionizerTest {
     map1.put("samekey", new LinkedHashMap<String, Object>());
     map2.put("samekey", "not a map");
 
-    assertThrows(UnexpectedDataException.class, () -> SpecTreesUnionizer.union(map1, map2));
+    assertThrows(UnexpectedTypeException.class, () -> SpecTreesUnionizer.union(map1, map2));
   }
 
   @Test
-  void testApplyOverlayMaps() throws UnexpectedDataException, FileNotFoundException {
+  void testApplyOverlayMaps() throws UnexpectedTypeException, FileNotFoundException {
     LinkedHashMap<String, Object> specString =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/elgoogMarketing.yaml");
