@@ -26,6 +26,7 @@ export class ModalComponent implements OnInit {
   newSpecName: string;
 
   constructor(public dialogRef: MatDialogRef<ModalComponent>) {
+    dialogRef.disableClose = true;
   }
 
   specNameFormControl = new FormControl('', [

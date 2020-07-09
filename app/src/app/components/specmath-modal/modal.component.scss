@@ -28,10 +28,17 @@
   }
   
   &-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    &-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      height: 52px;
+
+      & h3 {
+        margin: 0;
+      }
+    }
   }
 
   &-controls {

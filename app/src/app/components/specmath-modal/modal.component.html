@@ -14,10 +14,15 @@ limitations under the License. -->
 
 <div class="modal-container">
   <mat-dialog-content>
-    <div class="modal-step-header">
-      <h3>
-        Merge specs <b class="step-indicator">{{ currentStep }}/4</b>
-      </h3>
+    <div class="modal-step-header-container">
+      <div class="modal-step-header-labels">
+        <h3>
+          Merge specs <b class="step-indicator">{{ currentStep }}/4</b>
+        </h3>
+        <p class="mat-caption">
+          {{newSpecName}}
+        </p>
+      </div>
       <button
         id="modal-cancel-button"
         mat-dialog-close
