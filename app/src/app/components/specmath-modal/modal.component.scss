@@ -49,7 +49,8 @@
 
   &-content {
     display: flex;
-    flex-direction: row;
+    margin: auto;
+    flex-direction: column;
     align-items: center;
 
     & p.mat-caption {
@@ -76,12 +77,6 @@
 .mat-dialog-content {
   height: 100%;
   width: 100%;
-}
-
-.modal-step-content {
-  display: flex;
-  margin: auto;
-  flex-direction: column;
 }
 
 .spec-name {
