@@ -209,7 +209,7 @@ class SpecTreesUnionizerTest {
   }
 
   @Test
-  void testApplyOverlayMaps() throws UnexpectedDataException {
+  void testApplyOverlayMaps() throws UnexpectedDataException, FileNotFoundException {
     LinkedHashMap<String, Object> specString =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/elgoogMarketing.yaml");
