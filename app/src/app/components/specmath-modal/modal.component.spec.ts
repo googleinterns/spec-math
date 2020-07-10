@@ -24,7 +24,6 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { exception } from 'console';
 
 const queryElement = (targetFixture: ComponentFixture<ModalComponent>, targetClass: string) => {
   return targetFixture.debugElement.query(By.css(targetClass));
