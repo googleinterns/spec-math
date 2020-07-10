@@ -101,6 +101,10 @@
 @media (max-width: 768px) {
   .modal-container {
     height: 80vh;
-    width: calc(100vw - 6rem);
+    width: calc(80vw - 4rem);
+  }
+
+  .mat-dialog-content {
+    max-height: 100%;
   }
 }
