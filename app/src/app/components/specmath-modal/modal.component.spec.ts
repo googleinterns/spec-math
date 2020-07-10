@@ -70,7 +70,6 @@ describe('ModalComponent', () => {
   });
 
   it('is opened', () => {
-    dialog.open(ModalComponent);
     expect(queryElement(fixture, '.modal-container')).toBeTruthy();
   });
 
@@ -83,7 +82,6 @@ describe('ModalComponent', () => {
   });
 
   it('next button is disabled on step 1 when the new file name input is empty', () => {
-    dialog.open(ModalComponent);
     fixture.detectChanges();
     const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
 
@@ -91,8 +89,8 @@ describe('ModalComponent', () => {
   });
 
   it('new file name form validity', () => {
+    fixture.detectChanges();
     const specNameField = modal.specNameFormControl;
-
     expect(specNameField.valid).toBeFalsy();
 
     specNameField.setValue('invalid input!');
@@ -106,7 +104,6 @@ describe('ModalComponent', () => {
   });
 
   it('calls nextStep() when the new file name is valid and the next button is clicked', () => {
-    dialog.open(ModalComponent);
     fixture.detectChanges();
     const specNameField = modal.specNameFormControl;
     const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
@@ -114,8 +111,18 @@ describe('ModalComponent', () => {
 
     specNameField.setValue('test_spec');
     fixture.detectChanges();
-    expect(nextButton.disabled).toBeFalsy();
+    nextButton.click();
+    expect(spy).toHaveBeenCalled();
+  });
 
+  it('calls submitName() when the new file name is valid and the next button is clicked', () => {
+    fixture.detectChanges();
+    const specNameField = modal.specNameFormControl;
+    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
+    const spy = spyOn(modal, 'submitName');
+
+    specNameField.setValue('test_spec');
+    fixture.detectChanges();
     nextButton.click();
     expect(spy).toHaveBeenCalled();
   });
