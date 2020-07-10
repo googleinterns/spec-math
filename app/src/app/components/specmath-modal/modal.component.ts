@@ -26,15 +26,11 @@ export class ModalComponent implements OnInit {
   currentStep: number;
   newSpecName: string;
   maxSteps: number;
+  specNameFormControl: FormControl;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
   }
-
-  specNameFormControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern('[a-zA-Z0-9_-]*')
-  ]);
 
   nextStep(): void {
     if (this.currentStep < this.maxSteps) {
@@ -48,10 +44,19 @@ export class ModalComponent implements OnInit {
     }
   }
 
+  submitName() {
+    this.newSpecName = this.specNameFormControl.value;
+  }
+
   ngOnInit() {
     this.newSpecName = '';
     this.currentStep = 1;
     this.maxSteps = 4;
     this.minSteps = 1;
+
+    this.specNameFormControl = new FormControl ('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z0-9_-]*')
+    ]);
   }
 }

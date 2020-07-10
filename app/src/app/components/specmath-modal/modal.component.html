@@ -47,7 +47,6 @@ limitations under the License. -->
                   type="text"
                   matInput
                   [formControl]="specNameFormControl"
-                  [(ngModel)]="newSpecName"
                   placeholder="Spec name"
                 />
                 <span matSuffix>.yaml</span>
@@ -77,7 +76,7 @@ limitations under the License. -->
               [matTooltipDisabled]="!specNameFormControl.invalid"
             >
               <button
-                (click)="nextStep()"
+                (click)="[nextStep(), submitName()]"
                 id="modal-step-1-next"
                 [disabled]="specNameFormControl.invalid"
                 mat-button
