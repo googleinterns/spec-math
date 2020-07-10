@@ -32,7 +32,7 @@ class ConflictStringToConflictMapConverterTest {
   }
 
   @Test
-  void testConvertEmptyConflictResolutionsString() throws IOException {
+  void convertConflictResolutionsStringToConflictMap_emptyConflictResolutions_returnsEmptyMap() throws IOException {
     HashMap<String, Object> expected = new HashMap<>();
 
     assertThat(
@@ -41,7 +41,7 @@ class ConflictStringToConflictMapConverterTest {
   }
 
   @Test
-  void testConvertConflictResolutionsString() throws IOException {
+  void convertConflictResolutionsStringToConflictMap_withConflictResolution_succeeds() throws IOException {
     HashMap<String, Object> expected = new HashMap<>();
     expected.put("[paths, /pets/{petId}, get, summary]", "get the specified pets");
 

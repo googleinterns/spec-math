@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 class SpecMathTest {
   @Test
-  void testUnionWithoutConflicts()
+  void union_withoutConflicts_succeeds()
       throws IOException, UnionConflictException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/noConflict1.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/noConflict2.yaml"));
@@ -36,7 +36,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testUnionWithConflictResolutionsAndDefaults()
+  void union_withConflictResolutionsAndDefaults_succeeds()
       throws IOException, UnionConflictException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/conflict1.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/conflict2.yaml"));
@@ -56,7 +56,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testUnionWithConflictsThrows() throws IOException {
+  void union_withConflicts_throws() throws IOException {
     String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/elgoogBilling.yaml"));
 
@@ -76,7 +76,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testUnionWithDefaults() throws IOException, UnionConflictException, UnexpectedTypeException {
+  void union_withDefaults_succeeds() throws IOException, UnionConflictException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/elgoogBilling.yaml"));
     String defaults = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
@@ -91,7 +91,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testUnionWithConflictsFixedByConflictResolutions()
+  void union_withConflictsFixedByConflictResolutions_succeeds()
       throws IOException, UnionConflictException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/conflict1.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/conflict2.yaml"));
@@ -110,7 +110,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testUnionWithConflictsNotFixedByInvalidConflictResolutions() throws IOException {
+  void union_withConflictsNotFixedByInvalidConflictResolutions_throws() throws IOException {
     String spec1String = Files.readString(Path.of("src/test/resources/conflict1.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/conflict2.yaml"));
 
@@ -125,7 +125,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testUnionDoesNotApplyUnnecessaryConflictResolutions()
+  void union_withUnnecessaryConflictResolutions_doesNotApplyThem()
       throws IOException, UnionConflictException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/noConflict1.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/noConflict2.yaml"));
@@ -144,7 +144,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testUnionEqualStringsEqualsOriginalString()
+  void union_withEqualStrings_returnsOriginalString()
       throws IOException, UnionConflictException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
@@ -155,7 +155,7 @@ class SpecMathTest {
   }
 
   @Test
-  void testApplyOverlay() throws IOException, UnexpectedTypeException {
+  void overlay_appliedToSpec_succeeds() throws IOException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
     String overlay = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
     String actual = SpecMath.applyOverlay(overlay, spec1String);
