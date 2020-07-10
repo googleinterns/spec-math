@@ -23,3 +23,20 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.mat-horizontal-stepper-header-container {
+  display: none !important;
+}
+
+.mat-horizontal-stepper-content {
+  height: 100%;
+}
+
+.mat-stepper-horizontal {
+  height: calc(100% - 52px);
+}
+
+.mat-horizontal-content-container {
+  padding: 0 !important;
+  height: 100%;
+}
