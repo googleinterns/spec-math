@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarModule } from './components/specmath-navbar/navbar.module';
 import { By } from '@angular/platform-browser';
+import { ModalModule } from './components/specmath-modal/modal.module';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -43,6 +44,7 @@ describe('AppComponent', () => {
         MatDividerModule,
         MatButtonModule,
         NavBarModule,
+        ModalModule
       ],
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(AppComponent);

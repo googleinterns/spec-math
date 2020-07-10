@@ -23,6 +23,7 @@ import { NavBarModule } from './components/specmath-navbar/navbar.module';
 
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { ModalModule } from './components/specmath-modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AppComponent } from './app.component';
     MatDividerModule,
     MatButtonModule,
     NavBarModule,
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]
