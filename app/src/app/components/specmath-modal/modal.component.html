@@ -17,10 +17,10 @@ limitations under the License. -->
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
         <h3>
-          Merge specs <b class="step-indicator">{{ currentStep }}/4</b>
+          Merge specs <b class="step-indicator">{{ currentStep }}/{{ maxSteps }}</b>
         </h3>
-        <p class="mat-caption">
-          {{newSpecName}}
+        <p *ngIf="currentStep > 1" class="mat-caption">
+          {{ newSpecName }}
         </p>
       </div>
       <button

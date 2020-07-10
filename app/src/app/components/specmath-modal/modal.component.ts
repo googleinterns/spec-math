@@ -22,10 +22,10 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
+  private minSteps: number;
   currentStep: number;
   newSpecName: string;
   maxSteps: number;
-  minSteps: number;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -52,6 +52,6 @@ export class ModalComponent implements OnInit {
     this.newSpecName = '';
     this.currentStep = 1;
     this.maxSteps = 4;
-    this.minSteps = 0;
+    this.minSteps = 1;
   }
 }
