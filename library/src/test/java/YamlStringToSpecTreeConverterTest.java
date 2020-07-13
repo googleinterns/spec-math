@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 class YamlStringToSpecTreeConverterTest {
   @Test
-  void testThrowFileNotFoundException() {
+  void convertYamlFileToSpecTree_withFakePath_throws() {
     assertThrows(
         FileNotFoundException.class,
         () ->
@@ -33,7 +33,7 @@ class YamlStringToSpecTreeConverterTest {
   }
 
   @Test
-  void testConvertYamlFileToMap() throws FileNotFoundException {
+  void convertYamlFileToSpecTree_withValidYamlFile_succeeds() throws FileNotFoundException {
     Map<String, Object> expected = new LinkedHashMap<>();
 
     Map<String, Object> license = new LinkedHashMap<>();
@@ -53,32 +53,9 @@ class YamlStringToSpecTreeConverterTest {
   }
 
   @Test
-  void testConvertEmptyStringToEmptyMap() {
+  void convertYamlFileToSpecTree_withEmptyString_returnsEmptyMap() {
     Map<String, Object> expected = new LinkedHashMap<>();
 
     assertThat(YamlStringToSpecTreeConverter.convertYamlStringToSpecTree("")).isEqualTo(expected);
-  }
-
-  @Test
-  void testConvertOrderFileToYaml() throws FileNotFoundException {
-    Map<String, Object> expected = new LinkedHashMap<>();
-
-    Map<String, Object> license = new LinkedHashMap<>();
-    license.put("name", "MIT");
-
-    Map<String, Object> paths = new LinkedHashMap<>();
-    Map<String, Object> pets = new LinkedHashMap<>();
-
-    pets.put("get", null);
-    paths.put("/pets", pets);
-
-    expected.put("paths", paths);
-    expected.put("openapi", null);
-    expected.put("info", null);
-
-    assertThat(
-            YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
-                "src/test/resources/order.yaml"))
-        .isEqualTo(expected);
   }
 }
