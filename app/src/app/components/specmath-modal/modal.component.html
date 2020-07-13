@@ -100,7 +100,11 @@ limitations under the License. -->
             <a href="#" class="mat-body-strong">
               Learn more
             </a>
-            <button mat-button class="defaults-file-button">
+            <button
+              (click)="defaults.click()"
+              mat-button
+              class="defaults-file-button"
+            >
               <mat-icon class="defaults-file-icon">note_add</mat-icon>
             </button>
             <div class="defaults-file-input-container">
@@ -112,7 +116,11 @@ limitations under the License. -->
                 (change)="handleFileInput('default', $event.target.files)"
               />
               <label for="defaults-file-input">
-                <button (click)="defaults.click()" mat-button class="modal-step-button-secondary">
+                <button
+                  (click)="defaults.click()"
+                  mat-button
+                  class="modal-step-button-secondary"
+                >
                   <mat-icon>file_upload</mat-icon>
                   SELECT FILE
                 </button>
