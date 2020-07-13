@@ -17,7 +17,8 @@ limitations under the License. -->
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
         <h3>
-          Merge specs <b class="step-indicator">{{ currentStep }}/{{ maxSteps }}</b>
+          Merge specs
+          <b class="step-indicator">{{ currentStep }}/{{ maxSteps }}</b>
         </h3>
         <p *ngIf="currentStep > 1" class="mat-caption">
           {{ newSpecName }}
@@ -91,14 +92,59 @@ limitations under the License. -->
         </div>
       </mat-step>
       <mat-step [optional]="true">
-        
+        <div class="modal-step-container">
+          <div class="modal-step-content">
+            <p class="mat-caption">
+              Select an optional defaults file
+            </p>
+            <!-- <div class="defaults-file-icon-container">
+              <mat-icon>note_add</mat-icon>
+            </div> -->
+            <button
+              mat-button
+              class="modal-step-button-primary"
+            >
+              <mat-icon>file_upload</mat-icon>
+            </button>
+            <div class="defaults-file-input-container">
+              <input class="defaults-file-upload-input" type="file" id="defaults-file-input" />
+              <label for="defaults-file-input">
+                <button
+                  mat-button
+                  class="modal-step-button-secondary"
+                >
+                  <mat-icon>file_upload</mat-icon>
+                  SELECT FILE
+                </button>
+              </label>
+            </div>
+          </div>
+          <div class="modal-step-controls-container">
+            <button
+              id="modal-step-2-back"
+              mat-button
+              matStepperPrevious
+              class="modal-step-button-secondary"
+              aria-label="Back button for step 2"
+              (click)="previousStep()"
+            >
+              Back
+            </button>
+            <button
+              id="modal-step-2-next"
+              mat-button
+              matStepperNext
+              class="modal-step-button-main"
+              aria-label="Next button for step 2"
+              (click)="nextStep()"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </mat-step>
-      <mat-step>
-        
-      </mat-step>
-      <mat-step>
-        
-      </mat-step>
+      <mat-step> </mat-step>
+      <mat-step> </mat-step>
     </mat-horizontal-stepper>
   </mat-dialog-content>
 </div>
