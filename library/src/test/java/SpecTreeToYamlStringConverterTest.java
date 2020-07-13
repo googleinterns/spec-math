@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 class SpecTreeToYamlStringConverterTest {
   @Test
-  void testConvertMapToYamlString() throws IOException, UnexpectedTypeException {
+  void convertSpecTreeToYamlString_withMap_succeeds() throws IOException, UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/serializationSample.yaml");
@@ -35,7 +35,7 @@ class SpecTreeToYamlStringConverterTest {
   }
 
   @Test
-  void testSerializeMapWithUnexpectedDataThrows() {
+  void convertSpecTreeToYamlString_withInvalidData_succeeds() {
     LinkedHashMap<String, Object> map1 = new LinkedHashMap<>();
 
     map1.put("key", null);
