@@ -102,6 +102,18 @@
   &-upload-input {
     display: none;
   }
+
+  &-icon {
+    
+  }
+  
+  &-button {
+    height: 120px;
+    width: 120px;
+    color: #5F6368;
+    background-color: #BDC1C6;
+    border-radius: 100%;
+  }
 }
 
 @media (max-width: 768px) {
