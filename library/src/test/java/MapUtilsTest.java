@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 class MapUtilsTest {
   @Test
-  void testGetKeypathsFromMap() throws FileNotFoundException {
+  void getKeypathsFromMap_succeeds() throws FileNotFoundException {
     Map<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree("src/test/resources/metadata.yaml");
     HashSet<String> actual = new HashSet<>();

@@ -21,8 +21,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class ListUtilsTest {
+
+//  union_withoutConflicts_succeeds
   @Test
-  void testUnionTwoListsWithoutDuplicates() {
+  void listUnion_withoutDuplicates_succeeds() {
     List<Object> list1 = new ArrayList<>();
     List<Object> list2 = new ArrayList<>();
 
@@ -37,7 +39,7 @@ class ListUtilsTest {
   }
 
   @Test
-  void testUnionTwoListsWithDuplicates() {
+  void listUnion_withDuplicates_doesNotRepeatElements() {
     List<Object> list1 = new ArrayList<>();
     List<Object> list2 = new ArrayList<>();
 

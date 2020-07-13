@@ -24,13 +24,13 @@ import org.junit.jupiter.api.Test;
 class TypeCheckerTest {
 
   @Test
-  void testObjectIsLinkedHashMap() {
+  void isObjectMap_withLinkedHashMap_returnsTrue() {
     Object map = new LinkedHashMap<String, Object>();
     assertThat(TypeChecker.isObjectMap(map)).isTrue();
   }
 
   @Test
-  void testObjectIsNotLinkedHashMap() {
+  void isObjectMap_withHashMap_returnsFalse() {
     Object map = new HashMap<>();
     Object notAMap = "notAMap";
     assertThat(TypeChecker.isObjectMap(map)).isFalse();
@@ -38,19 +38,19 @@ class TypeCheckerTest {
   }
 
   @Test
-  void testObjectIsList() {
+  void isObjectList_withArrayList_returnsTrue() {
     Object list = new ArrayList<Object>();
     assertThat(TypeChecker.isObjectList(list)).isTrue();
   }
 
   @Test
-  void testObjectIsNotList() {
+  void isObjectList_withString_returnsTrue() {
     Object notAList = "notAList";
     assertThat(TypeChecker.isObjectList(notAList)).isFalse();
   }
 
   @Test
-  void testObjectIsPrimitiveObject() {
+  void isObjectPrimitive_withPrimitives_returnsTrue() {
     Object str = "str";
     Object integer = 5;
     Object doub = 5.0;
@@ -63,7 +63,7 @@ class TypeCheckerTest {
   }
 
   @Test
-  void testObjectIsNotPrimitiveObject() {
+  void isObjectPrimitive_withoutPrimitives_returnsTrue() {
     Object list = new ArrayList<Object>();
     Object map = new LinkedHashMap<String, Object>();
 

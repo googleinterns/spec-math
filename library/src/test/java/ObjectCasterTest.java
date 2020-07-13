@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 class ObjectCasterTest {
   @Test
-  void testWrongTypeThrows() {
+  void castObjectToStringObjectMap_withIncorrectType_throws() {
     HashMap<String, Object> badMap = new HashMap<>();
 
     assertThrows(ClassCastException.class, () -> ObjectCaster.castObjectToStringObjectMap(badMap));
@@ -33,14 +33,14 @@ class ObjectCasterTest {
   }
 
   @Test
-  void testCorrectTypeDoesNotThrowWhenCastingMaps() {
+  void castObjectToStringObjectMap_withLinkedHashMap_doesNotThrow() {
     LinkedHashMap<String, Object> map = new LinkedHashMap<>();
 
     assertDoesNotThrow(() -> ObjectCaster.castObjectToStringObjectMap(map));
   }
 
   @Test
-  void testCorrectTypeDoesNotThrowWhenCastingLists() {
+  void castObjectToListOfObjects_withArrayList_doesNotThrow() {
     List<Object> list = new ArrayList<>();
 
     assertDoesNotThrow(() -> ObjectCaster.castObjectToListOfObjects(list));
