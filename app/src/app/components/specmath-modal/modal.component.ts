@@ -16,6 +16,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
+type FileUpload = 'default' | 'spec';
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -27,6 +29,7 @@ export class ModalComponent implements OnInit {
   newSpecName: string;
   maxSteps: number;
   specNameFormControl: FormControl;
+  defaultsFileUpload: File;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -46,6 +49,13 @@ export class ModalComponent implements OnInit {
 
   submitName() {
     this.newSpecName = this.specNameFormControl.value;
+  }
+
+  handleFileInput(type: FileUpload, files: FileList) {
+    if (type === 'default') {
+      this.defaultsFileUpload = files[0];
+      console.log(this.defaultsFileUpload);
+    }
   }
 
   ngOnInit() {
