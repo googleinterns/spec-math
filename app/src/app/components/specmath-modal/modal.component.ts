@@ -54,7 +54,6 @@ export class ModalComponent implements OnInit {
   handleFileInput(type: FileUpload, files: FileList) {
     if (type === 'default') {
       this.defaultsFileUpload = files[0];
-      console.log(this.defaultsFileUpload);
     }
   }
 
