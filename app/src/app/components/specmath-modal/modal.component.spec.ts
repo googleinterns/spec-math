@@ -136,6 +136,7 @@ describe('ModalComponent', () => {
     nextButton.click();
 
     modal.defaultsFile = new File(['sample'], 'sample.yaml');
+    fixture.detectChanges();
     const defaultsFileChip = queryElement(fixture, '#defaults-file-chip').nativeElement;
     expect(defaultsFileChip).toBeTruthy();
   });
