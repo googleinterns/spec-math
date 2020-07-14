@@ -40,6 +40,10 @@ export class ModalComponent implements OnInit {
     if (this.currentStep < this.maxSteps) {
       this.currentStep++;
       stepper.next();
+
+      if (this.currentStep === 2) {
+        this.newSpecName = this.specNameFormControl.value;
+      }
     }
   }
 
@@ -48,10 +52,6 @@ export class ModalComponent implements OnInit {
       this.currentStep--;
       stepper.previous();
     }
-  }
-
-  submitName() {
-    this.newSpecName = this.specNameFormControl.value;
   }
 
   handleFileInput(type: FileUpload, files: FileList) {
