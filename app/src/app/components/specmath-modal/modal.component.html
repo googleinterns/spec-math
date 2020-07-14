@@ -38,9 +38,11 @@ limitations under the License. -->
       <mat-step>
         <div class="modal-step-container">
           <div class="modal-step-content">
-            <p class="mat-caption">
-              Enter the name of the new spec
-            </p>
+            <div class="modal-step-instructions">
+              <p class="mat-body-2">
+                Enter the name of the new spec
+              </p>
+            </div>
             <form class="spec-name-form">
               <mat-form-field class="spec-name-field">
                 <input
@@ -85,24 +87,32 @@ limitations under the License. -->
       <mat-step [optional]="true">
         <div class="modal-step-container">
           <div class="modal-step-content">
-            <p class="mat-caption">
-              Select an optional defaults file
-            </p>
-            <a href="#" class="mat-body-strong">
-              Learn more
-            </a>
-            <button
-              (click)="defaults.click()"
-              mat-button
-              class="defaults-file-button"
-            >
-              <mat-icon class="defaults-file-icon">note_add</mat-icon>
-            </button>
+            <div class="modal-step-instructions">
+              <p class="mat-body-2">
+                Select an optional defaults file
+              </p>
+              <a href="#" class="mat-body-2">
+                Learn more
+              </a>
+            </div>
+            <div *ngIf="!defaultsFile">
+              <button
+                (click)="defaults.click()"
+                mat-button
+                class="defaults-file-button"
+              >
+                <mat-icon class="defaults-file-icon">note_add</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="defaultsFile">
+              
+            </div>
             <div class="defaults-file-input-container">
               <input
                 #defaults
                 class="defaults-file-upload-input"
                 type="file"
+                accept=".yaml"
                 id="defaults-file-input"
                 (change)="handleFileInput('default', $event.target.files)"
               />

@@ -29,7 +29,7 @@ export class ModalComponent implements OnInit {
   newSpecName: string;
   maxSteps: number;
   specNameFormControl: FormControl;
-  defaultsFileUpload: File;
+  defaultsFile: File;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -53,7 +53,7 @@ export class ModalComponent implements OnInit {
 
   handleFileInput(type: FileUpload, files: FileList) {
     if (type === 'default') {
-      this.defaultsFileUpload = files[0];
+      this.defaultsFile = files[0];
     }
   }
 
@@ -62,6 +62,7 @@ export class ModalComponent implements OnInit {
     this.currentStep = 1;
     this.maxSteps = 4;
     this.minSteps = 1;
+    this.defaultsFile = null;
 
     this.specNameFormControl = new FormControl ('', [
       Validators.required,
