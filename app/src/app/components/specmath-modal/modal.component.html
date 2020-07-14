@@ -63,7 +63,7 @@ limitations under the License. -->
               </mat-form-field>
             </form>
           </div>
-          <div class="modal-step-controls-container">
+          <!-- <div class="modal-step-controls-container">
             <div
               matTooltip="You must name your new spec"
               matTooltipPosition="above"
@@ -81,7 +81,7 @@ limitations under the License. -->
                 Next
               </button>
             </div>
-          </div>
+          </div> -->
         </div>
       </mat-step>
       <mat-step [optional]="true">
@@ -143,7 +143,7 @@ limitations under the License. -->
               </label>
             </div>
           </div>
-          <div class="modal-step-controls-container">
+          <!-- <div class="modal-step-controls-container">
             <button
               id="modal-step-2-back"
               mat-button
@@ -164,11 +164,38 @@ limitations under the License. -->
             >
               Next
             </button>
-          </div>
+          </div> -->
         </div>
       </mat-step>
       <mat-step> </mat-step>
       <mat-step> </mat-step>
     </mat-horizontal-stepper>
+    <div class="modal-step-controls-container">
+      <button
+        id="modal-button-back"
+        mat-button
+        class="modal-step-button-secondary"
+        aria-label="Back button for step 2"
+        (click)="previousStep(stepper)"
+      >
+        Back
+      </button>
+      <div
+        matTooltip="You must name your new spec"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="!specNameFormControl.invalid"
+      >
+        <button
+          id="modal-button-next"
+          mat-button
+          class="modal-step-button-main"
+          aria-label="Next button for step 2"
+          (click)="nextStep(stepper)"
+          [disabled]="specNameFormControl.invalid && currentStep === 1"
+        >
+          Next
+        </button>
+      </div>
+    </div>
   </mat-dialog-content>
 </div>

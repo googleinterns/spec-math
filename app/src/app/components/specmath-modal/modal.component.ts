@@ -15,6 +15,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 
 type FileUpload = 'default' | 'spec';
 
@@ -35,15 +36,17 @@ export class ModalComponent implements OnInit {
     dialogRef.disableClose = true;
   }
 
-  nextStep(): void {
+  nextStep(stepper: MatStepper): void {
     if (this.currentStep < this.maxSteps) {
       this.currentStep++;
+      stepper.next();
     }
   }
 
-  previousStep(): void {
+  previousStep(stepper: MatStepper): void {
     if (this.currentStep > this.minSteps) {
       this.currentStep--;
+      stepper.previous();
     }
   }
 
