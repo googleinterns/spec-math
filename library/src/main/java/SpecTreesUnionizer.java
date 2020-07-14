@@ -25,42 +25,42 @@ import java.util.Stack;
 /** Provides functions for performing union operations on spec trees represented as Maps. */
 public class SpecTreesUnionizer {
   /**
-   * Performs a union on {@code map1} and {@code map2} and returns the result.
+   * Performs a union on {@code mapToMergeInto} and {@code mapToMerge} and returns the result.
    *
-   * @param map1 the map which {@code map2} is merged into. {@code map1} will contain the result of
-   *     the union.
-   * @param map2 the map to merge into {@code map1}
-   * @return the result of a union on {@code map1} and {@code map2}
+   * @param mapToMergeInto the map which {@code mapToMerge} is merged into. {@code mapToMergeInto}
+   *     will contain the result of the union.
+   * @param mapToMerge the map to merge into {@code mapToMergeInto}
+   * @return the result of a union on {@code mapToMergeInto} and {@code mapToMerge}
    */
   static LinkedHashMap<String, Object> union(
-      LinkedHashMap<String, Object> map1, LinkedHashMap<String, Object> map2)
+      LinkedHashMap<String, Object> mapToMergeInto, LinkedHashMap<String, Object> mapToMerge)
       throws UnionConflictException, UnexpectedTypeException {
     UnionizerUnionParams unionizerUnionParams = UnionizerUnionParams.builder().build();
 
-    return union(map1, map2, unionizerUnionParams);
+    return union(mapToMergeInto, mapToMerge, unionizerUnionParams);
   }
 
   /**
-   * Performs a union on {@code map1} and {@code map2} with the given {@code unionizerUnionParams}
-   * and returns the result.
+   * Performs a union on {@code mapToMergeInto} and {@code mapToMerge} with the given {@code
+   * unionizerUnionParams} and returns the result.
    *
-   * @param map1 the map which {@code map2} is merged into. {@code map1} will contain the result of
-   *     the union.
-   * @param map2 the map to merge into {@code map1}
+   * @param mapToMergeInto the map which {@code mapToMerge} is merged into. {@code mapToMergeInto}
+   *     will contain the result of the union.
+   * @param mapToMerge the map to merge into {@code mapToMergeInto}
    * @param unionizerUnionParams a set of special options which can be applied during the union
-   * @return the result of a union on {@code map1} and {@code map2} with options from {@code
-   *     unionizerUnionParams} applied
+   * @return the result of a union on {@code mapToMergeInto} and {@code mapToMerge} with options
+   *     from {@code unionizerUnionParams} applied
    */
   static LinkedHashMap<String, Object> union(
-      LinkedHashMap<String, Object> map1,
-      LinkedHashMap<String, Object> map2,
+      LinkedHashMap<String, Object> mapToMergeInto,
+      LinkedHashMap<String, Object> mapToMerge,
       UnionizerUnionParams unionizerUnionParams)
       throws UnionConflictException, UnexpectedTypeException {
     var conflicts = new ArrayList<Conflict>();
     LinkedHashMap<String, Object> mergedMap =
         union(
-            map1,
-            map2,
+            mapToMergeInto,
+            mapToMerge,
             false,
             new Stack<String>(),
             conflicts,
@@ -99,21 +99,22 @@ public class SpecTreesUnionizer {
   }
 
   /**
-   * Performs a union on {@code defaults} and {@code map2} and returns the result. Conflicts are
-   * resolved by using the {@code defaults} map as priority.
+   * Performs a union on {@code defaults} and {@code mapToOverlay} and returns the result. Conflicts
+   * are resolved by using the {@code defaults} map as priority.
    *
-   * @param defaults the map which {@code map2} is merged into. {@code defaults} will contain the
-   *     result of the union and will take priority over {@code map2} in the case of conflicts.
-   * @param map2 the map to merge into {@code defaults}
-   * @return the result of a union on {@code defaults} and {@code map2}, where conflicts are
+   * @param defaults the map which {@code mapToOverlay} is merged into. {@code defaults} will
+   *     contain the result of the union and will take priority over {@code mapToOverlay} in the
+   *     case of conflicts.
+   * @param mapToOverlay the map to merge into {@code defaults}
+   * @return the result of a union on {@code defaults} and {@code mapToOverlay}, where conflicts are
    *     resolved by using the {@code defaults} map as priority.
    */
   static LinkedHashMap<String, Object> applyOverlay(
-      LinkedHashMap<String, Object> defaults, LinkedHashMap<String, Object> map2)
+      LinkedHashMap<String, Object> defaults, LinkedHashMap<String, Object> mapToOverlay)
       throws UnexpectedTypeException {
     return union(
         defaults,
-        map2,
+        mapToOverlay,
         true,
         new Stack<String>(),
         new ArrayList<Conflict>(),
@@ -124,94 +125,119 @@ public class SpecTreesUnionizer {
    * Union function with all possible options. Other functions provide a nicer interface for
    * different use cases of union, and ultimately call this function.
    *
-   * @param map1 map 1/2 to merge. This map is special because it can take priority in the union
-   *     based on {@code map1IsDefault} flag
-   * @param map2 map 2/2 to merge
-   * @param map1IsDefault if true, map1 will take priority over map2 in case of different leaf
-   *     values, and no conflict will be reported
+   * @param mapToMergeInto map 1/2 to merge. This map is special because it can take priority in the
+   *     union based on {@code mapToMergeIntoIsDefault} flag
+   * @param mapToMerge map 2/2 to merge
+   * @param mapToMergeIntoIsDefault if true, mapToMergeInto will take priority over mapToMerge in
+   *     case of different leaf values, and no conflict will be reported
    * @param keypath the key path which the leaf nodes belong to in the current iteration of the
    *     recursive frame
    * @param conflicts appended to if there is an unresolvable conflict
    * @param conflictResolutions a map which can provide conflict resolutions based on keypaths
-   * @return the result of union on {@code map1} and {@code map2}
+   * @return the result of union on {@code mapToMergeInto} and {@code mapToMerge}
    */
   private static LinkedHashMap<String, Object> union(
-      LinkedHashMap<String, Object> map1,
-      LinkedHashMap<String, Object> map2,
-      boolean map1IsDefault,
+      LinkedHashMap<String, Object> mapToMergeInto,
+      LinkedHashMap<String, Object> mapToMerge,
+      boolean mapToMergeIntoIsDefault,
       Stack<String> keypath,
       ArrayList<Conflict> conflicts,
       HashMap<String, Object> conflictResolutions)
       throws UnexpectedTypeException {
 
-    for (Map.Entry<String, Object> entry : map2.entrySet()) {
-      String key = entry.getKey();
-      Object value2 = entry.getValue();
+    for (Map.Entry<String, Object> entry : mapToMerge.entrySet()) {
+      String keyOfMapToMerge = entry.getKey();
+      Object valueOfMapToMerge = entry.getValue();
 
-      keypath.push(key);
+      keypath.push(keyOfMapToMerge);
 
-      if (map1.containsKey(entry.getKey())) {
-        Object value1 = map1.get(key);
-
-        if (!value1.equals(value2)) {
-          if (TypeChecker.isObjectMap(value1) && TypeChecker.isObjectMap((value2))) {
-            // We have two maps which contain the same key, add the key and process maps further.
-            processUnequalSubtrees(
-                map1, map1IsDefault, keypath, conflicts, conflictResolutions, key, value2, value1);
-          } else if (TypeChecker.isObjectList(value1)
-              && TypeChecker.isObjectList(value2)
-              && !map1IsDefault) {
-            List<Object> output =
-                ListUtils.listUnion(
-                    ObjectCaster.castObjectToListOfObjects(value1),
-                    ObjectCaster.castObjectToListOfObjects(value2));
-            map1.put(key, output);
-          } else if (TypeChecker.isObjectPrimitive(value1)
-              && TypeChecker.isObjectPrimitive(value2)) {
-            processUnequalLeafNodes(
-                map1, key, value1, value2, map1IsDefault, keypath, conflicts, conflictResolutions);
-          } else {
-            // Either an unexpected type was met, or one map had a different type (primitive, map,
-            // list) as a value compared to the other.
-            throw new UnexpectedTypeException("Unexpected Data During Union");
-          }
-        }
+      if (mapToMergeInto.containsKey(keyOfMapToMerge)) {
+        processSubtreesWithSameKey(mapToMergeInto, mapToMergeIntoIsDefault, keypath, conflicts,
+            conflictResolutions, keyOfMapToMerge, valueOfMapToMerge);
 
       } else {
-        // map2 contains a key which map1 does not have, so just add the entire subtree / leaf node.
-        map1.put(key, value2);
+        // mapToMerge contains a key which mapToMergeInto does not have, so just add the entire
+        // subtree / leaf node.
+        mapToMergeInto.put(keyOfMapToMerge, valueOfMapToMerge);
       }
 
       // Backtrack on the keypath.
       keypath.pop();
     }
 
-    return map1;
+    return mapToMergeInto;
+  }
+
+  private static void processSubtreesWithSameKey(LinkedHashMap<String, Object> mapToMergeInto,
+      boolean mapToMergeIntoIsDefault, Stack<String> keypath, ArrayList<Conflict> conflicts,
+      HashMap<String, Object> conflictResolutions, String key, Object valueOfMapToMerge)
+      throws UnexpectedTypeException {
+    Object value1 = mapToMergeInto.get(key);
+
+    if (!value1.equals(valueOfMapToMerge)) {
+      if (TypeChecker.isObjectMap(value1) && TypeChecker.isObjectMap((valueOfMapToMerge))) {
+        // We have two maps which contain the same key, add the key and process maps further.
+        processUnequalSubtrees(
+            mapToMergeInto,
+            mapToMergeIntoIsDefault,
+            keypath,
+            conflicts,
+            conflictResolutions,
+            key,
+            valueOfMapToMerge,
+            value1);
+      } else if (TypeChecker.isObjectList(value1)
+          && TypeChecker.isObjectList(valueOfMapToMerge)
+          && !mapToMergeIntoIsDefault) {
+        List<Object> output =
+            ListUtils.listUnion(
+                ObjectCaster.castObjectToListOfObjects(value1),
+                ObjectCaster.castObjectToListOfObjects(valueOfMapToMerge));
+        mapToMergeInto.put(key, output);
+      } else if (TypeChecker.isObjectPrimitive(value1)
+          && TypeChecker.isObjectPrimitive(valueOfMapToMerge)) {
+        processUnequalLeafNodes(
+            mapToMergeInto,
+            key,
+            value1,
+            valueOfMapToMerge,
+            mapToMergeIntoIsDefault,
+            keypath,
+            conflicts,
+            conflictResolutions);
+      } else {
+        // Either an unexpected type was met, or one map had a different type (primitive, map,
+        // list) as a value compared to the other.
+        throw new UnexpectedTypeException("Unexpected Data During Union");
+      }
+    }
   }
 
   /**
    * Used by the union function when two subtrees are different. We have two maps which contain the
    * same key, add the key and process maps further.
    *
-   * @param map1 the output map
+   * @param mapToMergeInto the output map
    * @param keypath the keypath to the current node
    * @param key the key shared by the two subtrees
-   * @param valueMap2 subtree 2, to be processed further
-   * @param valueMap1 subtree 1, to be processed further
+   * @param valueMapToMerge subtree 2, to be processed further
+   * @param valueMapToMergeInto subtree 1, to be processed further
    */
   private static void processUnequalSubtrees(
-      LinkedHashMap<String, Object> map1,
+      LinkedHashMap<String, Object> mapToMergeInto,
       boolean map1IsDefault,
       Stack<String> keypath,
       ArrayList<Conflict> conflicts,
       HashMap<String, Object> conflictResolutions,
       String key,
-      Object valueMap2,
-      Object valueMap1)
+      Object valueMapToMerge,
+      Object valueMapToMergeInto)
       throws UnexpectedTypeException {
-    LinkedHashMap<String, Object> value1Map = ObjectCaster.castObjectToStringObjectMap(valueMap1);
-    LinkedHashMap<String, Object> value2Map = ObjectCaster.castObjectToStringObjectMap(valueMap2);
-    map1.put(
+    LinkedHashMap<String, Object> value1Map = ObjectCaster.castObjectToStringObjectMap(
+        valueMapToMergeInto);
+    LinkedHashMap<String, Object> value2Map = ObjectCaster.castObjectToStringObjectMap(
+        valueMapToMerge);
+    mapToMergeInto.put(
         key, union(value1Map, value2Map, map1IsDefault, keypath, conflicts, conflictResolutions));
   }
 
@@ -221,7 +247,7 @@ public class SpecTreesUnionizer {
    * conflictResolutions} that matches the {@code keypath} of the current nodes. In the case of a
    * conflict, add it to the {@code conflictResolutions} array.
    *
-   * @param map1 the output map, which may be added to
+   * @param mapToMergeInto the output map, which may be added to
    * @param key the key which both leaf nodes belong to
    * @param value1 the first value to consider
    * @param value2 the second value to consider. If it is different from value2 and cannot be
@@ -233,7 +259,7 @@ public class SpecTreesUnionizer {
    * @param conflictResolutions a map which can provide conflict resolutions based on keypaths
    */
   private static void processUnequalLeafNodes(
-      LinkedHashMap<String, Object> map1,
+      LinkedHashMap<String, Object> mapToMergeInto,
       String key,
       Object value1,
       Object value2,
@@ -246,7 +272,7 @@ public class SpecTreesUnionizer {
       String keypathString = keypath.toString();
       if (conflictResolutions.containsKey(keypathString)) {
         // can be resolved by a conflictResolution
-        map1.put(key, conflictResolutions.get(keypathString));
+        mapToMergeInto.put(key, conflictResolutions.get(keypathString));
       } else {
         Conflict conflict = new Conflict(keypathString, value1, value2);
         conflicts.add(conflict);
