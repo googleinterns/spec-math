@@ -20,7 +20,7 @@ limitations under the License. -->
           Merge specs
           <b class="step-indicator">{{ currentStep }}/{{ maxSteps }}</b>
         </h3>
-        <p *ngIf="currentStep > 1" class="mat-caption">
+        <p *ngIf="currentStep > minSteps" class="mat-caption">
           {{ newFileName }}
         </p>
       </div>

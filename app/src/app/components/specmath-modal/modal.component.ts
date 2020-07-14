@@ -26,7 +26,7 @@ type FileUpload = 'default' | 'spec';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  private minSteps: number;
+  minSteps: number;
   currentStep: number;
   step1Options?: Step1Options;
   maxSteps: number;
