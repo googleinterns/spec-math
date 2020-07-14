@@ -27,7 +27,8 @@ import { NavBarComponent } from './components/specmath-navbar/navbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,7 @@ import { NavBarComponent } from './components/specmath-navbar/navbar.component';
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-    ModalModule
+    ModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent, NavBarComponent]
