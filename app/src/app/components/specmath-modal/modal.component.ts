@@ -28,13 +28,20 @@ type FileUpload = 'default' | 'spec';
 export class ModalComponent implements OnInit {
   private minSteps: number;
   currentStep: number;
-  newSpecName: string;
+  step1Options?: Step1Options;
   maxSteps: number;
-  specNameFormControl: FormControl;
   defaultsFile: File;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
+  }
+
+  get newFileName(): string {
+    if (!this.step1Options) {
+      return '';
+    }
+
+    return this.step1Options.newFileName;
   }
 
   nextStep(stepper: MatStepper): void {
@@ -51,8 +58,8 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  handleStep1Options({ newFileName }: Step1Options) {
-    this.newSpecName = newFileName;
+  handleStep1Options(step1Options: Step1Options) {
+    this.step1Options = step1Options;
   }
 
   handleFileInput(type: FileUpload, files: FileList) {
@@ -65,16 +72,18 @@ export class ModalComponent implements OnInit {
     this.defaultsFile = null;
   }
 
+  specNameValid(): boolean {
+    if (!this.step1Options) {
+      return false;
+    }
+
+    return this.step1Options.valid;
+  }
+
   ngOnInit() {
-    this.newSpecName = '';
     this.currentStep = 1;
     this.maxSteps = 4;
     this.minSteps = 1;
     this.defaultsFile = null;
-
-    this.specNameFormControl = new FormControl ('', [
-      Validators.required,
-      Validators.pattern('[a-zA-Z0-9_-]*')
-    ]);
   }
 }

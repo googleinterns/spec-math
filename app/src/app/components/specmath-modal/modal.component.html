@@ -21,7 +21,7 @@ limitations under the License. -->
           <b class="step-indicator">{{ currentStep }}/{{ maxSteps }}</b>
         </h3>
         <p *ngIf="currentStep > 1" class="mat-caption">
-          {{ newSpecName }}
+          {{ newFileName }}
         </p>
       </div>
       <button
@@ -115,7 +115,7 @@ limitations under the License. -->
       <div
         matTooltip="You must name your new spec"
         matTooltipPosition="above"
-        [matTooltipDisabled]="!specNameFormControl.invalid"
+        [matTooltipDisabled]="specNameValid()"
       >
         <button
           id="modal-button-next"
@@ -123,7 +123,7 @@ limitations under the License. -->
           class="modal-step-button-main"
           aria-label="Next button for step 2"
           (click)="nextStep(stepper)"
-          [disabled]="specNameFormControl.invalid && currentStep === 1"
+          [disabled]="!specNameValid() && currentStep === 1"
         >
           Next
         </button>

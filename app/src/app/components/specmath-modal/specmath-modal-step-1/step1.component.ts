@@ -25,6 +25,7 @@ export class Step1Component implements OnInit  {
   specNameFormControl: FormControl;
   step1Options: Step1Options = {
     newFileName: '',
+    valid: false,
   };
 
   @Output() options: EventEmitter<Step1Options> = new EventEmitter();
@@ -41,6 +42,7 @@ export class Step1Component implements OnInit  {
 
     this.specNameFormControl.valueChanges.subscribe(input => {
       this.step1Options.newFileName = input;
+      this.step1Options.valid = this.specNameFormControl.valid;
       this.options.emit(this.step1Options);
     });
   }

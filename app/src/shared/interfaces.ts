@@ -19,4 +19,5 @@ export interface SpecMathMergeResponse {
 
 export interface Step1Options {
   newFileName: string;
+  valid: boolean;
 }
