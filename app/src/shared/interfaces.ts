@@ -16,3 +16,7 @@ export interface SpecMathMergeResponse {
   result?: string;
   conflicts?: MergeConflict [];
 }
+
+export interface Step1Options {
+  newFileName: string;
+}

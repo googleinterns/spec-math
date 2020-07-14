@@ -36,53 +36,7 @@ limitations under the License. -->
     </div>
     <mat-horizontal-stepper linear #stepper>
       <mat-step>
-        <div class="modal-step-container">
-          <div class="modal-step-content">
-            <div class="modal-step-instructions">
-              <p class="mat-body-2">
-                Enter the name of the new spec
-              </p>
-            </div>
-            <form class="spec-name-form">
-              <mat-form-field class="spec-name-field">
-                <input
-                  class="spec-name-input"
-                  type="text"
-                  matInput
-                  [formControl]="specNameFormControl"
-                  placeholder="Spec name"
-                />
-                <span matSuffix>.yaml</span>
-                <mat-error *ngIf="specNameFormControl.hasError('required')">
-                  Naming your new spec is required
-                </mat-error>
-                <mat-error *ngIf="specNameFormControl.hasError('pattern')">
-                  The name can only contain alpha-numerical characters,
-                  underscores, and dashes
-                </mat-error>
-              </mat-form-field>
-            </form>
-          </div>
-          <!-- <div class="modal-step-controls-container">
-            <div
-              matTooltip="You must name your new spec"
-              matTooltipPosition="above"
-              [matTooltipDisabled]="!specNameFormControl.invalid"
-            >
-              <button
-                (click)="[nextStep(), submitName()]"
-                id="modal-step-1-next"
-                [disabled]="specNameFormControl.invalid"
-                mat-button
-                matStepperNext
-                class="modal-step-button-main"
-                aria-label="Next button for step 1"
-              >
-                Next
-              </button>
-            </div>
-          </div> -->
-        </div>
+        <app-modal-step-1 (options)="handleStep1Options($event)"></app-modal-step-1>
       </mat-step>
       <mat-step [optional]="true">
         <div class="modal-step-container">
@@ -143,28 +97,6 @@ limitations under the License. -->
               </label>
             </div>
           </div>
-          <!-- <div class="modal-step-controls-container">
-            <button
-              id="modal-step-2-back"
-              mat-button
-              matStepperPrevious
-              class="modal-step-button-secondary"
-              aria-label="Back button for step 2"
-              (click)="previousStep()"
-            >
-              Back
-            </button>
-            <button
-              id="modal-step-2-next"
-              mat-button
-              matStepperNext
-              class="modal-step-button-main"
-              aria-label="Next button for step 2"
-              (click)="nextStep()"
-            >
-              Next
-            </button>
-          </div> -->
         </div>
       </mat-step>
       <mat-step> </mat-step>

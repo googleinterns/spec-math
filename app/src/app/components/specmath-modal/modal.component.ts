@@ -16,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { Step1Options } from 'src/shared/interfaces';
 
 type FileUpload = 'default' | 'spec';
 
@@ -40,10 +41,6 @@ export class ModalComponent implements OnInit {
     if (this.currentStep < this.maxSteps) {
       this.currentStep++;
       stepper.next();
-
-      if (this.currentStep === 2) {
-        this.newSpecName = this.specNameFormControl.value;
-      }
     }
   }
 
@@ -52,6 +49,10 @@ export class ModalComponent implements OnInit {
       this.currentStep--;
       stepper.previous();
     }
+  }
+
+  handleStep1Options({ newFileName }: Step1Options) {
+    this.newSpecName = newFileName;
   }
 
   handleFileInput(type: FileUpload, files: FileList) {

@@ -23,10 +23,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
+import { Step1Component } from './specmath-modal-step-1/step1.component';
 
 @NgModule({
   declarations: [
-    ModalComponent
+    ModalComponent,
+    Step1Component
   ],
   imports: [
     MatStepperModule,
@@ -38,10 +40,11 @@ import { MatChipsModule } from '@angular/material/chips';
     ReactiveFormsModule,
     MatTooltipModule,
     BrowserModule,
-    MatChipsModule
+    MatChipsModule,
   ],
   exports: [
-    ModalComponent
+    ModalComponent,
+    Step1Component,
   ],
   providers: [],
   bootstrap: [ModalComponent]
