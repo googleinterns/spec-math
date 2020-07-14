@@ -109,12 +109,6 @@
     display: none;
   }
 
-  &-icon {
-    font-size: 80px;
-    height: 80px;
-    width: 80px;
-  }
-
   &-content {
     margin-bottom: 2rem;
     margin-top: 2rem;
@@ -123,12 +117,18 @@
   &-chip-icon {
     margin-right: 8px;
   }
+  
+  &-icon {
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    color: $material-surface-medium;
+  }
 
   &-button {
-    height: 160px;
-    width: 160px;
-    color: #5F6368;
-    background-color: #BDC1C6;
+    height: 136px;
+    width: 136px;
+    background-color: $material-grey-400;
     border-radius: 100%;
   }
 }
