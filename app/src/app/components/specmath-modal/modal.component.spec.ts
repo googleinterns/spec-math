@@ -80,64 +80,10 @@ describe('ModalComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('next button is disabled on step 1 when the new file name input is empty', () => {
+  it('next button is disabled', () => {
     fixture.detectChanges();
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
+    const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
     expect(nextButton.disabled).toBeTruthy();
-  });
-
-  it('new file name form validity', () => {
-    fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    expect(specNameField.valid).toBeFalsy();
-
-    specNameField.setValue('invalid input!');
-    expect(specNameField.hasError('pattern')).toBeTruthy();
-
-    specNameField.setValue('');
-    expect(specNameField.hasError('required')).toBeTruthy();
-
-    specNameField.setValue('test_spec');
-    expect(specNameField.valid).toBeTruthy();
-  });
-
-  it('calls nextStep() when the new file name is valid and the next button is clicked', () => {
-    fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-    const spy = spyOn(modal, 'nextStep');
-
-    specNameField.setValue('test_spec');
-    fixture.detectChanges();
-    nextButton.click();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('calls submitName() when the new file name is valid and the next button is clicked', () => {
-    fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-    const spy = spyOn(modal, 'submitName');
-
-    specNameField.setValue('test_spec');
-    fixture.detectChanges();
-    nextButton.click();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('the defaults file chip is shown when a file is uploaded', () => {
-    fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-
-    specNameField.setValue('test_spec');
-    fixture.detectChanges();
-    nextButton.click();
-
-    modal.defaultsFile = new File(['sample'], 'sample.yaml');
-    fixture.detectChanges();
-    const defaultsFileChip = queryElement(fixture, '#defaults-file-chip').nativeElement;
-    expect(defaultsFileChip).toBeTruthy();
   });
 });
