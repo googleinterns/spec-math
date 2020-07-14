@@ -18,7 +18,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-class UnionParametersTest {
+class UnionOptionsTest {
   @Test
   void testUseUnionOptionsBuilderBuilds() {
     UnionOptions unionOptions =
