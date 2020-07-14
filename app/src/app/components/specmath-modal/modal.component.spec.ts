@@ -125,4 +125,17 @@ describe('ModalComponent', () => {
     nextButton.click();
     expect(spy).toHaveBeenCalled();
   });
+
+  it('the defaults file chip is shown when a file is uploaded', () => {
+    fixture.detectChanges();
+    const specNameField = modal.specNameFormControl;
+    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
+
+    specNameField.setValue('test_spec');
+    fixture.detectChanges();
+    nextButton.click();
+
+    const nextButtonStep2 = queryElement(fixture, '#modal-step-2-next').nativeElement;
+    // modal.defaultsFile = 
+  });
 });
