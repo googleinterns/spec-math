@@ -95,17 +95,28 @@ limitations under the License. -->
                 Learn more
               </a>
             </div>
-            <div *ngIf="!defaultsFile">
-              <button
-                (click)="defaults.click()"
-                mat-button
-                class="defaults-file-button"
-              >
-                <mat-icon class="defaults-file-icon">note_add</mat-icon>
-              </button>
-            </div>
-            <div *ngIf="defaultsFile">
-              
+            <div class="defaults-file-content">
+              <div *ngIf="!defaultsFile">
+                <button
+                  (click)="defaults.click()"
+                  mat-button
+                  class="defaults-file-button"
+                >
+                  <mat-icon class="defaults-file-icon">note_add</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="defaultsFile">
+                <mat-chip-list>
+                  <mat-chip
+                    [selectable]="true"
+                    [removable]="true"
+                    (removed)="removeDefaultsFile()"
+                  >
+                    {{ defaultsFile.name }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
             </div>
             <div class="defaults-file-input-container">
               <input

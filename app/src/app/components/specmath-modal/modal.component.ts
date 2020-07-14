@@ -57,6 +57,10 @@ export class ModalComponent implements OnInit {
     }
   }
 
+  removeDefaultsFile() {
+    this.defaultsFile = null;
+  }
+
   ngOnInit() {
     this.newSpecName = '';
     this.currentStep = 1;
