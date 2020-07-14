@@ -135,7 +135,8 @@ describe('ModalComponent', () => {
     fixture.detectChanges();
     nextButton.click();
 
-    const nextButtonStep2 = queryElement(fixture, '#modal-step-2-next').nativeElement;
-    // modal.defaultsFile = 
+    modal.defaultsFile = new File(['sample'], 'sample.yaml');
+    const defaultsFileChip = queryElement(fixture, '#defaults-file-chip').nativeElement;
+    expect(defaultsFileChip).toBeTruthy();
   });
 });
