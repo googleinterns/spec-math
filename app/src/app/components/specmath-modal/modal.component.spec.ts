@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Step1Component } from './specmath-modal-step-1/step1.component';
 
 const queryElement = (targetFixture: ComponentFixture<ModalComponent>, targetClass: string) => {
   return targetFixture.debugElement.query(By.css(targetClass));
@@ -37,7 +38,7 @@ describe('ModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ModalComponent
+        ModalComponent, Step1Component
       ],
       imports: [
         MatStepperModule,
@@ -85,5 +86,25 @@ describe('ModalComponent', () => {
     const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
     expect(nextButton.disabled).toBeTruthy();
+  });
+
+  it('next button is enabled when newFileName is valid', () => {
+    fixture.detectChanges();
+    const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
+
+    modal.step1Options = { newFileName: 'new_spec', valid: true };
+    fixture.detectChanges();
+    expect(nextButton.disabled).toBeFalsy();
+  });
+
+  it('moves onto the next step when next button is clicked', () => {
+    fixture.detectChanges();
+    const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
+
+    modal.step1Options = { newFileName: 'new_spec', valid: true };
+    fixture.detectChanges();
+    nextButton.click();
+    fixture.detectChanges();
+    expect(modal.currentStep).toEqual(2);
   });
 });
