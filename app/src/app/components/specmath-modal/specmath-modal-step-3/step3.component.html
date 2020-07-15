@@ -32,16 +32,18 @@ limitations under the License. -->
       </div>
       <div *ngIf="step3Options.specFiles">
         <mat-chip-list id="spec-files-chip-list">
-          <mat-chip
-            *ngFor="let spec of step3Options.specFiles"
-            [selectable]="true"
-            [removable]="true"
-            (removed)="removeSpecFile()"
-          >
-            <mat-icon class="spec-files-chip-icon">description</mat-icon>
-            {{ spec.name }}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
+          <div *ngFor="let spec of step3Options.specFiles; let i = index">
+            <mat-chip
+              [selectable]="true"
+              [removable]="true"
+              (removed)="removeSpecFile()"
+            >
+              <mat-icon class="spec-files-chip-icon">description</mat-icon>
+              {{ spec.name }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <mat-icon *ngIf="i < specFilesNum - 1">add</mat-icon>
+          </div>
         </mat-chip-list>
       </div>
     </div>
@@ -53,6 +55,7 @@ limitations under the License. -->
         accept=".yaml"
         id="specs-input"
         (change)="handleSpecFileInput($event.target.files)"
+        multiple
       />
       <label for="defaults-file-input">
         <button

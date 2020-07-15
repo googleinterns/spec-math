@@ -21,7 +21,8 @@ import { Step3Options } from '../../../../shared/interfaces';
   styleUrls: ['./step3.component.scss']
 })
 export class Step3Component implements OnInit  {
-  minSpecFilesNum: number;
+  specFilesNum: number;
+  fileUploadError: boolean;
   step3Options?: Step3Options = {
     specFiles: []
   };
@@ -33,11 +34,18 @@ export class Step3Component implements OnInit  {
   }
 
   handleSpecFileInput(files: FileList) {
-    if (this.step3Options.specFiles.length < this.minSpecFilesNum) {
-      this.step3Options.specFiles.push(files[0]);
+    if (files.length > this.specFilesNum) {
+      this.fileUploadError = true;
+      return;
     }
 
-    if (this.step3Options.specFiles.length === this.minSpecFilesNum) {
+    if (files.length <= this.specFilesNum) {
+      for (let i = 0; i < files.length; i++) {
+        this.step3Options.specFiles.push(files[i]);
+      }
+    }
+
+    if (this.step3Options.specFiles.length === this.specFilesNum) {
       this.options.emit(this.step3Options);
     }
   }
@@ -47,7 +55,8 @@ export class Step3Component implements OnInit  {
   }
 
   ngOnInit() {
-    this.minSpecFilesNum = 2;
+    this.specFilesNum = 2;
+    this.fileUploadError = false;
   }
 }
 
