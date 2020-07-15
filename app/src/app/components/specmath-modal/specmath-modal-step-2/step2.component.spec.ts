@@ -18,6 +18,7 @@ import { Step2Component } from './step2.component';
 import { By, BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
 
 const queryElement = (targetFixture: ComponentFixture<Step2Component>, targetClass: string) => {
   return targetFixture.debugElement.query(By.css(targetClass));
@@ -35,7 +36,8 @@ describe('Step2Component', () => {
       imports: [
         MatIconModule,
         BrowserModule,
-        MatChipsModule
+        MatChipsModule,
+        MatButtonModule
       ],
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(Step2Component);
