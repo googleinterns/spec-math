@@ -14,10 +14,9 @@
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Step3Options } from '../../../../shared/interfaces';
-import { min } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-modal-step-2',
+  selector: 'app-modal-step-3',
   templateUrl: './step3.component.html',
   styleUrls: ['./step3.component.scss']
 })

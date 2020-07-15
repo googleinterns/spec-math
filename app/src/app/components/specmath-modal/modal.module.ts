@@ -25,12 +25,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
 import { Step1Component } from './specmath-modal-step-1/step1.component';
 import { Step2Component } from './specmath-modal-step-2/step2.component';
+import { Step3Component } from './specmath-modal-step-3/step3.component';
 
 @NgModule({
   declarations: [
     ModalComponent,
     Step1Component,
     Step2Component,
+    Step3Component
   ],
   imports: [
     MatStepperModule,
@@ -48,6 +50,7 @@ import { Step2Component } from './specmath-modal-step-2/step2.component';
     ModalComponent,
     Step1Component,
     Step2Component,
+    Step3Component
   ],
   providers: [],
   bootstrap: [ModalComponent]

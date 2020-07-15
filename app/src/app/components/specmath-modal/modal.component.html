@@ -35,13 +35,15 @@ limitations under the License. -->
       </button>
     </div>
     <mat-horizontal-stepper linear #stepper>
-      <mat-step>
+      <!-- <mat-step>
         <app-modal-step-1 (options)="handleStep1Options($event)"></app-modal-step-1>
       </mat-step>
       <mat-step [optional]="true">
         <app-modal-step-2 (options)="handleStep2Options($event)"></app-modal-step-2>
+      </mat-step> -->
+      <mat-step>
+        <app-modal-step-3></app-modal-step-3>
       </mat-step>
-      <mat-step> </mat-step>
       <mat-step> </mat-step>
     </mat-horizontal-stepper>
     <div class="modal-step-controls-container">
