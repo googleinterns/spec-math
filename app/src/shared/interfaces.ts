@@ -28,4 +28,5 @@ export interface Step2Options {
 
 export interface Step3Options {
   specFiles: File [];
+  valid: boolean;
 }

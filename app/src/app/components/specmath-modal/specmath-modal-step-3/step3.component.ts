@@ -24,7 +24,8 @@ export class Step3Component implements OnInit  {
   specFilesNum: number;
   fileUploadError: boolean;
   step3Options?: Step3Options = {
-    specFiles: []
+    specFiles: [],
+    valid: false
   };
 
   @Output() options: EventEmitter<Step3Options> = new EventEmitter();
@@ -46,6 +47,7 @@ export class Step3Component implements OnInit  {
     }
 
     if (this.step3Options.specFiles.length === this.specFilesNum) {
+      this.step3Options.valid = true;
       this.options.emit(this.step3Options);
     }
   }
