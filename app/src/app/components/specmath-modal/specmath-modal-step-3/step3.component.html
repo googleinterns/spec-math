@@ -36,7 +36,7 @@ limitations under the License. -->
             <mat-chip
               [selectable]="true"
               [removable]="true"
-              (removed)="removeSpecFile()"
+              (removed)="removeSpecFile(i)"
             >
               <mat-icon class="spec-files-chip-icon">description</mat-icon>
               {{ spec.name }}

@@ -50,8 +50,8 @@ export class Step3Component implements OnInit  {
     }
   }
 
-  removeSpecFile() {
-
+  removeSpecFile(index: number) {
+    this.step3Options.specFiles.splice(index, 1);
   }
 
   ngOnInit() {
@@ -59,4 +59,3 @@ export class Step3Component implements OnInit  {
     this.fileUploadError = false;
   }
 }
-
