@@ -24,10 +24,6 @@
     margin-bottom: 2rem;
     margin-top: 2rem;
   }
-
-  &-chip-icon {
-    margin-right: 8px;
-  }
   
   &-icon {
     font-size: 80px;
@@ -43,17 +39,34 @@
     border-radius: 100%;
   }
 
-  &-chip-list {
-    &-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+  &-chip {
+    &-icon {
+      margin-right: 8px;
+    }
+
+    &-empty {
+      background-color: transparent;
+      border: solid 3px #e0e0e0;
+      width: 46px;
+    }
+
+    &-list {
+      &-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: auto;
+      }
     }
   }
 }
 
 @media (max-width: 768px) {
   .mat-chip-list-wrapper {
+    flex-direction: column;
+  }
+
+  .spec-files-chip-list-container {
     flex-direction: column;
   }
 }

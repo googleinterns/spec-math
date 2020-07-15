@@ -50,7 +50,8 @@ import { Step3Component } from './specmath-modal-step-3/step3.component';
     ModalComponent,
     Step1Component,
     Step2Component,
-    Step3Component
+    Step3Component,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [ModalComponent]
