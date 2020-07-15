@@ -42,4 +42,18 @@
     background-color: $material-grey-400;
     border-radius: 100%;
   }
+
+  &-chip-list {
+    &-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .mat-chip-list-wrapper {
+    flex-direction: column;
+  }
 }

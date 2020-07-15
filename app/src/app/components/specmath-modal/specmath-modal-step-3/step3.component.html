@@ -15,9 +15,7 @@ limitations under the License. -->
 <div class="modal-step-container">
   <div class="modal-step-content">
     <div class="modal-step-instructions">
-      <p class="mat-body-2">
-        Select <b>2</b> spec files
-      </p>
+      <p class="mat-body-2">Select <b>2</b> spec files</p>
     </div>
     <div class="spec-files-content">
       <div *ngIf="step3Options.specFiles.length === 0">
@@ -32,8 +30,12 @@ limitations under the License. -->
       </div>
       <div *ngIf="step3Options.specFiles">
         <mat-chip-list id="spec-files-chip-list">
-          <div *ngFor="let spec of step3Options.specFiles; let i = index">
+          <div
+            class="spec-files-chip-list-container"
+            *ngFor="let spec of step3Options.specFiles; let i = index"
+          >
             <mat-chip
+              *ngIf="i < specFilesNum"
               [selectable]="true"
               [removable]="true"
               (removed)="removeSpecFile(i)"
@@ -43,6 +45,9 @@ limitations under the License. -->
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
             <mat-icon *ngIf="i < specFilesNum - 1">add</mat-icon>
+            <mat-chip *ngIf="step3Options.specFiles.length < specFilesNum">
+              empty
+            </mat-chip>
           </div>
         </mat-chip-list>
       </div>
