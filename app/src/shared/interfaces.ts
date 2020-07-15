@@ -21,3 +21,7 @@ export interface Step1Options {
   newFileName: string;
   valid: boolean;
 }
+
+export interface Step2Options {
+  defaultsFile: File;
+}

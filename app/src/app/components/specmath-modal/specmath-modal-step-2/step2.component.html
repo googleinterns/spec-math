@@ -42,7 +42,7 @@ limitations under the License. -->
             (removed)="removeDefaultsFile()"
           >
             <mat-icon class="defaults-file-chip-icon">settings</mat-icon>
-            {{ defaultsFile.name }}
+            {{ step2Options.defaultsFile.name }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
         </mat-chip-list>
@@ -55,7 +55,7 @@ limitations under the License. -->
         type="file"
         accept=".yaml"
         id="defaults-file-input"
-        (change)="handleFileInput('default', $event.target.files)"
+        (change)="handleDefaultsFileInput($event.target.files)"
       />
       <label for="defaults-file-input">
         <button
