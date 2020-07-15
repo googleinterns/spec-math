@@ -15,7 +15,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { Step2Component } from './step2.component';
 
-import { By, BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';

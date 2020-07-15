@@ -15,8 +15,8 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
 
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By, BrowserModule } from '@angular/platform-browser';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { BrowserModule } from '@angular/platform-browser';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +28,6 @@ import { Step1Component } from './specmath-modal-step-1/step1.component';
 import { queryElement } from '../../../shared/functions';
 
 describe('ModalComponent', () => {
-  let dialog: MatDialog;
   let fixture: ComponentFixture<ModalComponent>;
   let modal: ModalComponent;
 
@@ -56,7 +55,6 @@ describe('ModalComponent', () => {
         },
       ]
     }).compileComponents().then(() => {
-      dialog = TestBed.inject(MatDialog);
       fixture = TestBed.createComponent(ModalComponent);
       modal = fixture.componentInstance;
     });
