@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this spec except in compliance with the License.
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -12,4 +12,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { Step2Component } from './step2.component';
 
+import { By, BrowserModule } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+
+const queryElement = (targetFixture: ComponentFixture<Step2Component>, targetClass: string) => {
+  return targetFixture.debugElement.query(By.css(targetClass));
+};
+
+describe('Step2Component', () => {
+  let fixture: ComponentFixture<Step2Component>;
+  let component: Step2Component;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        Step2Component
+      ],
+      imports: [
+        MatIconModule,
+        BrowserModule,
+        MatChipsModule
+      ],
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(Step2Component);
+      component = fixture.componentInstance;
+    });
+  }));
+
+  it('creates the Step2 component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('shows the defaults file chip when a file is uploaded', () => {
+    fixture.detectChanges();
+    component.step2Options = { defaultsFile: new File(['content'], 'defaults.yaml') };
+    fixture.detectChanges();
+    const defaultsFileChip = queryElement(fixture, '#defaults-file-chip').nativeElement;
+    expect(defaultsFileChip).toBeTruthy();
+  });
+});
