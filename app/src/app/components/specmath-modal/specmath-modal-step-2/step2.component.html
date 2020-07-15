@@ -12,4 +12,62 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-
+<div class="modal-step-container">
+  <div class="modal-step-content">
+    <div class="modal-step-instructions">
+      <p class="mat-body-2">
+        Select an optional defaults file
+      </p>
+      <a href="#" class="mat-body-2">
+        Learn more
+      </a>
+    </div>
+    <div class="defaults-file-content">
+      <div *ngIf="!defaultsFile">
+        <button
+          (click)="defaults.click()"
+          mat-button
+          class="defaults-file-button"
+          id="defaults-file-upload-button-large"
+        >
+          <mat-icon class="defaults-file-icon">note_add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="defaultsFile">
+        <mat-chip-list>
+          <mat-chip
+            id="defaults-file-chip"
+            [selectable]="true"
+            [removable]="true"
+            (removed)="removeDefaultsFile()"
+          >
+            <mat-icon class="defaults-file-chip-icon">settings</mat-icon>
+            {{ defaultsFile.name }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+    <div class="defaults-file-input-container">
+      <input
+        #defaults
+        class="defaults-file-upload-input"
+        type="file"
+        accept=".yaml"
+        id="defaults-file-input"
+        (change)="handleFileInput('default', $event.target.files)"
+      />
+      <label for="defaults-file-input">
+        <button
+          id="defaults-file-upload-button"
+          (click)="defaults.click()"
+          mat-button
+          class="modal-step-button-secondary"
+        >
+          <mat-icon>file_upload</mat-icon>
+          SELECT FILE
+        </button>
+      </label>
+    </div>
+  </div>
+</div>
