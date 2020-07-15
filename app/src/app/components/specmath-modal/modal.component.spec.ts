@@ -76,7 +76,7 @@ describe('ModalComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('next button is disabled', () => {
+  it('next button is disabled when the modal is first opened', () => {
     fixture.detectChanges();
     const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
