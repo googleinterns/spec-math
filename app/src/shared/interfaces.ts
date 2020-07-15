@@ -25,3 +25,7 @@ export interface Step1Options {
 export interface Step2Options {
   defaultsFile: File;
 }
+
+export interface Step3Options {
+  specFiles: File [];
+}

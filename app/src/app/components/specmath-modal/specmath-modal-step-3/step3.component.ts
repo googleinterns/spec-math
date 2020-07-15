@@ -12,4 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Step3Options } from '../../../../shared/interfaces';
+import { min } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-modal-step-2',
+  templateUrl: './step3.component.html',
+  styleUrls: ['./step3.component.scss']
+})
+export class Step3Component implements OnInit  {
+  minSpecFilesNum: number;
+  step3Options?: Step3Options = {
+    specFiles: []
+  };
+
+  @Output() options: EventEmitter<Step3Options> = new EventEmitter();
+
+  constructor() {
+
+  }
+
+  handleSpecFileInput(files: FileList) {
+    if (this.step3Options.specFiles.length < this.minSpecFilesNum) {
+      this.step3Options.specFiles.push(files[0]);
+    }
+
+    if (this.step3Options.specFiles.length === this.minSpecFilesNum) {
+      this.options.emit(this.step3Options);
+    }
+  }
+
+  removeSpecFile() {
+
+  }
+
+  ngOnInit() {
+    this.minSpecFilesNum = 2;
+  }
+}
 
