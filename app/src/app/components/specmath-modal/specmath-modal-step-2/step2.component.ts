@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { Step2Options } from '../../../../shared/interfaces';
 
 @Component({
@@ -22,8 +21,7 @@ import { Step2Options } from '../../../../shared/interfaces';
   styleUrls: ['./step2.component.scss']
 })
 export class Step2Component implements OnInit  {
-  specNameFormControl: FormControl;
-  step2Options: Step2Options = {
+  step2Options?: Step2Options = {
     defaultsFile: null
   };
 
@@ -35,6 +33,7 @@ export class Step2Component implements OnInit  {
 
   handleDefaultsFileInput(files: FileList) {
     this.step2Options.defaultsFile = files[0];
+    this.options.emit(this.step2Options);
   }
 
   removeDefaultsFile() {
