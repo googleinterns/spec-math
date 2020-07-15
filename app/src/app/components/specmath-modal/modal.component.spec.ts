@@ -25,10 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Step1Component } from './specmath-modal-step-1/step1.component';
-
-const queryElement = (targetFixture: ComponentFixture<ModalComponent>, targetClass: string) => {
-  return targetFixture.debugElement.query(By.css(targetClass));
-};
+import { queryElement } from '../../../shared/functions';
 
 describe('ModalComponent', () => {
   let dialog: MatDialog;

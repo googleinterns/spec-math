@@ -19,10 +19,7 @@ import { By, BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
-
-const queryElement = (targetFixture: ComponentFixture<Step2Component>, targetClass: string) => {
-  return targetFixture.debugElement.query(By.css(targetClass));
-};
+import { queryElement } from '../../../../shared/functions';
 
 describe('Step2Component', () => {
   let fixture: ComponentFixture<Step2Component>;

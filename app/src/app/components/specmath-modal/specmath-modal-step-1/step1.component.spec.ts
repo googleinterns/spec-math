@@ -16,15 +16,11 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { Step1Component } from './step1.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
-import { By, BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-const queryElement = (targetFixture: ComponentFixture<Step1Component>, targetClass: string) => {
-  return targetFixture.debugElement.query(By.css(targetClass));
-};
 
 describe('Step1Component', () => {
   let fixture: ComponentFixture<Step1Component>;
