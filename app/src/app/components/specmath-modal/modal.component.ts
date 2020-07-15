@@ -30,7 +30,6 @@ export class ModalComponent implements OnInit {
   maxSteps: number;
   step1Options?: Step1Options;
   step2Options?: Step2Options;
-  defaultsFile: File;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -78,6 +77,5 @@ export class ModalComponent implements OnInit {
     this.currentStep = 1;
     this.maxSteps = 4;
     this.minSteps = 1;
-    this.defaultsFile = null;
   }
 }
