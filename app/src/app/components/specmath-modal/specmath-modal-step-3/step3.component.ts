@@ -38,6 +38,8 @@ export class Step3Component implements OnInit  {
     if (files.length > this.specFilesNum) {
       this.fileUploadError = true;
       return;
+    } else {
+      this.fileUploadError = false;
     }
 
     if (files.length <= this.specFilesNum) {
