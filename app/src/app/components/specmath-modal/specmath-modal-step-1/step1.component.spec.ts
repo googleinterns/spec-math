@@ -50,7 +50,7 @@ describe('Step1Component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('file name form validity', () => {
+  it('evaluates spec name input form', () => {
     fixture.detectChanges();
     const specNameField = component.specNameFormControl;
     expect(specNameField.valid).toBeFalsy();
