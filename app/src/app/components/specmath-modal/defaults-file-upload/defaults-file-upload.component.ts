@@ -21,7 +21,7 @@ import { DefaultsFileUploadOptions } from '../../../../shared/interfaces';
   styleUrls: ['./defaults-file-upload.component.scss']
 })
 export class DefaultsFileUploadComponent implements OnInit  {
-  step2Options?: DefaultsFileUploadOptions = {
+  defaultsFileUploadOptions?: DefaultsFileUploadOptions = {
     defaultsFile: null
   };
 
@@ -32,12 +32,12 @@ export class DefaultsFileUploadComponent implements OnInit  {
   }
 
   handleDefaultsFileInput(files: FileList) {
-    this.step2Options.defaultsFile = files[0];
-    this.options.emit(this.step2Options);
+    this.defaultsFileUploadOptions.defaultsFile = files[0];
+    this.options.emit(this.defaultsFileUploadOptions);
   }
 
   removeDefaultsFile() {
-    this.step2Options.defaultsFile = null;
+    this.defaultsFileUploadOptions.defaultsFile = null;
   }
 
   ngOnInit() {

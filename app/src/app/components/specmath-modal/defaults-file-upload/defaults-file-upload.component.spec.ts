@@ -48,7 +48,7 @@ describe('DefaultsFileUploadComponent', () => {
 
   it('shows the defaults file chip when a file is uploaded', () => {
     fixture.detectChanges();
-    component.step2Options = { defaultsFile: new File(['content'], 'defaults.yaml') };
+    component.defaultsFileUploadOptions = { defaultsFile: new File(['content'], 'defaults.yaml') };
     fixture.detectChanges();
     const defaultsFileChip = queryElement(fixture, '#defaults-file-chip').nativeElement;
     expect(defaultsFileChip).toBeTruthy();
