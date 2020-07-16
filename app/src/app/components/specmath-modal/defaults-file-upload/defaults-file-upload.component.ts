@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Step2Options } from '../../../../shared/interfaces';
+import { DefaultsFileUploadOptions } from '../../../../shared/interfaces';
 
 @Component({
   selector: 'app-defaults-file-upload',
@@ -21,11 +21,11 @@ import { Step2Options } from '../../../../shared/interfaces';
   styleUrls: ['./defaults-file-upload.component.scss']
 })
 export class DefaultsFileUploadComponent implements OnInit  {
-  step2Options?: Step2Options = {
+  step2Options?: DefaultsFileUploadOptions = {
     defaultsFile: null
   };
 
-  @Output() options: EventEmitter<Step2Options> = new EventEmitter();
+  @Output() options: EventEmitter<DefaultsFileUploadOptions> = new EventEmitter();
 
   constructor() {
 

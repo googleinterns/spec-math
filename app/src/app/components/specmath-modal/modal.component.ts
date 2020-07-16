@@ -15,7 +15,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { SpecNameInputOptions, Step2Options } from 'src/shared/interfaces';
+import { SpecNameInputOptions, DefaultsFileUploadOptions } from 'src/shared/interfaces';
 
 type FileUpload = 'default' | 'spec';
 
@@ -29,7 +29,7 @@ export class ModalComponent implements OnInit {
   currentStep: number;
   maxSteps: number;
   specNameInputOptions?: SpecNameInputOptions;
-  step2Options?: Step2Options;
+  defaultsFileUploadOptions?: DefaultsFileUploadOptions;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -65,8 +65,8 @@ export class ModalComponent implements OnInit {
     this.specNameInputOptions = specNameInputOptions;
   }
 
-  handleStep2Options(step2Options: Step2Options) {
-    this.step2Options = step2Options;
+  handleDefaultsFileUploadOptions(defaultsFileUploadOptions: DefaultsFileUploadOptions) {
+    this.defaultsFileUploadOptions = defaultsFileUploadOptions;
   }
 
   ngOnInit() {

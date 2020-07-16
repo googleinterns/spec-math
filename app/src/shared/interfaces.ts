@@ -22,6 +22,6 @@ export interface SpecNameInputOptions {
   valid: boolean;
 }
 
-export interface Step2Options {
+export interface DefaultsFileUploadOptions {
   defaultsFile: File;
 }
