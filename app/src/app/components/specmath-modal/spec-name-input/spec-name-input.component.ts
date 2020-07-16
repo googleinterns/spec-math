@@ -17,11 +17,11 @@ import { FormControl, Validators } from '@angular/forms';
 import { Step1Options } from '../../../../shared/interfaces';
 
 @Component({
-  selector: 'app-modal-step-1',
-  templateUrl: './step1.component.html',
-  styleUrls: ['./step1.component.scss']
+  selector: 'app-spec-name-input',
+  templateUrl: './spec-name-input.component.html',
+  styleUrls: ['./spec-name-input.component.scss']
 })
-export class Step1Component implements OnInit  {
+export class SpecNameInputComponent implements OnInit  {
   specNameFormControl: FormControl;
   step1Options: Step1Options = {
     newFileName: '',
