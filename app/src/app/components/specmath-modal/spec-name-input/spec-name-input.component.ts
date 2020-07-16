@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this spec except in compliance with the License.
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -14,21 +14,21 @@
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Step1Options } from '../../../../shared/interfaces';
+import { SpecNameInputOptions } from '../../../../shared/interfaces';
 
 @Component({
-  selector: 'app-modal-step-1',
-  templateUrl: './step1.component.html',
-  styleUrls: ['./step1.component.scss']
+  selector: 'app-spec-name-input',
+  templateUrl: './spec-name-input.component.html',
+  styleUrls: ['./spec-name-input.component.scss']
 })
-export class Step1Component implements OnInit  {
+export class SpecNameInputComponent implements OnInit  {
   specNameFormControl: FormControl;
-  step1Options: Step1Options = {
+  specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
     valid: false,
   };
 
-  @Output() options: EventEmitter<Step1Options> = new EventEmitter();
+  @Output() options: EventEmitter<SpecNameInputOptions> = new EventEmitter();
 
   constructor() {
 
@@ -41,9 +41,9 @@ export class Step1Component implements OnInit  {
     ]);
 
     this.specNameFormControl.valueChanges.subscribe(input => {
-      this.step1Options.newFileName = input;
-      this.step1Options.valid = this.specNameFormControl.valid;
-      this.options.emit(this.step1Options);
+      this.specNameInputOptions.newFileName = input;
+      this.specNameInputOptions.valid = this.specNameFormControl.valid;
+      this.options.emit(this.specNameInputOptions);
     });
   }
 }

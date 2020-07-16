@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { Step1Component } from './step1.component';
+import { SpecNameInputComponent } from './spec-name-input.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,14 +22,14 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('Step1Component', () => {
-  let fixture: ComponentFixture<Step1Component>;
-  let component: Step1Component;
+describe('SpecNameInputComponent', () => {
+  let fixture: ComponentFixture<SpecNameInputComponent>;
+  let component: SpecNameInputComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        Step1Component
+        SpecNameInputComponent
       ],
       imports: [
         MatIconModule,
@@ -41,7 +41,7 @@ describe('Step1Component', () => {
         BrowserAnimationsModule
       ],
     }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(Step1Component);
+      fixture = TestBed.createComponent(SpecNameInputComponent);
       component = fixture.componentInstance;
     });
   }));
@@ -50,7 +50,7 @@ describe('Step1Component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('file name form validity', () => {
+  it('evaluates spec name input form', () => {
     fixture.detectChanges();
     const specNameField = component.specNameFormControl;
     expect(specNameField.valid).toBeFalsy();

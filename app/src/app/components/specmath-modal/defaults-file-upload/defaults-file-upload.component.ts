@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this spec except in compliance with the License.
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -13,31 +13,31 @@
 // limitations under the License.
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Step2Options } from '../../../../shared/interfaces';
+import { DefaultsFileUploadOptions } from '../../../../shared/interfaces';
 
 @Component({
-  selector: 'app-modal-step-2',
-  templateUrl: './step2.component.html',
-  styleUrls: ['./step2.component.scss']
+  selector: 'app-defaults-file-upload',
+  templateUrl: './defaults-file-upload.component.html',
+  styleUrls: ['./defaults-file-upload.component.scss']
 })
-export class Step2Component implements OnInit  {
-  step2Options?: Step2Options = {
+export class DefaultsFileUploadComponent implements OnInit  {
+  defaultsFileUploadOptions?: DefaultsFileUploadOptions = {
     defaultsFile: null
   };
 
-  @Output() options: EventEmitter<Step2Options> = new EventEmitter();
+  @Output() options: EventEmitter<DefaultsFileUploadOptions> = new EventEmitter();
 
   constructor() {
 
   }
 
   handleDefaultsFileInput(files: FileList) {
-    this.step2Options.defaultsFile = files[0];
-    this.options.emit(this.step2Options);
+    this.defaultsFileUploadOptions.defaultsFile = files[0];
+    this.options.emit(this.defaultsFileUploadOptions);
   }
 
   removeDefaultsFile() {
-    this.step2Options.defaultsFile = null;
+    this.defaultsFileUploadOptions.defaultsFile = null;
   }
 
   ngOnInit() {

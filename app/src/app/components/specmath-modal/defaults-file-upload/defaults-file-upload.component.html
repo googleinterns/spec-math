@@ -1,7 +1,7 @@
 <!-- Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this spec except in compliance with the License.
+you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
     https://www.apache.org/licenses/LICENSE-2.0
@@ -23,7 +23,7 @@ limitations under the License. -->
       </a>
     </div>
     <div class="defaults-file-content">
-      <div *ngIf="!step2Options.defaultsFile">
+      <div *ngIf="!defaultsFileUploadOptions.defaultsFile">
         <button
           (click)="defaults.click()"
           mat-button
@@ -33,8 +33,8 @@ limitations under the License. -->
           <mat-icon class="defaults-file-icon">note_add</mat-icon>
         </button>
       </div>
-      <div *ngIf="step2Options.defaultsFile">
-        <mat-chip-list>
+      <div *ngIf="defaultsFileUploadOptions.defaultsFile">
+        <mat-chip-list id="defaults-chip-container">
           <mat-chip
             id="defaults-file-chip"
             [selectable]="true"
@@ -42,7 +42,7 @@ limitations under the License. -->
             (removed)="removeDefaultsFile()"
           >
             <mat-icon class="defaults-file-chip-icon">settings</mat-icon>
-            {{ step2Options.defaultsFile.name }}
+            {{ defaultsFileUploadOptions.defaultsFile.name }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
         </mat-chip-list>

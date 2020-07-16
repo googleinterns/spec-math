@@ -1,7 +1,7 @@
 <!-- Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this spec except in compliance with the License.
+you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
     https://www.apache.org/licenses/LICENSE-2.0
@@ -34,12 +34,12 @@ limitations under the License. -->
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <mat-horizontal-stepper linear #stepper>
+    <mat-horizontal-stepper id="modal-stepper" linear #stepper>
       <mat-step>
-        <app-modal-step-1 (options)="handleStep1Options($event)"></app-modal-step-1>
+        <app-spec-name-input (options)="handleSpecNameInputOptions($event)"></app-spec-name-input>
       </mat-step>
       <mat-step [optional]="true">
-        <app-modal-step-2 (options)="handleStep2Options($event)"></app-modal-step-2>
+        <app-defaults-file-upload (options)="handleDefaultsFileUploadOptions($event)"></app-defaults-file-upload>
       </mat-step>
       <mat-step>
         <app-modal-step-3></app-modal-step-3>
@@ -60,7 +60,7 @@ limitations under the License. -->
       <div
         matTooltip="You must name your new spec"
         matTooltipPosition="above"
-        [matTooltipDisabled]="specNameValid()"
+        [matTooltipDisabled]="specNameValid"
       >
         <button
           id="modal-button-next"
@@ -68,7 +68,7 @@ limitations under the License. -->
           class="modal-step-button-main"
           aria-label="Next button for step 2"
           (click)="nextStep(stepper)"
-          [disabled]="!specNameValid() && currentStep === 1"
+          [disabled]="!specNameValid && currentStep === 1"
         >
           Next
         </button>

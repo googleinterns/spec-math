@@ -23,15 +23,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
-import { Step1Component } from './specmath-modal-step-1/step1.component';
-import { Step2Component } from './specmath-modal-step-2/step2.component';
+import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
+import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
 import { Step3Component } from './specmath-modal-step-3/step3.component';
 
 @NgModule({
   declarations: [
     ModalComponent,
-    Step1Component,
-    Step2Component,
+    SpecNameInputComponent,
+    DefaultsFileUploadComponent,
     Step3Component
   ],
   imports: [
@@ -48,8 +48,8 @@ import { Step3Component } from './specmath-modal-step-3/step3.component';
   ],
   exports: [
     ModalComponent,
-    Step1Component,
-    Step2Component,
+    SpecNameInputComponent,
+    DefaultsFileUploadComponent,
     Step3Component,
     MatTooltipModule
   ],

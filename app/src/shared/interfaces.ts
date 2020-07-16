@@ -17,12 +17,12 @@ export interface SpecMathMergeResponse {
   conflicts?: MergeConflict [];
 }
 
-export interface Step1Options {
+export interface SpecNameInputOptions {
   newFileName: string;
   valid: boolean;
 }
 
-export interface Step2Options {
+export interface DefaultsFileUploadOptions {
   defaultsFile: File;
 }
 

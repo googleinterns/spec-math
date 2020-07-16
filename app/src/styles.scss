@@ -31,8 +31,15 @@ a {
   text-decoration: none;
 }
 
-.mat-horizontal-stepper-header-container {
-  display: none !important;
+#modal-stepper {
+  .mat-horizontal-stepper-header-container {
+    display: none;
+  }
+
+  .mat-horizontal-content-container {
+    padding: 0;
+    height: 100%;
+  }
 }
 
 .mat-horizontal-stepper-content {
@@ -41,13 +48,4 @@ a {
 
 .mat-stepper-horizontal {
   height: calc(100% - 52px - 36px);
-}
-
-.mat-standard-chip {
-  padding-left: 8px !important;
-}
-
-.mat-horizontal-content-container {
-  padding: 0 !important;
-  height: 100%;
 }

@@ -16,16 +16,16 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
 
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Step1Component } from './specmath-modal-step-1/step1.component';
 import { queryElement } from '../../../shared/functions';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { SpecNameInputOptions } from 'src/shared/interfaces';
 
 describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
@@ -34,7 +34,8 @@ describe('ModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ModalComponent, Step1Component
+        ModalComponent,
+        SpecNameInputStubComponent
       ],
       imports: [
         MatStepperModule,
@@ -42,12 +43,10 @@ describe('ModalComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
         MatTooltipModule,
         BrowserModule,
         MatDialogModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
       providers: [
         {
@@ -59,6 +58,10 @@ describe('ModalComponent', () => {
       modal = fixture.componentInstance;
     });
   }));
+
+  const getSpecNameInputStubComponent = () =>
+    fixture.debugElement.query(By.directive(SpecNameInputStubComponent))
+      .injector.get(SpecNameInputStubComponent);
 
   it('creates the modal component', () => {
     expect(modal).toBeTruthy();
@@ -76,18 +79,18 @@ describe('ModalComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('next button is disabled', () => {
+  it('disables the next button when the modal is first opened', () => {
     fixture.detectChanges();
     const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
     expect(nextButton.disabled).toBeTruthy();
   });
 
-  it('next button is enabled when newFileName is valid', () => {
+  it('enables the next button when newFileName is valid', () => {
     fixture.detectChanges();
     const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
-    modal.step1Options = { newFileName: 'new_spec', valid: true };
+    getSpecNameInputStubComponent().emitOptions();
     fixture.detectChanges();
     expect(nextButton.disabled).toBeFalsy();
   });
@@ -96,10 +99,25 @@ describe('ModalComponent', () => {
     fixture.detectChanges();
     const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
-    modal.step1Options = { newFileName: 'new_spec', valid: true };
+    getSpecNameInputStubComponent().emitOptions();
     fixture.detectChanges();
     nextButton.click();
     fixture.detectChanges();
     expect(modal.currentStep).toEqual(2);
   });
 });
+
+/**
+ * Stub component for the SpecNameInputComponent
+ */
+@Component({
+  selector: 'app-spec-name-input',
+  template: '<div>spec-name-input stub</div>'
+})
+export class SpecNameInputStubComponent {
+  @Output() options = new EventEmitter<SpecNameInputOptions>();
+
+  emitOptions() {
+    this.options.emit({ newFileName: 'new_spec', valid: true });
+  }
+}

@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this spec except in compliance with the License.
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -15,7 +15,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { Step1Options, Step2Options } from 'src/shared/interfaces';
+import { SpecNameInputOptions, DefaultsFileUploadOptions } from 'src/shared/interfaces';
 
 type FileUpload = 'default' | 'spec';
 
@@ -28,19 +28,19 @@ export class ModalComponent implements OnInit {
   minSteps: number;
   currentStep: number;
   maxSteps: number;
-  step1Options?: Step1Options;
-  step2Options?: Step2Options;
+  specNameInputOptions?: SpecNameInputOptions;
+  defaultsFileUploadOptions?: DefaultsFileUploadOptions;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
   }
 
   get newFileName(): string {
-    if (!this.step1Options) {
+    if (!this.specNameInputOptions) {
       return '';
     }
 
-    return this.step1Options.newFileName;
+    return this.specNameInputOptions.newFileName;
   }
 
   nextStep(stepper: MatStepper): void {
@@ -57,20 +57,16 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  specNameValid(): boolean {
-    if (!this.step1Options) {
-      return false;
-    }
-
-    return this.step1Options.valid;
+  get specNameValid(): boolean {
+    return !!this.specNameInputOptions?.valid;
   }
 
-  handleStep1Options(step1Options: Step1Options) {
-    this.step1Options = step1Options;
+  handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
+    this.specNameInputOptions = specNameInputOptions;
   }
 
-  handleStep2Options(step2Options: Step2Options) {
-    this.step2Options = step2Options;
+  handleDefaultsFileUploadOptions(defaultsFileUploadOptions: DefaultsFileUploadOptions) {
+    this.defaultsFileUploadOptions = defaultsFileUploadOptions;
   }
 
   ngOnInit() {
