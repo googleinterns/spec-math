@@ -57,12 +57,8 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  specNameValid(): boolean {
-    if (!this.step1Options) {
-      return false;
-    }
-
-    return this.step1Options.valid;
+  get specNameValid(): boolean {
+    return !!this.step1Options?.valid;
   }
 
   handleStep1Options(step1Options: Step1Options) {

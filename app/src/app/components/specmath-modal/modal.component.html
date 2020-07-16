@@ -58,7 +58,7 @@ limitations under the License. -->
       <div
         matTooltip="You must name your new spec"
         matTooltipPosition="above"
-        [matTooltipDisabled]="specNameValid()"
+        [matTooltipDisabled]="specNameValid"
       >
         <button
           id="modal-button-next"
@@ -66,7 +66,7 @@ limitations under the License. -->
           class="modal-step-button-main"
           aria-label="Next button for step 2"
           (click)="nextStep(stepper)"
-          [disabled]="!specNameValid() && currentStep === 1"
+          [disabled]="!specNameValid && currentStep === 1"
         >
           Next
         </button>
