@@ -26,7 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { queryElement } from '../../../shared/functions';
 import { Component, Output, EventEmitter } from '@angular/core';
-import { Step1Options } from 'src/shared/interfaces';
+import { SpecNameInputOptions } from 'src/shared/interfaces';
 
 describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
@@ -118,7 +118,7 @@ describe('ModalComponent', () => {
   template: '<div>spec-name-input stub</div>'
 })
 export class SpecNameInputStubComponent {
-  @Output() options = new EventEmitter<Step1Options>();
+  @Output() options = new EventEmitter<SpecNameInputOptions>();
 
   emitOptions() {
     this.options.emit({ newFileName: 'new_spec', valid: true });

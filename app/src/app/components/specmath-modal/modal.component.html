@@ -36,7 +36,7 @@ limitations under the License. -->
     </div>
     <mat-horizontal-stepper id="modal-stepper" linear #stepper>
       <mat-step>
-        <app-spec-name-input (options)="handleStep1Options($event)"></app-spec-name-input>
+        <app-spec-name-input (options)="handleSpecNameInputOptions($event)"></app-spec-name-input>
       </mat-step>
       <mat-step [optional]="true">
         <app-modal-step-2 (options)="handleStep2Options($event)"></app-modal-step-2>

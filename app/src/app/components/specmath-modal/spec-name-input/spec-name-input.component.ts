@@ -14,7 +14,7 @@
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Step1Options } from '../../../../shared/interfaces';
+import { SpecNameInputOptions } from '../../../../shared/interfaces';
 
 @Component({
   selector: 'app-spec-name-input',
@@ -23,12 +23,12 @@ import { Step1Options } from '../../../../shared/interfaces';
 })
 export class SpecNameInputComponent implements OnInit  {
   specNameFormControl: FormControl;
-  step1Options: Step1Options = {
+  specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
     valid: false,
   };
 
-  @Output() options: EventEmitter<Step1Options> = new EventEmitter();
+  @Output() options: EventEmitter<SpecNameInputOptions> = new EventEmitter();
 
   constructor() {
 
@@ -41,9 +41,9 @@ export class SpecNameInputComponent implements OnInit  {
     ]);
 
     this.specNameFormControl.valueChanges.subscribe(input => {
-      this.step1Options.newFileName = input;
-      this.step1Options.valid = this.specNameFormControl.valid;
-      this.options.emit(this.step1Options);
+      this.specNameInputOptions.newFileName = input;
+      this.specNameInputOptions.valid = this.specNameFormControl.valid;
+      this.options.emit(this.specNameInputOptions);
     });
   }
 }
