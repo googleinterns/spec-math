@@ -24,13 +24,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
-import { Step2Component } from './specmath-modal-step-2/step2.component';
+import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
 
 @NgModule({
   declarations: [
     ModalComponent,
     SpecNameInputComponent,
-    Step2Component,
+    DefaultsFileUploadComponent,
   ],
   imports: [
     MatStepperModule,
@@ -47,7 +47,7 @@ import { Step2Component } from './specmath-modal-step-2/step2.component';
   exports: [
     ModalComponent,
     SpecNameInputComponent,
-    Step2Component,
+    DefaultsFileUploadComponent,
   ],
   providers: [],
   bootstrap: [ModalComponent]

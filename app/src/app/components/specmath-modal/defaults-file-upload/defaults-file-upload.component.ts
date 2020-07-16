@@ -16,11 +16,11 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Step2Options } from '../../../../shared/interfaces';
 
 @Component({
-  selector: 'app-modal-step-2',
-  templateUrl: './step2.component.html',
-  styleUrls: ['./step2.component.scss']
+  selector: 'app-defaults-file-upload',
+  templateUrl: './defaults-file-upload.component.html',
+  styleUrls: ['./defaults-file-upload.component.scss']
 })
-export class Step2Component implements OnInit  {
+export class DefaultsFileUploadComponent implements OnInit  {
   step2Options?: Step2Options = {
     defaultsFile: null
   };

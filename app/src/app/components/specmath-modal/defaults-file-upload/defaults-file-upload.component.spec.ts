@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { Step2Component } from './step2.component';
+import { DefaultsFileUploadComponent } from './defaults-file-upload.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,14 +21,14 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { queryElement } from '../../../../shared/functions';
 
-describe('Step2Component', () => {
-  let fixture: ComponentFixture<Step2Component>;
-  let component: Step2Component;
+describe('DefaultsFileUploadComponent', () => {
+  let fixture: ComponentFixture<DefaultsFileUploadComponent>;
+  let component: DefaultsFileUploadComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        Step2Component
+        DefaultsFileUploadComponent
       ],
       imports: [
         MatIconModule,
@@ -37,7 +37,7 @@ describe('Step2Component', () => {
         MatButtonModule
       ],
     }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(Step2Component);
+      fixture = TestBed.createComponent(DefaultsFileUploadComponent);
       component = fixture.componentInstance;
     });
   }));
