@@ -12,40 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/* You can add global styles to this file, and also import other style files */
+@import '../../../../shared/constants.scss';
+@import '../modal.component.scss';
 
-@import './shared/constants.scss';
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-a {
-  color: $material-blue-600;
-  text-decoration: none;
-}
-
-#modal-stepper {
-  .mat-horizontal-stepper-header-container {
+.defaults-file {
+  &-upload-input {
     display: none;
   }
 
-  .mat-horizontal-content-container {
-    padding: 0;
-    height: 100%;
+  &-content {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  &-chip-icon {
+    margin-right: 8px;
+  }
+  
+  &-icon {
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    color: $material-surface-medium;
+  }
+
+  &-button {
+    height: 136px;
+    width: 136px;
+    background-color: $material-grey-400;
+    border-radius: 100%;
   }
 }
 
-.mat-horizontal-stepper-content {
-  height: 100%;
-}
-
-.mat-stepper-horizontal {
-  height: calc(100% - 52px - 36px);
+#defaults-file-chip {
+  padding-left: 8px;
 }

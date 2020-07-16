@@ -22,10 +22,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatChipsModule } from '@angular/material/chips';
+import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
+import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
 
 @NgModule({
   declarations: [
-    ModalComponent
+    ModalComponent,
+    SpecNameInputComponent,
+    DefaultsFileUploadComponent,
   ],
   imports: [
     MatStepperModule,
@@ -37,9 +42,12 @@ import { BrowserModule } from '@angular/platform-browser';
     ReactiveFormsModule,
     MatTooltipModule,
     BrowserModule,
+    MatChipsModule,
   ],
   exports: [
-    ModalComponent
+    ModalComponent,
+    SpecNameInputComponent,
+    DefaultsFileUploadComponent,
   ],
   providers: [],
   bootstrap: [ModalComponent]
