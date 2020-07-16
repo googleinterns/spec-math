@@ -22,9 +22,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavBarModule } from './components/specmath-navbar/navbar.module';
 import { By } from '@angular/platform-browser';
 import { ModalModule } from './components/specmath-modal/modal.module';
+import { NavBarComponent } from './components/specmath-navbar/navbar.component';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -33,7 +33,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent, NavBarComponent
       ],
       imports: [
         BrowserModule,
@@ -43,7 +43,6 @@ describe('AppComponent', () => {
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
-        NavBarModule,
         ModalModule
       ],
     }).compileComponents().then(() => {

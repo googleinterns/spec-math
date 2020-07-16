@@ -1,7 +1,7 @@
 <!-- Copyright 2020 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this spec except in compliance with the License.
+you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
     https://www.apache.org/licenses/LICENSE-2.0
@@ -20,8 +20,8 @@ limitations under the License. -->
           Merge specs
           <b class="step-indicator">{{ currentStep }}/{{ maxSteps }}</b>
         </h3>
-        <p *ngIf="currentStep > 1" class="mat-caption">
-          {{ newSpecName }}
+        <p *ngIf="currentStep > minSteps" class="mat-caption">
+          {{ newFileName }}
         </p>
       </div>
       <button
@@ -34,141 +34,43 @@ limitations under the License. -->
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <mat-horizontal-stepper linear #stepper>
+    <mat-horizontal-stepper id="modal-stepper" linear #stepper>
       <mat-step>
-        <div class="modal-step-container">
-          <div class="modal-step-content">
-            <div class="modal-step-instructions">
-              <p class="mat-body-2">
-                Enter the name of the new spec
-              </p>
-            </div>
-            <form class="spec-name-form">
-              <mat-form-field class="spec-name-field">
-                <input
-                  class="spec-name-input"
-                  type="text"
-                  matInput
-                  [formControl]="specNameFormControl"
-                  placeholder="Spec name"
-                />
-                <span matSuffix>.yaml</span>
-                <mat-error *ngIf="specNameFormControl.hasError('required')">
-                  Naming your new spec is required
-                </mat-error>
-                <mat-error *ngIf="specNameFormControl.hasError('pattern')">
-                  The name can only contain alpha-numerical characters,
-                  underscores, and dashes
-                </mat-error>
-              </mat-form-field>
-            </form>
-          </div>
-          <div class="modal-step-controls-container">
-            <div
-              matTooltip="You must name your new spec"
-              matTooltipPosition="above"
-              [matTooltipDisabled]="!specNameFormControl.invalid"
-            >
-              <button
-                (click)="[nextStep(), submitName()]"
-                id="modal-step-1-next"
-                [disabled]="specNameFormControl.invalid"
-                mat-button
-                matStepperNext
-                class="modal-step-button-main"
-                aria-label="Next button for step 1"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
+        <app-spec-name-input (options)="handleSpecNameInputOptions($event)"></app-spec-name-input>
       </mat-step>
       <mat-step [optional]="true">
-        <div class="modal-step-container">
-          <div class="modal-step-content">
-            <div class="modal-step-instructions">
-              <p class="mat-body-2">
-                Select an optional defaults file
-              </p>
-              <a href="#" class="mat-body-2">
-                Learn more
-              </a>
-            </div>
-            <div class="defaults-file-content">
-              <div *ngIf="!defaultsFile">
-                <button
-                  (click)="defaults.click()"
-                  mat-button
-                  class="defaults-file-button"
-                  id="defaults-file-upload-button-large"
-                >
-                  <mat-icon class="defaults-file-icon">note_add</mat-icon>
-                </button>
-              </div>
-              <div *ngIf="defaultsFile">
-                <mat-chip-list>
-                  <mat-chip
-                    id="defaults-file-chip"
-                    [selectable]="true"
-                    [removable]="true"
-                    (removed)="removeDefaultsFile()"
-                  >
-                    <mat-icon class="defaults-file-chip-icon">settings</mat-icon>
-                    {{ defaultsFile.name }}
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-            </div>
-            <div class="defaults-file-input-container">
-              <input
-                #defaults
-                class="defaults-file-upload-input"
-                type="file"
-                accept=".yaml"
-                id="defaults-file-input"
-                (change)="handleFileInput('default', $event.target.files)"
-              />
-              <label for="defaults-file-input">
-                <button
-                  id="defaults-file-upload-button"
-                  (click)="defaults.click()"
-                  mat-button
-                  class="modal-step-button-secondary"
-                >
-                  <mat-icon>file_upload</mat-icon>
-                  SELECT FILE
-                </button>
-              </label>
-            </div>
-          </div>
-          <div class="modal-step-controls-container">
-            <button
-              id="modal-step-2-back"
-              mat-button
-              matStepperPrevious
-              class="modal-step-button-secondary"
-              aria-label="Back button for step 2"
-              (click)="previousStep()"
-            >
-              Back
-            </button>
-            <button
-              id="modal-step-2-next"
-              mat-button
-              matStepperNext
-              class="modal-step-button-main"
-              aria-label="Next button for step 2"
-              (click)="nextStep()"
-            >
-              Next
-            </button>
-          </div>
-        </div>
+        <app-defaults-file-upload (options)="handleDefaultsFileUploadOptions($event)"></app-defaults-file-upload>
       </mat-step>
       <mat-step> </mat-step>
       <mat-step> </mat-step>
     </mat-horizontal-stepper>
+    <div class="modal-step-controls-container">
+      <button
+        id="modal-button-back"
+        mat-button
+        class="modal-step-button-secondary"
+        aria-label="Back button for step 2"
+        (click)="previousStep(stepper)"
+        *ngIf="currentStep > minSteps"
+      >
+        Back
+      </button>
+      <div
+        matTooltip="You must name your new spec"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="specNameValid"
+      >
+        <button
+          id="modal-button-next"
+          mat-button
+          class="modal-step-button-main"
+          aria-label="Next button for step 2"
+          (click)="nextStep(stepper)"
+          [disabled]="!specNameValid && currentStep === 1"
+        >
+          Next
+        </button>
+      </div>
+    </div>
   </mat-dialog-content>
 </div>

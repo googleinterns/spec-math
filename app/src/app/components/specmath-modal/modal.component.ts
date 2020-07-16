@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this spec except in compliance with the License.
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -13,8 +13,9 @@
 // limitations under the License.
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
+import { SpecNameInputOptions, DefaultsFileUploadOptions } from 'src/shared/interfaces';
 
 type FileUpload = 'default' | 'spec';
 
@@ -24,53 +25,53 @@ type FileUpload = 'default' | 'spec';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  private minSteps: number;
+  minSteps: number;
   currentStep: number;
-  newSpecName: string;
   maxSteps: number;
-  specNameFormControl: FormControl;
-  defaultsFile: File;
+  specNameInputOptions?: SpecNameInputOptions;
+  defaultsFileUploadOptions?: DefaultsFileUploadOptions;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
   }
 
-  nextStep(): void {
+  get newFileName(): string {
+    if (!this.specNameInputOptions) {
+      return '';
+    }
+
+    return this.specNameInputOptions.newFileName;
+  }
+
+  nextStep(stepper: MatStepper): void {
     if (this.currentStep < this.maxSteps) {
       this.currentStep++;
+      stepper.next();
     }
   }
 
-  previousStep(): void {
+  previousStep(stepper: MatStepper): void {
     if (this.currentStep > this.minSteps) {
       this.currentStep--;
+      stepper.previous();
     }
   }
 
-  submitName() {
-    this.newSpecName = this.specNameFormControl.value;
+  get specNameValid(): boolean {
+    return !!this.specNameInputOptions?.valid;
   }
 
-  handleFileInput(type: FileUpload, files: FileList) {
-    if (type === 'default') {
-      this.defaultsFile = files[0];
-    }
+  handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
+    this.specNameInputOptions = specNameInputOptions;
   }
 
-  removeDefaultsFile() {
-    this.defaultsFile = null;
+  handleDefaultsFileUploadOptions(defaultsFileUploadOptions: DefaultsFileUploadOptions) {
+    this.defaultsFileUploadOptions = defaultsFileUploadOptions;
   }
 
   ngOnInit() {
-    this.newSpecName = '';
     this.currentStep = 1;
     this.maxSteps = 4;
     this.minSteps = 1;
-    this.defaultsFile = null;
-
-    this.specNameFormControl = new FormControl ('', [
-      Validators.required,
-      Validators.pattern('[a-zA-Z0-9_-]*')
-    ]);
   }
 }

@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this spec except in compliance with the License.
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -47,6 +47,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: flex-end;
+      height: 36px;
 
       :last-child {
         margin-left: 8px;
@@ -90,47 +91,6 @@
 .mat-dialog-content {
   height: 100%;
   width: 100%;
-}
-
-.spec-name {
-  &-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-
-  &-field {
-    width: 100%;
-  }
-}
-
-.defaults-file {
-  &-upload-input {
-    display: none;
-  }
-
-  &-content {
-    margin-bottom: 2rem;
-    margin-top: 2rem;
-  }
-
-  &-chip-icon {
-    margin-right: 8px;
-  }
-  
-  &-icon {
-    font-size: 80px;
-    height: 80px;
-    width: 80px;
-    color: $material-surface-medium;
-  }
-
-  &-button {
-    height: 136px;
-    width: 136px;
-    background-color: $material-grey-400;
-    border-radius: 100%;
-  }
 }
 
 @media (max-width: 768px) {

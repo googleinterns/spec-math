@@ -16,3 +16,12 @@ export interface SpecMathMergeResponse {
   result?: string;
   conflicts?: MergeConflict [];
 }
+
+export interface SpecNameInputOptions {
+  newFileName: string;
+  valid: boolean;
+}
+
+export interface DefaultsFileUploadOptions {
+  defaultsFile: File;
+}

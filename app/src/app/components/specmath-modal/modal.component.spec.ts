@@ -15,29 +15,27 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
 
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { By, BrowserModule } from '@angular/platform-browser';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-const queryElement = (targetFixture: ComponentFixture<ModalComponent>, targetClass: string) => {
-  return targetFixture.debugElement.query(By.css(targetClass));
-};
+import { queryElement } from '../../../shared/functions';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { SpecNameInputOptions } from 'src/shared/interfaces';
 
 describe('ModalComponent', () => {
-  let dialog: MatDialog;
   let fixture: ComponentFixture<ModalComponent>;
   let modal: ModalComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ModalComponent
+        ModalComponent,
+        SpecNameInputStubComponent
       ],
       imports: [
         MatStepperModule,
@@ -45,12 +43,10 @@ describe('ModalComponent', () => {
         MatDialogModule,
         MatIconModule,
         MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
         MatTooltipModule,
         BrowserModule,
         MatDialogModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
       providers: [
         {
@@ -58,11 +54,14 @@ describe('ModalComponent', () => {
         },
       ]
     }).compileComponents().then(() => {
-      dialog = TestBed.inject(MatDialog);
       fixture = TestBed.createComponent(ModalComponent);
       modal = fixture.componentInstance;
     });
   }));
+
+  const getSpecNameInputStubComponent = () =>
+    fixture.debugElement.query(By.directive(SpecNameInputStubComponent))
+      .injector.get(SpecNameInputStubComponent);
 
   it('creates the modal component', () => {
     expect(modal).toBeTruthy();
@@ -80,64 +79,45 @@ describe('ModalComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('next button is disabled on step 1 when the new file name input is empty', () => {
+  it('disables the next button when the modal is first opened', () => {
     fixture.detectChanges();
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
+    const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
     expect(nextButton.disabled).toBeTruthy();
   });
 
-  it('new file name form validity', () => {
+  it('enables the next button when newFileName is valid', () => {
     fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    expect(specNameField.valid).toBeFalsy();
+    const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
-    specNameField.setValue('invalid input!');
-    expect(specNameField.hasError('pattern')).toBeTruthy();
-
-    specNameField.setValue('');
-    expect(specNameField.hasError('required')).toBeTruthy();
-
-    specNameField.setValue('test_spec');
-    expect(specNameField.valid).toBeTruthy();
+    getSpecNameInputStubComponent().emitOptions();
+    fixture.detectChanges();
+    expect(nextButton.disabled).toBeFalsy();
   });
 
-  it('calls nextStep() when the new file name is valid and the next button is clicked', () => {
+  it('moves onto the next step when next button is clicked', () => {
     fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-    const spy = spyOn(modal, 'nextStep');
+    const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
-    specNameField.setValue('test_spec');
+    getSpecNameInputStubComponent().emitOptions();
     fixture.detectChanges();
     nextButton.click();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('calls submitName() when the new file name is valid and the next button is clicked', () => {
     fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-    const spy = spyOn(modal, 'submitName');
-
-    specNameField.setValue('test_spec');
-    fixture.detectChanges();
-    nextButton.click();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('the defaults file chip is shown when a file is uploaded', () => {
-    fixture.detectChanges();
-    const specNameField = modal.specNameFormControl;
-    const nextButton = queryElement(fixture, '#modal-step-1-next').nativeElement;
-
-    specNameField.setValue('test_spec');
-    fixture.detectChanges();
-    nextButton.click();
-
-    modal.defaultsFile = new File(['sample'], 'sample.yaml');
-    fixture.detectChanges();
-    const defaultsFileChip = queryElement(fixture, '#defaults-file-chip').nativeElement;
-    expect(defaultsFileChip).toBeTruthy();
+    expect(modal.currentStep).toEqual(2);
   });
 });
+
+/**
+ * Stub component for the SpecNameInputComponent
+ */
+@Component({
+  selector: 'app-spec-name-input',
+  template: '<div>spec-name-input stub</div>'
+})
+export class SpecNameInputStubComponent {
+  @Output() options = new EventEmitter<SpecNameInputOptions>();
+
+  emitOptions() {
+    this.options.emit({ newFileName: 'new_spec', valid: true });
+  }
+}
