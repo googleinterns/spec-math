@@ -114,7 +114,7 @@ describe('ModalComponent', () => {
  * Stub component for the SpecNameInputComponent
  */
 @Component({
-  selector: 'app-modal-step-1',
+  selector: 'app-spec-name-input',
   template: '<div>spec-name-input stub</div>'
 })
 export class SpecNameInputStubComponent {
