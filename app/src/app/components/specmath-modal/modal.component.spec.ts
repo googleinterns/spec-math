@@ -79,14 +79,14 @@ describe('ModalComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('next button is disabled when the modal is first opened', () => {
+  it('disables the next button when the modal is first opened', () => {
     fixture.detectChanges();
     const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
     expect(nextButton.disabled).toBeTruthy();
   });
 
-  it('next button is enabled when newFileName is valid', () => {
+  it('enables the next button when newFileName is valid', () => {
     fixture.detectChanges();
     const nextButton = queryElement(fixture, '#modal-button-next').nativeElement;
 
