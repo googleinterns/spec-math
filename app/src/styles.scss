@@ -31,8 +31,10 @@ a {
   text-decoration: none;
 }
 
-.mat-horizontal-stepper-header-container {
-  display: none !important;
+#modal-stepper {
+  .mat-horizontal-stepper-header-container {
+    display: none;
+  }
 }
 
 .mat-horizontal-stepper-content {

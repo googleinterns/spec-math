@@ -34,7 +34,7 @@ limitations under the License. -->
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <mat-horizontal-stepper linear #stepper>
+    <mat-horizontal-stepper id="modal-stepper" linear #stepper>
       <mat-step>
         <app-modal-step-1 (options)="handleStep1Options($event)"></app-modal-step-1>
       </mat-step>
