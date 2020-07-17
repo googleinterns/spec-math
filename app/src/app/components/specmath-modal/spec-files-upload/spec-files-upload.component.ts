@@ -41,10 +41,7 @@ export class SpecFilesUploadComponent implements OnInit  {
       this.fileUploadError = false;
     }
 
-    if (files.length <= emptyFileSpots) {
-      this.specFilesUploadOptions.specFiles.push(...Array.from(files));
-    }
-
+    this.specFilesUploadOptions.specFiles.push(...Array.from(files));
     this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
     this.options.emit(this.specFilesUploadOptions);
   }
