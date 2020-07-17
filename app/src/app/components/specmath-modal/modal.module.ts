@@ -25,7 +25,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
 import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
-import { Step3Component } from './specmath-modal-step-3/step3.component';
+import { Step3Component } from './spec-files-upload/step3.component';
 
 @NgModule({
   declarations: [
