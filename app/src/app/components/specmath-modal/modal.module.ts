@@ -25,14 +25,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
 import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
-import { Step3Component } from './spec-files-upload/step3.component';
+import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 
 @NgModule({
   declarations: [
     ModalComponent,
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
-    Step3Component
+    SpecFilesUploadComponent
   ],
   imports: [
     MatStepperModule,
@@ -50,7 +50,7 @@ import { Step3Component } from './spec-files-upload/step3.component';
     ModalComponent,
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
-    Step3Component,
+    SpecFilesUploadComponent,
     MatTooltipModule
   ],
   providers: [],

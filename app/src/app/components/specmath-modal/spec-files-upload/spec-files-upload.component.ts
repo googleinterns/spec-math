@@ -16,11 +16,11 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Step3Options } from '../../../../shared/interfaces';
 
 @Component({
-  selector: 'app-modal-step-3',
-  templateUrl: './step3.component.html',
-  styleUrls: ['./step3.component.scss']
+  selector: 'app-spec-files-upload',
+  templateUrl: './spec-files-upload.component.html',
+  styleUrls: ['./spec-files-upload.component.scss']
 })
-export class Step3Component implements OnInit  {
+export class SpecFilesUploadComponent implements OnInit  {
   specFilesNum: number;
   fileUploadError: boolean;
   step3Options?: Step3Options = {
