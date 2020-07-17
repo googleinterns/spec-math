@@ -36,13 +36,19 @@ limitations under the License. -->
     </div>
     <mat-horizontal-stepper id="modal-stepper" linear #stepper>
       <mat-step>
-        <app-spec-name-input (options)="handleSpecNameInputOptions($event)"></app-spec-name-input>
+        <app-spec-name-input
+          (options)="handleSpecNameInputOptions($event)"
+        ></app-spec-name-input>
       </mat-step>
       <mat-step [optional]="true">
-        <app-defaults-file-upload (options)="handleDefaultsFileUploadOptions($event)"></app-defaults-file-upload>
+        <app-defaults-file-upload
+          (options)="handleDefaultsFileUploadOptions($event)"
+        ></app-defaults-file-upload>
       </mat-step>
       <mat-step>
-        <app-spec-files-upload (options)="handleSpecFilesUploadOptions($event)"></app-spec-files-upload>
+        <app-spec-files-upload
+          (options)="handleSpecFilesUploadOptions($event)"
+        ></app-spec-files-upload>
       </mat-step>
       <mat-step> </mat-step>
     </mat-horizontal-stepper>
@@ -58,9 +64,9 @@ limitations under the License. -->
         Back
       </button>
       <div
-        matTooltip="You must name your new spec"
+        [matTooltip]="nextButtonTooltipText"
         matTooltipPosition="above"
-        [matTooltipDisabled]="specNameValid"
+        [matTooltipDisabled]="!nextButtonDisabled"
       >
         <button
           id="modal-button-next"
@@ -68,7 +74,7 @@ limitations under the License. -->
           class="modal-step-button-main"
           aria-label="Next button for step 2"
           (click)="nextStep(stepper)"
-          [disabled]="!specNameValid && currentStep === 1"
+          [disabled]="nextButtonDisabled"
         >
           Next
         </button>

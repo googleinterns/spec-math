@@ -58,12 +58,28 @@ export class ModalComponent implements OnInit {
     return this.specNameInputOptions.newFileName;
   }
 
-  get specNameValid(): boolean {
-    return !!this.specNameInputOptions?.valid;
+  get nextButtonTooltipText(): string {
+    if (this.currentStep === 1) {
+      return 'You must name your new spec';
+    }
+
+    if (this.currentStep === 3) {
+      return 'You must upload a set of spec files';
+    }
+
+    return '';
   }
 
-  get specFilesUploadValid(): boolean {
-    return !!this.specFilesUploadOptions?.valid;
+  get nextButtonDisabled(): boolean {
+    if (this.currentStep === 1 && !!!this.specNameInputOptions?.valid) {
+      return true;
+    }
+
+    if (this.currentStep === 3 && !!!this.specFilesUploadOptions?.valid) {
+      return true;
+    }
+
+    return false;
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
