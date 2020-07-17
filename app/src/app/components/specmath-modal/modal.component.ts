@@ -30,7 +30,7 @@ const toolTipText = {
 export class ModalComponent implements OnInit {
   MAX_STEPS = 4;
   MIN_STEPS = 1;
-  currentStep: number;
+  currentStep = this.MIN_STEPS;
   specNameInputOptions: SpecNameInputOptions;
   defaultsFileUploadOptions: DefaultsFileUploadOptions;
   specFilesUploadOptions: SpecFilesUploadOptions;
@@ -82,7 +82,6 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentStep = this.MIN_STEPS;
     this.specNameInputOptions = null;
     this.defaultsFileUploadOptions = null;
     this.specFilesUploadOptions = null;
