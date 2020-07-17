@@ -18,9 +18,9 @@ limitations under the License. -->
       <div class="modal-step-header-labels">
         <h3>
           Merge specs
-          <b class="step-indicator">{{ currentStep }}/{{ maxSteps }}</b>
+          <b class="step-indicator">{{ currentStep }}/{{ MAX_STEPS }}</b>
         </h3>
-        <p *ngIf="currentStep > minSteps" class="mat-caption">
+        <p *ngIf="currentStep > MIN_STEPS" class="mat-caption">
           {{ newFileName }}
         </p>
       </div>
@@ -59,7 +59,7 @@ limitations under the License. -->
         class="modal-step-button-secondary"
         aria-label="Back button for step 2"
         (click)="previousStep(stepper)"
-        *ngIf="currentStep > minSteps"
+        *ngIf="currentStep > MIN_STEPS"
       >
         Back
       </button>

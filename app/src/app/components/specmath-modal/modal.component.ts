@@ -28,9 +28,9 @@ const toolTipText = {
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  minSteps: number;
+  MAX_STEPS = 4;
+  MIN_STEPS = 1;
   currentStep: number;
-  maxSteps: number;
   specNameInputOptions: SpecNameInputOptions;
   defaultsFileUploadOptions: DefaultsFileUploadOptions;
   specFilesUploadOptions: SpecFilesUploadOptions;
@@ -40,14 +40,14 @@ export class ModalComponent implements OnInit {
   }
 
   nextStep(stepper: MatStepper): void {
-    if (this.currentStep < this.maxSteps) {
+    if (this.currentStep < this.MAX_STEPS) {
       this.currentStep++;
       stepper.next();
     }
   }
 
   previousStep(stepper: MatStepper): void {
-    if (this.currentStep > this.minSteps) {
+    if (this.currentStep > this.MIN_STEPS) {
       this.currentStep--;
       stepper.previous();
     }
@@ -82,9 +82,7 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentStep = 1;
-    this.maxSteps = 4;
-    this.minSteps = 1;
+    this.currentStep = this.MIN_STEPS;
     this.specNameInputOptions = null;
     this.defaultsFileUploadOptions = null;
     this.specFilesUploadOptions = null;
