@@ -35,7 +35,7 @@ limitations under the License. -->
             *ngFor="let spec of specFilesUploadOptions.specFiles; let i = index"
           >
             <mat-chip
-              *ngIf="i < specFilesNum"
+              *ngIf="spec"
               [selectable]="true"
               [removable]="true"
               (removed)="removeSpecFile(i)"
@@ -45,13 +45,6 @@ limitations under the License. -->
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
             <mat-icon *ngIf="i < specFilesNum - 1">add</mat-icon>
-            <mat-chip
-              class="spec-files-chip-empty"
-              *ngIf="specFilesUploadOptions.specFiles.length < specFilesNum"
-              (click)="specs.click()"
-            >
-              <mat-icon class="spec-files-chip-icon">description</mat-icon>
-            </mat-chip>
           </div>
         </mat-chip-list>
       </div>

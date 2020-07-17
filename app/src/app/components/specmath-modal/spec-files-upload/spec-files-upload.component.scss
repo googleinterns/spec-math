@@ -44,12 +44,6 @@
       margin-right: 8px;
     }
 
-    &-empty {
-      background-color: transparent;
-      border: solid 3px #e0e0e0;
-      width: 46px;
-    }
-
     &-list {
       &-container {
         display: flex;
@@ -67,7 +61,7 @@
       align-items: center;
 
       #spec-files-upload-error {
-        margin-top: 8px;
+        margin-top: 1rem;
       }
     }
   }
