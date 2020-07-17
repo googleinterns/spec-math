@@ -15,6 +15,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
 
+const filesListToArray = (files: FileList) => Array.from(files);
+
 @Component({
   selector: 'app-spec-files-upload',
   templateUrl: './spec-files-upload.component.html',
@@ -31,6 +33,10 @@ export class SpecFilesUploadComponent  {
   @Output() options: EventEmitter<SpecFilesUploadOptions> = new EventEmitter();
 
   handleSpecFileInput(files: FileList) {
+    this.validateFiles(filesListToArray(files));
+  }
+
+  validateFiles(files: File []) {
     const emptyFileSpots =
       this.specFilesNum - this.specFilesUploadOptions.specFiles.length;
 
@@ -42,12 +48,15 @@ export class SpecFilesUploadComponent  {
     }
 
     this.specFilesUploadOptions.specFiles.push(...Array.from(files));
-    this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
-    this.options.emit(this.specFilesUploadOptions);
+    this.emitFileStatus();
   }
 
   removeSpecFile(index: number) {
     this.specFilesUploadOptions.specFiles.splice(index, 1);
+    this.emitFileStatus();
+  }
+
+  emitFileStatus() {
     this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
     this.options.emit(this.specFilesUploadOptions);
   }
