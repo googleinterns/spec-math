@@ -31,9 +31,9 @@ export class ModalComponent implements OnInit {
   minSteps: number;
   currentStep: number;
   maxSteps: number;
-  specNameInputOptions?: SpecNameInputOptions;
-  defaultsFileUploadOptions?: DefaultsFileUploadOptions;
-  specFilesUploadOptions?: SpecFilesUploadOptions;
+  specNameInputOptions: SpecNameInputOptions;
+  defaultsFileUploadOptions: DefaultsFileUploadOptions;
+  specFilesUploadOptions: SpecFilesUploadOptions;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -93,5 +93,8 @@ export class ModalComponent implements OnInit {
     this.currentStep = 1;
     this.maxSteps = 4;
     this.minSteps = 1;
+    this.specNameInputOptions = null;
+    this.defaultsFileUploadOptions = null;
+    this.specFilesUploadOptions = null;
   }
 }

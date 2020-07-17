@@ -45,14 +45,14 @@ export class SpecFilesUploadComponent implements OnInit  {
       this.specFilesUploadOptions.specFiles.push(...Array.from(files));
     }
 
-    if (this.specFilesUploadOptions.specFiles.length === this.specFilesNum) {
-      this.specFilesUploadOptions.valid = true;
-      this.options.emit(this.specFilesUploadOptions);
-    }
+    this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
+    this.options.emit(this.specFilesUploadOptions);
   }
 
   removeSpecFile(index: number) {
     this.specFilesUploadOptions.specFiles.splice(index, 1);
+    this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
+    this.options.emit(this.specFilesUploadOptions);
   }
 
   ngOnInit() {
