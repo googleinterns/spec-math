@@ -55,7 +55,7 @@ describe('SpecFilesUploadComponent', () => {
     expect(errorMessage).toBeTruthy();
   });
 
-  it('displays the spec file chips when the correct amount of spec files is uploaded', () => {
+  it('displays the spec file chips when the correct amount of spec files are uploaded', () => {
     fixture.detectChanges();
     component.specFilesUploadOptions.specFiles = [
       new File(['content'], 'spec1.yaml'),
