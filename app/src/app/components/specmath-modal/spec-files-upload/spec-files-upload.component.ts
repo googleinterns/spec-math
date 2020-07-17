@@ -60,7 +60,7 @@ export class SpecFilesUploadComponent implements OnInit  {
   }
 
   ngOnInit() {
-    this.specFilesNum = 3;
+    this.specFilesNum = 2;
     this.fileUploadError = false;
   }
 }
