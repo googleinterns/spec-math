@@ -15,7 +15,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { SpecNameInputOptions, DefaultsFileUploadOptions } from 'src/shared/interfaces';
+import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
 type FileUpload = 'default' | 'spec';
 
@@ -30,17 +30,10 @@ export class ModalComponent implements OnInit {
   maxSteps: number;
   specNameInputOptions?: SpecNameInputOptions;
   defaultsFileUploadOptions?: DefaultsFileUploadOptions;
+  specFilesUploadOptions?: SpecFilesUploadOptions;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
-  }
-
-  get newFileName(): string {
-    if (!this.specNameInputOptions) {
-      return '';
-    }
-
-    return this.specNameInputOptions.newFileName;
   }
 
   nextStep(stepper: MatStepper): void {
@@ -57,8 +50,20 @@ export class ModalComponent implements OnInit {
     }
   }
 
+  get newFileName(): string {
+    if (!this.specNameInputOptions) {
+      return '';
+    }
+
+    return this.specNameInputOptions.newFileName;
+  }
+
   get specNameValid(): boolean {
     return !!this.specNameInputOptions?.valid;
+  }
+
+  get specFilesUploadValid(): boolean {
+    return !!this.specFilesUploadOptions?.valid;
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
@@ -67,6 +72,10 @@ export class ModalComponent implements OnInit {
 
   handleDefaultsFileUploadOptions(defaultsFileUploadOptions: DefaultsFileUploadOptions) {
     this.defaultsFileUploadOptions = defaultsFileUploadOptions;
+  }
+
+  handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
+    this.specFilesUploadOptions = specFilesUploadOptions;
   }
 
   ngOnInit() {
