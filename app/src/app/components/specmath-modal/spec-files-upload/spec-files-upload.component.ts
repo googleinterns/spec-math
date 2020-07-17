@@ -35,17 +35,18 @@ export class SpecFilesUploadComponent implements OnInit  {
   }
 
   handleSpecFileInput(files: FileList) {
-    if (files.length > this.specFilesNum) {
+    const emptyFileSpots =
+      this.specFilesNum - this.specFilesUploadOptions.specFiles.length;
+
+    if (files.length > emptyFileSpots) {
       this.fileUploadError = true;
       return;
     } else {
       this.fileUploadError = false;
     }
 
-    if (files.length <= this.specFilesNum) {
-      for (let i = 0; i < files.length; i++) {
-        this.specFilesUploadOptions.specFiles.push(files[i]);
-      }
+    if (files.length <= emptyFileSpots) {
+      this.specFilesUploadOptions.specFiles.push(...Array.from(files));
     }
 
     if (this.specFilesUploadOptions.specFiles.length === this.specFilesNum) {
