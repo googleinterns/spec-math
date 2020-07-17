@@ -84,6 +84,9 @@ limitations under the License. -->
           </button>
         </div>
       </label>
+      <p id="spec-files-upload-error" class="mat-body mat-error" *ngIf="fileUploadError">
+        You cannot upload more than {{ specFilesNum }} spec files
+      </p>
     </div>
   </div>
 </div>
