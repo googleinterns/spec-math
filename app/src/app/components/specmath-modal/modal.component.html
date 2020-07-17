@@ -57,7 +57,7 @@ limitations under the License. -->
         id="modal-button-back"
         mat-button
         class="modal-step-button-secondary"
-        aria-label="Back button for step 2"
+        aria-label="Back button for stepper"
         (click)="previousStep(stepper)"
         *ngIf="currentStep > MIN_STEPS"
       >
@@ -72,7 +72,7 @@ limitations under the License. -->
           id="modal-button-next"
           mat-button
           class="modal-step-button-main"
-          aria-label="Next button for step 2"
+          aria-label="Next button for stepper"
           (click)="nextStep(stepper)"
           [disabled]="!nextButtonEnabled"
         >
