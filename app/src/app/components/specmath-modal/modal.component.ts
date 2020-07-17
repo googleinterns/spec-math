@@ -17,7 +17,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
-type FileUpload = 'default' | 'spec';
+const toolTipText = {
+  1: 'You must name your new spec',
+  3: 'You must upload a set of spec files'
+};
 
 @Component({
   selector: 'app-modal',
@@ -59,15 +62,7 @@ export class ModalComponent implements OnInit {
   }
 
   get nextButtonTooltipText(): string {
-    if (this.currentStep === 1) {
-      return 'You must name your new spec';
-    }
-
-    if (this.currentStep === 3) {
-      return 'You must upload a set of spec files';
-    }
-
-    return '';
+    return toolTipText[this.currentStep];
   }
 
   get nextButtonDisabled(): boolean {
