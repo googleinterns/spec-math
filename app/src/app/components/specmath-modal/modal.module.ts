@@ -53,7 +53,6 @@ import { SpecNameInputComponent } from './spec-name-input/spec-name-input.compon
     SpecFilesUploadComponent,
     MatTooltipModule
   ],
-  providers: [],
   bootstrap: [ModalComponent]
 })
 export class ModalModule { }
