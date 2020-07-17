@@ -23,7 +23,7 @@ import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
 export class SpecFilesUploadComponent implements OnInit  {
   specFilesNum: number;
   fileUploadError: boolean;
-  specFilesUploadOptions?: SpecFilesUploadOptions = {
+  specFilesUploadOptions: SpecFilesUploadOptions = {
     specFiles: [],
     valid: false
   };
