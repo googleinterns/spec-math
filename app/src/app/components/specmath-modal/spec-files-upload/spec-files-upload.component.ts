@@ -30,10 +30,6 @@ export class SpecFilesUploadComponent implements OnInit  {
 
   @Output() options: EventEmitter<SpecFilesUploadOptions> = new EventEmitter();
 
-  constructor() {
-
-  }
-
   handleSpecFileInput(files: FileList) {
     const emptyFileSpots =
       this.specFilesNum - this.specFilesUploadOptions.specFiles.length;

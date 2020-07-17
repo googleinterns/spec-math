@@ -30,10 +30,6 @@ export class SpecNameInputComponent implements OnInit  {
 
   @Output() options: EventEmitter<SpecNameInputOptions> = new EventEmitter();
 
-  constructor() {
-
-  }
-
   ngOnInit() {
     this.specNameFormControl = new FormControl ('', [
       Validators.required,
