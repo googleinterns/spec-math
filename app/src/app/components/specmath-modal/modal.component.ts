@@ -65,16 +65,12 @@ export class ModalComponent implements OnInit {
     return toolTipText[this.currentStep];
   }
 
-  get nextButtonDisabled(): boolean {
-    if (this.currentStep === 1 && !this.specNameInputOptions?.valid) {
-      return true;
-    }
-
-    if (this.currentStep === 3 && !this.specFilesUploadOptions?.valid) {
-      return true;
-    }
-
-    return false;
+  get nextButtonEnabled(): boolean {
+    return (
+      this.currentStep === 1 && this.specNameInputOptions?.valid
+      || this.currentStep === 2
+      || this.currentStep === 3 && this.specFilesUploadOptions?.valid
+    );
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
