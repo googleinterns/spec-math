@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
 
 @Component({
@@ -20,9 +20,9 @@ import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
   templateUrl: './spec-files-upload.component.html',
   styleUrls: ['./spec-files-upload.component.scss']
 })
-export class SpecFilesUploadComponent implements OnInit  {
-  specFilesNum: number;
-  fileUploadError: boolean;
+export class SpecFilesUploadComponent  {
+  specFilesNum = 2;
+  fileUploadError = false;
   specFilesUploadOptions: SpecFilesUploadOptions = {
     specFiles: [],
     valid: false
@@ -50,10 +50,5 @@ export class SpecFilesUploadComponent implements OnInit  {
     this.specFilesUploadOptions.specFiles.splice(index, 1);
     this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
     this.options.emit(this.specFilesUploadOptions);
-  }
-
-  ngOnInit() {
-    this.specFilesNum = 2;
-    this.fileUploadError = false;
   }
 }
