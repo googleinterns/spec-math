@@ -12,4 +12,58 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { SpecFilesUploadComponent } from './spec-files-upload.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
+import { queryElement } from '../../../../shared/functions';
+
+describe('SpecFilesUploadComponent', () => {
+  let fixture: ComponentFixture<SpecFilesUploadComponent>;
+  let component: SpecFilesUploadComponent;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        SpecFilesUploadComponent
+      ],
+      imports: [
+        MatIconModule,
+        BrowserModule,
+        MatChipsModule,
+        MatButtonModule
+      ],
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(SpecFilesUploadComponent);
+      component = fixture.componentInstance;
+    });
+  }));
+
+  it('creates the SpecFilesUploadComponent component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('displays the error message when fileUpload error is true', () => {
+    fixture.detectChanges();
+    component.fileUploadError = true;
+
+    fixture.detectChanges();
+    const errorMessage = queryElement(fixture, '#spec-files-upload-error').nativeElement;
+    expect(errorMessage).toBeTruthy();
+  });
+
+  it('displays the spec file chips when the correct amount of spec files is uploaded', () => {
+    fixture.detectChanges();
+    component.specFilesUploadOptions.specFiles = [
+      new File(['content'], 'spec1.yaml'),
+      new File(['content'], 'spec2.yaml')
+    ];
+
+    fixture.detectChanges();
+    const specFilesChipListContaine = queryElement(fixture, '.spec-files-chip-list-container').nativeElement;
+    expect(specFilesChipListContaine).toBeTruthy();
+  });
+});
