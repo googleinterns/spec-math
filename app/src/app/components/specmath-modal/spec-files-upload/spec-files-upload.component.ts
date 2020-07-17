@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Step3Options } from '../../../../shared/interfaces';
+import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
 
 @Component({
   selector: 'app-spec-files-upload',
@@ -23,12 +23,12 @@ import { Step3Options } from '../../../../shared/interfaces';
 export class SpecFilesUploadComponent implements OnInit  {
   specFilesNum: number;
   fileUploadError: boolean;
-  step3Options?: Step3Options = {
+  specFilesUploadOptions?: SpecFilesUploadOptions = {
     specFiles: [],
     valid: false
   };
 
-  @Output() options: EventEmitter<Step3Options> = new EventEmitter();
+  @Output() options: EventEmitter<SpecFilesUploadOptions> = new EventEmitter();
 
   constructor() {
 
@@ -44,18 +44,18 @@ export class SpecFilesUploadComponent implements OnInit  {
 
     if (files.length <= this.specFilesNum) {
       for (let i = 0; i < files.length; i++) {
-        this.step3Options.specFiles.push(files[i]);
+        this.specFilesUploadOptions.specFiles.push(files[i]);
       }
     }
 
-    if (this.step3Options.specFiles.length === this.specFilesNum) {
-      this.step3Options.valid = true;
-      this.options.emit(this.step3Options);
+    if (this.specFilesUploadOptions.specFiles.length === this.specFilesNum) {
+      this.specFilesUploadOptions.valid = true;
+      this.options.emit(this.specFilesUploadOptions);
     }
   }
 
   removeSpecFile(index: number) {
-    this.step3Options.specFiles.splice(index, 1);
+    this.specFilesUploadOptions.specFiles.splice(index, 1);
   }
 
   ngOnInit() {

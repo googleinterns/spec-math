@@ -26,7 +26,7 @@ export interface DefaultsFileUploadOptions {
   defaultsFile: File;
 }
 
-export interface Step3Options {
+export interface SpecFilesUploadOptions {
   specFiles: File [];
   valid: boolean;
 }

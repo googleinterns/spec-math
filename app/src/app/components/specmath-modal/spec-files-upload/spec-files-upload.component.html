@@ -18,7 +18,7 @@ limitations under the License. -->
       <p class="mat-body-2">Select <b>{{ specFilesNum }}</b> spec files</p>
     </div>
     <div class="spec-files-content">
-      <div *ngIf="step3Options.specFiles.length === 0">
+      <div *ngIf="specFilesUploadOptions.specFiles.length === 0">
         <button
           (click)="specs.click()"
           mat-button
@@ -28,11 +28,11 @@ limitations under the License. -->
           <mat-icon class="spec-files-icon">note_add</mat-icon>
         </button>
       </div>
-      <div *ngIf="step3Options.specFiles">
+      <div *ngIf="specFilesUploadOptions.specFiles">
         <mat-chip-list id="spec-files-chip-list">
           <div
             class="spec-files-chip-list-container"
-            *ngFor="let spec of step3Options.specFiles; let i = index"
+            *ngFor="let spec of specFilesUploadOptions.specFiles; let i = index"
           >
             <mat-chip
               *ngIf="i < specFilesNum"
@@ -47,7 +47,7 @@ limitations under the License. -->
             <mat-icon *ngIf="i < specFilesNum - 1">add</mat-icon>
             <mat-chip
               class="spec-files-chip-empty"
-              *ngIf="step3Options.specFiles.length < specFilesNum"
+              *ngIf="specFilesUploadOptions.specFiles.length < specFilesNum"
               (click)="specs.click()"
             >
               <mat-icon class="spec-files-chip-icon">description</mat-icon>
@@ -70,10 +70,10 @@ limitations under the License. -->
         <div
           matTooltip="You've already uploaded {{ specFilesNum }} spec files"
           matTooltipPosition="below"
-          [matTooltipDisabled]="step3Options.specFiles.length !== specFilesNum"
+          [matTooltipDisabled]="specFilesUploadOptions.specFiles.length !== specFilesNum"
         >
           <button
-            [disabled]="step3Options.specFiles.length === specFilesNum"
+            [disabled]="specFilesUploadOptions.specFiles.length === specFilesNum"
             id="specs-upload-button"
             (click)="specs.click()"
             mat-button
