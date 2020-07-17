@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { NgModule } from '@angular/core';
-import { ModalComponent } from './modal.component';
-import { MatStepperModule } from '@angular/material/stepper';
+import { BrowserModule } from '@angular/platform-browser';
+import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { ModalComponent } from './modal.component';
+import { NgModule } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
-import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
-import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
+import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
 
 @NgModule({
   declarations: [
