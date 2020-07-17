@@ -46,7 +46,7 @@ describe('SpecFilesUploadComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('displays the error message when fileUpload error is true', () => {
+  it('displays the error message when an incorrect number of files is uploaded', () => {
     fixture.detectChanges();
     component.fileUploadError = true;
 
