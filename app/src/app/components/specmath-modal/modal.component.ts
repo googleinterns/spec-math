@@ -54,11 +54,7 @@ export class ModalComponent implements OnInit {
   }
 
   get newFileName(): string {
-    if (!this.specNameInputOptions) {
-      return '';
-    }
-
-    return this.specNameInputOptions.newFileName;
+    return (this.specNameInputOptions ? this.specNameInputOptions.newFileName : '');
   }
 
   get nextButtonTooltipText(): string {

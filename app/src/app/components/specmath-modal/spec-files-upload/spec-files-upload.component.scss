@@ -67,6 +67,12 @@
   }
 }
 
+#spec-files-chip-list {
+  .mat-standard-chip {
+    padding-left: 8px;
+  }
+}
+
 @media (max-width: 768px) {
   .mat-chip-list-wrapper {
     flex-direction: column;
