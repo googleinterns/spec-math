@@ -66,11 +66,11 @@ export class ModalComponent implements OnInit {
   }
 
   get nextButtonDisabled(): boolean {
-    if (this.currentStep === 1 && !!!this.specNameInputOptions?.valid) {
+    if (this.currentStep === 1 && !this.specNameInputOptions?.valid) {
       return true;
     }
 
-    if (this.currentStep === 3 && !!!this.specFilesUploadOptions?.valid) {
+    if (this.currentStep === 3 && !this.specFilesUploadOptions?.valid) {
       return true;
     }
 
