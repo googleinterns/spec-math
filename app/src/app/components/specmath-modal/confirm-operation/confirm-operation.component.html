@@ -12,4 +12,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-
+<div class="modal-step-container">
+  <div class="modal-step-content">
+    <div class="modal-step-instructions">
+      <p class="mat-body-2">Confirm the files used to perform this operation</p>
+    </div>
+    <div class="confirm-files-container">
+      <mat-chip-list *ngIf="inputFilesValid">
+        <mat-chip *ngFor="let file of operationFiles">
+          {{file.name}}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>

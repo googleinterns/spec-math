@@ -11,3 +11,36 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+import { Component, Input } from '@angular/core';
+import { DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
+
+@Component({
+  selector: 'app-confirm-operation',
+  templateUrl: './confirm-operation.component.html',
+  styleUrls: ['./confirm-operation.component.scss']
+})
+export class ConfirmOperationComponent {
+  defaultsFile = null;
+  specFiles = [];
+
+  @Input() defaultsFileUploadOptions?: DefaultsFileUploadOptions;
+  @Input() specFilesUploadOptions?: SpecFilesUploadOptions;
+
+  get inputFilesValid(): boolean {
+    if (this.specFilesUploadOptions) {
+      this.defaultsFile = (this.defaultsFileUploadOptions ? this.defaultsFileUploadOptions.defaultsFile : null);
+      this.specFiles = this.specFilesUploadOptions.specFiles;
+
+      return true;
+    }
+
+    return false;
+  }
+
+  get operationFiles(): File[] {
+    return (this.defaultsFile ?
+      [this.defaultsFile, ...this.specFiles] :
+      [...this.specFiles]);
+  }
+}
