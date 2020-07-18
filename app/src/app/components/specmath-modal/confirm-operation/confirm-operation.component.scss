@@ -15,4 +15,8 @@
 @import '../../../../shared/constants.scss';
 @import '../modal.component.scss';
 
-
+.confirm-operation {
+  &-container {
+    margin-top: 1rem;
+  }
+}

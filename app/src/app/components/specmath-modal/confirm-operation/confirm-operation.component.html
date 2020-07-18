@@ -17,11 +17,17 @@ limitations under the License. -->
     <div class="modal-step-instructions">
       <p class="mat-body-2">Confirm the files used to perform this operation</p>
     </div>
-    <div class="confirm-files-container">
-      <mat-chip-list *ngIf="inputFilesValid">
-        <mat-chip *ngFor="let file of operationFiles">
-          {{file.name}}
-        </mat-chip>
+    <div *ngIf="inputFilesValid" class="confirm-operation-container">
+      <mat-chip-list id="confirm-operation-chip-container">
+        <div *ngFor="let file of operationFiles; let i = index">
+          <mat-chip>
+            <mat-icon>
+              {{ defaultsFile && i === 0 ? "settings" : "description" }}
+            </mat-icon>
+            {{ file.name }}
+          </mat-chip>
+          <mat-icon *ngIf="i < operationFiles.length - 1">add</mat-icon>
+        </div>
       </mat-chip-list>
     </div>
   </div>
