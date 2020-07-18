@@ -55,15 +55,83 @@ describe('SpecFilesUploadComponent', () => {
     expect(errorMessage).toBeTruthy();
   });
 
-  it('displays the spec file chips when the correct amount of spec files are uploaded', () => {
+  it('displays a spec file chip when a spec file is uploaded', () => {
     fixture.detectChanges();
-    component.specFilesUploadOptions.specFiles = [
-      new File(['content'], 'spec1.yaml'),
-      new File(['content'], 'spec2.yaml')
-    ];
 
+    component.validateFiles([
+      new File(['content'], 'spec1.yaml'),
+    ]);
     fixture.detectChanges();
+
     const specFilesChipListContaine = queryElement(fixture, '.spec-files-chip-list-container').nativeElement;
     expect(specFilesChipListContaine).toBeTruthy();
+  });
+
+  it('displays at least one + icon when at least one file has been uploaded', () => {
+    fixture.detectChanges();
+
+    component.validateFiles([
+      new File(['content'], 'spec1.yaml'),
+    ]);
+    fixture.detectChanges();
+
+    const plusIcon = queryElement(fixture, '.spec-files-add-icon').nativeElement;
+    expect(plusIcon).toBeTruthy();
+  });
+
+  it('emits a valid SpecFilesUploadOptions object when the correct amount of files is uploaded', () => {
+    const spy = spyOn(component.options, 'emit');
+
+    component.validateFiles([
+      new File(['content'], 'spec1.yaml'),
+      new File(['content'], 'spec2.yaml'),
+    ]);
+    fixture.detectChanges();
+
+    expect(component.specFilesUploadOptions.valid).toEqual(true);
+    expect(spy).toHaveBeenCalledWith({
+      specFiles: [
+        new File(['content'], 'spec1.yaml'),
+        new File(['content'], 'spec2.yaml'),
+      ],
+      valid: true
+    });
+  });
+
+  it('emits an invalid SpecFilesUploadOptions when an incomplete set of files is uploaded', () => {
+    const spy = spyOn(component.options, 'emit');
+
+    component.validateFiles([
+      new File(['content'], 'spec1.yaml'),
+    ]);
+    fixture.detectChanges();
+
+    expect(component.specFilesUploadOptions.valid).toEqual(false);
+    expect(spy).toHaveBeenCalledWith({
+      specFiles: [
+        new File(['content'], 'spec1.yaml'),
+      ],
+      valid: false
+    });
+  });
+
+  it('emits an SpecFilesUploadOptions object every time a spec file is uploaded', () => {
+    const spy = spyOn(component.options, 'emit');
+
+    component.validateFiles([
+      new File(['content'], 'spec1.yaml'),
+    ]);
+    fixture.detectChanges();
+
+    expect(component.specFilesUploadOptions.valid).toEqual(false);
+    expect(spy).toHaveBeenCalled();
+
+    component.validateFiles([
+      new File(['content'], 'spec2.yaml'),
+    ]);
+    fixture.detectChanges();
+
+    expect(component.specFilesUploadOptions.valid).toEqual(true);
+    expect(spy).toHaveBeenCalled();
   });
 });
