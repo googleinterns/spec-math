@@ -19,9 +19,16 @@ limitations under the License. -->
     </div>
     <div *ngIf="inputFilesValid" class="confirm-operation-container">
       <mat-chip-list id="confirm-operation-chip-container">
-        <div class="modal-step-chip-list-container" *ngFor="let file of operationFiles; let i = index">
+        <div
+          class="modal-step-chip-list-container"
+          *ngFor="let file of operationFiles; let i = index"
+        >
           <mat-chip>
-            <mat-icon class="modal-step-chip-icon">
+            <mat-icon
+              class="modal-step-chip-icon {{
+                defaultsFile && i === 0 ? 'settings' : 'description'
+              }}"
+            >
               {{ defaultsFile && i === 0 ? "settings" : "description" }}
             </mat-icon>
             {{ file.name }}
