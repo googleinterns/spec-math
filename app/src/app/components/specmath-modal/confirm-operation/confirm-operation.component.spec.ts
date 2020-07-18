@@ -12,4 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { ConfirmOperationComponent } from './confirm-operation.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { queryElement } from '../../../../shared/functions';
+
+describe('ConfirmOperationComponent', () => {
+  let fixture: ComponentFixture<ConfirmOperationComponent>;
+  let component: ConfirmOperationComponent;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        ConfirmOperationComponent
+      ],
+      imports: [
+        MatIconModule,
+        BrowserModule,
+        MatChipsModule,
+      ],
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(ConfirmOperationComponent);
+      component = fixture.componentInstance;
+    });
+  }));
+
+  it('creates the ConfirmOperationComponent component', () => {
+    expect(component).toBeTruthy();
+  });
+
+
+});
