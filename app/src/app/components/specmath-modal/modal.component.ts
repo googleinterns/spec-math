@@ -40,6 +40,10 @@ export class ModalComponent implements OnInit {
   }
 
   nextStep(stepper: MatStepper): void {
+    if (this.currentStep === this.MAX_STEPS) {
+      this.dialogRef.close();
+    }
+
     if (this.currentStep < this.MAX_STEPS) {
       this.currentStep++;
       stepper.next();
@@ -66,6 +70,7 @@ export class ModalComponent implements OnInit {
       this.currentStep === 1 && this.specNameInputOptions?.valid
       || this.currentStep === 2
       || this.currentStep === 3 && this.specFilesUploadOptions?.valid
+      || this.currentStep === 4
     );
   }
 
