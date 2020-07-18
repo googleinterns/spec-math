@@ -40,7 +40,6 @@ export class ConfirmOperationComponent {
 
   get operationFiles(): File[] {
     return (this.defaultsFile ?
-      [this.defaultsFile, ...this.specFiles] :
-      [...this.specFiles]);
+      [this.defaultsFile, ...this.specFiles] : [...this.specFiles]);
   }
 }
