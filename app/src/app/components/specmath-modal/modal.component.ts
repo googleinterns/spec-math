@@ -15,7 +15,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
+import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions, MergeConflict } from 'src/shared/interfaces';
 
 const toolTipText = {
   1: 'You must name your new spec',
@@ -34,6 +34,7 @@ export class ModalComponent implements OnInit {
   specNameInputOptions: SpecNameInputOptions;
   defaultsFileUploadOptions: DefaultsFileUploadOptions;
   specFilesUploadOptions: SpecFilesUploadOptions;
+  mergeConflicts: MergeConflict [];
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -72,6 +73,29 @@ export class ModalComponent implements OnInit {
       || this.currentStep === 3 && this.specFilesUploadOptions?.valid
       || this.currentStep === 4
     );
+  }
+
+  mergeOperation() {
+    // ?Call the SpecMath service here
+    this.mergeConflicts = [
+      {
+        keypath: 'sample keypath',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: 'sample keypath',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: 'sample keypath',
+        option1: 'Option A',
+        option2: 'Option B',
+      }
+    ];
+
+    this.MAX_STEPS += this.mergeConflicts.length;
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {

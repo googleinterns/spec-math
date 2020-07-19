@@ -8,7 +8,7 @@ export interface MergeConflict {
   keypath: string;
   option1: string;
   option2: string;
-  resolvedValue: string;
+  resolvedValue?: string;
 }
 
 export interface SpecMathMergeResponse {
