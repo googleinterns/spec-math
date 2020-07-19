@@ -12,4 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { Component, Input, Output } from '@angular/core';
+import { MergeConflict } from 'src/shared/interfaces';
 
+@Component({
+  selector: 'app-resolve-conflict',
+  templateUrl: './resolve-conflict.component.html',
+  styleUrls: ['./resolve-conflict.component.scss']
+})
+export class ResolveConflictComponent {
+  @Input() mergeConflict: MergeConflict;
+  @Output() resolvedConflict: string;
+
+}
