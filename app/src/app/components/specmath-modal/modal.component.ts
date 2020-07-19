@@ -74,6 +74,14 @@ export class ModalComponent implements OnInit {
     );
   }
 
+  get nextButtonText(): string {
+    if (this.currentStep === 4) {
+      return 'Confirm';
+    }
+
+    return 'Next';
+  }
+
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
     this.specNameInputOptions = specNameInputOptions;
   }
