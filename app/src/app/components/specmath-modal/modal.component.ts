@@ -98,6 +98,14 @@ export class ModalComponent implements OnInit {
     this.MAX_STEPS += this.mergeConflicts.length;
   }
 
+  get nextButtonText(): string {
+    if (this.currentStep === 4) {
+      return 'Confirm';
+    }
+
+    return 'Next';
+  }
+
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
     this.specNameInputOptions = specNameInputOptions;
   }
