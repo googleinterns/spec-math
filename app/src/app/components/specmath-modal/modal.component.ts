@@ -43,7 +43,6 @@ export class ModalComponent implements OnInit {
   nextStep(stepper: MatStepper): void {
     if (this.currentStep === this.MAX_STEPS) {
       this.mergeOperation();
-      this.nextStep(stepper);
     }
 
     if (this.currentStep === this.MAX_STEPS && this.conflictsResolved) {
