@@ -56,6 +56,9 @@ limitations under the License. -->
           [specFilesUploadOptions]="specFilesUploadOptions"
         ></app-confirm-operation>
       </mat-step>
+      <mat-step *ngFor="let conflict of mergeConflicts">
+        <app-resolve-conflict [mergeConflict]="conflict"></app-resolve-conflict>
+      </mat-step>
     </mat-horizontal-stepper>
     <div class="modal-step-controls-container">
       <button

@@ -27,6 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
 import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
+import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ConfirmOperationComponent } from './confirm-operation/confirm-operation
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
-    ConfirmOperationComponent
+    ConfirmOperationComponent,
+    ResolveConflictComponent
   ],
   imports: [
     MatStepperModule,
@@ -53,7 +55,6 @@ import { ConfirmOperationComponent } from './confirm-operation/confirm-operation
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
-    MatTooltipModule
   ],
   bootstrap: [ModalComponent]
 })

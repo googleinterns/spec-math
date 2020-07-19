@@ -42,6 +42,11 @@ export class ModalComponent implements OnInit {
 
   nextStep(stepper: MatStepper): void {
     if (this.currentStep === this.MAX_STEPS) {
+      this.mergeOperation();
+      this.nextStep(stepper);
+    }
+
+    if (this.currentStep === this.MAX_STEPS && this.conflictsResolved) {
       this.dialogRef.close();
     }
 
@@ -75,6 +80,10 @@ export class ModalComponent implements OnInit {
     );
   }
 
+  get conflictsResolved(): boolean {
+    return false;
+  }
+
   mergeOperation() {
     // ?Call the SpecMath service here
     this.mergeConflicts = [
@@ -94,6 +103,8 @@ export class ModalComponent implements OnInit {
         option2: 'Option B',
       }
     ];
+
+    console.log('merge called');
 
     this.MAX_STEPS += this.mergeConflicts.length;
   }
