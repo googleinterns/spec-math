@@ -22,14 +22,19 @@ const toolTipText = {
   3: 'You must upload a set of spec files'
 };
 
+const modalOptions = {
+  MIN_STEPS: 1,
+  MAX_STEPS: 4
+};
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  MAX_STEPS = 4;
-  MIN_STEPS = 1;
+  MAX_STEPS = modalOptions.MAX_STEPS;
+  MIN_STEPS = modalOptions.MIN_STEPS;
   currentStep = this.MIN_STEPS;
   specNameInputOptions: SpecNameInputOptions = null;
   defaultsFileUploadOptions: DefaultsFileUploadOptions = null;
