@@ -22,7 +22,6 @@ enum steps {
   defaultsFileUpload = 2,
   specFilesUpload = 3,
   confirmOperation = 4,
-  lastStep = steps.confirmOperation,
 }
 
 interface StepOptions {
