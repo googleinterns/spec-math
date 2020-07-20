@@ -58,6 +58,8 @@ export class SpecFilesUploadComponent  {
 
   emitFileStatus() {
     this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
-    this.options.emit(this.specFilesUploadOptions);
+
+    const specFilesUploadOptionsCopy = { ...this.specFilesUploadOptions };
+    this.options.emit(specFilesUploadOptionsCopy);
   }
 }
