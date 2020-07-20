@@ -24,13 +24,13 @@ enum steps {
   confirmOperation = 4,
 }
 
-interface StepOptions {
-  [step: number]: {
+type StepOptions = {
+  [key in steps]: {
     toolTipText: string,
     nextStep?: number,
     previousStep?: number
   };
-}
+};
 
 const stepOptions: StepOptions = {
   [steps.specNameInput]: {
@@ -79,17 +79,13 @@ export class ModalComponent {
   }
 
   nextStep(stepper: MatStepper): void {
-    if (stepOptions[this.currentStep].nextStep) {
-      this.currentStep++;
-      stepper.next();
-    }
+    this.currentStep = stepOptions[this.currentStep].nextStep;
+    stepper.selectedIndex = this.currentStep - 1;
   }
 
   previousStep(stepper: MatStepper): void {
-    if (stepOptions[this.currentStep].previousStep) {
-      this.currentStep--;
-      stepper.previous();
-    }
+    this.currentStep = stepOptions[this.currentStep].previousStep;
+    stepper.selectedIndex = this.currentStep - 1;
   }
 
   get newFileName(): string {
