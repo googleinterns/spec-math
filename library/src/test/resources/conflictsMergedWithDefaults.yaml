@@ -1,16 +1,15 @@
 openapi: 3.0.0
 info:
-  version: 1.0.2
   title: Default Swagger Petstore
   license:
     name: MIT
+  version: 1.0.2
 servers:
   - url: http://petstore.swagger.io/v1
 paths:
   /pets:
     get:
-      summary: CONFLICT RESOLVED
-      operationId: listPets
+      summary: get the pets
       tags:
         - pets
         - dogs
@@ -19,6 +18,7 @@ paths:
           description: Null response
         '202':
           description: Hello world
+      operationId: listPets
     post:
       summary: Create a pet
   /pets/{petId}:
