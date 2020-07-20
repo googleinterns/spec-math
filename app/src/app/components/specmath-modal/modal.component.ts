@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
@@ -27,13 +27,13 @@ const toolTipText = {
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
   MAX_STEPS = 4;
   MIN_STEPS = 1;
   currentStep = this.MIN_STEPS;
-  specNameInputOptions: SpecNameInputOptions;
-  defaultsFileUploadOptions: DefaultsFileUploadOptions;
-  specFilesUploadOptions: SpecFilesUploadOptions;
+  specNameInputOptions: SpecNameInputOptions = null;
+  defaultsFileUploadOptions: DefaultsFileUploadOptions = null;
+  specFilesUploadOptions: SpecFilesUploadOptions = null;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
@@ -63,9 +63,9 @@ export class ModalComponent implements OnInit {
 
   get nextButtonEnabled(): boolean {
     return (
-      this.currentStep === 1 && this.specNameInputOptions?.valid
-      || this.currentStep === 2
-      || this.currentStep === 3 && this.specFilesUploadOptions?.valid
+      (this.currentStep === 1 && this.specNameInputOptions?.valid)
+      || (this.currentStep === 2)
+      || (this.currentStep === 3 && this.specFilesUploadOptions?.valid)
     );
   }
 
@@ -79,11 +79,5 @@ export class ModalComponent implements OnInit {
 
   handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
     this.specFilesUploadOptions = specFilesUploadOptions;
-  }
-
-  ngOnInit() {
-    this.specNameInputOptions = null;
-    this.defaultsFileUploadOptions = null;
-    this.specFilesUploadOptions = null;
   }
 }
