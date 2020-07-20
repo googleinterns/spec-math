@@ -18,7 +18,7 @@ limitations under the License. -->
       <div class="modal-step-header-labels">
         <h3>
           Merge specs
-          <b class="step-indicator">{{ currentStep }}/{{ LAST_STEP }}</b>
+          <b class="step-indicator">{{ currentStep + 1 }}/{{ LAST_STEP + 1 }}</b>
         </h3>
         <p *ngIf="currentStep > FIRST_STEP" class="mat-caption">
           {{ newFileName }}

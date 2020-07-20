@@ -18,10 +18,10 @@ import { MatStepper } from '@angular/material/stepper';
 import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
 enum steps {
-  specNameInput = 1,
-  defaultsFileUpload = 2,
-  specFilesUpload = 3,
-  confirmOperation = 4,
+  specNameInput = 0,
+  defaultsFileUpload = 1,
+  specFilesUpload = 2,
+  confirmOperation = 3,
 }
 
 type StepOptions = {
@@ -80,12 +80,12 @@ export class ModalComponent {
 
   nextStep(stepper: MatStepper): void {
     this.currentStep = stepOptions[this.currentStep].nextStep;
-    stepper.selectedIndex = this.currentStep - 1;
+    stepper.selectedIndex = this.currentStep;
   }
 
   previousStep(stepper: MatStepper): void {
     this.currentStep = stepOptions[this.currentStep].previousStep;
-    stepper.selectedIndex = this.currentStep - 1;
+    stepper.selectedIndex = this.currentStep;
   }
 
   get newFileName(): string {
