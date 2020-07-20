@@ -54,7 +54,7 @@ export class ModalComponent {
   }
 
   get newFileName(): string {
-    return (this.specNameInputOptions ? this.specNameInputOptions.newFileName : '');
+    return this.specNameInputOptions?.newFileName || '';
   }
 
   get nextButtonTooltipText(): string {
