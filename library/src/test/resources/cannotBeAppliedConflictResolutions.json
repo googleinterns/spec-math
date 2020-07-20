@@ -1,0 +1,6 @@
+[ {
+  "keypath" : "[this, /isnt, a, path]",
+  "optionA" : "",
+  "optionB" : "",
+  "resolvedValue" : "CONFLICT RESOLVED"
+} ]

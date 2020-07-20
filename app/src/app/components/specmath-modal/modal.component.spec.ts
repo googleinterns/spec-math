@@ -103,7 +103,7 @@ describe('ModalComponent', () => {
     fixture.detectChanges();
     nextButton.click();
     fixture.detectChanges();
-    expect(modal.currentStep).toEqual(2);
+    expect(modal.currentStep).toEqual(1);
   });
 });
 
