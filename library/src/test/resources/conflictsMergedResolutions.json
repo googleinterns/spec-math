@@ -1,0 +1,6 @@
+[ {
+  "keypath" : "[paths, /pets, get, summary]",
+  "optionA" : "get the specified pets",
+  "optionB" : "get the specified pet",
+  "resolvedValue" : "get the pets"
+} ]
