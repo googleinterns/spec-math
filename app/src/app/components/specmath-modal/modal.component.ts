@@ -12,53 +12,99 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { SpecNameInputOptions, DefaultsFileUploadOptions } from 'src/shared/interfaces';
+import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
-type FileUpload = 'default' | 'spec';
+enum steps {
+  specNameInput = 0,
+  defaultsFileUpload = 1,
+  specFilesUpload = 2,
+  confirmOperation = 3,
+}
+
+type StepOptions = {
+  [key in steps]: {
+    toolTipText: string,
+    nextStep?: number,
+    previousStep?: number
+  };
+};
+
+const stepOptions: StepOptions = {
+  [steps.specNameInput]: {
+    toolTipText: 'You must name your new spec',
+    nextStep: steps.defaultsFileUpload,
+  },
+  [steps.defaultsFileUpload]: {
+    toolTipText: '',
+    nextStep: steps.specFilesUpload,
+    previousStep: steps.specNameInput
+  },
+  [steps.specFilesUpload]: {
+    toolTipText: 'You must upload a set of spec files',
+    nextStep: steps.confirmOperation,
+    previousStep: steps.defaultsFileUpload
+  },
+  [steps.confirmOperation]: {
+    toolTipText: '',
+    previousStep: steps.specFilesUpload
+  }
+};
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
-  minSteps: number;
-  currentStep: number;
-  maxSteps: number;
-  specNameInputOptions?: SpecNameInputOptions;
-  defaultsFileUploadOptions?: DefaultsFileUploadOptions;
+export class ModalComponent {
+  FIRST_STEP = steps.specNameInput;
+  LAST_STEP = steps.confirmOperation;
+  currentStep: steps = steps.specNameInput;
+  specNameInputOptions: SpecNameInputOptions = {
+    newFileName: '',
+    valid: false
+  };
+  defaultsFileUploadOptions: DefaultsFileUploadOptions = {
+    defaultsFile: null
+  };
+  specFilesUploadOptions: SpecFilesUploadOptions = {
+    specFiles: [],
+    valid: false,
+  };
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
   }
 
-  get newFileName(): string {
-    if (!this.specNameInputOptions) {
-      return '';
-    }
-
-    return this.specNameInputOptions.newFileName;
-  }
-
   nextStep(stepper: MatStepper): void {
-    if (this.currentStep < this.maxSteps) {
-      this.currentStep++;
-      stepper.next();
-    }
+    this.currentStep = stepOptions[this.currentStep].nextStep;
+    stepper.selectedIndex = this.currentStep;
   }
 
   previousStep(stepper: MatStepper): void {
-    if (this.currentStep > this.minSteps) {
-      this.currentStep--;
-      stepper.previous();
-    }
+    this.currentStep = stepOptions[this.currentStep].previousStep;
+    stepper.selectedIndex = this.currentStep;
   }
 
-  get specNameValid(): boolean {
-    return !!this.specNameInputOptions?.valid;
+  get newFileName(): string {
+    return this.specNameInputOptions?.newFileName || '';
+  }
+
+  get nextButtonTooltipText(): string {
+    return stepOptions[this.currentStep].toolTipText;
+  }
+
+  get nextButtonEnabled(): boolean {
+    switch (this.currentStep) {
+      case steps.specNameInput:
+        return this.specNameInputOptions?.valid;
+      case steps.specFilesUpload:
+        return this.specFilesUploadOptions?.valid;
+      default:
+        return true;
+    }
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
@@ -69,9 +115,7 @@ export class ModalComponent implements OnInit {
     this.defaultsFileUploadOptions = defaultsFileUploadOptions;
   }
 
-  ngOnInit() {
-    this.currentStep = 1;
-    this.maxSteps = 4;
-    this.minSteps = 1;
+  handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
+    this.specFilesUploadOptions = specFilesUploadOptions;
   }
 }
