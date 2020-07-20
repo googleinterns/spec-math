@@ -15,6 +15,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
 
+const NUM_SPEC_FILES = 2;
 const filesListToArray = (files: FileList) => Array.from(files);
 
 @Component({
@@ -23,7 +24,7 @@ const filesListToArray = (files: FileList) => Array.from(files);
   styleUrls: ['./spec-files-upload.component.scss']
 })
 export class SpecFilesUploadComponent  {
-  specFilesNum = 2;
+  specFilesNum = NUM_SPEC_FILES;
   fileUploadError = false;
   specFilesUploadOptions: SpecFilesUploadOptions = {
     specFiles: [],
