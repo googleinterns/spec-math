@@ -25,3 +25,8 @@ export interface SpecNameInputOptions {
 export interface DefaultsFileUploadOptions {
   defaultsFile: File;
 }
+
+export interface SpecFilesUploadOptions {
+  specFiles: File [];
+  valid: boolean;
+}

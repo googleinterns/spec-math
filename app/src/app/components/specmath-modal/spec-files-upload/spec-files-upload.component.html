@@ -1,0 +1,85 @@
+<!-- Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this spec except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+
+<div class="modal-step-container">
+  <div class="modal-step-content">
+    <div class="modal-step-instructions">
+      <p class="mat-body-2">Select <b>{{ specFilesNum }}</b> spec files</p>
+    </div>
+    <div class="spec-files-content">
+      <div *ngIf="specFilesUploadOptions.specFiles.length === 0">
+        <button
+          (click)="specs.click()"
+          mat-button
+          class="spec-files-button"
+          id="specs-upload-button-large"
+        >
+          <mat-icon class="spec-files-icon">note_add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="specFilesUploadOptions.specFiles">
+        <mat-chip-list id="spec-files-chip-list">
+          <div
+            class="spec-files-chip-list-container"
+            *ngFor="let spec of specFilesUploadOptions.specFiles; let i = index"
+          >
+            <mat-chip
+              *ngIf="spec"
+              [selectable]="true"
+              [removable]="true"
+              (removed)="removeSpecFile(i)"
+            >
+              <mat-icon class="spec-files-chip-icon">description</mat-icon>
+              {{ spec.name }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <mat-icon class="spec-files-add-icon" *ngIf="i < specFilesNum - 1">add</mat-icon>
+          </div>
+        </mat-chip-list>
+      </div>
+    </div>
+    <div class="spec-files-input-container">
+      <input
+        #specs
+        class="spec-files-upload-input"
+        type="file"
+        accept=".yaml"
+        id="specs-input"
+        (change)="handleSpecFileInput($event.target.files)"
+        multiple
+      />
+      <label for="defaults-file-input">
+        <div
+          matTooltip="You've already uploaded {{ specFilesNum }} spec files"
+          matTooltipPosition="below"
+          [matTooltipDisabled]="specFilesUploadOptions.specFiles.length !== specFilesNum"
+        >
+          <button
+            [disabled]="specFilesUploadOptions.specFiles.length === specFilesNum"
+            id="specs-upload-button"
+            (click)="specs.click()"
+            mat-button
+            class="modal-step-button-secondary"
+          >
+            <mat-icon>file_upload</mat-icon>
+            SELECT FILE
+          </button>
+        </div>
+      </label>
+      <p id="spec-files-upload-error" class="mat-body-strong mat-error" *ngIf="fileUploadError">
+        You cannot upload more than {{ specFilesNum }} spec files
+      </p>
+    </div>
+  </div>
+</div>

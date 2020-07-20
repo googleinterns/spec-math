@@ -27,10 +27,6 @@ export class DefaultsFileUploadComponent implements OnInit  {
 
   @Output() options: EventEmitter<DefaultsFileUploadOptions> = new EventEmitter();
 
-  constructor() {
-
-  }
-
   handleDefaultsFileInput(files: FileList) {
     this.defaultsFileUploadOptions.defaultsFile = files[0];
     this.options.emit(this.defaultsFileUploadOptions);

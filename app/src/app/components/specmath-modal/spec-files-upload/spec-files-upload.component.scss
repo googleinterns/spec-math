@@ -1,7 +1,7 @@
 // Copyright 2020 Google LLC
 
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this spec except in compliance with the License.
 // You may obtain a copy of the License at
 
 //     https://www.apache.org/licenses/LICENSE-2.0
@@ -15,7 +15,7 @@
 @import '../../../../shared/constants.scss';
 @import '../modal.component.scss';
 
-.defaults-file {
+.spec-files {
   &-upload-input {
     display: none;
   }
@@ -23,10 +23,6 @@
   &-content {
     margin-bottom: 2rem;
     margin-top: 2rem;
-  }
-
-  &-chip-icon {
-    margin-right: 8px;
   }
   
   &-icon {
@@ -41,5 +37,48 @@
     width: 136px;
     background-color: $material-grey-400;
     border-radius: 100%;
+  }
+
+  &-chip {
+    &-icon {
+      margin-right: 8px;
+    }
+
+    &-list {
+      &-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: auto;
+      }
+    }
+  }
+
+  &-input {
+    &-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      #spec-files-upload-error {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+#spec-files-chip-list {
+  .mat-standard-chip {
+    padding-left: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mat-chip-list-wrapper {
+    flex-direction: column;
+  }
+
+  .spec-files-chip-list-container {
+    flex-direction: column;
   }
 }
