@@ -17,14 +17,41 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
-const toolTipText = {
-  1: 'You must name your new spec',
-  3: 'You must upload a set of spec files'
-};
+enum steps {
+  specNameInput = 1,
+  defaultsFileUpload = 2,
+  specFilesUpload = 3,
+  confirmOperation = 4,
+  lastStep = steps.confirmOperation,
+}
 
-const modalOptions = {
-  MIN_STEPS: 1,
-  MAX_STEPS: 4
+interface StepOptions {
+  [step: number]: {
+    toolTipText: string,
+    nextStep?: number,
+    previousStep?: number
+  };
+}
+
+const stepOptions: StepOptions = {
+  [steps.specNameInput]: {
+    toolTipText: 'You must name your new spec',
+    nextStep: steps.defaultsFileUpload,
+  },
+  [steps.defaultsFileUpload]: {
+    toolTipText: '',
+    nextStep: steps.specFilesUpload,
+    previousStep: steps.specNameInput
+  },
+  [steps.specFilesUpload]: {
+    toolTipText: 'You must upload a set of spec files',
+    nextStep: steps.confirmOperation,
+    previousStep: steps.defaultsFileUpload
+  },
+  [steps.confirmOperation]: {
+    toolTipText: '',
+    previousStep: steps.specFilesUpload
+  }
 };
 
 @Component({
@@ -33,26 +60,34 @@ const modalOptions = {
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  MAX_STEPS = modalOptions.MAX_STEPS;
-  MIN_STEPS = modalOptions.MIN_STEPS;
-  currentStep = this.MIN_STEPS;
-  specNameInputOptions: SpecNameInputOptions = null;
-  defaultsFileUploadOptions: DefaultsFileUploadOptions = null;
-  specFilesUploadOptions: SpecFilesUploadOptions = null;
+  FIRST_STEP = steps.specNameInput;
+  LAST_STEP = steps.confirmOperation;
+  currentStep: steps = steps.specNameInput;
+  specNameInputOptions: SpecNameInputOptions = {
+    newFileName: '',
+    valid: false
+  };
+  defaultsFileUploadOptions: DefaultsFileUploadOptions = {
+    defaultsFile: null
+  };
+  specFilesUploadOptions: SpecFilesUploadOptions = {
+    specFiles: [],
+    valid: false,
+  };
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
   }
 
   nextStep(stepper: MatStepper): void {
-    if (this.currentStep < this.MAX_STEPS) {
+    if (this.currentStep < this.LAST_STEP) {
       this.currentStep++;
       stepper.next();
     }
   }
 
   previousStep(stepper: MatStepper): void {
-    if (this.currentStep > this.MIN_STEPS) {
+    if (this.currentStep > this.FIRST_STEP) {
       this.currentStep--;
       stepper.previous();
     }
@@ -63,15 +98,18 @@ export class ModalComponent {
   }
 
   get nextButtonTooltipText(): string {
-    return toolTipText[this.currentStep];
+    return stepOptions[this.currentStep].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
-    return (
-      (this.currentStep === 1 && this.specNameInputOptions?.valid)
-      || (this.currentStep === 2)
-      || (this.currentStep === 3 && this.specFilesUploadOptions?.valid)
-    );
+    switch (this.currentStep) {
+      case steps.specNameInput:
+        return this.specNameInputOptions?.valid;
+      case steps.defaultsFileUpload:
+        return true;
+      case steps.specFilesUpload:
+        return this.specFilesUploadOptions?.valid;
+    }
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
