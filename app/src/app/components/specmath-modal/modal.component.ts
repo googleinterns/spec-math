@@ -80,14 +80,14 @@ export class ModalComponent {
   }
 
   nextStep(stepper: MatStepper): void {
-    if (this.currentStep < this.LAST_STEP) {
+    if (stepOptions[this.currentStep].nextStep) {
       this.currentStep++;
       stepper.next();
     }
   }
 
   previousStep(stepper: MatStepper): void {
-    if (this.currentStep > this.FIRST_STEP) {
+    if (stepOptions[this.currentStep].previousStep) {
       this.currentStep--;
       stepper.previous();
     }
@@ -105,10 +105,10 @@ export class ModalComponent {
     switch (this.currentStep) {
       case steps.specNameInput:
         return this.specNameInputOptions?.valid;
-      case steps.defaultsFileUpload:
-        return true;
       case steps.specFilesUpload:
         return this.specFilesUploadOptions?.valid;
+      default:
+        return true;
     }
   }
 
