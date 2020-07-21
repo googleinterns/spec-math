@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, DebugElement } from '@angular/core';
 import { DefaultsFileUploadOptions } from '../../../../shared/interfaces';
 
 @Component({
@@ -20,7 +20,8 @@ import { DefaultsFileUploadOptions } from '../../../../shared/interfaces';
   templateUrl: './defaults-file-upload.component.html',
   styleUrls: ['./defaults-file-upload.component.scss']
 })
-export class DefaultsFileUploadComponent implements OnInit  {
+export class DefaultsFileUploadComponent  {
+  @ViewChild('defaultsInput') defaultsUpload: DebugElement;
   defaultsFileUploadOptions?: DefaultsFileUploadOptions = {
     defaultsFile: null
   };
@@ -29,14 +30,11 @@ export class DefaultsFileUploadComponent implements OnInit  {
 
   handleDefaultsFileInput(files: FileList) {
     this.defaultsFileUploadOptions.defaultsFile = files[0];
+    this.defaultsUpload.nativeElement.value = '';
     this.options.emit(this.defaultsFileUploadOptions);
   }
 
   removeDefaultsFile() {
     this.defaultsFileUploadOptions.defaultsFile = null;
-  }
-
-  ngOnInit() {
-
   }
 }

@@ -123,7 +123,8 @@ describe('ModalComponent', () => {
     fixture.detectChanges();
     expect(modal.validFiles).toEqual(true);
 
-    const confirmOperationComponent = fixture.debugElement.query(By.directive(ConfirmOperationComponent)).nativeElement;
+    const confirmOperationComponent =
+      fixture.debugElement.query(By.directive(ConfirmOperationComponent)).nativeElement;
     expect(confirmOperationComponent).toBeTruthy();
   });
 });
