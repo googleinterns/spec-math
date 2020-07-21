@@ -26,9 +26,10 @@ enum steps {
 
 type StepOptions = {
   [key in steps]: {
-    toolTipText: string,
+    toolTipText?: string,
     nextStep?: number,
-    previousStep?: number
+    previousStep?: number,
+    nextButtonText?: string
   };
 };
 
@@ -36,20 +37,22 @@ const stepOptions: StepOptions = {
   [steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: steps.defaultsFileUpload,
+    nextButtonText: 'Next'
   },
   [steps.defaultsFileUpload]: {
-    toolTipText: '',
     nextStep: steps.specFilesUpload,
-    previousStep: steps.specNameInput
+    previousStep: steps.specNameInput,
+    nextButtonText: 'Next'
   },
   [steps.specFilesUpload]: {
     toolTipText: 'You must upload a set of spec files',
     nextStep: steps.confirmOperation,
-    previousStep: steps.defaultsFileUpload
+    previousStep: steps.defaultsFileUpload,
+    nextButtonText: 'Next'
   },
   [steps.confirmOperation]: {
-    toolTipText: '',
-    previousStep: steps.specFilesUpload
+    previousStep: steps.specFilesUpload,
+    nextButtonText: 'Confirm'
   }
 };
 
@@ -113,11 +116,7 @@ export class ModalComponent {
   }
 
   get nextButtonText(): string {
-    if (this.currentStep === 4) {
-      return 'Confirm';
-    }
-
-    return 'Next';
+    return stepOptions[this.currentStep].nextButtonText;
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
