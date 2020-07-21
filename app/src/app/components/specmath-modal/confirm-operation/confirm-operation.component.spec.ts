@@ -48,16 +48,16 @@ describe('ConfirmOperationComponent', () => {
     component.defaultsFileUploadOptions = { defaultsFile: new File(['content'], 'defaults.yaml') };
     component.specFilesUploadOptions = {
       specFiles: [
-        new File(['content'], 'defaults.yaml'),
-        new File(['content'], 'defaults.yaml')
+        new File(['content'], 'spec1.yaml'),
+        new File(['content'], 'spec2.yaml')
       ],
       valid: true
     };
 
     fixture.detectChanges();
 
-    const defaultsChip = queryElement(fixture, '.modal-step-chip-icon.defaults').nativeElement;
-    expect(defaultsChip).toBeTruthy();
+    const defaultsChip = queryElement(fixture, '.modal-step-chip-icon.defaults');
+    expect(defaultsChip.nativeElement).toBeTruthy();
 
     const specFileChip = queryElement(fixture, '.modal-step-chip-icon.spec').nativeElement;
     expect(specFileChip).toBeTruthy();
