@@ -24,16 +24,24 @@ enum steps {
   confirmOperation = 3,
 }
 
+interface StepMeta {
+  toolTipText?: string;
+  nextStep?: steps;
+  previousStep?: steps;
+  nextButtonText?: string;
+  lastStep?: boolean;
+}
+
 type StepOptions = {
-  [key in steps]: {
-    toolTipText?: string,
-    nextStep?: number,
-    previousStep?: number,
-    nextButtonText?: string
-  };
+  [key in steps]: StepMeta;
 };
 
-const stepOptions: StepOptions = {
+type StepList = {
+  [key: number]: StepMeta;
+};
+
+let stepOptions: StepOptions;
+stepOptions = {
   [steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: steps.defaultsFileUpload,
@@ -52,7 +60,8 @@ const stepOptions: StepOptions = {
   },
   [steps.confirmOperation]: {
     previousStep: steps.specFilesUpload,
-    nextButtonText: 'Confirm'
+    nextButtonText: 'Confirm',
+    lastStep: true,
   }
 };
 
@@ -83,14 +92,29 @@ export class ModalComponent {
   }
 
   nextStep(stepper: MatStepper): void {
-    if (this.currentStep === steps.confirmOperation) {
-      this.dialogRef.close();
+    const currentStep = this.currentStepList[this.currentStep];
+
+    if (currentStep.lastStep) {
       this.mergeOperation();
-      return;
+
+      if (this.hasMergeConflicts) {
+        this.currentStepList[this.currentStep].nextStep = this.currentStep + 1;
+      } else {
+        this.finalize();
+      }
+
     }
 
-    this.currentStep = stepOptions[this.currentStep].nextStep;
+    this.currentStep = this.currentStepList[this.currentStep].nextStep;
     stepper.selectedIndex = this.currentStep;
+  }
+
+  get currentStepList(): StepList {
+    return this.resolvingConflicts() ? /* */ : stepOptions;
+  }
+
+  resolvingConflicts(): boolean {
+    return !steps.hasOwnProperty(this.currentStep);
   }
 
   previousStep(stepper: MatStepper): void {
@@ -141,9 +165,8 @@ export class ModalComponent {
       }
     ];
 
-    console.log('merge called');
-
     // Add something to the steps
+    
   }
 
   get nextButtonText(): string {
