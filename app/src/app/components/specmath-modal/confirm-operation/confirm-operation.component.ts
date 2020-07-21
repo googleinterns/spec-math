@@ -29,7 +29,7 @@ export class ConfirmOperationComponent {
 
   get inputFilesValid(): boolean {
     if (this.specFilesUploadOptions.valid) {
-      this.defaultsFile = (this.defaultsFileUploadOptions ? this.defaultsFileUploadOptions.defaultsFile : null);
+      this.defaultsFile = this.defaultsFileUploadOptions?.defaultsFile;
       this.specFiles = this.specFilesUploadOptions.specFiles;
       return true;
     }
