@@ -96,6 +96,10 @@ export class ModalComponent {
     stepper.selectedIndex = this.currentStep;
   }
 
+  get validFiles(): boolean {
+    return this.specFilesUploadOptions.valid;
+  }
+
   get newFileName(): string {
     return this.specNameInputOptions?.newFileName || '';
   }
