@@ -28,10 +28,9 @@ export class ConfirmOperationComponent {
   @Input() specFilesUploadOptions?: SpecFilesUploadOptions;
 
   get inputFilesValid(): boolean {
-    if (this.specFilesUploadOptions) {
-      this.defaultsFile = (this.defaultsFileUploadOptions ? this.defaultsFileUploadOptions.defaultsFile : null);
+    if (this.specFilesUploadOptions.valid) {
+      this.defaultsFile = this.defaultsFileUploadOptions?.defaultsFile;
       this.specFiles = this.specFilesUploadOptions.specFiles;
-
       return true;
     }
 

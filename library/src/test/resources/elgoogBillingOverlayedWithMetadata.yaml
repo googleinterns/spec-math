@@ -1,0 +1,40 @@
+openapi: 3.0.0
+info:
+  title: Elgoog APIs
+  version: 1.0.0
+  description: An API for Elgoog
+servers:
+  - url: http://cloud.elgoog.com/
+paths:
+  /marketing/advertising:
+    post:
+      description: create a random advertisement
+      requestBody:
+        description: data needed to create the advertisement
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: string
+                message:
+                  type: string
+      responses:
+        '200':
+          description: ad posted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperationSuccess"
+components:
+  schemas:
+    OperationSuccess:
+      description: a successful operation result
+      type: object
+      required:
+        - marketingData
+      properties:
+        marketingData:
+          type: string

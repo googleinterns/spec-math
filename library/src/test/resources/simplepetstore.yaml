@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: Swagger Petstore Platform
+  license:
+    name: MIT
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      tags:
+        - dogs
+      responses:
+        '201':
+          description: Null response
+    post:
+      summary: Create a pet
+  /pets/{petId}:
+    get:
+      summary: hello
+      parameters:
+        - name: petId2
+          in: path2
+  /newPath:
+    get:
+      parameters:
+        - name: petId
+          schema:
+            type: string
+components:
+  schemas:
+    Dog:
