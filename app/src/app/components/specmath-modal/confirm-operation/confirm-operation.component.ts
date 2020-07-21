@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
 @Component({
@@ -20,20 +20,7 @@ import { DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/in
   templateUrl: './confirm-operation.component.html',
   styleUrls: ['./confirm-operation.component.scss']
 })
-export class ConfirmOperationComponent implements OnInit {
-  defaultsFile = null;
-  specFiles = [];
-
+export class ConfirmOperationComponent {
   @Input() defaultsFileUploadOptions?: DefaultsFileUploadOptions;
   @Input() specFilesUploadOptions?: SpecFilesUploadOptions;
-
-  get operationFiles(): File[] {
-    return (this.defaultsFile ?
-      [this.defaultsFile, ...this.specFiles] : [...this.specFiles]);
-  }
-
-  ngOnInit() {
-    this.specFiles = this.specFilesUploadOptions.specFiles;
-    this.defaultsFile = this.defaultsFileUploadOptions?.defaultsFile;
-  }
 }

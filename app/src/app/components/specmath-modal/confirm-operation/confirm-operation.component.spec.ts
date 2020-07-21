@@ -55,12 +55,11 @@ describe('ConfirmOperationComponent', () => {
     };
 
     fixture.detectChanges();
-    expect(component.inputFilesValid).toEqual(true);
 
-    const defaultsChip = queryElement(fixture, '.modal-step-chip-icon.description').nativeElement;
+    const defaultsChip = queryElement(fixture, '.modal-step-chip-icon.defaults').nativeElement;
     expect(defaultsChip).toBeTruthy();
 
-    const specFileChip = queryElement(fixture, '.modal-step-chip-icon.description').nativeElement;
+    const specFileChip = queryElement(fixture, '.modal-step-chip-icon.spec').nativeElement;
     expect(specFileChip).toBeTruthy();
   });
 });
