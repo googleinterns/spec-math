@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, DebugElement } from '@angular/core';
 import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
 
 const NUM_SPEC_FILES = 2;
@@ -23,7 +23,9 @@ const filesListToArray = (files: FileList) => Array.from(files);
   templateUrl: './spec-files-upload.component.html',
   styleUrls: ['./spec-files-upload.component.scss']
 })
-export class SpecFilesUploadComponent  {
+export class SpecFilesUploadComponent {
+  @ViewChild('specsInput') specUploads: DebugElement;
+
   specFilesNum = NUM_SPEC_FILES;
   fileUploadError = false;
   specFilesUploadOptions: SpecFilesUploadOptions = {
@@ -35,9 +37,10 @@ export class SpecFilesUploadComponent  {
 
   handleSpecFileInput(files: FileList) {
     this.validateFiles(filesListToArray(files));
+    this.specUploads.nativeElement.value = '';
   }
 
-  validateFiles(files: File []) {
+  validateFiles(files: File[]) {
     const emptyFileSpots =
       this.specFilesNum - this.specFilesUploadOptions.specFiles.length;
 
@@ -60,7 +63,10 @@ export class SpecFilesUploadComponent  {
   emitFileStatus() {
     this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
 
-    const specFilesUploadOptionsCopy = { ...this.specFilesUploadOptions };
+    const specFilesUploadOptionsCopy: SpecFilesUploadOptions = {
+      specFiles: [...this.specFilesUploadOptions.specFiles],
+      valid: this.specFilesUploadOptions.valid
+    };
     this.options.emit(specFilesUploadOptionsCopy);
   }
 }

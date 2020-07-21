@@ -20,7 +20,7 @@ limitations under the License. -->
     <div class="spec-files-content">
       <div *ngIf="specFilesUploadOptions.specFiles.length === 0">
         <button
-          (click)="specs.click()"
+          (click)="specsInput.click()"
           mat-button
           class="spec-files-button"
           id="specs-upload-button-large"
@@ -51,7 +51,7 @@ limitations under the License. -->
     </div>
     <div class="spec-files-input-container">
       <input
-        #specs
+        #specsInput
         class="spec-files-upload-input"
         type="file"
         accept=".yaml"
@@ -68,7 +68,7 @@ limitations under the License. -->
           <button
             [disabled]="specFilesUploadOptions.specFiles.length === specFilesNum"
             id="specs-upload-button"
-            (click)="specs.click()"
+            (click)="specsInput.click()"
             mat-button
             class="modal-step-button-secondary"
           >
