@@ -15,7 +15,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ConfirmOperationComponent } from './confirm-operation.component';
 
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { queryElement } from '../../../../shared/functions';
@@ -56,8 +56,39 @@ describe('ConfirmOperationComponent', () => {
 
     fixture.detectChanges();
 
-    const defaultsChip = queryElement(fixture, '.modal-step-chip-icon.defaults');
-    expect(defaultsChip.nativeElement).toBeTruthy();
+    const defaultsChip = queryElement(fixture, '.modal-step-chip-icon.defaults').nativeElement;
+    expect(defaultsChip).toBeTruthy();
+
+    const specFileChip = queryElement(fixture, '.modal-step-chip-icon.spec').nativeElement;
+    expect(specFileChip).toBeTruthy();
+  });
+
+  it('does not display any chips if the set of files is invalid', () => {
+    component.defaultsFileUploadOptions = { defaultsFile: null };
+    component.specFilesUploadOptions = {
+      specFiles: [],
+      valid: false
+    };
+
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('.modal-step-chip-icon.defaults'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('.modal-step-chip-icon.spec'))).toBeNull();
+  });
+
+  it('displays only spec file chips when a default file is missing', () => {
+    component.defaultsFileUploadOptions = { defaultsFile: null };
+    component.specFilesUploadOptions = {
+      specFiles: [
+        new File(['content'], 'spec1.yaml'),
+        new File(['content'], 'spec2.yaml')
+      ],
+      valid: true
+    };
+
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('.modal-step-chip-icon.defaults'))).toBeNull();
 
     const specFileChip = queryElement(fixture, '.modal-step-chip-icon.spec').nativeElement;
     expect(specFileChip).toBeTruthy();
