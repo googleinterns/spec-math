@@ -247,6 +247,7 @@ class SpecMathTest {
         Files.readString(Path.of("src/test/resources/filtering/unmatchedFilterCriteria.json"));
     String filterCriteriaEmptyList = "[]";
     String filterCriteriaEmptyListElement = "[{}]";
+    
     assertThrows(AllUnmatchedFilterException.class, ()-> SpecMath.filter(specString, filterCriteriaUnmatched));
     assertThrows(AllUnmatchedFilterException.class, ()-> SpecMath.filter(specString, filterCriteriaEmptyList));
     assertThrows(AllUnmatchedFilterException.class, ()-> SpecMath.filter(specString, filterCriteriaEmptyListElement));
