@@ -17,14 +17,12 @@ limitations under the License. -->
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
         <h3>
-          {{ hasMergeConflicts ? 'Resolving conflicts' : 'Merge specs' }}
+          {{ stepHeaderText }}
           <b class="step-indicator">
-            {{ currentStep + 1 }}/{{
-              hasMergeConflicts ? mergeConflicts.length : LAST_STEP + 1
-            }}
+            {{ stepLabel }}
           </b>
         </h3>
-        <p *ngIf="currentStep > FIRST_STEP || hasMergeConflicts" class="mat-caption">
+        <p *ngIf="shouldShowFileName" class="mat-caption">
           {{ newFileName }}
         </p>
       </div>
@@ -72,7 +70,7 @@ limitations under the License. -->
         class="modal-step-button-secondary"
         aria-label="Back button to go back to the previous step"
         (click)="previousStep(stepper)"
-        *ngIf="currentStep > FIRST_STEP"
+        *ngIf="shouldShowBackButton"
       >
         Back
       </button>

@@ -17,48 +17,35 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions, MergeConflict } from 'src/shared/interfaces';
 
-enum Steps {
-  specNameInput = 0,
-  defaultsFileUpload = 1,
-  specFilesUpload = 2,
-  confirmOperation = 3,
-}
-
 interface StepMeta {
   toolTipText?: string;
-  nextStep?: Steps;
-  previousStep?: Steps;
   nextButtonText?: string;
-  lastStep?: boolean;
+  lastBaseStep?: boolean;
+  lastConflict?: boolean;
 }
 
-type StepList = {
-  [key: number]: StepMeta;
-};
+enum Steps {
+  specNameInput = 0,
+  specFilesUpload = 2,
+}
 
-const stepOptions: StepList = {
-  [Steps.specNameInput]: {
+const stepOptions: StepMeta[] = [
+  {
     toolTipText: 'You must name your new spec',
-    nextStep: Steps.defaultsFileUpload,
     nextButtonText: 'Next'
   },
-  [Steps.defaultsFileUpload]: {
-    nextStep: Steps.specFilesUpload,
-    previousStep: Steps.specNameInput,
+  {
     nextButtonText: 'Next'
   },
-  [Steps.specFilesUpload]: {
+  {
     toolTipText: 'You must upload a set of spec files',
-    nextStep: Steps.confirmOperation,
-    previousStep: Steps.defaultsFileUpload,
     nextButtonText: 'Next'
   },
-  [Steps.confirmOperation]: {
-    previousStep: Steps.specFilesUpload,
+  {
     nextButtonText: 'Confirm',
-    lastStep: true,
+    lastBaseStep: true,
   }
-};
+];
 
 @Component({
   selector: 'app-modal',
@@ -66,9 +53,7 @@ const stepOptions: StepList = {
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  FIRST_STEP = Steps.specNameInput;
-  LAST_STEP = Steps.confirmOperation;
-  currentStep: Steps = Steps.specNameInput;
+  currentIndex: number;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
     valid: false
@@ -81,63 +66,55 @@ export class ModalComponent {
     valid: false,
   };
   mergeConflicts: MergeConflict [];
+  resolvedMergeConflicts = false;
+  stepList: StepMeta[];
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
+
+    this.stepList = stepOptions.slice(0);
+    this.currentIndex = 0;
+  }
+
+  get currentStep(): StepMeta {
+    return this.stepList[this.currentIndex];
   }
 
   nextStep(stepper: MatStepper): void {
-    const currentStep = this.currentStepList[this.currentStep];
-
-    if (currentStep.lastStep) {
+    if (this.currentStep.lastBaseStep) {
+      // ?Service call
       this.mergeOperation();
 
       if (this.hasMergeConflicts) {
-        console.log('conflicts detected');
-        this.currentStep  = 0;
-        stepper.selectedIndex = this.currentStep + 4;
+        this.stepList = [...this.stepList, ...this.generateMergeStepOptions];
       } else {
         this.finalizeSteps();
       }
-    } else {
-      this.currentStep = this.currentStepList[this.currentStep].nextStep;
-      stepper.selectedIndex = this.currentStep + (this.hasMergeConflicts ? 4 : 0);
     }
+
+    if (this.currentStep.lastConflict) {
+      // ?Service call to send resolved conflicts
+      // ?Emit result file back to parent
+      this.finalizeSteps();
+    }
+
+    stepper.selectedIndex = ++this.currentIndex;
   }
 
-  get currentStepList(): StepList {
+  get currentIndexList(): StepMeta[] {
     return this.hasMergeConflicts ? this.generateMergeStepOptions : stepOptions;
   }
 
-  get generateMergeStepOptions(): StepList {
-    const mergeConflictsNum = this.mergeConflicts.length;
-
-    const mergeOptions = this.mergeConflicts.reduce((steps, _, index) => {
-      const newStep: StepMeta = {
-        toolTipText: 'You must resolve this conflict',
-        nextButtonText: 'Resolve'
-      };
-
-      if (index === 0) {
-        newStep.nextStep = index + 1;
-      } else if (index === mergeConflictsNum - 1) {
-        newStep.previousStep = index - 1;
-        newStep.lastStep = true;
-      } else if (index < mergeConflictsNum) {
-        newStep.previousStep = index - 1;
-        newStep.nextStep = index + 1;
-      }
-
-      steps[index] = newStep;
-
-      return steps;
-    }, {});
-
-    return mergeOptions;
+  get generateMergeStepOptions(): StepMeta [] {
+    return this.mergeConflicts.map((_, index) => ({
+      toolTipText: 'You must resolve this conflict',
+      nextButtonText: 'Resolve',
+      lastConflict: index === this.mergeConflicts.length - 1,
+    }));
   }
 
   get hasMergeConflicts() {
-    return !!this.mergeConflicts;
+    return !!this.mergeConflicts && !this.conflictsResolved;
   }
 
   finalizeSteps() {
@@ -145,8 +122,10 @@ export class ModalComponent {
   }
 
   previousStep(stepper: MatStepper): void {
-    this.currentStep = this.currentStepList[this.currentStep].previousStep;
-    stepper.selectedIndex = this.currentStep + (this.hasMergeConflicts ? 4 : 0);
+    if (this.currentIndex === 0) {
+      return;
+    }
+    stepper.selectedIndex = --this.currentIndex;
   }
 
   get validFiles(): boolean {
@@ -158,11 +137,11 @@ export class ModalComponent {
   }
 
   get nextButtonTooltipText(): string {
-    return this.currentStepList[this.currentStep].toolTipText;
+    return this.currentIndexList[this.currentIndex].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
-    switch (this.currentStep) {
+    switch (this.currentIndex) {
       case Steps.specNameInput:
         return this.specNameInputOptions?.valid;
       case Steps.specFilesUpload:
@@ -198,7 +177,34 @@ export class ModalComponent {
   }
 
   get nextButtonText(): string {
-    return this.currentStepList[this.currentStep].nextButtonText;
+    return this.currentIndexList[this.currentIndex].nextButtonText;
+  }
+
+  get stepLabel(): string {
+    const stepsNum = stepOptions.length;
+    const handlingMergeConflicts = this.currentIndex >= stepsNum;
+    const currentIndex = (handlingMergeConflicts
+      ? this.currentIndex - stepsNum
+      : this.currentIndex) + 1;
+    const currentMax = handlingMergeConflicts
+      ? this.mergeConflicts.length
+      : stepOptions.length;
+
+    return `${currentIndex}/${currentMax}`;
+  }
+
+  get shouldShowFileName(): boolean {
+    // Do not show the file name as the user is inputing it. Wait util we
+    // have moved onto the next step;
+    return this.currentIndex !== Steps.specNameInput;
+  }
+
+  get shouldShowBackButton(): boolean {
+    return this.currentIndex > 0;
+  }
+
+  get stepHeaderText(): string {
+    return (this.hasMergeConflicts ? 'Resolving conflicts' : 'Merge specs');
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
