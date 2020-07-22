@@ -17,8 +17,12 @@ limitations under the License. -->
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
         <h3>
-          Merge specs
-          <b class="step-indicator">{{ currentStep + 1 }}/{{ LAST_STEP + 1 }}</b>
+          {{ hasMergeConflicts ? 'Resolving conflicts' : 'Merge specs' }}
+          <b class="step-indicator">
+            {{ currentStep + 1 }}/{{
+              hasMergeConflicts ? mergeConflicts.length : LAST_STEP + 1
+            }}
+          </b>
         </h3>
         <p *ngIf="currentStep > FIRST_STEP" class="mat-caption">
           {{ newFileName }}
@@ -51,7 +55,8 @@ limitations under the License. -->
         ></app-spec-files-upload>
       </mat-step>
       <mat-step>
-        <app-confirm-operation *ngIf="validFiles"
+        <app-confirm-operation
+          *ngIf="validFiles"
           [defaultsFileUploadOptions]="defaultsFileUploadOptions"
           [specFilesUploadOptions]="specFilesUploadOptions"
         ></app-confirm-operation>

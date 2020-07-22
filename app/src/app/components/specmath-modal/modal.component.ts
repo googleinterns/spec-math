@@ -32,16 +32,11 @@ interface StepMeta {
   lastStep?: boolean;
 }
 
-type StepOptions = {
-  [key in Steps]: StepMeta;
-};
-
 type StepList = {
   [key: number]: StepMeta;
 };
 
-let stepOptions: StepOptions;
-stepOptions = {
+const stepOptions: StepList = {
   [Steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: Steps.defaultsFileUpload,
@@ -98,23 +93,55 @@ export class ModalComponent {
       this.mergeOperation();
 
       if (this.hasMergeConflicts) {
-        this.currentStepList[this.currentStep].nextStep = this.currentStep + 1;
+        console.log('conflicts detected');
+        this.currentStep  = 0;
+        stepper.selectedIndex = this.currentStep;
       } else {
-        this.finalize();
+        this.finalizeSteps();
       }
-
+    } else {
+      this.currentStep = this.currentStepList[this.currentStep].nextStep;
+      stepper.selectedIndex = this.currentStep;
     }
-
-    this.currentStep = this.currentStepList[this.currentStep].nextStep;
-    stepper.selectedIndex = this.currentStep;
   }
 
   get currentStepList(): StepList {
-    return this.resolvingConflicts() ? /* */ : stepOptions;
+    return this.hasMergeConflicts ? this.generateMergeStepOptions : stepOptions;
   }
 
-  resolvingConflicts(): boolean {
-    return !Steps.hasOwnProperty(this.currentStep);
+  get generateMergeStepOptions(): StepList {
+    const mergeConflictsNum = this.mergeConflicts.length;
+
+    const mergeOptions = this.mergeConflicts.reduce((steps, curr, index) => {
+      const newStep: StepMeta = {
+        toolTipText: 'You must resolve this conflict',
+        nextButtonText: 'Resolve'
+      };
+
+      if (index === 0) {
+        newStep.nextStep = index + 1;
+      } else if (index === mergeConflictsNum - 1) {
+        newStep.previousStep = index - 1;
+        newStep.lastStep = true;
+      } else if (index < mergeConflictsNum) {
+        newStep.previousStep = index - 1;
+        newStep.nextStep = index + 1;
+      }
+
+      steps[index] = newStep;
+
+      return steps;
+    }, {});
+
+    return mergeOptions;
+  }
+
+  get hasMergeConflicts() {
+    return !!this.mergeConflicts;
+  }
+
+  finalizeSteps() {
+    this.dialogRef.close();
   }
 
   previousStep(stepper: MatStepper): void {
