@@ -15,7 +15,12 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions, MergeConflict } from 'src/shared/interfaces';
+import {
+  SpecNameInputOptions,
+  DefaultsFileUploadOptions,
+  SpecFilesUploadOptions,
+  MergeConflict
+} from 'src/shared/interfaces';
 
 interface StepMeta {
   toolTipText?: string;
@@ -27,6 +32,7 @@ interface StepMeta {
 enum Steps {
   specNameInput = 0,
   specFilesUpload = 2,
+  confirmOperation = 3,
 }
 
 const stepOptions: StepMeta[] = [
@@ -65,7 +71,7 @@ export class ModalComponent {
     specFiles: [],
     valid: false,
   };
-  mergeConflicts: MergeConflict [];
+  mergeConflicts: MergeConflict[];
   resolvedMergeConflicts = false;
   stepList: StepMeta[];
 
@@ -106,7 +112,7 @@ export class ModalComponent {
     });
   }
 
-  get generateMergeStepOptions(): StepMeta [] {
+  get generateMergeStepOptions(): StepMeta[] {
     return this.mergeConflicts.map((_, index) => ({
       toolTipText: 'You must resolve this conflict',
       nextButtonText: 'Resolve',
@@ -205,7 +211,7 @@ export class ModalComponent {
   }
 
   get stepHeaderText(): string {
-    return (this.hasMergeConflicts ? 'Resolving conflicts' : 'Merge specs');
+    return (`Merge specs ${this.currentIndex > Steps.confirmOperation ? ': Resolving conflicts' : ''}`);
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
