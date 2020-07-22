@@ -167,21 +167,6 @@ class SpecMathTest {
   }
 
   @Test
-  void filter_withMultipleFilterCriteria_succeeds() throws IOException, AllUnmatchedFilterException {
-    String specString =
-        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
-    String filterCriteria =
-        Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
-    String actual = SpecMath.filter(specString, filterCriteria);
-    String expected =
-        Files.readString(
-            Path.of(
-                "src/test/resources/filtering/filteredMonolithicSpecWithAllFilterCriteria.yaml"));
-
-    assertThat(actual).isEqualTo(expected);
-  }
-
-  @Test
   void filter_withTags_succeeds() throws IOException, AllUnmatchedFilterException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
@@ -210,7 +195,7 @@ class SpecMathTest {
   }
 
   @Test
-  void filter_withSpecificOperations_succeeds() throws IOException , AllUnmatchedFilterException{
+  void filter_withSpecificOperations_succeeds() throws IOException, AllUnmatchedFilterException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
@@ -218,13 +203,15 @@ class SpecMathTest {
     String actual = SpecMath.filter(specString, filterCriteria);
     String expected =
         Files.readString(
-            Path.of("src/test/resources/filtering/filteredMonolithicSpecWithSpecificOperations.yaml"));
+            Path.of(
+                "src/test/resources/filtering/filteredMonolithicSpecWithSpecificOperations.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  void filter_withFilterCriteriaAndOptions_succeeds() throws IOException, AllUnmatchedFilterException {
+  void filter_withFilterCriteriaAndOptions_succeeds()
+      throws IOException, AllUnmatchedFilterException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
@@ -239,17 +226,41 @@ class SpecMathTest {
 
     assertThat(actual).isEqualTo(expected);
   }
+
   @Test
-  void filter_withAllUnmatchedOrEmptyFilterCriteria_throws() throws IOException, AllUnmatchedFilterException {
+  void filter_withMultipleFilterCriteria_succeeds()
+      throws IOException, AllUnmatchedFilterException {
+    String specString =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
+    String actual = SpecMath.filter(specString, filterCriteria);
+    String expected =
+        Files.readString(
+            Path.of(
+                "src/test/resources/filtering/filteredMonolithicSpecWithAllFilterCriteria.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void filter_withAllUnmatchedOrEmptyFilterCriteria_throws()
+      throws IOException, AllUnmatchedFilterException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteriaUnmatched =
         Files.readString(Path.of("src/test/resources/filtering/unmatchedFilterCriteria.json"));
     String filterCriteriaEmptyList = "[]";
     String filterCriteriaEmptyListElement = "[{}]";
-    
-    assertThrows(AllUnmatchedFilterException.class, ()-> SpecMath.filter(specString, filterCriteriaUnmatched));
-    assertThrows(AllUnmatchedFilterException.class, ()-> SpecMath.filter(specString, filterCriteriaEmptyList));
-    assertThrows(AllUnmatchedFilterException.class, ()-> SpecMath.filter(specString, filterCriteriaEmptyListElement));
+
+    assertThrows(
+        AllUnmatchedFilterException.class,
+        () -> SpecMath.filter(specString, filterCriteriaUnmatched));
+    assertThrows(
+        AllUnmatchedFilterException.class,
+        () -> SpecMath.filter(specString, filterCriteriaEmptyList));
+    assertThrows(
+        AllUnmatchedFilterException.class,
+        () -> SpecMath.filter(specString, filterCriteriaEmptyListElement));
   }
 }
