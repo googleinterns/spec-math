@@ -24,7 +24,7 @@ limitations under the License. -->
             }}
           </b>
         </h3>
-        <p *ngIf="currentStep > FIRST_STEP" class="mat-caption">
+        <p *ngIf="currentStep > FIRST_STEP || hasMergeConflicts" class="mat-caption">
           {{ newFileName }}
         </p>
       </div>

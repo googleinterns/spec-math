@@ -95,13 +95,13 @@ export class ModalComponent {
       if (this.hasMergeConflicts) {
         console.log('conflicts detected');
         this.currentStep  = 0;
-        stepper.selectedIndex = this.currentStep;
+        stepper.selectedIndex = this.currentStep + 4;
       } else {
         this.finalizeSteps();
       }
     } else {
       this.currentStep = this.currentStepList[this.currentStep].nextStep;
-      stepper.selectedIndex = this.currentStep;
+      stepper.selectedIndex = this.currentStep + (this.hasMergeConflicts ? 4 : 0);
     }
   }
 
@@ -112,7 +112,7 @@ export class ModalComponent {
   get generateMergeStepOptions(): StepList {
     const mergeConflictsNum = this.mergeConflicts.length;
 
-    const mergeOptions = this.mergeConflicts.reduce((steps, curr, index) => {
+    const mergeOptions = this.mergeConflicts.reduce((steps, _, index) => {
       const newStep: StepMeta = {
         toolTipText: 'You must resolve this conflict',
         nextButtonText: 'Resolve'
@@ -145,8 +145,8 @@ export class ModalComponent {
   }
 
   previousStep(stepper: MatStepper): void {
-    this.currentStep = stepOptions[this.currentStep].previousStep;
-    stepper.selectedIndex = this.currentStep;
+    this.currentStep = this.currentStepList[this.currentStep].previousStep;
+    stepper.selectedIndex = this.currentStep + (this.hasMergeConflicts ? 4 : 0);
   }
 
   get validFiles(): boolean {
@@ -158,7 +158,7 @@ export class ModalComponent {
   }
 
   get nextButtonTooltipText(): string {
-    return stepOptions[this.currentStep].toolTipText;
+    return this.currentStepList[this.currentStep].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
@@ -180,17 +180,17 @@ export class ModalComponent {
     // ?Call the SpecMath service here
     this.mergeConflicts = [
       {
-        keypath: 'sample keypath',
+        keypath: '/dogs',
         option1: 'Option A',
         option2: 'Option B',
       },
       {
-        keypath: 'sample keypath',
+        keypath: '/cats',
         option1: 'Option A',
         option2: 'Option B',
       },
       {
-        keypath: 'sample keypath',
+        keypath: '/pets/categories',
         option1: 'Option A',
         option2: 'Option B',
       }
@@ -198,7 +198,7 @@ export class ModalComponent {
   }
 
   get nextButtonText(): string {
-    return stepOptions[this.currentStep].nextButtonText;
+    return this.currentStepList[this.currentStep].nextButtonText;
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
