@@ -82,10 +82,6 @@ export class ModalComponent {
     this.currentIndex = 0;
   }
 
-  get currentStep(): StepMeta {
-    return this.stepList[this.currentIndex];
-  }
-
   nextStep(stepper: MatStepper): void {
     if (this.currentStep.lastBaseStep) {
       // ?Service call
@@ -93,7 +89,6 @@ export class ModalComponent {
 
       if (this.hasMergeConflicts) {
         this.stepList = [...this.stepList, ...this.generateMergeStepOptions];
-        console.log(this.stepList);
       } else {
         this.finalizeSteps();
         return;
@@ -112,6 +107,42 @@ export class ModalComponent {
     });
   }
 
+  previousStep(stepper: MatStepper): void {
+    if (this.currentIndex === 0) {
+      return;
+    }
+    stepper.selectedIndex = --this.currentIndex;
+  }
+
+  finalizeSteps() {
+    this.dialogRef.close();
+  }
+
+  mergeOperation() {
+    // ?Call the SpecMath service here
+    this.mergeConflicts = [
+      {
+        keypath: '/dogs',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: '/cats',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: '/pets/categories',
+        option1: 'Option A',
+        option2: 'Option B',
+      }
+    ];
+  }
+
+  get currentStep(): StepMeta {
+    return this.stepList[this.currentIndex];
+  }
+
   get generateMergeStepOptions(): StepMeta[] {
     return this.mergeConflicts.map((_, index) => ({
       toolTipText: 'You must resolve this conflict',
@@ -122,17 +153,6 @@ export class ModalComponent {
 
   get hasMergeConflicts() {
     return !!this.mergeConflicts && !this.conflictsResolved;
-  }
-
-  finalizeSteps() {
-    this.dialogRef.close();
-  }
-
-  previousStep(stepper: MatStepper): void {
-    if (this.currentIndex === 0) {
-      return;
-    }
-    stepper.selectedIndex = --this.currentIndex;
   }
 
   get validFiles(): boolean {
@@ -160,27 +180,6 @@ export class ModalComponent {
 
   get conflictsResolved(): boolean {
     return false;
-  }
-
-  mergeOperation() {
-    // ?Call the SpecMath service here
-    this.mergeConflicts = [
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      }
-    ];
   }
 
   get nextButtonText(): string {
@@ -211,7 +210,7 @@ export class ModalComponent {
   }
 
   get stepHeaderText(): string {
-    return (`Merge specs ${this.currentIndex > Steps.confirmOperation ? ': Resolving conflicts' : ''}`);
+    return (`Merge specs${this.currentIndex > Steps.confirmOperation ? ': Resolving conflicts' : ''}`);
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
