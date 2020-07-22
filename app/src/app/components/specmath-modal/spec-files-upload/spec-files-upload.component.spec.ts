@@ -63,7 +63,7 @@ describe('SpecFilesUploadComponent', () => {
     ]);
     fixture.detectChanges();
 
-    const specFilesChipListContaine = queryElement(fixture, '.spec-files-chip-list-container').nativeElement;
+    const specFilesChipListContaine = queryElement(fixture, '.modal-step-chip-list-container').nativeElement;
     expect(specFilesChipListContaine).toBeTruthy();
   });
 

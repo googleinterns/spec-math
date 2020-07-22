@@ -50,7 +50,12 @@ limitations under the License. -->
           (options)="handleSpecFilesUploadOptions($event)"
         ></app-spec-files-upload>
       </mat-step>
-      <mat-step> </mat-step>
+      <mat-step>
+        <app-confirm-operation *ngIf="validFiles"
+          [defaultsFileUploadOptions]="defaultsFileUploadOptions"
+          [specFilesUploadOptions]="specFilesUploadOptions"
+        ></app-confirm-operation>
+      </mat-step>
     </mat-horizontal-stepper>
     <div class="modal-step-controls-container">
       <button
@@ -76,7 +81,7 @@ limitations under the License. -->
           (click)="nextStep(stepper)"
           [disabled]="!nextButtonEnabled"
         >
-          Next
+          {{ nextButtonText }}
         </button>
       </div>
     </div>

@@ -70,6 +70,10 @@
     & p.mat-caption {
       margin-bottom: 20px;
     }
+
+    & p {
+      text-align: center;
+    }
   }
 
   &-button {
@@ -80,6 +84,21 @@
 
     &-secondary {
       color: $material-blue-600;
+    }
+  }
+
+  &-chip {
+    &-icon {
+      margin-right: 8px;
+    }
+
+    &-list {
+      &-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: auto;
+      }
     }
   }
 }
@@ -101,5 +120,13 @@
 
   .mat-dialog-content {
     max-height: 100%;
+  }
+
+  .mat-chip-list-wrapper {
+    flex-direction: column;
+  }
+
+  .modal-step-chip-list-container {
+    flex-direction: column;
   }
 }
