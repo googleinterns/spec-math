@@ -72,7 +72,7 @@ export class ModalComponent {
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
     dialogRef.disableClose = true;
 
-    this.stepList = stepOptions.slice(0);
+    this.stepList = [...stepOptions];
     this.currentIndex = 0;
   }
 
@@ -87,8 +87,10 @@ export class ModalComponent {
 
       if (this.hasMergeConflicts) {
         this.stepList = [...this.stepList, ...this.generateMergeStepOptions];
+        console.log(this.stepList);
       } else {
         this.finalizeSteps();
+        return;
       }
     }
 
@@ -96,13 +98,12 @@ export class ModalComponent {
       // ?Service call to send resolved conflicts
       // ?Emit result file back to parent
       this.finalizeSteps();
+      return;
     }
 
-    stepper.selectedIndex = ++this.currentIndex;
-  }
-
-  get currentIndexList(): StepMeta[] {
-    return this.hasMergeConflicts ? this.generateMergeStepOptions : stepOptions;
+    setTimeout(() => {
+      stepper.selectedIndex = ++this.currentIndex;
+    });
   }
 
   get generateMergeStepOptions(): StepMeta [] {
@@ -137,7 +138,7 @@ export class ModalComponent {
   }
 
   get nextButtonTooltipText(): string {
-    return this.currentIndexList[this.currentIndex].toolTipText;
+    return this.stepList[this.currentIndex].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
@@ -177,7 +178,7 @@ export class ModalComponent {
   }
 
   get nextButtonText(): string {
-    return this.currentIndexList[this.currentIndex].nextButtonText;
+    return this.stepList[this.currentIndex].nextButtonText;
   }
 
   get stepLabel(): string {
