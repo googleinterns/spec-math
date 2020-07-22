@@ -169,12 +169,14 @@ class SpecMathTest {
   @Test
   void filter_withMultipleFilterCriteria_succeeds() throws IOException {
     String specString =
-        Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
-    String filterCriteria = Files.readString(Path.of("src/test/resources/allFilterCriteria.json"));
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
     String actual = SpecMath.filter(specString, filterCriteria);
     String expected =
         Files.readString(
-            Path.of("src/test/resources/filteredMonolithicSpecWithAllFilterCriteria.yaml"));
+            Path.of(
+                "src/test/resources/filtering/filteredMonolithicSpecWithAllFilterCriteria.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -182,38 +184,41 @@ class SpecMathTest {
   @Test
   void filter_withTags_succeeds() throws IOException {
     String specString =
-        Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
-    String filterCriteria = Files.readString(Path.of("src/test/resources/publicTagsFilterCriteria.json"));
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/publicTagsFilterCriteria.json"));
     String actual = SpecMath.filter(specString, filterCriteria);
     String expected =
         Files.readString(
-            Path.of("src/test/resources/filteredMonolithicSpecWithPublicTags.yaml"));
+            Path.of("src/test/resources/filtering/filteredMonolithicSpecWithPublicTags.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  void filter_withSpecificPath_succeeds() throws IOException{
+  void filter_withSpecificPath_succeeds() throws IOException {
     String specString =
-        Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
-    String filterCriteria = Files.readString(Path.of("src/test/resources/specificPathFilterCriteria.json"));
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/specificPathFilterCriteria.json"));
     String actual = SpecMath.filter(specString, filterCriteria);
     String expected =
         Files.readString(
-            Path.of("src/test/resources/filteredMonolithicSpecWithSpecificPath.yaml"));
+            Path.of("src/test/resources/filtering/filteredMonolithicSpecWithSpecificPath.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  void filter_withSpecificOperations_succeeds() throws IOException{
+  void filter_withSpecificOperations_succeeds() throws IOException {
     String specString =
-        Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
-    String filterCriteria = Files.readString(Path.of("src/test/resources/specificPathFilterCriteria.json"));
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/specificPathFilterCriteria.json"));
     String actual = SpecMath.filter(specString, filterCriteria);
     String expected =
         Files.readString(
-            Path.of("src/test/resources/filteredMonolithicSpecWithSpecificPath.yaml"));
+            Path.of("src/test/resources/filtering/filteredMonolithicSpecWithSpecificPath.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -221,15 +226,16 @@ class SpecMathTest {
   @Test
   void filter_withFilterCriteriaAndOptions_succeeds() throws IOException {
     String specString =
-        Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
-    String filterCriteria = Files.readString(Path.of("src/test/resources/allFilterCriteria.json"));
-    String defaults = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
+    String defaults = Files.readString(Path.of("src/test/resources/filtering/elgoogMetadata.yaml"));
     FilterOptions filterOptions = FilterOptions.builder().defaults(defaults).build();
     String actual = SpecMath.filter(specString, filterCriteria, filterOptions);
     String expected =
         Files.readString(
             Path.of(
-                "src/test/resources/filteredMonolithicSpecWithOptionsAndAllFilterCriteria.yaml"));
+                "src/test/resources/filtering/filteredMonolithicSpecWithOptionsAndAllFilterCriteria.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -237,10 +243,11 @@ class SpecMathTest {
   @Test
   void filter_withEmptyFilterCriteriaList_returnsOriginalSpec() throws IOException {
     String specString =
-        Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria = "[]";
     String actual = SpecMath.filter(specString, filterCriteria);
-    String expected = Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
+    String expected =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -248,10 +255,11 @@ class SpecMathTest {
   @Test
   void filter_withEmptyFilterCriteriaListElement_returnsOriginalSpec() throws IOException {
     String specString =
-        Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria = "[{}]";
     String actual = SpecMath.filter(specString, filterCriteria);
-    String expected = Files.readString(Path.of("src/test/resources/filteringMonolithicSpec.yaml"));
+    String expected =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
