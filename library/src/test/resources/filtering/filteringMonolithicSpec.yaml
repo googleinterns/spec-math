@@ -92,7 +92,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pet"
+                $ref: "#/components/schemas/Groom"
         default:
           description: unexpected error
           content:
@@ -101,6 +101,12 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
+    Groom:
+      type: object
+      properties:
+        cost:
+          type: integer
+          format: int64
     Pet:
       type: object
       required:

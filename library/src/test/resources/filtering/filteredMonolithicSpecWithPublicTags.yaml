@@ -13,14 +13,13 @@ paths:
       operationId: groomDog
       tags:
         - dogs
-        - public
       responses:
         '200':
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pet"
+                $ref: "#/components/schemas/Groom"
         default:
           description: unexpected error
           content:
@@ -29,23 +28,12 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
-    Pet:
+    Groom:
       type: object
-      required:
-        - id
-        - name
       properties:
-        id:
+        cost:
           type: integer
           format: int64
-        name:
-          type: string
-        tag:
-          type: string
-    Pets:
-      type: array
-      items:
-        $ref: "#/components/schemas/Pet"
     Error:
       type: object
       required:
