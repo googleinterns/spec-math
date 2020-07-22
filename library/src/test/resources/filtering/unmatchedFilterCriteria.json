@@ -1,0 +1,10 @@
+[
+  {
+    "operations": ["get"],
+    "path": "/fakepath"
+  },
+  {
+    "tags": ["nonExistentTag"],
+    "tagsOption": "disjunction"
+  }
+]
