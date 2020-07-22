@@ -17,7 +17,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
-enum steps {
+enum Steps {
   specNameInput = 0,
   defaultsFileUpload = 1,
   specFilesUpload = 2,
@@ -25,31 +25,34 @@ enum steps {
 }
 
 type StepOptions = {
-  [key in steps]: {
-    toolTipText: string,
-    nextStep?: number,
-    previousStep?: number
+  [key in Steps]: {
+    toolTipText?: string,
+    nextStep?: Steps,
+    previousStep?: Steps,
+    nextButtonText?: string
   };
 };
 
 const stepOptions: StepOptions = {
-  [steps.specNameInput]: {
+  [Steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
-    nextStep: steps.defaultsFileUpload,
+    nextStep: Steps.defaultsFileUpload,
+    nextButtonText: 'Next'
   },
-  [steps.defaultsFileUpload]: {
-    toolTipText: '',
-    nextStep: steps.specFilesUpload,
-    previousStep: steps.specNameInput
+  [Steps.defaultsFileUpload]: {
+    nextStep: Steps.specFilesUpload,
+    previousStep: Steps.specNameInput,
+    nextButtonText: 'Next'
   },
-  [steps.specFilesUpload]: {
+  [Steps.specFilesUpload]: {
     toolTipText: 'You must upload a set of spec files',
-    nextStep: steps.confirmOperation,
-    previousStep: steps.defaultsFileUpload
+    nextStep: Steps.confirmOperation,
+    previousStep: Steps.defaultsFileUpload,
+    nextButtonText: 'Next'
   },
-  [steps.confirmOperation]: {
-    toolTipText: '',
-    previousStep: steps.specFilesUpload
+  [Steps.confirmOperation]: {
+    previousStep: Steps.specFilesUpload,
+    nextButtonText: 'Confirm'
   }
 };
 
@@ -59,9 +62,9 @@ const stepOptions: StepOptions = {
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  FIRST_STEP = steps.specNameInput;
-  LAST_STEP = steps.confirmOperation;
-  currentStep: steps = steps.specNameInput;
+  FIRST_STEP = Steps.specNameInput;
+  LAST_STEP = Steps.confirmOperation;
+  currentStep: Steps = Steps.specNameInput;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
     valid: false
@@ -79,6 +82,11 @@ export class ModalComponent {
   }
 
   nextStep(stepper: MatStepper): void {
+    if (this.currentStep === Steps.confirmOperation) {
+      this.dialogRef.close();
+      return;
+    }
+
     this.currentStep = stepOptions[this.currentStep].nextStep;
     stepper.selectedIndex = this.currentStep;
   }
@@ -86,6 +94,10 @@ export class ModalComponent {
   previousStep(stepper: MatStepper): void {
     this.currentStep = stepOptions[this.currentStep].previousStep;
     stepper.selectedIndex = this.currentStep;
+  }
+
+  get validFiles(): boolean {
+    return this.specFilesUploadOptions.valid;
   }
 
   get newFileName(): string {
@@ -98,13 +110,17 @@ export class ModalComponent {
 
   get nextButtonEnabled(): boolean {
     switch (this.currentStep) {
-      case steps.specNameInput:
+      case Steps.specNameInput:
         return this.specNameInputOptions?.valid;
-      case steps.specFilesUpload:
+      case Steps.specFilesUpload:
         return this.specFilesUploadOptions?.valid;
       default:
         return true;
     }
+  }
+
+  get nextButtonText(): string {
+    return stepOptions[this.currentStep].nextButtonText;
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {

@@ -39,21 +39,6 @@
     border-radius: 100%;
   }
 
-  &-chip {
-    &-icon {
-      margin-right: 8px;
-    }
-
-    &-list {
-      &-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: auto;
-      }
-    }
-  }
-
   &-input {
     &-container {
       display: flex;
@@ -64,21 +49,5 @@
         margin-top: 1rem;
       }
     }
-  }
-}
-
-#spec-files-chip-list {
-  .mat-standard-chip {
-    padding-left: 8px;
-  }
-}
-
-@media (max-width: 768px) {
-  .mat-chip-list-wrapper {
-    flex-direction: column;
-  }
-
-  .spec-files-chip-list-container {
-    flex-direction: column;
   }
 }

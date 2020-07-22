@@ -20,7 +20,7 @@ limitations under the License. -->
     <div class="spec-files-content">
       <div *ngIf="specFilesUploadOptions.specFiles.length === 0">
         <button
-          (click)="specs.click()"
+          (click)="specsInput.click()"
           mat-button
           class="spec-files-button"
           id="specs-upload-button-large"
@@ -31,7 +31,7 @@ limitations under the License. -->
       <div *ngIf="specFilesUploadOptions.specFiles">
         <mat-chip-list id="spec-files-chip-list">
           <div
-            class="spec-files-chip-list-container"
+            class="modal-step-chip-list-container"
             *ngFor="let spec of specFilesUploadOptions.specFiles; let i = index"
           >
             <mat-chip
@@ -40,7 +40,7 @@ limitations under the License. -->
               [removable]="true"
               (removed)="removeSpecFile(i)"
             >
-              <mat-icon class="spec-files-chip-icon">description</mat-icon>
+              <mat-icon class="modal-step-chip-icon">description</mat-icon>
               {{ spec.name }}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
@@ -51,7 +51,7 @@ limitations under the License. -->
     </div>
     <div class="spec-files-input-container">
       <input
-        #specs
+        #specsInput
         class="spec-files-upload-input"
         type="file"
         accept=".yaml"
@@ -68,7 +68,7 @@ limitations under the License. -->
           <button
             [disabled]="specFilesUploadOptions.specFiles.length === specFilesNum"
             id="specs-upload-button"
-            (click)="specs.click()"
+            (click)="specsInput.click()"
             mat-button
             class="modal-step-button-secondary"
           >

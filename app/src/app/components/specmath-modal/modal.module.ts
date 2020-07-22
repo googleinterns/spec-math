@@ -26,13 +26,15 @@ import { NgModule } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
+import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
 
 @NgModule({
   declarations: [
     ModalComponent,
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
-    SpecFilesUploadComponent
+    SpecFilesUploadComponent,
+    ConfirmOperationComponent
   ],
   imports: [
     MatStepperModule,

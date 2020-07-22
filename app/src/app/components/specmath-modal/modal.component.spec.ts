@@ -15,17 +15,20 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
 
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserModule, By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
+import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { queryElement } from '../../../shared/functions';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputOptions } from 'src/shared/interfaces';
+import { queryElement } from '../../../shared/functions';
 
 describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
@@ -35,22 +38,24 @@ describe('ModalComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ModalComponent,
-        SpecNameInputStubComponent
+        SpecNameInputStubComponent,
+        DefaultsFileUploadComponent,
+        SpecFilesUploadComponent,
+        ConfirmOperationComponent
       ],
       imports: [
-        MatStepperModule,
+        BrowserAnimationsModule,
+        BrowserModule,
         MatButtonModule,
         MatDialogModule,
         MatIconModule,
         MatInputModule,
+        MatStepperModule,
         MatTooltipModule,
-        BrowserModule,
-        MatDialogModule,
-        BrowserAnimationsModule,
       ],
       providers: [
         {
-          provide: MatDialogRef, useValue: { close: () => {} }
+          provide: MatDialogRef, useValue: { close: () => { } }
         },
       ]
     }).compileComponents().then(() => {
@@ -104,6 +109,23 @@ describe('ModalComponent', () => {
     nextButton.click();
     fixture.detectChanges();
     expect(modal.currentStep).toEqual(1);
+  });
+
+  it('renders the ConfirmOperationComponent when a set of files is valid', () => {
+    modal.specFilesUploadOptions = {
+      specFiles: [
+        new File(['content'], 'spec1.yaml'),
+        new File(['content'], 'spec2.yaml')
+      ],
+      valid: true
+    };
+
+    fixture.detectChanges();
+    expect(modal.validFiles).toEqual(true);
+
+    const confirmOperationComponent =
+      fixture.debugElement.query(By.directive(ConfirmOperationComponent)).nativeElement;
+    expect(confirmOperationComponent).toBeTruthy();
   });
 });
 
