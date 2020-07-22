@@ -1,0 +1,10 @@
+[
+  {
+    "operations": ["get"],
+    "path": "/pets*"
+  },
+  {
+    "tags": ["pets"],
+    "tagsOption": "disjunction"
+  }
+]
