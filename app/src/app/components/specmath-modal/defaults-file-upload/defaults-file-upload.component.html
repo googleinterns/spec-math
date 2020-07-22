@@ -25,7 +25,7 @@ limitations under the License. -->
     <div class="defaults-file-content">
       <div *ngIf="!defaultsFileUploadOptions.defaultsFile">
         <button
-          (click)="defaults.click()"
+          (click)="defaultsInput.click()"
           mat-button
           class="defaults-file-button"
           id="defaults-file-upload-button-large"
@@ -50,7 +50,7 @@ limitations under the License. -->
     </div>
     <div class="defaults-file-input-container">
       <input
-        #defaults
+        #defaultsInput
         class="defaults-file-upload-input"
         type="file"
         accept=".yaml"
@@ -60,7 +60,7 @@ limitations under the License. -->
       <label for="defaults-file-input">
         <button
           id="defaults-file-upload-button"
-          (click)="defaults.click()"
+          (click)="defaultsInput.click()"
           mat-button
           class="modal-step-button-secondary"
         >

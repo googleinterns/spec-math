@@ -21,24 +21,6 @@ import { DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/in
   styleUrls: ['./confirm-operation.component.scss']
 })
 export class ConfirmOperationComponent {
-  defaultsFile = null;
-  specFiles = [];
-
   @Input() defaultsFileUploadOptions?: DefaultsFileUploadOptions;
   @Input() specFilesUploadOptions?: SpecFilesUploadOptions;
-
-  get inputFilesValid(): boolean {
-    if (this.specFilesUploadOptions.valid) {
-      this.defaultsFile = this.defaultsFileUploadOptions?.defaultsFile;
-      this.specFiles = this.specFilesUploadOptions.specFiles;
-      return true;
-    }
-
-    return false;
-  }
-
-  get operationFiles(): File[] {
-    return (this.defaultsFile ?
-      [this.defaultsFile, ...this.specFiles] : [...this.specFiles]);
-  }
 }

@@ -12,28 +12,40 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
+<ng-template #defaultsChip>
+  <mat-chip>
+    <mat-icon class="modal-step-chip-icon defaults">settings</mat-icon>
+    {{ defaultsFileUploadOptions.defaultsFile.name }}
+  </mat-chip>
+</ng-template>
+
 <div class="modal-step-container">
   <div class="modal-step-content">
     <div class="modal-step-instructions">
       <p class="mat-body-2">Confirm the files used to perform this operation</p>
     </div>
-    <div *ngIf="inputFilesValid" class="confirm-operation-container">
+    <div class="confirm-operation-container">
       <mat-chip-list id="confirm-operation-chip-container">
         <div
+          *ngIf="defaultsFileUploadOptions.defaultsFile"
           class="modal-step-chip-list-container"
-          *ngFor="let file of operationFiles; let i = index"
+        >
+          <ng-container [ngTemplateOutlet]="defaultsChip"></ng-container>
+          <mat-icon>add</mat-icon>
+        </div>
+        <div
+          class="modal-step-chip-list-container"
+          *ngFor="let file of specFilesUploadOptions.specFiles; let i = index"
         >
           <mat-chip>
-            <mat-icon
-              class="modal-step-chip-icon {{
-                defaultsFile && i === 0 ? 'settings' : 'description'
-              }}"
-            >
-              {{ defaultsFile && i === 0 ? "settings" : "description" }}
+            <mat-icon class="modal-step-chip-icon spec">
+              description
             </mat-icon>
             {{ file.name }}
           </mat-chip>
-          <mat-icon *ngIf="i < operationFiles.length - 1">add</mat-icon>
+          <mat-icon *ngIf="i < specFilesUploadOptions.specFiles.length - 1">
+            add
+          </mat-icon>
         </div>
       </mat-chip-list>
     </div>

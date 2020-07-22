@@ -51,7 +51,7 @@ limitations under the License. -->
         ></app-spec-files-upload>
       </mat-step>
       <mat-step>
-        <app-confirm-operation
+        <app-confirm-operation *ngIf="validFiles"
           [defaultsFileUploadOptions]="defaultsFileUploadOptions"
           [specFilesUploadOptions]="specFilesUploadOptions"
         ></app-confirm-operation>
