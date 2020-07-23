@@ -83,6 +83,8 @@ export class ModalComponent {
   }
 
   nextStep(stepper: MatStepper): void {
+    this.resolvedMergeConflicts = false;
+
     if (this.currentStep.lastBaseStep) {
       // ?Service call
       this.mergeOperation();
@@ -168,6 +170,10 @@ export class ModalComponent {
   }
 
   get nextButtonEnabled(): boolean {
+    if (this.currentIndex > Steps.confirmOperation && !this.resolvedMergeConflicts) {
+      return false;
+    }
+
     switch (this.currentIndex) {
       case Steps.specNameInput:
         return this.specNameInputOptions?.valid;
@@ -223,5 +229,10 @@ export class ModalComponent {
 
   handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
     this.specFilesUploadOptions = specFilesUploadOptions;
+  }
+
+  handleResolvedOptions(resolvedValue: string) {
+    this.resolvedMergeConflicts = true;
+    console.log(resolvedValue);
   }
 }

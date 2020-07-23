@@ -60,7 +60,10 @@ limitations under the License. -->
         ></app-confirm-operation>
       </mat-step>
       <mat-step *ngFor="let conflict of mergeConflicts">
-        <app-resolve-conflict [mergeConflict]="conflict"></app-resolve-conflict>
+        <app-resolve-conflict
+          (resolvedOptions)="handleResolvedOptions($event)"
+          [mergeConflict]="conflict"
+        ></app-resolve-conflict>
       </mat-step>
     </mat-horizontal-stepper>
     <div class="modal-step-controls-container">

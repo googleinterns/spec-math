@@ -26,7 +26,6 @@ export class ResolveConflictComponent {
   resolvedConflict: string;
 
   emitResolvedValue() {
-    console.log(this.resolvedConflict);
     this.resolvedOptions.emit(this.resolvedConflict);
   }
 }
