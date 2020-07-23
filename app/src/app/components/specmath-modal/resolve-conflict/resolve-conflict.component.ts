@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MergeConflict } from 'src/shared/interfaces';
 
 @Component({
@@ -22,6 +22,11 @@ import { MergeConflict } from 'src/shared/interfaces';
 })
 export class ResolveConflictComponent {
   @Input() mergeConflict: MergeConflict;
-  @Output() resolvedConflict: string;
+  @Output() resolvedOptions: EventEmitter<string> = new EventEmitter();
+  resolvedConflict: string;
 
+  emitResolvedValue() {
+    console.log(this.resolvedConflict);
+    this.resolvedOptions.emit(this.resolvedConflict);
+  }
 }

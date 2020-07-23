@@ -14,4 +14,27 @@
 
 @import '../modal.component.scss';
 
+.conflicts {
+  &-radio {
+    &-container {
+      display: flex;
+      margin-top: 8px;
+    }
+  
+    &-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    &-button {
+      &:not(:first-child) {
+        margin-top: 1rem;
+      }
+    }
+  }
 
+  &-path {
+    margin-top: 1rem;
+  }
+}

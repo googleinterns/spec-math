@@ -16,8 +16,32 @@ limitations under the License. -->
   <div class="modal-step-content">
     <div class="modal-step-instructions">
       <p class="mat-body-2">
-        {{ mergeConflict.keypath }}
+        Select an option to resolve the conflict on the indicated path
       </p>
+      <p class="mat-body-2 conflicts-path">
+        <b>{{ mergeConflict.keypath }}</b>
+      </p>
+    </div>
+    <div class="conflicts-radio-container">
+      <mat-radio-group
+        [(ngModel)]="resolvedConflict"
+        class="conflicts-radio-group"
+        aria-label="Select an option for this merge conflict"
+        (change)="emitResolvedValue()"
+      >
+        <mat-radio-button
+          class="conflicts-radio-button"
+          [value]="mergeConflict.option1"
+        >
+          {{ mergeConflict.option1 }}
+        </mat-radio-button>
+        <mat-radio-button
+          class="conflicts-radio-button"
+          [value]="mergeConflict.option2"
+        >
+          {{ mergeConflict.option2 }}
+        </mat-radio-button>
+      </mat-radio-group>
     </div>
   </div>
 </div>

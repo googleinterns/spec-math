@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalComponent } from './modal.component';
@@ -49,6 +50,7 @@ import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.co
     MatTooltipModule,
     BrowserModule,
     MatChipsModule,
+    MatRadioModule
   ],
   exports: [
     ModalComponent,
