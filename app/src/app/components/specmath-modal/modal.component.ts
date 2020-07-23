@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import {
@@ -59,7 +59,7 @@ const stepOptions: StepMeta[] = [
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  currentIndex: number;
+  currentIndex = 0;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
     valid: false
@@ -73,13 +73,10 @@ export class ModalComponent {
   };
   mergeConflicts: MergeConflict[];
   resolvedMergeConflicts = false;
-  stepList: StepMeta[];
+  stepList: StepMeta[] = [...stepOptions];
 
-  constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
+  constructor(readonly dialogRef: MatDialogRef<ModalComponent>, private cdr: ChangeDetectorRef) {
     dialogRef.disableClose = true;
-
-    this.stepList = [...stepOptions];
-    this.currentIndex = 0;
   }
 
   nextStep(stepper: MatStepper): void {
@@ -104,9 +101,8 @@ export class ModalComponent {
       return;
     }
 
-    setTimeout(() => {
-      stepper.selectedIndex = ++this.currentIndex;
-    });
+    this.cdr.detectChanges();
+    stepper.selectedIndex = ++this.currentIndex;
   }
 
   previousStep(stepper: MatStepper): void {
@@ -232,7 +228,8 @@ export class ModalComponent {
   }
 
   handleResolvedOptions(resolvedValue: string) {
+    const stepsNum = stepOptions.length;
     this.resolvedMergeConflicts = true;
-    console.log(resolvedValue);
+    this.mergeConflicts[this.currentIndex - stepsNum].resolvedValue = resolvedValue;
   }
 }
