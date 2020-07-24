@@ -165,7 +165,9 @@ export class ModalComponent {
 
   get nextButtonEnabled(): boolean {
     const stepsNum = stepOptions.length;
-    if (this.hasMergeConflicts && this.mergeConflicts[this.currentIndex - stepsNum]?.resolvedValue) {
+    if (this.currentIndex > Steps.confirmOperation
+      && this.hasMergeConflicts
+      && !this.mergeConflicts[this.currentIndex - stepsNum]?.resolvedValue) {
       return false;
     }
 
