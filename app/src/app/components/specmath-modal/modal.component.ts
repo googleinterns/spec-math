@@ -80,7 +80,6 @@ export class ModalComponent {
   }
 
   nextStep(stepper: MatStepper): void {
-
     if (this.currentStep.lastBaseStep) {
       // ?Service call
       this.mergeOperation();
