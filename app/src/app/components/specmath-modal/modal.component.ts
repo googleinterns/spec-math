@@ -12,15 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import {
   SpecNameInputOptions,
   DefaultsFileUploadOptions,
   SpecFilesUploadOptions,
-  MergeConflict
+  MergeConflict,
+  OperationSet
 } from 'src/shared/interfaces';
+import mockResult from '../../../tests/mocks/mockResult';
 
 interface StepMeta {
   toolTipText?: string;
@@ -111,7 +113,16 @@ export class ModalComponent {
   }
 
   finalizeSteps() {
-    this.dialogRef.close();
+    const finalOperationSet: OperationSet = {
+      specFiles: this.specFilesUploadOptions.specFiles,
+      defaultsFile: this.defaultsFileUploadOptions?.defaultsFile,
+      resultSpec: {
+        name: this.specNameInputOptions.newFileName,
+        file: mockResult,
+      },
+      valid: true,
+    };
+    this.dialogRef.close(finalOperationSet);
   }
 
   mergeOperation() {

@@ -31,9 +31,14 @@ export interface SpecFilesUploadOptions {
   valid: boolean;
 }
 
+interface ResultSpec {
+  file: File;
+  name: string;
+}
+
 export interface OperationSet {
   specFiles: File [];
   defaultsFile?: File;
-  resultSpec: File;
+  resultSpec: ResultSpec;
   valid: boolean;
 }

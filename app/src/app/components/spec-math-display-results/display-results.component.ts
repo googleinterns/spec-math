@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import { Component, Input } from '@angular/core';
+import { OperationSet } from 'src/shared/interfaces';
 
 @Component({
   selector: 'app-display-results',
@@ -20,7 +21,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./display-results.component.scss']
 })
 export class DisplayResultsComponent {
-  @Input() resultFile: File;
-  @Input() defaultsFile: File;
-  @Input() specFiles: File[];
+  @Input() operationSet: OperationSet;
 }
