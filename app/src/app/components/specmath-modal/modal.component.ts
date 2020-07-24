@@ -72,7 +72,6 @@ export class ModalComponent {
     valid: false,
   };
   mergeConflicts: MergeConflict[];
-  resolvedMergeConflicts = false;
   stepList: StepMeta[] = [...stepOptions];
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>, private cdr: ChangeDetectorRef) {
@@ -80,7 +79,6 @@ export class ModalComponent {
   }
 
   nextStep(stepper: MatStepper): void {
-    this.resolvedMergeConflicts = false;
 
     if (this.currentStep.lastBaseStep) {
       // ?Service call
@@ -150,7 +148,7 @@ export class ModalComponent {
   }
 
   get hasMergeConflicts() {
-    return !!this.mergeConflicts && !this.conflictsResolved;
+    return !!this.mergeConflicts;
   }
 
   get validFiles(): boolean {
@@ -166,7 +164,8 @@ export class ModalComponent {
   }
 
   get nextButtonEnabled(): boolean {
-    if (this.currentIndex > Steps.confirmOperation && !this.resolvedMergeConflicts) {
+    const stepsNum = stepOptions.length;
+    if (this.hasMergeConflicts && this.mergeConflicts[this.currentIndex - stepsNum]?.resolvedValue) {
       return false;
     }
 
@@ -178,10 +177,6 @@ export class ModalComponent {
       default:
         return true;
     }
-  }
-
-  get conflictsResolved(): boolean {
-    return false;
   }
 
   get nextButtonText(): string {
@@ -229,7 +224,6 @@ export class ModalComponent {
 
   handleResolvedOptions(resolvedValue: string) {
     const stepsNum = stepOptions.length;
-    this.resolvedMergeConflicts = true;
     this.mergeConflicts[this.currentIndex - stepsNum].resolvedValue = resolvedValue;
   }
 }
