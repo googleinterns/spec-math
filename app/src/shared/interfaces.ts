@@ -30,3 +30,10 @@ export interface SpecFilesUploadOptions {
   specFiles: File [];
   valid: boolean;
 }
+
+export interface OperationSet {
+  specFiles: File [];
+  defaultsFile?: File;
+  resultSpec: File;
+  valid: boolean;
+}

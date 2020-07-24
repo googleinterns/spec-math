@@ -12,28 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from './components/specmath-modal/modal.component';
-import { OperationSet } from 'src/shared/interfaces';
+import { NgModule } from '@angular/core';
+import { DisplayResultsComponent } from './display-results.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+@NgModule({
+  declarations: [DisplayResultsComponent],
+  imports: [MatTabsModule],
+  exports: [DisplayResultsComponent]
 })
-export class AppComponent {
-  operationSet: OperationSet = {
-    specFiles: [],
-    resultSpec: null,
-    valid: false
-  };
-
-  constructor(readonly dialog: MatDialog) {
-
-  }
-
-  openDialog(): void {
-    this.dialog.open(ModalComponent);
-  }
-}
+export class DisplayResultsModule { }

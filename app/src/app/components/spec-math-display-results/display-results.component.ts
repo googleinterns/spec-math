@@ -12,4 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { Component, Input } from '@angular/core';
 
+@Component({
+  selector: 'app-display-results',
+  templateUrl: './display-results.component.html',
+  styleUrls: ['./display-results.component.scss']
+})
+export class DisplayResultsComponent {
+  @Input() resultFile: File;
+  @Input() defaultsFile: File;
+  @Input() specFiles: File[];
+}

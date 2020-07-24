@@ -31,13 +31,17 @@ limitations under the License. -->
   </mat-drawer>
 
   <mat-drawer-content id="main-container" class="main right-panel padded">
-    <div id="empty-text-container">
+    <div *ngIf="!operationSet.valid" id="empty-text-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
       <h4 class="mat-h4 mat-subheading-1">
         Use the "New" button to get started
       </h4>
+    </div>
+
+    <div *ngIf="operationSet.valid">
+      <app-display-results></app-display-results>
     </div>
 
     <button id="operation-menu-button-mobile" class="mdc-fab mobile" [mat-menu-trigger-for]="operationMenu">
