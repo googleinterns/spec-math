@@ -36,7 +36,6 @@ export class AppComponent {
   openDialog(): void {
     this.dialog.open(ModalComponent).afterClosed().subscribe((results: OperationSet) => {
       this.operationSet = results;
-      console.log(this.operationSet);
     });
   }
 }

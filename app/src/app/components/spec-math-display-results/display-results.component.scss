@@ -14,8 +14,15 @@
 
 .results {
   &-container {
-    height: 100%;
-    width: 100&;
+    height: calc(100% - 1rem);
+    width: calc(100% - 1rem);
     display: flex;
+  }
+
+  &-tabs {
+    &-container {
+      height: 100%;
+      width: 100%;
+    }
   }
 }
