@@ -73,6 +73,7 @@ export class ModalComponent {
   };
   mergeConflicts: MergeConflict[];
   stepList: StepMeta[] = [...stepOptions];
+  stepsNum = stepOptions.length;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>, private cdr: ChangeDetectorRef) {
     dialogRef.disableClose = true;
@@ -164,10 +165,9 @@ export class ModalComponent {
   }
 
   get nextButtonEnabled(): boolean {
-    const stepsNum = stepOptions.length;
     if (this.currentIndex > Steps.confirmOperation
       && this.hasMergeConflicts
-      && !this.mergeConflicts[this.currentIndex - stepsNum]?.resolvedValue) {
+      && !this.mergeConflicts[this.currentIndex - this.stepsNum]?.resolvedValue) {
       return false;
     }
 
@@ -186,10 +186,9 @@ export class ModalComponent {
   }
 
   get stepLabel(): string {
-    const stepsNum = stepOptions.length;
-    const handlingMergeConflicts = this.currentIndex >= stepsNum;
+    const handlingMergeConflicts = this.currentIndex >= this.stepsNum;
     const currentIndex = (handlingMergeConflicts
-      ? this.currentIndex - stepsNum
+      ? this.currentIndex - this.stepsNum
       : this.currentIndex) + 1;
     const currentMax = handlingMergeConflicts
       ? this.mergeConflicts.length
@@ -225,7 +224,6 @@ export class ModalComponent {
   }
 
   handleResolvedOptions(resolvedValue: string) {
-    const stepsNum = stepOptions.length;
-    this.mergeConflicts[this.currentIndex - stepsNum].resolvedValue = resolvedValue;
+    this.mergeConflicts[this.currentIndex - this.stepsNum].resolvedValue = resolvedValue;
   }
 }
