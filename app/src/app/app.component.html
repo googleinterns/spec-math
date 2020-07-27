@@ -40,8 +40,8 @@ limitations under the License. -->
       </h4>
     </div>
 
-    <div *ngIf="operationSet.valid">
-      <app-display-results></app-display-results>
+    <div class="operation-results-container" *ngIf="operationSet.valid">
+      <app-display-results [operationSet]="operationSet"></app-display-results>
     </div>
 
     <button id="operation-menu-button-mobile" class="mdc-fab mobile" [mat-menu-trigger-for]="operationMenu">
