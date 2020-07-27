@@ -31,6 +31,10 @@ export class DisplayResultsComponent {
     return this.operationSet.resultSpec.file.name;
   }
 
+  get resultsSpecFileDisplayName(): string {
+    return this.operationSet.resultSpec.name;
+  }
+
   get defaultsFileName(): string {
     return this.operationSet.defaultsFile.name;
   }

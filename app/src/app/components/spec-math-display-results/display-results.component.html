@@ -14,11 +14,17 @@ limitations under the License. -->
 
 <div class="results-container">
   <h1 class="results-label mat-display-2">
-    Merge Set: {{ resultSpecFileName }}
+    Merge Set: {{ resultsSpecFileDisplayName }}
   </h1>
   <mat-tab-group class="results-tabs-container" animationDuration="0ms">
-    <mat-tab [label]="resultSpecFileName">Content 1</mat-tab>
-    <mat-tab *ngIf="defaultsFileValid" [label]="defaultsFileName">Content 2</mat-tab>
-    <mat-tab *ngFor="let spec of specFiles" [label]="spec.name">Content 3</mat-tab>
+    <mat-tab [label]="resultSpecFileName">
+      Results
+    </mat-tab>
+    <mat-tab *ngIf="defaultsFileValid" [label]="defaultsFileName">
+      Defaults
+    </mat-tab>
+    <mat-tab *ngFor="let spec of specFiles" [label]="spec.name">
+      {{ spec.name }}
+    </mat-tab>
   </mat-tab-group>
 </div>
