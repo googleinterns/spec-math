@@ -22,4 +22,20 @@ import { OperationSet } from 'src/shared/interfaces';
 })
 export class DisplayResultsComponent {
   @Input() operationSet: OperationSet;
+
+  get defaultsFileValid(): boolean {
+    return !!this.operationSet?.defaultsFile;
+  }
+
+  get resultSpecFileName(): string {
+    return this.operationSet.resultSpec.file.name;
+  }
+
+  get defaultsFileName(): string {
+    return this.operationSet.defaultsFile.name;
+  }
+
+  get specFiles(): File[] {
+    return this.operationSet.specFiles;
+  }
 }

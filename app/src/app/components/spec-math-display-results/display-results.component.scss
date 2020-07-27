@@ -17,6 +17,12 @@
     height: calc(100% - 1rem);
     width: calc(100% - 1rem);
     display: flex;
+    flex-direction: column;
+  }
+
+  &-label {
+    margin-top: 1rem;
+    margin-left: 1rem;
   }
 
   &-tabs {

@@ -15,10 +15,11 @@
 import { NgModule } from '@angular/core';
 import { DisplayResultsComponent } from './display-results.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [DisplayResultsComponent],
-  imports: [MatTabsModule],
+  imports: [MatTabsModule, BrowserModule],
   exports: [DisplayResultsComponent]
 })
 export class DisplayResultsModule { }
