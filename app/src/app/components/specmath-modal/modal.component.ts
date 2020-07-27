@@ -22,7 +22,6 @@ import {
   MergeConflict,
   OperationSet
 } from 'src/shared/interfaces';
-import mockResult from '../../../tests/mocks/mockResult';
 
 interface StepMeta {
   toolTipText?: string;
@@ -118,7 +117,7 @@ export class ModalComponent {
       defaultsFile: this.defaultsFileUploadOptions?.defaultsFile,
       resultSpec: {
         name: this.specNameInputOptions.newFileName,
-        file: mockResult,
+        file: new File(['content'], 'result.yaml'),
       },
       valid: true,
     };
