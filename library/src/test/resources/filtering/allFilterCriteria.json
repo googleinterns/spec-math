@@ -1,7 +1,7 @@
 [
   {
     "operations": ["get"],
-    "path": "/pets*"
+    "path": "/pets.*"
   },
   {
     "tags": ["pets"],
