@@ -19,7 +19,8 @@ import {
   SpecNameInputOptions,
   DefaultsFileUploadOptions,
   SpecFilesUploadOptions,
-  MergeConflict
+  MergeConflict,
+  ResolvedMergeConflictOptions
 } from 'src/shared/interfaces';
 
 enum Steps {
@@ -203,7 +204,7 @@ export class ModalComponent {
     this.specFilesUploadOptions = specFilesUploadOptions;
   }
 
-  handleResolvedOptions(resolvedValue: string, index: number) {
-    this.mergeConflicts[index].resolvedValue = resolvedValue;
+  handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
+    this.mergeConflicts[resolvedOptions.index].resolvedValue = resolvedOptions.value;
   }
 }

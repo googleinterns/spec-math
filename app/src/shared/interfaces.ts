@@ -30,3 +30,8 @@ export interface SpecFilesUploadOptions {
   specFiles: File [];
   valid: boolean;
 }
+
+export interface ResolvedMergeConflictOptions {
+  index: number;
+  value: string;
+}

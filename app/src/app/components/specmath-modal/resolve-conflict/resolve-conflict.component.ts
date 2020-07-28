@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MergeConflict } from 'src/shared/interfaces';
+import { MergeConflict, ResolvedMergeConflictOptions } from 'src/shared/interfaces';
 
 @Component({
   selector: 'app-resolve-conflict',
@@ -21,11 +21,14 @@ import { MergeConflict } from 'src/shared/interfaces';
   styleUrls: ['./resolve-conflict.component.scss']
 })
 export class ResolveConflictComponent {
-  @Input() mergeConflict: MergeConflict;
-  @Output() resolvedOptions: EventEmitter<string> = new EventEmitter();
-  resolvedConflict: string;
+  @Input() mergeConflicts: MergeConflict[];
+  @Output() resolvedOptions: EventEmitter<ResolvedMergeConflictOptions> = new EventEmitter();
 
-  emitResolvedValue() {
-    this.resolvedOptions.emit(this.resolvedConflict);
+  emitResolvedValue(value: string, index: number) {
+    const resolvedConflict: ResolvedMergeConflictOptions = {
+      value,
+      index
+    };
+    this.resolvedOptions.emit(resolvedConflict);
   }
 }
