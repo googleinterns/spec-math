@@ -49,11 +49,11 @@ export class DisplayResultsComponent implements OnInit {
   ngOnInit() {
     const editor = SwaggerEditorBundle({
       dom_id: '#swagger-results',
-      layour: 'StandaloneLayout',
-      presents: [
+      layout: 'StandaloneLayout',
+      presets: [
         SwaggerEditorStandalonePreset
       ],
-      url: 'src/tests/mocks/mockResult.yaml'
+      url: 'http://rackerlabs.github.io/wadl2swagger/openstack/swagger/dbaas.json'
     });
   }
 }
