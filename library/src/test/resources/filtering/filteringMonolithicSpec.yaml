@@ -99,6 +99,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /path/with/no/refs:
+    patch:
+      responses:
+        '200':
+          description: success
+      summary: this path has no refs
 components:
   schemas:
     Groom:
