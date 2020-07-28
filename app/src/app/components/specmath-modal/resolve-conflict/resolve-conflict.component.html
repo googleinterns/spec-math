@@ -18,28 +18,27 @@ limitations under the License. -->
       <p class="mat-body-2">
         Select an option to resolve the conflict on the indicated path
       </p>
-      <p class="mat-body-2 conflicts-path">
-        <b>{{ mergeConflict.keypath }}</b>
-      </p>
     </div>
-    <div class="conflicts-radio-container">
+    <div *ngFor="let conflict of mergeConflicts, let i = index" class="conflicts-radio-container">
+      <p class="mat-body-2 conflicts-path">
+        <b>{{ conflict.keypath }}</b>
+      </p>
       <mat-radio-group
-        [(ngModel)]="resolvedConflict"
         class="conflicts-radio-group"
         aria-label="Select an option for this merge conflict"
-        (change)="emitResolvedValue()"
+        (change)="emitResolvedValue($event.value, i)"
       >
         <mat-radio-button
           class="conflicts-radio-button"
-          [value]="mergeConflict.option1"
+          [value]="conflict.option1"
         >
-          {{ mergeConflict.option1 }}
+          {{ conflict.option1 }}
         </mat-radio-button>
         <mat-radio-button
           class="conflicts-radio-button"
-          [value]="mergeConflict.option2"
+          [value]="conflict.option2"
         >
-          {{ mergeConflict.option2 }}
+          {{ conflict.option2 }}
         </mat-radio-button>
       </mat-radio-group>
     </div>

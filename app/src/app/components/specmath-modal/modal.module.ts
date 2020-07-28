@@ -29,6 +29,7 @@ import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.
 import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
 import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.co
     MatTooltipModule,
     BrowserModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatExpansionModule
   ],
   exports: [
     ModalComponent,

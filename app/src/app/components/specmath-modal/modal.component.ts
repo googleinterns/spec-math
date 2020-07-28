@@ -65,7 +65,8 @@ const stepList: StepOptions = {
   },
   [Steps.resolveConflicts]: {
     previousStep: Steps.confirmOperation,
-    nextButtonText: 'You must resolve all merge conflicts',
+    toolTipText: 'You must resolve all merge conflicts',
+    nextButtonText: 'Resolve',
   }
 };
 
@@ -88,7 +89,23 @@ export class ModalComponent {
     valid: false,
   };
   mergeConflictsResolved = false;
-  mergeConflicts: MergeConflict[];
+  mergeConflicts: MergeConflict[] = [
+    {
+      keypath: '/dogs',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
+    {
+      keypath: '/cats',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
+    {
+      keypath: '/pets/categories',
+      option1: 'Option A',
+      option2: 'Option B',
+    }
+  ];
   stepList: StepOptions = stepList;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>, private cdr: ChangeDetectorRef) {
@@ -189,7 +206,7 @@ export class ModalComponent {
   }
 
   get stepHeaderText(): string {
-    return (`Merge specs${this.currentStep > Steps.confirmOperation ? ': Resolving conflicts' : ''}`);
+    return (`Merge specs`);
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {

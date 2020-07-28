@@ -29,6 +29,8 @@ export class ResolveConflictComponent {
       value,
       index
     };
-    this.resolvedOptions.emit(resolvedConflict);
+    console.log(value);
+    console.log(index);
+    // this.resolvedOptions.emit(resolvedConflict);
   }
 }
