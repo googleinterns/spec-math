@@ -1,10 +1,9 @@
 [
   {
     "operations": ["get"],
-    "path": "/fakepath"
+    "pathRegex": "/fakepath"
   },
   {
-    "tags": ["nonExistentTag"],
-    "tagsOption": "disjunction"
+    "tags": ["nonExistentTag"]
   }
 ]

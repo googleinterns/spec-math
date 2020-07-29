@@ -1,6 +1,5 @@
 [
   {
-    "removableTag": ["public"],
-    "tagsOption": "disjunction"
+    "removableTags": ["public"]
   }
 ]

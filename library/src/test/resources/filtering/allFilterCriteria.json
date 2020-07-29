@@ -1,10 +1,9 @@
 [
   {
     "operations": ["get"],
-    "path": "/pets.*"
+    "pathRegex": "/pets.*"
   },
   {
-    "tags": ["pets"],
-    "tagsOption": "disjunction"
+    "tags": ["pets"]
   }
 ]
