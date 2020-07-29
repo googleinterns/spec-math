@@ -72,9 +72,6 @@ public class SpecTreeComponentSelector {
   /**
    * Return a formatted version the ref. For example, "#/components/schemas/Pet" would be formatted
    * to "[components, schemas, Pet]"
-   *
-   * @param value
-   * @return
    */
   private static String processRefKeyPath(Object value) {
     String refToProcess = (String) value;
