@@ -176,7 +176,9 @@ export class ModalComponent {
   }
 
   get stepLabel(): string {
-    return `${this.currentStep + 1}/${Steps.confirmOperation + 1}`;
+    return (this.currentStep < Steps.resolveConflicts
+      ? `${this.currentStep + 1}/${Steps.confirmOperation + 1}`
+      : 'Resolving conflicts');
   }
 
   get shouldShowFileName(): boolean {
