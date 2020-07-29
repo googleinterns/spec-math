@@ -62,6 +62,7 @@ limitations under the License. -->
       <mat-step *ngIf="mergeConflicts">
         <app-resolve-conflict
           (resolvedOptions)="handleResolvedOptions($event)"
+          (finalizeConflicts)="handleFinalizeConflicts($event)"
           [mergeConflicts]="mergeConflicts"
         ></app-resolve-conflict>
       </mat-step>

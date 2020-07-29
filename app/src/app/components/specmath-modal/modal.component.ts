@@ -99,6 +99,11 @@ export class ModalComponent {
   nextStep(stepper: MatStepper): void {
     const currStep = stepList[this.currentStep];
 
+    if (this.mergeConflictsResolved) {
+      this.finalizeSteps();
+      return;
+    }
+
     if (currStep.lastBaseStep) {
       // ?Service call
       this.mergeOperation();
@@ -209,5 +214,9 @@ export class ModalComponent {
 
   handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
     this.mergeConflicts[resolvedOptions.index].resolvedValue = resolvedOptions.value;
+  }
+
+  handleFinalizeConflicts(resolved: boolean) {
+    this.mergeConflictsResolved = resolved;
   }
 }
