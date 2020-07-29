@@ -27,12 +27,7 @@ public class Conflict {
    * The default constructor is needed for com.fasterxml.jackson.databind.ObjectMapper which is used
    * in the {@code ConflictStringToConflictMapConverter} class
    */
-  public Conflict() {
-    this.keypath = "";
-    this.optionA = "";
-    this.optionB = "";
-    this.resolvedValue = "";
-  }
+  public Conflict() {}
 
   /**
    * Create this Conflict object with a conflicting keypath, and the two options for resolving the
