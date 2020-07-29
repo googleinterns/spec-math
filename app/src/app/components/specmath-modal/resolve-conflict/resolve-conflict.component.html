@@ -19,7 +19,7 @@ limitations under the License. -->
         Select an option to resolve the conflict on each indicated path
       </p>
     </div>
-    <mat-accordion multi class="conflicts-container">
+    <mat-accordion *ngIf="localConflicts" multi class="conflicts-container">
       <mat-expansion-panel
         [expanded]="i === currentConflict"
         (opened)="setConflict(i)"

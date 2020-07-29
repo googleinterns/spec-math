@@ -15,10 +15,11 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ResolveConflictComponent } from './resolve-conflict.component';
 
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { queryElement } from '../../../../shared/functions';
 
 describe('ResolveConflictComponent', () => {
@@ -34,7 +35,8 @@ describe('ResolveConflictComponent', () => {
         MatIconModule,
         BrowserModule,
         MatRadioModule,
-        MatExpansionModule
+        MatExpansionModule,
+        BrowserAnimationsModule
       ],
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(ResolveConflictComponent);
@@ -44,5 +46,33 @@ describe('ResolveConflictComponent', () => {
 
   it('creates the ResolveConflictComponent', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders a list of conflicts when conflicts are passed into the component', () => {
+    component.mergeConflicts = [
+      {
+        keypath: '/path1',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: '/path2',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: '/api/path3',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+    ];
+
+    fixture.detectChanges();
+    const conflictsContainer = queryElement(fixture, '.conflicts-container').nativeElement;
+    expect(conflictsContainer).toBeTruthy();
+  });
+
+  it('does not render any conflicts when no conflicts are passed in', () => {
+    expect(fixture.debugElement.query(By.css('.conflicts-container'))).toBeNull();
   });
 });
