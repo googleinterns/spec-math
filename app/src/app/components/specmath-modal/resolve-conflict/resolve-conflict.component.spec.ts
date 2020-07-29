@@ -12,4 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { ResolveConflictComponent } from './resolve-conflict.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { queryElement } from '../../../../shared/functions';
+
+describe('ResolveConflictComponent', () => {
+  let fixture: ComponentFixture<ResolveConflictComponent>;
+  let component: ResolveConflictComponent;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        ResolveConflictComponent
+      ],
+      imports: [
+        MatIconModule,
+        BrowserModule,
+        MatRadioModule,
+        MatExpansionModule
+      ],
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(ResolveConflictComponent);
+      component = fixture.componentInstance;
+    });
+  }));
+
+  it('creates the ResolveConflictComponent', () => {
+    expect(component).toBeTruthy();
+  });
+});
