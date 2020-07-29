@@ -23,24 +23,12 @@ import { MergeConflict, ResolvedMergeConflictOptions } from 'src/shared/interfac
 export class ResolveConflictComponent implements OnInit {
   @Input() mergeConflicts: MergeConflict[];
   @Output() resolvedOptions: EventEmitter<ResolvedMergeConflictOptions> = new EventEmitter();
-  @Output() finalizeConflicts: EventEmitter<boolean> = new EventEmitter();
   localConflicts: MergeConflict[];
   currentConflict = 0;
-  resolvedConflicts = 0;
 
   emitResolvedValue(value: string, index: number) {
     this.localConflicts[index].resolvedValue = value;
-    this.resolvedConflicts++;
-
-    const resolvedConflict: ResolvedMergeConflictOptions = {
-      value,
-      index
-    };
-    this.resolvedOptions.emit(resolvedConflict);
-
-    if (this.resolvedConflicts >= this.localConflicts.length) {
-      this.finalizeConflicts.emit(true);
-    }
+    this.resolvedOptions.emit({ value, index });
   }
 
   nextConflict() {

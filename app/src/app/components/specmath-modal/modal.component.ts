@@ -88,7 +88,6 @@ export class ModalComponent {
     specFiles: [],
     valid: false,
   };
-  mergeConflictsResolved = false;
   mergeConflicts: MergeConflict[];
   stepList: StepOptions = stepList;
 
@@ -174,21 +173,6 @@ export class ModalComponent {
         option1: 'Option A',
         option2: 'Option B',
       },
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
     ];
   }
 
@@ -228,7 +212,7 @@ export class ModalComponent {
   get stepLabel(): string {
     return (this.currentStep < Steps.resolveConflicts
       ? `${this.currentStep + 1}/${Steps.confirmOperation + 1}`
-      : 'Resolve conflicts');
+      : 'Resolving conflicts');
   }
 
   get shouldShowFileName(): boolean {
@@ -261,7 +245,7 @@ export class ModalComponent {
     this.mergeConflicts[resolvedOptions.index].resolvedValue = resolvedOptions.value;
   }
 
-  handleFinalizeConflicts(resolved: boolean) {
-    this.mergeConflictsResolved = resolved;
+  get mergeConflictsResolved(): boolean {
+    return !!this.mergeConflicts && this.mergeConflicts.every((conflict) => conflict.resolvedValue);
   }
 }
