@@ -24,6 +24,7 @@ export class ResolveConflictComponent implements OnInit {
   @Input() mergeConflicts: MergeConflict[];
   @Output() resolvedOptions: EventEmitter<ResolvedMergeConflictOptions> = new EventEmitter();
   localConflicts: MergeConflict[];
+  currentConflict = 0;
 
   emitResolvedValue(value: string, index: number) {
     this.localConflicts[index].resolvedValue = value;
@@ -35,6 +36,22 @@ export class ResolveConflictComponent implements OnInit {
     console.log(value);
     console.log(index);
     // this.resolvedOptions.emit(resolvedConflict);
+  }
+
+  nextConflict() {
+    if (this.currentConflict < this.localConflicts.length) {
+      this.currentConflict++;
+    }
+  }
+
+  previousConflict() {
+    if (this.currentConflict > 0) {
+      this.currentConflict--;
+    }
+  }
+
+  setConflict(index: number) {
+    this.currentConflict = index;
   }
 
   ngOnInit() {

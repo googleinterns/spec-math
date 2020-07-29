@@ -21,6 +21,8 @@ limitations under the License. -->
     </div>
     <mat-accordion multi class="conflicts-container">
       <mat-expansion-panel
+        [expanded]="i === currentConflict"
+        (opened)="setConflict(i)"
         *ngFor="let conflict of localConflicts; let i = index"
       >
         <mat-expansion-panel-header>
@@ -49,6 +51,24 @@ limitations under the License. -->
             {{ conflict.option2 }}
           </mat-radio-button>
         </mat-radio-group>
+        <mat-action-row>
+          <button
+            mat-button
+            color="warn"
+            (click)="previousConflict()"
+            *ngIf="i > 0"
+          >
+            Previous
+          </button>
+          <button
+            mat-button
+            color="primary"
+            (click)="nextConflict()"
+            *ngIf="i < localConflicts.length - 1"
+          >
+            Next
+          </button>
+        </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
