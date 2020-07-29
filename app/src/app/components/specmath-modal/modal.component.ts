@@ -89,53 +89,7 @@ export class ModalComponent {
     valid: false,
   };
   mergeConflictsResolved = false;
-  mergeConflicts: MergeConflict[] = [
-    {
-      keypath: '/dogs',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/cats',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/pets/categories',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/dogs',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/cats',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/pets/categories',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/dogs',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/cats',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-    {
-      keypath: '/pets/categories',
-      option1: 'Option A',
-      option2: 'Option B',
-    },
-  ];
+  mergeConflicts: MergeConflict[];
   stepList: StepOptions = stepList;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>, private cdr: ChangeDetectorRef) {
@@ -148,6 +102,7 @@ export class ModalComponent {
     if (currStep.lastBaseStep) {
       // ?Service call
       this.mergeOperation();
+      this.cdr.detectChanges();
 
       if (!this.hasMergeConflicts) {
         this.finalizeSteps();
@@ -155,7 +110,6 @@ export class ModalComponent {
       }
     }
 
-    this.cdr.detectChanges();
     stepper.selectedIndex = ++this.currentStep;
   }
 
@@ -222,7 +176,7 @@ export class ModalComponent {
   }
 
   get stepLabel(): string {
-    return `${this.currentStep + 1}/${Steps.resolveConflicts + 1}`;
+    return `${this.currentStep + 1}/${Steps.confirmOperation + 1}`;
   }
 
   get shouldShowFileName(): boolean {
