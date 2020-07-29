@@ -76,8 +76,7 @@ class SpecTreeComponentSelectorTest {
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/filtering/componentSelectionDeeplyNestedRelevantComponents.yaml");
 
-    var actualComponents =
-        SpecTreeComponentSelector.getRelevantComponents(originalSpec);
+    var actualComponents = SpecTreeComponentSelector.getRelevantComponents(originalSpec);
 
     assertThat(actualComponents).isEqualTo(expectedComponents);
   }
