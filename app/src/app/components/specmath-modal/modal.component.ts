@@ -104,7 +104,37 @@ export class ModalComponent {
       keypath: '/pets/categories',
       option1: 'Option A',
       option2: 'Option B',
-    }
+    },
+    {
+      keypath: '/dogs',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
+    {
+      keypath: '/cats',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
+    {
+      keypath: '/pets/categories',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
+    {
+      keypath: '/dogs',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
+    {
+      keypath: '/cats',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
+    {
+      keypath: '/pets/categories',
+      option1: 'Option A',
+      option2: 'Option B',
+    },
   ];
   stepList: StepOptions = stepList;
 

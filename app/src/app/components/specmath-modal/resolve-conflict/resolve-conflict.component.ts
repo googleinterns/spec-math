@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { MergeConflict, ResolvedMergeConflictOptions } from 'src/shared/interfaces';
 
 @Component({
@@ -20,11 +20,14 @@ import { MergeConflict, ResolvedMergeConflictOptions } from 'src/shared/interfac
   templateUrl: './resolve-conflict.component.html',
   styleUrls: ['./resolve-conflict.component.scss']
 })
-export class ResolveConflictComponent {
+export class ResolveConflictComponent implements OnInit {
   @Input() mergeConflicts: MergeConflict[];
   @Output() resolvedOptions: EventEmitter<ResolvedMergeConflictOptions> = new EventEmitter();
+  localConflicts: MergeConflict[];
 
   emitResolvedValue(value: string, index: number) {
+    this.localConflicts[index].resolvedValue = value;
+
     const resolvedConflict: ResolvedMergeConflictOptions = {
       value,
       index
@@ -32,5 +35,9 @@ export class ResolveConflictComponent {
     console.log(value);
     console.log(index);
     // this.resolvedOptions.emit(resolvedConflict);
+  }
+
+  ngOnInit() {
+    this.localConflicts = [...this.mergeConflicts];
   }
 }

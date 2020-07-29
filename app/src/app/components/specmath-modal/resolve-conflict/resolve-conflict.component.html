@@ -19,28 +19,37 @@ limitations under the License. -->
         Select an option to resolve the conflict on the indicated path
       </p>
     </div>
-    <div *ngFor="let conflict of mergeConflicts, let i = index" class="conflicts-radio-container">
-      <p class="mat-body-2 conflicts-path">
-        <b>{{ conflict.keypath }}</b>
-      </p>
-      <mat-radio-group
-        class="conflicts-radio-group"
-        aria-label="Select an option for this merge conflict"
-        (change)="emitResolvedValue($event.value, i)"
+    <mat-accordion multi class="conflicts-container">
+      <mat-expansion-panel
+        *ngFor="let conflict of localConflicts; let i = index"
       >
-        <mat-radio-button
-          class="conflicts-radio-button"
-          [value]="conflict.option1"
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ conflict.keypath }}
+          </mat-panel-title>
+          <mat-panel-description *ngIf="localConflicts[i].resolvedValue">
+            <mat-icon>done</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-radio-group
+          class="conflicts-radio-group"
+          aria-label="Select an option for this merge conflict"
+          (change)="emitResolvedValue($event.value, i)"
         >
-          {{ conflict.option1 }}
-        </mat-radio-button>
-        <mat-radio-button
-          class="conflicts-radio-button"
-          [value]="conflict.option2"
-        >
-          {{ conflict.option2 }}
-        </mat-radio-button>
-      </mat-radio-group>
-    </div>
+          <mat-radio-button
+            class="conflicts-radio-button"
+            [value]="conflict.option1"
+          >
+            {{ conflict.option1 }}
+          </mat-radio-button>
+          <mat-radio-button
+            class="conflicts-radio-button"
+            [value]="conflict.option2"
+          >
+            {{ conflict.option2 }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
