@@ -42,6 +42,8 @@
     }
 
     &-button {
+      width: 100%;
+
       &:not(:first-child) {
         margin-top: 1rem;
       }

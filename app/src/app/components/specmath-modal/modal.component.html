@@ -37,7 +37,7 @@ limitations under the License. -->
       </button>
     </div>
     <mat-horizontal-stepper id="modal-stepper" linear #stepper>
-      <!-- <mat-step>
+      <mat-step>
         <app-spec-name-input
           (options)="handleSpecNameInputOptions($event)"
         ></app-spec-name-input>
@@ -58,7 +58,7 @@ limitations under the License. -->
           [defaultsFileUploadOptions]="defaultsFileUploadOptions"
           [specFilesUploadOptions]="specFilesUploadOptions"
         ></app-confirm-operation>
-      </mat-step> -->
+      </mat-step>
       <mat-step *ngIf="mergeConflicts">
         <app-resolve-conflict
           (resolvedOptions)="handleResolvedOptions($event)"
