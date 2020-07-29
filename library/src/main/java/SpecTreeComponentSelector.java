@@ -51,9 +51,10 @@ public class SpecTreeComponentSelector {
     return outputComponents;
   }
 
+  /** Add all the refs in this subtree to {@code refKeyPaths}. */
   private static void addRefsInSubtreeToKeypaths(
-      LinkedHashMap<String, Object> paths, HashSet<String> refKeypaths) {
-    for (Map.Entry<String, Object> entry : paths.entrySet()) {
+      LinkedHashMap<String, Object> subtree, HashSet<String> refKeypaths) {
+    for (Map.Entry<String, Object> entry : subtree.entrySet()) {
       String key = entry.getKey();
       Object value = entry.getValue();
       if (key.equals("$ref")) {
@@ -68,6 +69,13 @@ public class SpecTreeComponentSelector {
     }
   }
 
+  /**
+   * Return a formatted version the ref. For example, "#/components/schemas/Pet" would be formatted
+   * to "[components, schemas, Pet]"
+   *
+   * @param value
+   * @return
+   */
   private static String processRefKeyPath(Object value) {
     String refToProcess = (String) value;
     if (refToProcess.substring(0, 1).equals("#")) {
@@ -78,6 +86,10 @@ public class SpecTreeComponentSelector {
     }
   }
 
+  /**
+   * Finds all components which match those in {@code keypaths} and outputs them. Also, add all refs
+   * which components are dependent on to {@code keypaths}.
+   */
   private static LinkedHashMap<String, Object> expandComponentTree(
       LinkedHashMap<String, Object> components, HashSet<String> keypaths, Stack<String> keypath) {
 
