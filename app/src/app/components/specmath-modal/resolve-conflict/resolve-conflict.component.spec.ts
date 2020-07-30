@@ -97,13 +97,17 @@ describe('ResolveConflictComponent', () => {
     ];
 
     fixture.detectChanges();
-    const conflictOptionRadioButton = queryElement(fixture, '#conflict-0-radio-option-1').nativeElement;
-    const conflictOptionGroup = queryElement(fixture, '#conflict-0-radio-group');
-    conflictOptionRadioButton.click();
-    fixture.detectChanges();
-    conflictOptionGroup.triggerEventHandler('change', { value: component.mergeConflicts[0].option1 });
 
-    fixture.detectChanges();
-    expect(spy).toHaveBeenCalledWith(component.mergeConflicts[0].option1, 0);
+    component.mergeConflicts.forEach((conflict, index) => {
+      const conflictOptionRadioButton = queryElement(fixture, `#conflict-${index}-radio-option-1`).nativeElement;
+      const conflictOptionGroup = queryElement(fixture, `#conflict-${index}-radio-group`);
+      conflictOptionRadioButton.click();
+
+      fixture.detectChanges();
+      conflictOptionGroup.triggerEventHandler('change', { value: conflict.option1 });
+
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalledWith(conflict.option1, index);
+    });
   });
 });
