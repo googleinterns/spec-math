@@ -99,9 +99,7 @@ describe('ResolveConflictComponent', () => {
     fixture.detectChanges();
 
     component.mergeConflicts.forEach((conflict, index) => {
-      const conflictOptionRadioButton = queryElement(fixture, `#conflict-${index}-radio-option-1`).nativeElement;
       const conflictOptionGroup = queryElement(fixture, `#conflict-${index}-radio-group`);
-      conflictOptionRadioButton.click();
 
       fixture.detectChanges();
       conflictOptionGroup.triggerEventHandler('change', { value: conflict.option1 });
