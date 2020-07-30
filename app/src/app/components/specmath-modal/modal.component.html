@@ -59,10 +59,10 @@ limitations under the License. -->
           [specFilesUploadOptions]="specFilesUploadOptions"
         ></app-confirm-operation>
       </mat-step>
-      <mat-step *ngFor="let conflict of mergeConflicts">
+      <mat-step *ngIf="mergeConflicts">
         <app-resolve-conflict
           (resolvedOptions)="handleResolvedOptions($event)"
-          [mergeConflict]="conflict"
+          [mergeConflicts]="mergeConflicts"
         ></app-resolve-conflict>
       </mat-step>
     </mat-horizontal-stepper>

@@ -42,3 +42,8 @@ export interface OperationSet {
   resultSpec: ResultSpec;
   valid: boolean;
 }
+
+export interface ResolvedMergeConflictOptions {
+  index: number;
+  value: string;
+}

@@ -108,9 +108,7 @@ describe('ModalComponent', () => {
     fixture.detectChanges();
     nextButton.click();
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(modal.currentIndex).toEqual(1);
-    });
+    expect(modal.currentStep).toEqual(1);
   });
 
   it('renders the ConfirmOperationComponent when a set of files is valid', () => {

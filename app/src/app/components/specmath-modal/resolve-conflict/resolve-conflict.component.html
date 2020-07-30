@@ -16,32 +16,63 @@ limitations under the License. -->
   <div class="modal-step-content">
     <div class="modal-step-instructions">
       <p class="mat-body-2">
-        Select an option to resolve the conflict on the indicated path
-      </p>
-      <p class="mat-body-2 conflicts-path">
-        <b>{{ mergeConflict.keypath }}</b>
+        Select an option to resolve the conflict on each indicated path
       </p>
     </div>
-    <div class="conflicts-radio-container">
-      <mat-radio-group
-        [(ngModel)]="resolvedConflict"
-        class="conflicts-radio-group"
-        aria-label="Select an option for this merge conflict"
-        (change)="emitResolvedValue()"
+    <mat-accordion *ngIf="localConflicts" multi class="conflicts-container">
+      <mat-expansion-panel
+        [expanded]="i === currentConflict"
+        (opened)="setConflict(i)"
+        *ngFor="let conflict of localConflicts; let i = index"
       >
-        <mat-radio-button
-          class="conflicts-radio-button"
-          [value]="mergeConflict.option1"
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ conflict.keypath }}
+          </mat-panel-title>
+          <mat-panel-description *ngIf="localConflicts[i].resolvedValue">
+            <mat-icon>done</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-radio-group
+          class="conflicts-radio-group"
+          [id]="'conflict-' + i + '-radio-group'"
+          aria-label="Select an option for this merge conflict"
+          (change)="emitResolvedValue($event.value, i)"
         >
-          {{ mergeConflict.option1 }}
-        </mat-radio-button>
-        <mat-radio-button
-          class="conflicts-radio-button"
-          [value]="mergeConflict.option2"
-        >
-          {{ mergeConflict.option2 }}
-        </mat-radio-button>
-      </mat-radio-group>
-    </div>
+          <mat-radio-button
+            [id]="'conflict-' + i + '-radio-option-1'"
+            class="conflicts-radio-button"
+            [value]="conflict.option1"
+          >
+            {{ conflict.option1 }}
+          </mat-radio-button>
+          <mat-radio-button
+            [id]="'conflict-' + i + '-radio-option-2'"
+            class="conflicts-radio-button"
+            [value]="conflict.option2"
+          >
+            {{ conflict.option2 }}
+          </mat-radio-button>
+        </mat-radio-group>
+        <mat-action-row>
+          <button
+            mat-button
+            color="warn"
+            (click)="previousConflict()"
+            *ngIf="i > 0"
+          >
+            Previous
+          </button>
+          <button
+            mat-button
+            color="primary"
+            (click)="nextConflict()"
+            *ngIf="i < localConflicts.length - 1"
+          >
+            Next
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>

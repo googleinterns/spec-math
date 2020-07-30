@@ -12,20 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MergeConflict } from 'src/shared/interfaces';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { MergeConflict, ResolvedMergeConflictOptions } from 'src/shared/interfaces';
 
 @Component({
   selector: 'app-resolve-conflict',
   templateUrl: './resolve-conflict.component.html',
   styleUrls: ['./resolve-conflict.component.scss']
 })
-export class ResolveConflictComponent {
-  @Input() mergeConflict: MergeConflict;
-  @Output() resolvedOptions: EventEmitter<string> = new EventEmitter();
-  resolvedConflict: string;
+export class ResolveConflictComponent implements OnInit {
+  @Input() mergeConflicts: MergeConflict[];
+  @Output() resolvedOptions: EventEmitter<ResolvedMergeConflictOptions> = new EventEmitter();
+  localConflicts: MergeConflict[];
+  currentConflict = 0;
 
-  emitResolvedValue() {
-    this.resolvedOptions.emit(this.resolvedConflict);
+  emitResolvedValue(value: string, index: number) {
+    this.localConflicts[index].resolvedValue = value;
+    this.resolvedOptions.emit({ value, index });
+  }
+
+  nextConflict() {
+    if (this.currentConflict < this.localConflicts.length) {
+      this.currentConflict++;
+    }
+  }
+
+  previousConflict() {
+    if (this.currentConflict > 0) {
+      this.currentConflict--;
+    }
+  }
+
+  setConflict(index: number) {
+    this.currentConflict = index;
+  }
+
+  ngOnInit() {
+    this.localConflicts = [...this.mergeConflicts];
   }
 }
