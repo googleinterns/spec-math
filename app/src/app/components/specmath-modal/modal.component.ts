@@ -22,6 +22,7 @@ import {
   MergeConflict,
   ResolvedMergeConflictOptions
 } from 'src/shared/interfaces';
+import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
 
 enum Steps {
   specNameInput = 0,
@@ -91,11 +92,13 @@ export class ModalComponent {
   mergeConflicts: MergeConflict[];
   stepList: StepOptions = stepList;
 
-  constructor(readonly dialogRef: MatDialogRef<ModalComponent>, private cdr: ChangeDetectorRef) {
+  constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
+              private cdr: ChangeDetectorRef,
+              private mockService: MockSpecMathService) {
     dialogRef.disableClose = true;
   }
 
-  nextStep(stepper: MatStepper): void {
+  async nextStep(stepper: MatStepper) {
     const currStep = stepList[this.currentStep];
 
     if (this.mergeConflictsResolved) {
@@ -105,7 +108,7 @@ export class ModalComponent {
 
     if (currStep.lastBaseStep) {
       // ?Service call
-      this.mergeOperation();
+      await this.mergeOperation();
       this.cdr.detectChanges();
 
       if (!this.hasMergeConflicts) {
@@ -117,7 +120,7 @@ export class ModalComponent {
     stepper.selectedIndex = ++this.currentStep;
   }
 
-  previousStep(stepper: MatStepper): void {
+  previousStep(stepper: MatStepper) {
     stepper.selectedIndex = --this.currentStep;
   }
 
@@ -125,55 +128,10 @@ export class ModalComponent {
     this.dialogRef.close();
   }
 
-  mergeOperation() {
-    // ?Call the SpecMath service here
-    this.mergeConflicts = [
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-    ];
+  async mergeOperation() {
+    // ?Replace the mock service with real once its deployed
+    const callResponse = await this.mockService.mergeSpecsConflicts().toPromise();
+    this.mergeConflicts = callResponse?.conflicts;
   }
 
   get hasMergeConflicts() {
