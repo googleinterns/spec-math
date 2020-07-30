@@ -41,13 +41,28 @@
     }
   }
 
+  &-conflicts {
+    &-count {
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+
+  &-footer {
+    &-container {
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
   &-controls {
     &-container {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-end;
-      height: 36px;
 
       :last-child {
         margin-left: 8px;

@@ -39,6 +39,7 @@ type StepOptions = {
     previousStep?: Steps,
     nextButtonText?: string,
     lastBaseStep?: boolean,
+    stepLabel: string,
   };
 };
 
@@ -46,28 +47,33 @@ const stepList: StepOptions = {
   [Steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Name new spec',
   },
   [Steps.defaultsFileUpload]: {
     nextStep: Steps.specFilesUpload,
     previousStep: Steps.specNameInput,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Defaults file',
   },
   [Steps.specFilesUpload]: {
     toolTipText: 'You must upload a set of spec files',
     nextStep: Steps.confirmOperation,
     previousStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Spec files'
   },
   [Steps.confirmOperation]: {
     previousStep: Steps.specFilesUpload,
     nextButtonText: 'Confirm',
+    stepLabel: 'Confirm operation',
     lastBaseStep: true,
   },
   [Steps.resolveConflicts]: {
     previousStep: Steps.confirmOperation,
     toolTipText: 'You must resolve all merge conflicts',
     nextButtonText: 'Resolve',
+    stepLabel: 'Resolving conflicts',
   }
 };
 
@@ -168,23 +174,16 @@ export class ModalComponent {
   }
 
   get stepLabel(): string {
-    return (this.currentStep < Steps.resolveConflicts
-      ? `${this.currentStep + 1}/${Steps.confirmOperation + 1}`
-      : 'Resolving conflicts');
+    return (stepList[this.currentStep].stepLabel);
   }
 
-  get shouldShowFileName(): boolean {
-    // Do not show the file name as the user is inputing it. Wait util we
-    // have moved onto the next step;
-    return this.currentStep !== Steps.specNameInput;
+  get conflictsCount(): string {
+    const resolvedConflicts = this.mergeConflicts.reduce((acc, curr) => curr?.resolvedValue ? ++acc : acc, 0);
+    return (`${resolvedConflicts}/${this.mergeConflicts.length}`);
   }
 
   get shouldShowBackButton(): boolean {
     return this.currentStep > 0;
-  }
-
-  get stepHeaderText(): string {
-    return (`Merge specs`);
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {

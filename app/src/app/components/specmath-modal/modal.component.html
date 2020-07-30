@@ -17,13 +17,10 @@ limitations under the License. -->
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
         <h3>
-          {{ stepHeaderText }}
-          <b class="step-indicator">
-            {{ stepLabel }}
-          </b>
+          Merge specs
         </h3>
-        <p *ngIf="shouldShowFileName" class="mat-caption">
-          {{ newFileName }}
+        <p class="mat-caption">
+          {{ stepLabel }}
         </p>
       </div>
       <button
@@ -66,32 +63,39 @@ limitations under the License. -->
         ></app-resolve-conflict>
       </mat-step>
     </mat-horizontal-stepper>
-    <div class="modal-step-controls-container">
-      <button
-        id="modal-button-back"
-        mat-button
-        class="modal-step-button-secondary"
-        aria-label="Back button to go back to the previous step"
-        (click)="previousStep(stepper)"
-        *ngIf="shouldShowBackButton"
-      >
-        Back
-      </button>
-      <div
-        [matTooltip]="nextButtonTooltipText"
-        matTooltipPosition="above"
-        [matTooltipDisabled]="nextButtonEnabled"
-      >
+    <div class="modal-step-footer-container">
+      <div class="modal-step-conflicts-count" *ngIf="mergeConflicts">
+        <b>
+          {{ conflictsCount }}
+        </b>
+      </div>
+      <div class="modal-step-controls-container">
         <button
-          id="modal-button-next"
+          id="modal-button-back"
           mat-button
-          class="modal-step-button-main"
-          aria-label="Next button to go to the next step"
-          (click)="nextStep(stepper)"
-          [disabled]="!nextButtonEnabled"
+          class="modal-step-button-secondary"
+          aria-label="Back button to go back to the previous step"
+          (click)="previousStep(stepper)"
+          *ngIf="shouldShowBackButton"
         >
-          {{ nextButtonText }}
+          Back
         </button>
+        <div
+          [matTooltip]="nextButtonTooltipText"
+          matTooltipPosition="above"
+          [matTooltipDisabled]="nextButtonEnabled"
+        >
+          <button
+            id="modal-button-next"
+            mat-button
+            class="modal-step-button-main"
+            aria-label="Next button to go to the next step"
+            (click)="nextStep(stepper)"
+            [disabled]="!nextButtonEnabled"
+          >
+            {{ nextButtonText }}
+          </button>
+        </div>
       </div>
     </div>
   </mat-dialog-content>
