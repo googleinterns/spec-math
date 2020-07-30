@@ -35,16 +35,19 @@ limitations under the License. -->
         </mat-expansion-panel-header>
         <mat-radio-group
           class="conflicts-radio-group"
+          [id]="'conflict-' + i + '-radio-group'"
           aria-label="Select an option for this merge conflict"
           (change)="emitResolvedValue($event.value, i)"
         >
           <mat-radio-button
+            [id]="'conflict-' + i + '-radio-option-1'"
             class="conflicts-radio-button"
             [value]="conflict.option1"
           >
             {{ conflict.option1 }}
           </mat-radio-button>
           <mat-radio-button
+            [id]="'conflict-' + i + '-radio-option-2'"
             class="conflicts-radio-button"
             [value]="conflict.option2"
           >

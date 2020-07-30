@@ -75,4 +75,35 @@ describe('ResolveConflictComponent', () => {
   it('does not render any conflicts when no conflicts are passed in', () => {
     expect(fixture.debugElement.query(By.css('.conflicts-container'))).toBeNull();
   });
+
+  it('emits a solved conflict when a conflict radio button is selected', () => {
+    const spy = spyOn(component, 'emitResolvedValue');
+    component.mergeConflicts = [
+      {
+        keypath: '/path1',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: '/path2',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+      {
+        keypath: '/api/path3',
+        option1: 'Option A',
+        option2: 'Option B',
+      },
+    ];
+
+    fixture.detectChanges();
+    const conflictOptionRadioButton = queryElement(fixture, '#conflict-0-radio-option-1').nativeElement;
+    const conflictOptionGroup = queryElement(fixture, '#conflict-0-radio-group');
+    conflictOptionRadioButton.click();
+    fixture.detectChanges();
+    conflictOptionGroup.triggerEventHandler('change', { value: component.mergeConflicts[0].option1 });
+
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledWith(component.mergeConflicts[0].option1, 0);
+  });
 });
