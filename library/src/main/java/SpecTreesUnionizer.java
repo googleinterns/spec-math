@@ -187,13 +187,14 @@ public class SpecTreesUnionizer {
             valueOfMapToMerge,
             value1);
       } else if (TypeChecker.isObjectList(value1)
-          && TypeChecker.isObjectList(valueOfMapToMerge)
-          && !mapToMergeIntoIsDefault) {
-        List<Object> output =
-            ListUtils.listUnion(
-                ObjectCaster.castObjectToListOfObjects(value1),
-                ObjectCaster.castObjectToListOfObjects(valueOfMapToMerge));
-        mapToMergeInto.put(key, output);
+          && TypeChecker.isObjectList(valueOfMapToMerge)) {
+        if (!mapToMergeIntoIsDefault){
+          List<Object> output =
+              ListUtils.listUnion(
+                  ObjectCaster.castObjectToListOfObjects(value1),
+                  ObjectCaster.castObjectToListOfObjects(valueOfMapToMerge));
+          mapToMergeInto.put(key, output);
+        }
       } else if (TypeChecker.isObjectPrimitive(value1)
           && TypeChecker.isObjectPrimitive(valueOfMapToMerge)) {
         processUnequalLeafNodes(

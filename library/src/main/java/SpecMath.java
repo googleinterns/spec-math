@@ -14,9 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Provides functions for performing operations such as union and overlay on OpenAPI specifications
@@ -85,6 +89,103 @@ public class SpecMath {
         SpecTreesUnionizer.union(spec1map, spec2map, unionizerUnionParams);
 
     return SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(unionResultMap);
+  }
+
+  /**
+   * Performs the filter operation on a spec represented as a string using the {@code
+   * filterCriteriaList}
+   *
+   * @param specToFilter an OpenAPI specification represented as a YAML string
+   * @param filterCriteriaList a JSON string which contains a list of {@code FilterCriteria}
+   * @return the result of the filter on {@code specToFilter} using the {@code filterCriteriaList},
+   *     as a YAML string
+   * @throws IOException if there was a parsing issue
+   * @throws UnionConflictException if there was an issue when merging the results from each
+   *     FilterCriteria
+   * @throws AllUnmatchedFilterException if the filtered result would have no paths
+   * @throws UnexpectedTypeException if there was an issue when merging the results from each
+   *     FilterCriteria
+   */
+  public static String filter(String specToFilter, String filterCriteriaList)
+      throws IOException, UnionConflictException, AllUnmatchedFilterException,
+          UnexpectedTypeException {
+    FilterOptions emptyFilterOptions = FilterOptions.builder().build();
+
+    return filter(specToFilter, filterCriteriaList, emptyFilterOptions);
+  }
+
+  /**
+   * Performs the filter operation on a spec represented as a string using the {@code
+   * filterCriteriaList} string and {@code filterOptions}
+   *
+   * @param specToFilter an OpenAPI specification represented as a YAML string
+   * @param filterCriteriaList a JSON string which contains a list of {@code FilterCriteria}
+   * @param filterOptions a set of special options which can be applied during the filter
+   * @return the result of the filter on {@code specToFilter} using the {@code filterCriteriaList},
+   *     as a YAML string
+   * @throws IOException if there was a parsing issue
+   * @throws UnionConflictException if there was an issue when merging the results from each
+   *     FilterCriteria
+   * @throws AllUnmatchedFilterException if the filtered result would have no paths
+   * @throws UnexpectedTypeException if there was an issue when merging the results from each
+   *     FilterCriteria
+   */
+  public static String filter(
+      String specToFilter, String filterCriteriaList, FilterOptions filterOptions)
+      throws IOException, UnionConflictException, AllUnmatchedFilterException,
+          UnexpectedTypeException {
+    var mapper = new ObjectMapper();
+    List<FilterCriteriaJson> filterCriteria =
+        mapper.readValue(filterCriteriaList, new TypeReference<List<FilterCriteriaJson>>() {});
+
+    var listOfFilterCriteria = new ArrayList<FilterCriteria>();
+
+    for (FilterCriteriaJson filterCriteriaJson : filterCriteria) {
+      listOfFilterCriteria.add(
+          FilterCriteria.builder()
+              .operations(filterCriteriaJson.operations)
+              .pathRegex(filterCriteriaJson.pathRegex)
+              .removableTags(filterCriteriaJson.removableTags)
+              .tags(filterCriteriaJson.tags)
+              .build());
+    }
+
+    return filter(specToFilter, listOfFilterCriteria, filterOptions);
+  }
+
+  /**
+   * Performs the filter operation on a spec represented as a string using the {@code
+   * filterCriteriaList} list and {@code filterOptions}
+   *
+   * @param specToFilter an OpenAPI specification represented as a YAML string
+   * @param filterCriteriaList a list of {@code FilterCriteria}
+   * @param filterOptions a set of special options which can be applied during the filter
+   * @return the result of the filter on {@code specToFilter} using the {@code filterCriteriaList},
+   *     as a YAML string
+   * @throws IOException if there was a parsing issue
+   * @throws UnionConflictException if there was an issue when merging the results from each
+   *     FilterCriteria
+   * @throws AllUnmatchedFilterException if the filtered result would have no paths
+   * @throws UnexpectedTypeException if there was an issue when merging the results from each
+   *     FilterCriteria
+   */
+  public static String filter(
+      String specToFilter, List<FilterCriteria> filterCriteriaList, FilterOptions filterOptions)
+      throws UnexpectedTypeException, UnionConflictException, AllUnmatchedFilterException {
+    LinkedHashMap<String, Object> spec1map =
+        YamlStringToSpecTreeConverter.convertYamlStringToSpecTree(specToFilter);
+
+    LinkedHashMap<String, Object> filterResultMap =
+        SpecTreeFilterer.filter(spec1map, (ArrayList<FilterCriteria>) filterCriteriaList);
+
+    if (filterOptions.defaults().isEmpty()) {
+      return SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(filterResultMap);
+    }
+
+    var defaults =
+        YamlStringToSpecTreeConverter.convertYamlStringToSpecTree(filterOptions.defaults());
+    var overlayedMap = SpecTreesUnionizer.applyOverlay(defaults, filterResultMap);
+    return SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(overlayedMap);
   }
 
   /**
