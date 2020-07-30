@@ -214,12 +214,12 @@ class SpecMathTest {
 
   @Test
   void filter_withFilterCriteriaAndOptions_succeeds()
-      throws IOException, AllUnmatchedFilterException {
+      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
         Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
-    String defaults = Files.readString(Path.of("src/test/resources/filtering/elgoogMetadata.yaml"));
+    String defaults = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
     FilterOptions filterOptions = FilterOptions.builder().defaults(defaults).build();
     String actual = SpecMath.filter(specString, filterCriteria, filterOptions);
     String expected =
