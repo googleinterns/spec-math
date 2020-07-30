@@ -1,5 +1,5 @@
 [
   {
-    "pathRegex": "/pets/\\{petId\\}"
+    "path": "/pets/{petId}"
   }
 ]
