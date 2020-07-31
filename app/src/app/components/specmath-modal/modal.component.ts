@@ -144,7 +144,7 @@ export class ModalComponent {
       defaultsFile: this.defaultsFileUploadOptions?.defaultsFile,
       resultSpec: {
         name: this.specNameInputOptions.newFileName,
-        file: new File(['content'], 'result.yaml'),
+        file: this.resultSpec
       },
       valid: true,
     };

@@ -12,18 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OperationSet } from 'src/shared/interfaces';
-
-declare const SwaggerEditorBundle: any;
-declare const SwaggerEditorStandalonePreset: any;
 
 @Component({
   selector: 'app-display-results',
   templateUrl: './display-results.component.html',
   styleUrls: ['./display-results.component.scss']
 })
-export class DisplayResultsComponent implements OnInit {
+export class DisplayResultsComponent {
   @Input() operationSet: OperationSet;
 
   get defaultsFileValid(): boolean {
@@ -44,16 +41,5 @@ export class DisplayResultsComponent implements OnInit {
 
   get specFiles(): File[] {
     return this.operationSet.specFiles;
-  }
-
-  ngOnInit() {
-    const editor = SwaggerEditorBundle({
-      dom_id: '#swagger-results',
-      layout: 'StandaloneLayout',
-      presets: [
-        SwaggerEditorStandalonePreset
-      ],
-      url: 'http://rackerlabs.github.io/wadl2swagger/openstack/swagger/dbaas.json'
-    });
   }
 }

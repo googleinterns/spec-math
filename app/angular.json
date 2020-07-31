@@ -28,7 +28,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/swagger-editor-dist/swagger-editor.css",
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
@@ -37,11 +36,7 @@
                 "node_modules/",
                 "src/sass"
               ]
-            },
-            "scripts": [
-              "./node_modules/swagger-editor-dist/swagger-editor-bundle.js",
-              "./node_modules/swagger-editor-dist/swagger-editor-standalone-preset.js"
-            ]
+            }
           },
           "configurations": {
             "production": {
