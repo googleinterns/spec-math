@@ -95,6 +95,7 @@ export class ModalComponent {
     specFiles: [],
     valid: false,
   };
+  resultSpec: File;
   mergeConflicts: MergeConflict[];
   stepList: StepOptions = stepList;
 
@@ -107,11 +108,6 @@ export class ModalComponent {
   async nextStep(stepper: MatStepper) {
     const currStep = stepList[this.currentStep];
 
-    if (this.mergeConflictsResolved) {
-      this.finalizeSteps();
-      return;
-    }
-
     if (currStep.lastBaseStep) {
       // ?Service call
       await this.mergeOperation();
@@ -123,6 +119,17 @@ export class ModalComponent {
       }
     }
 
+    if (this.mergeConflictsResolved) {
+      if (!this.hasMergeConflicts) {
+        this.finalizeSteps();
+        return;
+      }
+
+      await this.sendResolvedConflicts();
+      this.finalizeSteps();
+      return;
+    }
+
     stepper.selectedIndex = ++this.currentStep;
   }
 
@@ -131,13 +138,27 @@ export class ModalComponent {
   }
 
   finalizeSteps() {
+    // ?This closing call will carry all the files to the parent component
     this.dialogRef.close();
   }
 
   async mergeOperation() {
     // ?Replace the mock service with real once its deployed
     const callResponse = await this.mockService.mergeSpecsConflicts().toPromise();
-    this.mergeConflicts = callResponse?.conflicts;
+
+    switch (callResponse?.status) {
+      case 'conflicts':
+        this.mergeConflicts = callResponse.conflicts;
+        break;
+      case 'success':
+        this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+    }
+  }
+
+  async sendResolvedConflicts() {
+    // ?Replace the mock service with real once its deployed
+    const callResponse = await this.mockService.mergeSpecs().toPromise();
+    this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
   }
 
   get hasMergeConflicts() {
