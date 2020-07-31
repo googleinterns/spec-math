@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputOptions } from 'src/shared/interfaces';
 import { queryElement } from '../../../shared/functions';
@@ -33,6 +34,7 @@ import { queryElement } from '../../../shared/functions';
 describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
   let modal: ModalComponent;
+  let mockService: MockSpecMathService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -57,6 +59,7 @@ describe('ModalComponent', () => {
         {
           provide: MatDialogRef, useValue: { close: () => { } }
         },
+        MockSpecMathService
       ]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(ModalComponent);
@@ -126,6 +129,11 @@ describe('ModalComponent', () => {
     const confirmOperationComponent =
       fixture.debugElement.query(By.directive(ConfirmOperationComponent)).nativeElement;
     expect(confirmOperationComponent).toBeTruthy();
+  });
+
+  it('populates the merge conflicts array when conflicts are received from the backend', async () => {
+    await modal.mergeOperation();
+    expect(modal.hasMergeConflicts).toEqual(true);
   });
 });
 
