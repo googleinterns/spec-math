@@ -30,7 +30,7 @@ import { SpecNameInputComponent } from './spec-name-input/spec-name-input.compon
 import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +61,7 @@ import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
   ],
-  providers: [MockSpecMathService],
+  providers: [StubSpecMathService],
   bootstrap: [ModalComponent]
 })
 export class ModalModule { }

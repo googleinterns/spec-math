@@ -5,7 +5,7 @@ import { SpecMathMergeResponse } from '../../shared/interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class MockSpecMathService {
+export class StubSpecMathService {
   mergeSpecsConflicts(): Observable<SpecMathMergeResponse> {
     const mockResponse: SpecMathMergeResponse = {
       status: 'conflicts',

@@ -22,7 +22,7 @@ import {
   MergeConflict,
   ResolvedMergeConflictOptions
 } from 'src/shared/interfaces';
-import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 
 enum Steps {
   specNameInput = 0,
@@ -97,11 +97,10 @@ export class ModalComponent {
   };
   resultSpec: File;
   mergeConflicts: MergeConflict[];
-  stepList: StepOptions = stepList;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
               private cdr: ChangeDetectorRef,
-              private mockService: MockSpecMathService) {
+              private mockService: StubSpecMathService) {
     dialogRef.disableClose = true;
   }
 
@@ -174,7 +173,7 @@ export class ModalComponent {
   }
 
   get nextButtonTooltipText(): string {
-    return this.stepList[this.currentStep].toolTipText;
+    return stepList[this.currentStep].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
@@ -191,16 +190,16 @@ export class ModalComponent {
   }
 
   get nextButtonText(): string {
-    return this.stepList[this.currentStep].nextButtonText;
+    return stepList[this.currentStep].nextButtonText;
   }
 
   get stepLabel(): string {
-    return (stepList[this.currentStep].stepLabel);
+    return stepList[this.currentStep].stepLabel;
   }
 
   get conflictsCount(): string {
-    const resolvedConflicts = this.mergeConflicts.reduce((acc, curr) => curr?.resolvedValue ? ++acc : acc, 0);
-    return (`${resolvedConflicts}/${this.mergeConflicts.length}`);
+    const resolvedConflicts = this.mergeConflicts.filter(curr => curr.resolvedValue).length;
+    return `${resolvedConflicts}/${this.mergeConflicts.length}`;
   }
 
   get shouldShowBackButton(): boolean {
