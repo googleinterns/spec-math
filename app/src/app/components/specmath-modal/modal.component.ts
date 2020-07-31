@@ -216,6 +216,10 @@ export class ModalComponent {
     return this.currentStep > 0;
   }
 
+  get mergeConflictsResolved(): boolean {
+    return !!this.mergeConflicts && this.mergeConflicts.every((conflict) => conflict.resolvedValue);
+  }
+
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
     this.specNameInputOptions = specNameInputOptions;
   }
@@ -230,9 +234,5 @@ export class ModalComponent {
 
   handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
     this.mergeConflicts[resolvedOptions.index].resolvedValue = resolvedOptions.value;
-  }
-
-  get mergeConflictsResolved(): boolean {
-    return !!this.mergeConflicts && this.mergeConflicts.every((conflict) => conflict.resolvedValue);
   }
 }
