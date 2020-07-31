@@ -23,6 +23,7 @@ import {
   OperationSet,
   ResolvedMergeConflictOptions
 } from 'src/shared/interfaces';
+import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
 
 enum Steps {
   specNameInput = 0,
@@ -39,6 +40,7 @@ type StepOptions = {
     previousStep?: Steps,
     nextButtonText?: string,
     lastBaseStep?: boolean,
+    stepLabel: string,
   };
 };
 
@@ -46,28 +48,33 @@ const stepList: StepOptions = {
   [Steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Name new spec',
   },
   [Steps.defaultsFileUpload]: {
     nextStep: Steps.specFilesUpload,
     previousStep: Steps.specNameInput,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Defaults file',
   },
   [Steps.specFilesUpload]: {
     toolTipText: 'You must upload a set of spec files',
     nextStep: Steps.confirmOperation,
     previousStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Spec files'
   },
   [Steps.confirmOperation]: {
     previousStep: Steps.specFilesUpload,
     nextButtonText: 'Confirm',
+    stepLabel: 'Confirm operation',
     lastBaseStep: true,
   },
   [Steps.resolveConflicts]: {
     previousStep: Steps.confirmOperation,
     toolTipText: 'You must resolve all merge conflicts',
     nextButtonText: 'Resolve',
+    stepLabel: 'Resolving conflicts',
   }
 };
 
@@ -89,24 +96,22 @@ export class ModalComponent {
     specFiles: [],
     valid: false,
   };
+  resultSpec: File;
   mergeConflicts: MergeConflict[];
   stepList: StepOptions = stepList;
 
-  constructor(readonly dialogRef: MatDialogRef<ModalComponent>, private cdr: ChangeDetectorRef) {
+  constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
+              private cdr: ChangeDetectorRef,
+              private mockService: MockSpecMathService) {
     dialogRef.disableClose = true;
   }
 
-  nextStep(stepper: MatStepper): void {
+  async nextStep(stepper: MatStepper) {
     const currStep = stepList[this.currentStep];
-
-    if (this.mergeConflictsResolved) {
-      this.finalizeSteps();
-      return;
-    }
 
     if (currStep.lastBaseStep) {
       // ?Service call
-      this.mergeOperation();
+      await this.mergeOperation();
       this.cdr.detectChanges();
 
       if (!this.hasMergeConflicts) {
@@ -115,10 +120,21 @@ export class ModalComponent {
       }
     }
 
+    if (this.mergeConflictsResolved) {
+      if (!this.hasMergeConflicts) {
+        this.finalizeSteps();
+        return;
+      }
+
+      await this.sendResolvedConflicts();
+      this.finalizeSteps();
+      return;
+    }
+
     stepper.selectedIndex = ++this.currentStep;
   }
 
-  previousStep(stepper: MatStepper): void {
+  previousStep(stepper: MatStepper) {
     stepper.selectedIndex = --this.currentStep;
   }
 
@@ -135,55 +151,23 @@ export class ModalComponent {
     this.dialogRef.close(finalOperationSet);
   }
 
-  mergeOperation() {
-    // ?Call the SpecMath service here
-    this.mergeConflicts = [
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/dogs',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/cats',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-      {
-        keypath: '/pets/categories',
-        option1: 'Option A',
-        option2: 'Option B',
-      },
-    ];
+  async mergeOperation() {
+    // ?Replace the mock service with real once its deployed
+    const callResponse = await this.mockService.mergeSpecsConflicts().toPromise();
+
+    switch (callResponse?.status) {
+      case 'conflicts':
+        this.mergeConflicts = callResponse.conflicts;
+        break;
+      case 'success':
+        this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+    }
+  }
+
+  async sendResolvedConflicts() {
+    // ?Replace the mock service with real once its deployed
+    const callResponse = await this.mockService.mergeSpecs().toPromise();
+    this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
   }
 
   get hasMergeConflicts() {
@@ -220,23 +204,16 @@ export class ModalComponent {
   }
 
   get stepLabel(): string {
-    return (this.currentStep < Steps.resolveConflicts
-      ? `${this.currentStep + 1}/${Steps.confirmOperation + 1}`
-      : 'Resolving conflicts');
+    return (stepList[this.currentStep].stepLabel);
   }
 
-  get shouldShowFileName(): boolean {
-    // Do not show the file name as the user is inputing it. Wait util we
-    // have moved onto the next step;
-    return this.currentStep !== Steps.specNameInput;
+  get conflictsCount(): string {
+    const resolvedConflicts = this.mergeConflicts.reduce((acc, curr) => curr?.resolvedValue ? ++acc : acc, 0);
+    return (`${resolvedConflicts}/${this.mergeConflicts.length}`);
   }
 
   get shouldShowBackButton(): boolean {
     return this.currentStep > 0;
-  }
-
-  get stepHeaderText(): string {
-    return (`Merge specs`);
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {

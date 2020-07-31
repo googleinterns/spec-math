@@ -41,13 +41,39 @@
     }
   }
 
+  &-conflicts {
+    &-label {
+      margin: 0;
+    }
+
+    &-count {
+      display: flex;
+      flex-direction: row;
+      margin-right: auto;
+      margin-left: 0;
+
+      & b {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &-footer {
+    &-container {
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
   &-controls {
     &-container {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-end;
-      height: 36px;
 
       :last-child {
         margin-left: 8px;
@@ -63,6 +89,7 @@
 
   &-content {
     width: 100%;
+    max-height: calc(100% - 2rem);
     display: flex;
     margin: auto;
     flex-direction: column;
@@ -126,11 +153,11 @@
     max-height: 100%;
   }
 
-  .mat-chip-list-wrapper {
+  .modal-step-chip-list-container {
     flex-direction: column;
   }
 
-  .modal-step-chip-list-container {
-    flex-direction: column;
+  .modal-step-conflicts-label {
+    display: none;
   }
 }
