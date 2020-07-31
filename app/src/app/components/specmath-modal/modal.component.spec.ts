@@ -34,7 +34,6 @@ import { queryElement } from '../../../shared/functions';
 describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
   let modal: ModalComponent;
-  let mockService: MockSpecMathService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
