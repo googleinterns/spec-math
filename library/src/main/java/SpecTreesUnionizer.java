@@ -152,14 +152,8 @@ public class SpecTreesUnionizer {
       keypath.push(keyOfMapToMerge);
 
       if (mapToMergeInto.containsKey(keyOfMapToMerge)) {
-        processSubtreesWithSameKey(
-            mapToMergeInto,
-            mapToMergeIntoIsDefault,
-            keypath,
-            conflicts,
-            conflictResolutions,
-            keyOfMapToMerge,
-            valueOfMapToMerge);
+        processSubtreesWithSameKey(mapToMergeInto, mapToMergeIntoIsDefault, keypath, conflicts,
+            conflictResolutions, keyOfMapToMerge, valueOfMapToMerge);
 
       } else {
         // mapToMerge contains a key which mapToMergeInto does not have, so just add the entire
@@ -174,61 +168,48 @@ public class SpecTreesUnionizer {
     return mapToMergeInto;
   }
 
-  private static void processSubtreesWithSameKey(
-      LinkedHashMap<String, Object> mapToMergeInto,
-      boolean mapToMergeIntoIsDefault,
-      Stack<String> keypath,
-      ArrayList<Conflict> conflicts,
-      HashMap<String, Object> conflictResolutions,
-      String key,
-      Object valueOfMapToMerge)
+  private static void processSubtreesWithSameKey(LinkedHashMap<String, Object> mapToMergeInto,
+      boolean mapToMergeIntoIsDefault, Stack<String> keypath, ArrayList<Conflict> conflicts,
+      HashMap<String, Object> conflictResolutions, String key, Object valueOfMapToMerge)
       throws UnexpectedTypeException {
     Object value1 = mapToMergeInto.get(key);
 
-    if (value1.equals(valueOfMapToMerge)) {
-      return;
-    }
-
-    if (TypeChecker.isObjectMap(value1) && TypeChecker.isObjectMap((valueOfMapToMerge))) {
-      // We have two maps which contain the same key, add the key and process maps further.
-      processUnequalSubtrees(
-          mapToMergeInto,
-          mapToMergeIntoIsDefault,
-          keypath,
-          conflicts,
-          conflictResolutions,
-          key,
-          valueOfMapToMerge,
-          value1);
-    } else if (TypeChecker.isObjectList(value1) && TypeChecker.isObjectList(valueOfMapToMerge)) {
-      processUnequalListNodes(mapToMergeInto, mapToMergeIntoIsDefault, key, valueOfMapToMerge,
-          value1);
-    } else if (TypeChecker.isObjectPrimitive(value1)
-        && TypeChecker.isObjectPrimitive(valueOfMapToMerge)) {
-      processUnequalLeafNodes(
-          mapToMergeInto,
-          key,
-          value1,
-          valueOfMapToMerge,
-          mapToMergeIntoIsDefault,
-          keypath,
-          conflicts,
-          conflictResolutions);
-    } else {
-      // Either an unexpected type was met, or one map had a different type (primitive, map,
-      // list) as a value compared to the other.
-      throw new UnexpectedTypeException("Unexpected Data During Union");
-    }
-  }
-
-  private static void processUnequalListNodes(LinkedHashMap<String, Object> mapToMergeInto,
-      boolean mapToMergeIntoIsDefault, String key, Object valueOfMapToMerge, Object value1) {
-    if (!mapToMergeIntoIsDefault) {
-      List<Object> output =
-          ListUtils.listUnion(
-              ObjectCaster.castObjectToListOfObjects(value1),
-              ObjectCaster.castObjectToListOfObjects(valueOfMapToMerge));
-      mapToMergeInto.put(key, output);
+    if (!value1.equals(valueOfMapToMerge)) {
+      if (TypeChecker.isObjectMap(value1) && TypeChecker.isObjectMap((valueOfMapToMerge))) {
+        // We have two maps which contain the same key, add the key and process maps further.
+        processUnequalSubtrees(
+            mapToMergeInto,
+            mapToMergeIntoIsDefault,
+            keypath,
+            conflicts,
+            conflictResolutions,
+            key,
+            valueOfMapToMerge,
+            value1);
+      } else if (TypeChecker.isObjectList(value1)
+          && TypeChecker.isObjectList(valueOfMapToMerge)
+          && !mapToMergeIntoIsDefault) {
+        List<Object> output =
+            ListUtils.listUnion(
+                ObjectCaster.castObjectToListOfObjects(value1),
+                ObjectCaster.castObjectToListOfObjects(valueOfMapToMerge));
+        mapToMergeInto.put(key, output);
+      } else if (TypeChecker.isObjectPrimitive(value1)
+          && TypeChecker.isObjectPrimitive(valueOfMapToMerge)) {
+        processUnequalLeafNodes(
+            mapToMergeInto,
+            key,
+            value1,
+            valueOfMapToMerge,
+            mapToMergeIntoIsDefault,
+            keypath,
+            conflicts,
+            conflictResolutions);
+      } else {
+        // Either an unexpected type was met, or one map had a different type (primitive, map,
+        // list) as a value compared to the other.
+        throw new UnexpectedTypeException("Unexpected Data During Union");
+      }
     }
   }
 
@@ -252,10 +233,10 @@ public class SpecTreesUnionizer {
       Object valueMapToMerge,
       Object valueMapToMergeInto)
       throws UnexpectedTypeException {
-    LinkedHashMap<String, Object> value1Map =
-        ObjectCaster.castObjectToStringObjectMap(valueMapToMergeInto);
-    LinkedHashMap<String, Object> value2Map =
-        ObjectCaster.castObjectToStringObjectMap(valueMapToMerge);
+    LinkedHashMap<String, Object> value1Map = ObjectCaster.castObjectToStringObjectMap(
+        valueMapToMergeInto);
+    LinkedHashMap<String, Object> value2Map = ObjectCaster.castObjectToStringObjectMap(
+        valueMapToMerge);
     mapToMergeInto.put(
         key, union(value1Map, value2Map, map1IsDefault, keypath, conflicts, conflictResolutions));
   }
