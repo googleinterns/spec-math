@@ -31,21 +31,33 @@ public class SpecTreeComponentSelector {
    */
   public static LinkedHashMap<String, Object> getRelevantComponents(
       LinkedHashMap<String, Object> spec) throws UnionConflictException, UnexpectedTypeException {
+    var outputComponents = new LinkedHashMap<String, Object>();
+    if (!spec.containsKey("components")) {
+      return outputComponents;
+    }
 
     var keypaths = new HashSet<String>();
     addRefsInSubtreeToKeypaths(
         ObjectCaster.castObjectToStringObjectMap(spec.get("paths")), keypaths);
 
-    var outputComponents = new LinkedHashMap<String, Object>();
+    final int MAX_NUM_NESTED_COMPONENTS =
+        ObjectCaster.castObjectToStringObjectMap(spec.get("components")).size();
+    int prevSize = 0;
+    for (int i = 0; i <= MAX_NUM_NESTED_COMPONENTS; i++) {
+      // as soon as keypaths.prevSize() == prevSize, terminate because no new refs need to be looked
+      // for. This is an optimization.
+      if (prevSize == keypaths.size()) {
+        break;
+      }
 
-    int size = 0;
-    // as soon as keypaths.size() == size, terminate because no new refs need to be looked for.
-    while (keypaths.size() != size) {
-      size = keypaths.size();
+      // set the prevSize to the current size of keypaths. If it does not change by the end of this
+      // for loop, meaning that there are no new keypaths to search for, we will break at the start
+      // of the next iteration.
+      prevSize = keypaths.size();
 
       LinkedHashMap<String, Object> relevantComponents =
           expandComponentTree(spec, keypaths, new Stack<String>());
-      SpecTreesUnionizer.union(outputComponents, relevantComponents);
+      outputComponents = SpecTreesUnionizer.union(outputComponents, relevantComponents);
     }
 
     return outputComponents;
@@ -97,31 +109,51 @@ public class SpecTreeComponentSelector {
       Object value = entry.getValue();
 
       keypath.push(key);
-
-      if (keypaths.contains(keypath.toString())) {
-        // add this subtree
-        if (TypeChecker.isObjectMap(value)) {
-          LinkedHashMap<String, Object> subtreeMap =
-              ObjectCaster.castObjectToStringObjectMap(value);
-          addRefsInSubtreeToKeypaths(subtreeMap, keypaths);
-          outputForThisLevel.put(key, subtreeMap);
-        }
-      } else {
-        if (TypeChecker.isObjectMap(value)) {
-          LinkedHashMap<String, Object> subtreeMap =
-              ObjectCaster.castObjectToStringObjectMap(value);
-          LinkedHashMap<String, Object> outputForSubtree =
-              expandComponentTree(subtreeMap, keypaths, keypath);
-
-          if (!outputForSubtree.isEmpty()) {
-            outputForThisLevel.put(key, outputForSubtree);
-          }
-        }
-      }
-
+      handleExpandSubtree(keypaths, keypath, outputForThisLevel, key, value);
       keypath.pop();
     }
 
     return outputForThisLevel;
+  }
+
+  private static void handleExpandSubtree(
+      HashSet<String> keypaths,
+      Stack<String> keypath,
+      LinkedHashMap<String, Object> outputForThisLevel,
+      String key,
+      Object value) {
+    if (keypaths.contains(keypath.toString())) {
+      // add this subtree
+      if (TypeChecker.isObjectMap(value)) {
+        addSpecificSubtree(keypaths, outputForThisLevel, key, value);
+      }
+    } else if (TypeChecker.isObjectMap(value)) {
+      visitAndAddRelevantSubtrees(keypaths, keypath, outputForThisLevel, key, value);
+    }
+  }
+
+  private static void visitAndAddRelevantSubtrees(
+      HashSet<String> keypaths,
+      Stack<String> keypath,
+      LinkedHashMap<String, Object> outputForThisLevel,
+      String key,
+      Object value) {
+    LinkedHashMap<String, Object> subtreeMap = ObjectCaster.castObjectToStringObjectMap(value);
+    LinkedHashMap<String, Object> outputForSubtree =
+        expandComponentTree(subtreeMap, keypaths, keypath);
+
+    if (!outputForSubtree.isEmpty()) {
+      outputForThisLevel.put(key, outputForSubtree);
+    }
+  }
+
+  private static void addSpecificSubtree(
+      HashSet<String> keypaths,
+      LinkedHashMap<String, Object> outputForThisLevel,
+      String key,
+      Object value) {
+    LinkedHashMap<String, Object> subtreeMap = ObjectCaster.castObjectToStringObjectMap(value);
+    addRefsInSubtreeToKeypaths(subtreeMap, keypaths);
+    outputForThisLevel.put(key, subtreeMap);
   }
 }
