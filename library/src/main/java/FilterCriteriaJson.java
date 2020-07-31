@@ -23,8 +23,8 @@ import java.util.List;
  * Used with Jackson's ObjectMapper to deserialize single JSON objects representing filter criteria.
  */
 public class FilterCriteriaJson {
-  @JsonProperty("pathRegex")
-  public String pathRegex = "";
+  @JsonProperty("path")
+  public String path = "";
 
   @JsonProperty("tags")
   public List<String> tags = new ArrayList<String>();
@@ -35,11 +35,11 @@ public class FilterCriteriaJson {
   @JsonProperty("operations")
   public List<String> operations = new ArrayList<String>();
 
-  /** Used to set the pathRegex. In the case of null, it uses the default value, an empty string. */
-  @JsonSetter("pathRegex")
-  public void setPathRegex(String pathRegex) {
-    if (pathRegex != null) {
-      this.pathRegex = pathRegex;
+  /** Used to set the path. In the case of null, it uses the default value, an empty string. */
+  @JsonSetter("path")
+  public void setPath(String path) {
+    if (path != null) {
+      this.path = path;
     }
   }
 

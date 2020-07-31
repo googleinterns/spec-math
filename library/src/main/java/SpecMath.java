@@ -144,7 +144,7 @@ public class SpecMath {
       listOfFilterCriteria.add(
           FilterCriteria.builder()
               .operations(filterCriteriaJson.operations)
-              .pathRegex(filterCriteriaJson.pathRegex)
+              .path(filterCriteriaJson.path)
               .removableTags(filterCriteriaJson.removableTags)
               .tags(filterCriteriaJson.tags)
               .build());
