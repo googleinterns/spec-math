@@ -49,3 +49,9 @@ a {
 .mat-stepper-horizontal {
   height: calc(100% - 52px - 36px);
 }
+
+@media (max-width: 768px) {
+  .mat-chip-list-wrapper {
+    width: calc(100% + 4px);
+  }
+}
