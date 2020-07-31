@@ -58,7 +58,7 @@ export class StubSpecMathService {
       ],
     };
 
-    const mockObservable = of(mockResponse).pipe(delay(250));
+    const mockObservable = of(mockResponse).pipe(delay(500));
     return mockObservable;
   }
 
@@ -68,7 +68,7 @@ export class StubSpecMathService {
       result: 'content',
     };
 
-    const mockObservable = of(mockResponse).pipe(delay(250));
+    const mockObservable = of(mockResponse).pipe(delay(500));
     return mockObservable;
   }
 }

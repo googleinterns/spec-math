@@ -97,6 +97,7 @@ export class ModalComponent {
   };
   resultSpec: File;
   mergeConflicts: MergeConflict[];
+  loadingOperation = false;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
               private cdr: ChangeDetectorRef,
@@ -109,7 +110,9 @@ export class ModalComponent {
 
     if (currStep.lastBaseStep) {
       // ?Service call
+      this.loadingOperation = true;
       await this.mergeOperation();
+      this.loadingOperation = false;
       this.cdr.detectChanges();
 
       if (!this.hasMergeConflicts) {
@@ -124,7 +127,9 @@ export class ModalComponent {
         return;
       }
 
+      this.loadingOperation = true;
       await this.sendResolvedConflicts();
+      this.loadingOperation = false;
       this.finalizeSteps();
       return;
     }

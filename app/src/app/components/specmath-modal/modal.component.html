@@ -14,6 +14,14 @@ limitations under the License. -->
 
 <div class="modal-container">
   <mat-dialog-content>
+    <div *ngIf="loadingOperation" class="modal-step-loading-overlay">
+      <div class="modal-step-loading-label">
+        <mat-spinner></mat-spinner>
+        <h4>
+          Processing operation
+        </h4>
+      </div>
+    </div>
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
         <h3>

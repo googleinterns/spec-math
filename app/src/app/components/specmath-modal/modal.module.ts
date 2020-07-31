@@ -31,6 +31,7 @@ import { ConfirmOperationComponent } from './confirm-operation/confirm-operation
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
     BrowserModule,
     MatChipsModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     ModalComponent,
