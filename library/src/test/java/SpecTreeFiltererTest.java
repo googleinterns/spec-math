@@ -17,9 +17,15 @@ limitations under the License.
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class SpecTreeFiltererTest {
@@ -31,7 +37,7 @@ class SpecTreeFiltererTest {
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/filtering/filteringMonolithicSpec.yaml");
 
-    FilterCriteria filterCriteria = FilterCriteria.builder().pathRegex("/pets/\\{petId\\}").build();
+    FilterCriteria filterCriteria = FilterCriteria.builder().path("/pets/{petId}").build();
 
     var listOfFilterCriteria = new ArrayList<FilterCriteria>();
     listOfFilterCriteria.add(filterCriteria);
@@ -111,7 +117,7 @@ class SpecTreeFiltererTest {
     operations.add("get");
 
     FilterCriteria filterCriteria2 =
-        FilterCriteria.builder().operations(operations).pathRegex("/pets.*").build();
+        FilterCriteria.builder().operations(operations).path("/pets/*").build();
 
     var listOfFilterCriteria = new ArrayList<FilterCriteria>();
     listOfFilterCriteria.add(filterCriteria1);
@@ -158,7 +164,7 @@ class SpecTreeFiltererTest {
     operations.add("get");
 
     FilterCriteria filterCriteria =
-        FilterCriteria.builder().operations(operations).pathRegex("/pets").build();
+        FilterCriteria.builder().operations(operations).path("/pets").build();
 
     var listOfFilterCriteria = new ArrayList<FilterCriteria>();
     listOfFilterCriteria.add(filterCriteria);
@@ -175,13 +181,12 @@ class SpecTreeFiltererTest {
   @Test
   void filter_withOnlyPathsThatDoNotHaveRefs_removesAllComponents()
       throws FileNotFoundException, UnionConflictException, AllUnmatchedFilterException,
-      UnexpectedTypeException {
+          UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/filtering/filteringMonolithicSpec.yaml");
 
-    FilterCriteria filterCriteria =
-        FilterCriteria.builder().pathRegex("/path/with/no/refs").build();
+    FilterCriteria filterCriteria = FilterCriteria.builder().path("/path/with/no/refs").build();
 
     var listOfFilterCriteria = new ArrayList<FilterCriteria>();
     listOfFilterCriteria.add(filterCriteria);
@@ -197,8 +202,6 @@ class SpecTreeFiltererTest {
 
   @Test
   void filter_withAllUnmatchedOrEmptyFilterCriteriaList_throws() throws FileNotFoundException {
-    var specTreeFilterer = new SpecTreeFilterer();
-
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/filtering/filteringMonolithicSpec.yaml");
@@ -212,5 +215,26 @@ class SpecTreeFiltererTest {
     assertThrows(
         AllUnmatchedFilterException.class,
         () -> SpecTreeFilterer.filter(map1, filterCriteriaEmptyList));
+  }
+
+  @Test
+  void matches_succeeds() throws IOException {
+    var mapper = new ObjectMapper();
+
+    String filterCriteriaList =
+        Files.readString(Path.of("src/test/resources/filtering/pathsTest.json"));
+
+    List<FilterCriteriaJson> filterCriteria =
+        mapper.readValue(filterCriteriaList, new TypeReference<List<FilterCriteriaJson>>() {});
+
+    assertTrue(SpecTreeFilterer.matches("/pets/{id}/groom", filterCriteria.get(0).path));
+    assertTrue(SpecTreeFilterer.matches("/pets/{id}", filterCriteria.get(1).path));
+    assertFalse(SpecTreeFilterer.matches("/pets/\\{id\\}", filterCriteria.get(1).path));
+    assertTrue(SpecTreeFilterer.matches("asdfjklasjdfkljasdklfj", filterCriteria.get(2).path));
+    assertTrue(SpecTreeFilterer.matches("", filterCriteria.get(2).path));
+    assertTrue(SpecTreeFilterer.matches("/pets/hello.fdsfkdsjkworld", filterCriteria.get(3).path));
+    assertFalse(SpecTreeFilterer.matches("/pets/hellofdsfkdsjkworld", filterCriteria.get(3).path));
+    assertTrue(
+        SpecTreeFilterer.matches("/pets/dsadasdas/dsadsadsa/{id}", filterCriteria.get(4).path));
   }
 }

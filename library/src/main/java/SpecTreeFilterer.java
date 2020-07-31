@@ -92,7 +92,7 @@ public class SpecTreeFilterer {
 
     var outputOperations = new LinkedHashMap<String, Object>();
 
-    if (filterCriteria.pathRegex().isEmpty() || endpoint.matches(filterCriteria.pathRegex())) {
+    if (filterCriteria.path().isEmpty() || matches(endpoint, filterCriteria.path())) {
       for (Entry<String, Object> operationEntry : endpointObject.entrySet()) {
         processOperation(filterCriteria, outputOperations, operationEntry);
       }
@@ -101,6 +101,15 @@ public class SpecTreeFilterer {
     if (!outputOperations.isEmpty()) {
       outputEndpoints.put(endpoint, outputOperations);
     }
+  }
+
+  public static boolean matches(String endpoint, String path) {
+    path = path
+        .replace(".", "\\.")
+        .replace("*", ".*")
+        .replace("{", "\\{")
+        .replace("}", "\\}");
+    return endpoint.matches(path);
   }
 
   private static void processOperation(
