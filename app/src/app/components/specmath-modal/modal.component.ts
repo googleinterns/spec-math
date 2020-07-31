@@ -109,7 +109,6 @@ export class ModalComponent {
     const currStep = stepList[this.currentStep];
 
     if (currStep.lastBaseStep) {
-      // ?Service call
       this.loadingOperation = true;
       await this.mergeOperation();
       this.loadingOperation = false;
