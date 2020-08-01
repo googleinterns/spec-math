@@ -32,6 +32,8 @@ import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.co
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatChipsModule,
     MatRadioModule,
     MatExpansionModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
   exports: [
     ModalComponent,
@@ -63,7 +66,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
   ],
-  providers: [StubSpecMathService],
+  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
   bootstrap: [ModalComponent]
 })
 export class ModalModule { }

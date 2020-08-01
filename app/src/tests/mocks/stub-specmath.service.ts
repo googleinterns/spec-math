@@ -3,9 +3,10 @@ import { delay } from 'rxjs/internal/operators';
 import { Injectable } from '@angular/core';
 import { SpecMathMergeResponse } from '../../shared/interfaces';
 import { Observable } from 'rxjs';
+import { SpecMathService } from 'src/shared/services/specmath.service';
 
 @Injectable()
-export class StubSpecMathService {
+export class StubSpecMathService extends SpecMathService {
   mergeSpecsConflicts(): Observable<SpecMathMergeResponse> {
     const mockResponse: SpecMathMergeResponse = {
       status: 'conflicts',

@@ -20,9 +20,10 @@ import {
   DefaultsFileUploadOptions,
   SpecFilesUploadOptions,
   MergeConflict,
-  ResolvedMergeConflictOptions
+  ResolvedMergeConflictOptions,
 } from 'src/shared/interfaces';
-import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { HttpClient } from '@angular/common/http';
 
 enum Steps {
   specNameInput = 0,
@@ -101,7 +102,7 @@ export class ModalComponent {
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
               private cdr: ChangeDetectorRef,
-              private mockService: StubSpecMathService) {
+              private mockService: SpecMathService) {
     dialogRef.disableClose = true;
   }
 
