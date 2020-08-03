@@ -4,7 +4,6 @@ import { SpecMathMergeRequest, SpecMathMergeResponse } from '../interfaces';
 import { routes } from '../routes';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 
 const requestOptions = {
   headers: new HttpHeaders({
@@ -12,10 +11,7 @@ const requestOptions = {
   }),
 };
 
-@Injectable({
-  providedIn: 'root',
-  useClass: StubSpecMathService
-})
+@Injectable()
 export class SpecMathService {
   constructor(private http: HttpClient) { }
 

@@ -21,9 +21,10 @@ import {
   SpecFilesUploadOptions,
   MergeConflict,
   ResolvedMergeConflictOptions,
+  SpecMathMergeRequest,
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
-import { HttpClient } from '@angular/common/http';
+import { readFileAsString } from 'src/shared/functions';
 
 enum Steps {
   specNameInput = 0,
@@ -147,8 +148,8 @@ export class ModalComponent {
   }
 
   async mergeOperation() {
-    // ?Replace the mock service with real once its deployed
-    const callResponse = await this.mockService.mergeSpecsConflicts().toPromise();
+    const mergeSet = await this.generateMergeSet();
+    const callResponse = await this.mockService.mergeSpecs(mergeSet).toPromise();
 
     switch (callResponse?.status) {
       case 'conflicts':
@@ -160,9 +161,26 @@ export class ModalComponent {
   }
 
   async sendResolvedConflicts() {
-    // ?Replace the mock service with real once its deployed
-    const callResponse = await this.mockService.mergeSpecs().toPromise();
+    const mergeSet = await this.generateMergeSet();
+    const callResponse = await this.mockService.mergeSpecs(mergeSet).toPromise();
     this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+  }
+
+  async generateMergeSet(): Promise<SpecMathMergeRequest> {
+    const requestBody: SpecMathMergeRequest = {
+      spec1: await readFileAsString(this.specFilesUploadOptions.specFiles[0]),
+      spec2: await readFileAsString(this.specFilesUploadOptions.specFiles[1]),
+    };
+
+    if (this.defaultsFileUploadOptions?.defaultsFile) {
+      requestBody.defaultsFile = await readFileAsString(this.defaultsFileUploadOptions.defaultsFile);
+    }
+
+    if (this.hasMergeConflicts) {
+      requestBody.mergeConflicts = this.mergeConflicts;
+    }
+
+    return requestBody;
   }
 
   get hasMergeConflicts() {

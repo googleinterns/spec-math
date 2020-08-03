@@ -7,67 +7,49 @@ import { SpecMathService } from 'src/shared/services/specmath.service';
 
 @Injectable()
 export class StubSpecMathService extends SpecMathService {
-  mergeSpecsConflicts(): Observable<SpecMathMergeResponse> {
-    const mockResponse: SpecMathMergeResponse = {
-      status: 'conflicts',
-      conflicts: [
-        {
-          keypath: '/dogs',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/cats',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/pets/categories',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/dogs',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/cats',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/pets/categories',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/dogs',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/cats',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-        {
-          keypath: '/pets/categories',
-          option1: 'Option A',
-          option2: 'Option B',
-        },
-      ],
-    };
-
-    const mockObservable = of(mockResponse).pipe(delay(500));
-    return mockObservable;
-  }
+  called = false;
 
   mergeSpecs(): Observable<SpecMathMergeResponse> {
-    const mockResponse: SpecMathMergeResponse = {
-      status: 'success',
-      result: 'content',
-    };
+    let mockResponse: SpecMathMergeResponse;
+
+    if (!this.called) {
+      this.called = true;
+      mockResponse = {
+        status: 'conflicts',
+        conflicts: [
+          {
+            keypath: '/dogs',
+            option1: 'Option A',
+            option2: 'Option B',
+          },
+          {
+            keypath: '/cats',
+            option1: 'Option A',
+            option2: 'Option B',
+          },
+          {
+            keypath: '/pets/categories',
+            option1: 'Option A',
+            option2: 'Option B',
+          },
+          {
+            keypath: '/dogs',
+            option1: 'Option A',
+            option2: 'Option B',
+          },
+          {
+            keypath: '/cats',
+            option1: 'Option A',
+            option2: 'Option B',
+          },
+        ],
+      };
+    } else {
+      mockResponse = {
+        status: 'success',
+        result: 'content',
+      };
+    }
 
     const mockObservable = of(mockResponse).pipe(delay(500));
     return mockObservable;
