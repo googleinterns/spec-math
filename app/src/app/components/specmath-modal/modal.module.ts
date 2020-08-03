@@ -30,7 +30,10 @@ import { SpecNameInputComponent } from './spec-name-input/spec-name-input.compon
 import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,9 @@ import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
     BrowserModule,
     MatChipsModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
   exports: [
     ModalComponent,
@@ -61,7 +66,7 @@ import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
   ],
-  providers: [MockSpecMathService],
+  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
   bootstrap: [ModalComponent]
 })
 export class ModalModule { }

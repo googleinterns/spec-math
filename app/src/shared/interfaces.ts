@@ -1,7 +1,8 @@
 export interface SpecMathMergeRequest {
   spec1: string;
   spec2: string;
-  defaultsFile: string;
+  defaultsFile?: string;
+  mergeConflicts?: MergeConflict[];
 }
 
 export interface MergeConflict {

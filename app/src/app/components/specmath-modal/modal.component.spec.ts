@@ -26,7 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputOptions } from 'src/shared/interfaces';
 import { queryElement } from '../../../shared/functions';
@@ -58,7 +58,7 @@ describe('ModalComponent', () => {
         {
           provide: MatDialogRef, useValue: { close: () => { } }
         },
-        MockSpecMathService
+        StubSpecMathService
       ]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(ModalComponent);

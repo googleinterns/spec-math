@@ -21,9 +21,11 @@ import {
   SpecFilesUploadOptions,
   MergeConflict,
   OperationSet,
-  ResolvedMergeConflictOptions
+  ResolvedMergeConflictOptions,
+  SpecMathMergeRequest,
 } from 'src/shared/interfaces';
-import { MockSpecMathService } from 'src/tests/mocks/mock-specmath.service';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { readFileAsString } from 'src/shared/functions';
 
 enum Steps {
   specNameInput = 0,
@@ -98,11 +100,11 @@ export class ModalComponent {
   };
   resultSpec: File;
   mergeConflicts: MergeConflict[];
-  stepList: StepOptions = stepList;
+  loadingOperation = false;
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
               private cdr: ChangeDetectorRef,
-              private mockService: MockSpecMathService) {
+              private mockService: SpecMathService) {
     dialogRef.disableClose = true;
   }
 
@@ -110,8 +112,9 @@ export class ModalComponent {
     const currStep = stepList[this.currentStep];
 
     if (currStep.lastBaseStep) {
-      // ?Service call
+      this.loadingOperation = true;
       await this.mergeOperation();
+      this.loadingOperation = false;
       this.cdr.detectChanges();
 
       if (!this.hasMergeConflicts) {
@@ -126,7 +129,9 @@ export class ModalComponent {
         return;
       }
 
+      this.loadingOperation = true;
       await this.sendResolvedConflicts();
+      this.loadingOperation = false;
       this.finalizeSteps();
       return;
     }
@@ -152,8 +157,8 @@ export class ModalComponent {
   }
 
   async mergeOperation() {
-    // ?Replace the mock service with real once its deployed
-    const callResponse = await this.mockService.mergeSpecsConflicts().toPromise();
+    const mergeSet = await this.generateMergeSet();
+    const callResponse = await this.mockService.mergeSpecs(mergeSet).toPromise();
 
     switch (callResponse?.status) {
       case 'conflicts':
@@ -165,9 +170,26 @@ export class ModalComponent {
   }
 
   async sendResolvedConflicts() {
-    // ?Replace the mock service with real once its deployed
-    const callResponse = await this.mockService.mergeSpecs().toPromise();
+    const mergeSet = await this.generateMergeSet();
+    const callResponse = await this.mockService.mergeSpecs(mergeSet).toPromise();
     this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+  }
+
+  async generateMergeSet(): Promise<SpecMathMergeRequest> {
+    const requestBody: SpecMathMergeRequest = {
+      spec1: await readFileAsString(this.specFilesUploadOptions.specFiles[0]),
+      spec2: await readFileAsString(this.specFilesUploadOptions.specFiles[1]),
+    };
+
+    if (this.defaultsFileUploadOptions?.defaultsFile) {
+      requestBody.defaultsFile = await readFileAsString(this.defaultsFileUploadOptions.defaultsFile);
+    }
+
+    if (this.hasMergeConflicts) {
+      requestBody.mergeConflicts = this.mergeConflicts;
+    }
+
+    return requestBody;
   }
 
   get hasMergeConflicts() {
@@ -183,7 +205,7 @@ export class ModalComponent {
   }
 
   get nextButtonTooltipText(): string {
-    return this.stepList[this.currentStep].toolTipText;
+    return stepList[this.currentStep].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
@@ -200,16 +222,16 @@ export class ModalComponent {
   }
 
   get nextButtonText(): string {
-    return this.stepList[this.currentStep].nextButtonText;
+    return stepList[this.currentStep].nextButtonText;
   }
 
   get stepLabel(): string {
-    return (stepList[this.currentStep].stepLabel);
+    return stepList[this.currentStep].stepLabel;
   }
 
   get conflictsCount(): string {
-    const resolvedConflicts = this.mergeConflicts.reduce((acc, curr) => curr?.resolvedValue ? ++acc : acc, 0);
-    return (`${resolvedConflicts}/${this.mergeConflicts.length}`);
+    const resolvedConflicts = this.mergeConflicts.filter(curr => curr.resolvedValue).length;
+    return `${resolvedConflicts}/${this.mergeConflicts.length}`;
   }
 
   get shouldShowBackButton(): boolean {
