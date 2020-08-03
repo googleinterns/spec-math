@@ -54,8 +54,8 @@ class MathUtilsTest {
   @Test
   void testSumOfArray() {
     assertAll(
-        () -> assertEquals(0, mathUtils.sumOfArray(Arrays.asList(new Integer[] {1, -1}))),
-        () -> assertEquals(6, mathUtils.sumOfArray(Arrays.asList(new Integer[] {1, 2, 3}))),
+        () -> assertEquals(0, mathUtils.sumOfArray(Arrays.asList(1, -1))),
+        () -> assertEquals(6, mathUtils.sumOfArray(Arrays.asList(1, 2, 3))),
         () -> assertEquals(0, mathUtils.sumOfArray(Arrays.asList(new Integer[] {}))));
   }
 

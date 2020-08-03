@@ -203,8 +203,8 @@ public class SpecTreesUnionizer {
           valueOfMapToMerge,
           value1);
     } else if (TypeChecker.isObjectList(value1) && TypeChecker.isObjectList(valueOfMapToMerge)) {
-      processUnequalListNodes(mapToMergeInto, mapToMergeIntoIsDefault, key, valueOfMapToMerge,
-          value1);
+      processUnequalListNodes(
+          mapToMergeInto, mapToMergeIntoIsDefault, key, valueOfMapToMerge, value1);
     } else if (TypeChecker.isObjectPrimitive(value1)
         && TypeChecker.isObjectPrimitive(valueOfMapToMerge)) {
       processUnequalLeafNodes(
@@ -223,8 +223,12 @@ public class SpecTreesUnionizer {
     }
   }
 
-  private static void processUnequalListNodes(LinkedHashMap<String, Object> mapToMergeInto,
-      boolean mapToMergeIntoIsDefault, String key, Object valueOfMapToMerge, Object value1) {
+  private static void processUnequalListNodes(
+      LinkedHashMap<String, Object> mapToMergeInto,
+      boolean mapToMergeIntoIsDefault,
+      String key,
+      Object valueOfMapToMerge,
+      Object value1) {
     if (!mapToMergeIntoIsDefault) {
       List<Object> output =
           ListUtils.listUnion(

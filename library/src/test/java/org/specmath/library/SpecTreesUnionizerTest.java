@@ -81,7 +81,8 @@ class SpecTreesUnionizerTest {
   }
 
   @Test
-  void union_withConflicts_throwsWithExceptionContainingConflictObjects() throws FileNotFoundException {
+  void union_withConflicts_throwsWithExceptionContainingConflictObjects()
+      throws FileNotFoundException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/simplepetstore.yaml");

@@ -18,7 +18,9 @@ package org.specmath.library;
 
 import java.util.Objects;
 
-/** POJO which is used to represent a org.specmath.library.Conflict resulting from a union operation. */
+/**
+ * POJO which is used to represent a org.specmath.library.Conflict resulting from a union operation.
+ */
 public class Conflict {
   private String keypath;
   private Object optionA;
@@ -32,8 +34,8 @@ public class Conflict {
   public Conflict() {}
 
   /**
-   * Create this org.specmath.library.Conflict object with a conflicting keypath, and the two options for resolving the
-   * conflicts.
+   * Create this org.specmath.library.Conflict object with a conflicting keypath, and the two
+   * options for resolving the conflicts.
    */
   public Conflict(String keypath, Object optionA, Object optionB) {
     this.keypath = keypath;

@@ -20,7 +20,10 @@ import com.google.auto.value.AutoValue;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-/** Used to provide additional parameters when calling functions of the org.specmath.library.SpecTreesUnionizer class. */
+/**
+ * Used to provide additional parameters when calling functions of the
+ * org.specmath.library.SpecTreesUnionizer class.
+ */
 @AutoValue
 public abstract class UnionizerUnionParams {
   public static Builder builder() {

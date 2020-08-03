@@ -30,8 +30,8 @@ public class SpecTreeFilterer {
    * component refs will be kept.
    *
    * @param specToFilter the origin spec to filter on
-   * @param filterCriteriaArrayList a list of org.specmath.library.FilterCriteria objects used to filter {@code
-   *     specToFilter}
+   * @param filterCriteriaArrayList a list of org.specmath.library.FilterCriteria objects used to
+   *     filter {@code specToFilter}
    * @return a new spec which is the filtered version of {@code specToFilter} based on the {@code
    *     filterCriteriaArrayList}
    * @throws UnionConflictException if there was an issue when merging the results from each
@@ -106,11 +106,7 @@ public class SpecTreeFilterer {
   }
 
   public static boolean matches(String endpoint, String path) {
-    path = path
-        .replace(".", "\\.")
-        .replace("*", ".*")
-        .replace("{", "\\{")
-        .replace("}", "\\}");
+    path = path.replace(".", "\\.").replace("*", ".*").replace("{", "\\{").replace("}", "\\}");
     return endpoint.matches(path);
   }
 
@@ -160,7 +156,7 @@ public class SpecTreeFilterer {
     String tagString = tag.toLowerCase();
     if (filterCriteria.tags().contains(tagString)
         || filterCriteria.removableTags().contains(tagString)) {
-      tags.removeIf(singleTag -> filterCriteria.removableTags().contains((String) singleTag));
+      tags.removeIf(singleTag -> filterCriteria.removableTags().contains(singleTag));
       if (!tags.isEmpty()) {
         operationObject.put("tags", tags);
       }

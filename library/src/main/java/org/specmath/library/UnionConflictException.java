@@ -25,12 +25,18 @@ import java.util.ArrayList;
 public class UnionConflictException extends Exception {
   private ArrayList<Conflict> conflicts;
 
-  /** Create this exception, initialized with an array of {@code org.specmath.library.Conflict} objects. */
+  /**
+   * Create this exception, initialized with an array of {@code org.specmath.library.Conflict}
+   * objects.
+   */
   public UnionConflictException(ArrayList<Conflict> conflicts) {
     this.conflicts = conflicts;
   }
 
-  /** @return the array of {@code org.specmath.library.Conflict} objects contained within this exception */
+  /**
+   * @return the array of {@code org.specmath.library.Conflict} objects contained within this
+   *     exception
+   */
   public ArrayList<Conflict> getConflicts() {
     return conflicts;
   }

@@ -19,28 +19,20 @@ package org.specmath.library;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-/**
- * Provides functions for checking common types used throughout the library.
- */
+/** Provides functions for checking common types used throughout the library. */
 public class TypeChecker {
 
-  /**
-   * Returns true if the Object {@code value} is a LinkedHashMap, false otherwise.
-   */
+  /** Returns true if the Object {@code value} is a LinkedHashMap, false otherwise. */
   static boolean isObjectMap(Object value) {
     return value instanceof LinkedHashMap;
   }
 
-  /**
-   * Returns true if the Object {@code value} is a List, false otherwise.
-   */
-  static boolean isObjectList(Object value){
+  /** Returns true if the Object {@code value} is a List, false otherwise. */
+  static boolean isObjectList(Object value) {
     return value instanceof List;
   }
 
-  /**
-   * Returns true if the Object {@code value} is a primitive object, false otherwise.
-   */
+  /** Returns true if the Object {@code value} is a primitive object, false otherwise. */
   static boolean isObjectPrimitive(Object value) {
     return value instanceof String
         || value instanceof Boolean

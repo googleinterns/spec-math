@@ -44,8 +44,7 @@ class UnionOptionsTest {
 
   @Test
   void testUseUnionOptionsBuilderConflictResolutionsEmpty() {
-    UnionOptions unionOptions =
-        UnionOptions.builder().defaults("INVALID DEFAULTS").build();
+    UnionOptions unionOptions = UnionOptions.builder().defaults("INVALID DEFAULTS").build();
 
     assertThat(unionOptions.conflictResolutions()).isEqualTo("");
     assertThat(unionOptions.defaults()).isEqualTo("INVALID DEFAULTS");

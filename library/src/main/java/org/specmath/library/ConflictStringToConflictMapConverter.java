@@ -22,15 +22,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-/** Provides functions for deserializing representations of {@code org.specmath.library.Conflict} objects. */
+/**
+ * Provides functions for deserializing representations of {@code org.specmath.library.Conflict}
+ * objects.
+ */
 public class ConflictStringToConflictMapConverter {
 
   /**
-   * Takes a JSON string {@code conflictResolutions} which contains an array of {@code org.specmath.library.Conflict}
-   * objects and converts it into a HashMap in which the key is the keypath of a conflict and the
-   * value is the resolved value.
+   * Takes a JSON string {@code conflictResolutions} which contains an array of {@code
+   * org.specmath.library.Conflict} objects and converts it into a HashMap in which the key is the
+   * keypath of a conflict and the value is the resolved value.
    *
-   * @param conflictResolutions a JSON string which contains an array of {@code org.specmath.library.Conflict} objects
+   * @param conflictResolutions a JSON string which contains an array of {@code
+   *     org.specmath.library.Conflict} objects
    * @return a HashMap which contains a mapping of keypath->value to resolve during union
    * @throws IOException if there was a parsing issue
    */

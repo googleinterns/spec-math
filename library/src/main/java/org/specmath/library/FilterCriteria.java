@@ -24,26 +24,31 @@ import java.util.List;
 @AutoValue
 public abstract class FilterCriteria {
   public static Builder builder() {
-    return new AutoValue_FilterCriteria.Builder().
-        path("").
-        operations(new ArrayList<String>()).
-        tags(new ArrayList<String>()).
-        removableTags(new ArrayList<String>());
+    return new AutoValue_FilterCriteria.Builder()
+        .path("")
+        .operations(new ArrayList<String>())
+        .tags(new ArrayList<String>())
+        .removableTags(new ArrayList<String>());
   }
 
   public abstract String path();
+
   public abstract List<String> operations();
+
   public abstract List<String> tags();
+
   public abstract List<String> removableTags();
 
   @AutoValue.Builder
   public abstract static class Builder {
     public abstract Builder path(String path);
+
     public abstract Builder operations(List<String> operations);
+
     public abstract Builder removableTags(List<String> removableTags);
+
     public abstract Builder tags(List<String> tags);
 
     public abstract FilterCriteria build();
   }
 }
-

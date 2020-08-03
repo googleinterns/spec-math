@@ -18,7 +18,10 @@ package org.specmath.library;
 
 import com.google.auto.value.AutoValue;
 
-/** Used to provide additional parameters when calling filter functions of the org.specmath.library.SpecMath class. */
+/**
+ * Used to provide additional parameters when calling filter functions of the
+ * org.specmath.library.SpecMath class.
+ */
 @AutoValue
 public abstract class FilterOptions {
   public static Builder builder() {

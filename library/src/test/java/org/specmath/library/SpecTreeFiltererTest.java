@@ -82,7 +82,7 @@ class SpecTreeFiltererTest {
   @Test
   void filter_withRemovableTags_succeeds()
       throws FileNotFoundException, UnionConflictException, UnexpectedTypeException,
-      AllUnmatchedFilterException {
+          AllUnmatchedFilterException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/filtering/filteringMonolithicSpec.yaml");
@@ -138,7 +138,7 @@ class SpecTreeFiltererTest {
   @Test
   void filter_withUnselectedFilterCriteria_returnsOriginalSpec()
       throws FileNotFoundException, UnionConflictException, AllUnmatchedFilterException,
-      UnexpectedTypeException {
+          UnexpectedTypeException {
     LinkedHashMap<String, Object> map1 =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
             "src/test/resources/filtering/filteringMonolithicSpec.yaml");

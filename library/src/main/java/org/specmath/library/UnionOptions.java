@@ -18,7 +18,10 @@ package org.specmath.library;
 
 import com.google.auto.value.AutoValue;
 
-/** Used to provide additional parameters when calling functions of the org.specmath.library.SpecMath class. */
+/**
+ * Used to provide additional parameters when calling functions of the org.specmath.library.SpecMath
+ * class.
+ */
 @AutoValue
 public abstract class UnionOptions {
   public static Builder builder() {

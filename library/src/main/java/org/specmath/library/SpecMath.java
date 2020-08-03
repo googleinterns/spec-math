@@ -34,7 +34,8 @@ public class SpecMath {
    *
    * <p>This operation will attempt to combine {@code spec1} and {@code spec2} using the logic
    * provided in the SpecTreeUnionizer class. Since no special options are provided, it will attempt
-   * the union and if any conflicts are found a {@code org.specmath.library.UnionConflictException} will be thrown.
+   * the union and if any conflicts are found a {@code org.specmath.library.UnionConflictException}
+   * will be thrown.
    *
    * @param spec1 an OpenAPI specification represented as a YAML string
    * @param spec2 an OpenAPI specification represented as a YAML string
@@ -52,11 +53,13 @@ public class SpecMath {
   }
 
   /**
-   * Performs the union operation on two specs represented as strings with {@code org.specmath.library.UnionOptions}.
+   * Performs the union operation on two specs represented as strings with {@code
+   * org.specmath.library.UnionOptions}.
    *
-   * <p>If {@code org.specmath.library.UnionOptions} are provided, then it will apply the options as is appropriate based
-   * on the logic in the {@code SpecTreeUnionizer} class. If {@code org.specmath.library.UnionOptions} cannot resolve the
-   * conflict then a {@code org.specmath.library.UnionConflictException} will be thrown.
+   * <p>If {@code org.specmath.library.UnionOptions} are provided, then it will apply the options as
+   * is appropriate based on the logic in the {@code SpecTreeUnionizer} class. If {@code
+   * org.specmath.library.UnionOptions} cannot resolve the conflict then a {@code
+   * org.specmath.library.UnionConflictException} will be thrown.
    *
    * @param spec1 an OpenAPI specification represented as a YAML string
    * @param spec2 an OpenAPI specification represented as a YAML string
@@ -98,7 +101,8 @@ public class SpecMath {
    * filterCriteriaList}
    *
    * @param specToFilter an OpenAPI specification represented as a YAML string
-   * @param filterCriteriaList a JSON string which contains a list of {@code org.specmath.library.FilterCriteria}
+   * @param filterCriteriaList a JSON string which contains a list of {@code
+   *     org.specmath.library.FilterCriteria}
    * @return the result of the filter on {@code specToFilter} using the {@code filterCriteriaList},
    *     as a YAML string
    * @throws IOException if there was a parsing issue
@@ -121,7 +125,8 @@ public class SpecMath {
    * filterCriteriaList} string and {@code filterOptions}
    *
    * @param specToFilter an OpenAPI specification represented as a YAML string
-   * @param filterCriteriaList a JSON string which contains a list of {@code org.specmath.library.FilterCriteria}
+   * @param filterCriteriaList a JSON string which contains a list of {@code
+   *     org.specmath.library.FilterCriteria}
    * @param filterOptions a set of special options which can be applied during the filter
    * @return the result of the filter on {@code specToFilter} using the {@code filterCriteriaList},
    *     as a YAML string

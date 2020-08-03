@@ -170,7 +170,8 @@ class SpecMathTest {
 
   @Test
   void filter_withSpecificPath_succeeds()
-      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+      throws IOException, AllUnmatchedFilterException, UnionConflictException,
+          UnexpectedTypeException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
@@ -185,11 +186,13 @@ class SpecMathTest {
 
   @Test
   void filter_withSpecificOperations_succeeds()
-      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+      throws IOException, AllUnmatchedFilterException, UnionConflictException,
+          UnexpectedTypeException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
-        Files.readString(Path.of("src/test/resources/filtering/specificOperationsFilterCriteria.json"));
+        Files.readString(
+            Path.of("src/test/resources/filtering/specificOperationsFilterCriteria.json"));
     String actual = SpecMath.filter(specString, filterCriteria);
     String expected =
         Files.readString(
@@ -201,7 +204,8 @@ class SpecMathTest {
 
   @Test
   void filter_withRemovableTags_succeeds()
-      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+      throws IOException, AllUnmatchedFilterException, UnionConflictException,
+          UnexpectedTypeException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
@@ -216,7 +220,8 @@ class SpecMathTest {
 
   @Test
   void filter_withFilterCriteriaAndOptions_succeeds()
-      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+      throws IOException, AllUnmatchedFilterException, UnionConflictException,
+          UnexpectedTypeException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
@@ -234,7 +239,8 @@ class SpecMathTest {
 
   @Test
   void filter_withMultipleFilterCriteria_succeeds()
-      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+      throws IOException, AllUnmatchedFilterException, UnionConflictException,
+          UnexpectedTypeException {
     String specString =
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
