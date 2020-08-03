@@ -34,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Success"
+                "$ref": "#/components/schemas/OperationResponse"
         default:
           description: error
           content:
@@ -62,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Success"   
+                "$ref": "#/components/schemas/OperationResponse"   
         default:
           description: error
           content:
@@ -155,4 +155,3 @@ components:
           format: int32
         message:
           type: string
-
