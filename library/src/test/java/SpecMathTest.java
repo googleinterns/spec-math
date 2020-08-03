@@ -76,7 +76,8 @@ class SpecMathTest {
   }
 
   @Test
-  void union_withDefaults_succeeds() throws IOException, UnionConflictException, UnexpectedTypeException {
+  void union_withDefaults_succeeds()
+      throws IOException, UnionConflictException, UnexpectedTypeException {
     String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
     String spec2String = Files.readString(Path.of("src/test/resources/elgoogBilling.yaml"));
     String defaults = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
@@ -163,5 +164,102 @@ class SpecMathTest {
         Files.readString(Path.of("src/test/resources/elgoogBillingOverlayedWithMetadata.yaml"));
 
     assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void filter_withSpecificPath_succeeds()
+      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+    String specString =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/specificPathFilterCriteria.json"));
+    String actual = SpecMath.filter(specString, filterCriteria);
+    String expected =
+        Files.readString(
+            Path.of("src/test/resources/filtering/filteredMonolithicSpecWithSpecificPath.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void filter_withSpecificOperations_succeeds()
+      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+    String specString =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/specificOperationsFilterCriteria.json"));
+    String actual = SpecMath.filter(specString, filterCriteria);
+    String expected =
+        Files.readString(
+            Path.of(
+                "src/test/resources/filtering/filteredMonolithicSpecWithSpecificOperations.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void filter_withRemovableTags_succeeds()
+      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+    String specString =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/publicTagsFilterCriteria.json"));
+    String actual = SpecMath.filter(specString, filterCriteria);
+    String expected =
+        Files.readString(
+            Path.of("src/test/resources/filtering/filteredMonolithicSpecWithPublicTags.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void filter_withFilterCriteriaAndOptions_succeeds()
+      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+    String specString =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
+    String defaults = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
+    FilterOptions filterOptions = FilterOptions.builder().defaults(defaults).build();
+    String actual = SpecMath.filter(specString, filterCriteria, filterOptions);
+    String expected =
+        Files.readString(
+            Path.of(
+                "src/test/resources/filtering/filteredMonolithicSpecWithOptionsAndAllFilterCriteria.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void filter_withMultipleFilterCriteria_succeeds()
+      throws IOException, AllUnmatchedFilterException, UnionConflictException, UnexpectedTypeException {
+    String specString =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteria =
+        Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
+    String actual = SpecMath.filter(specString, filterCriteria);
+    String expected =
+        Files.readString(
+            Path.of(
+                "src/test/resources/filtering/filteredMonolithicSpecWithAllFilterCriteria.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void filter_withAllUnmatchedOrEmptyFilterCriteria_throws()
+      throws IOException, AllUnmatchedFilterException {
+    String specString =
+        Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
+    String filterCriteriaUnmatched =
+        Files.readString(Path.of("src/test/resources/filtering/unmatchedFilterCriteria.json"));
+    String filterCriteriaEmptyList = "[]";
+
+    assertThrows(
+        AllUnmatchedFilterException.class,
+        () -> SpecMath.filter(specString, filterCriteriaUnmatched));
+    assertThrows(
+        AllUnmatchedFilterException.class,
+        () -> SpecMath.filter(specString, filterCriteriaEmptyList));
   }
 }

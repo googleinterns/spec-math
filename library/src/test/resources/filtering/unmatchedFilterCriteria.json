@@ -1,0 +1,9 @@
+[
+  {
+    "operations": ["get"],
+    "path": "/fakepath"
+  },
+  {
+    "tags": ["nonExistentTag"]
+  }
+]

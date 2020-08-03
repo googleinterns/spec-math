@@ -1,0 +1,14 @@
+components:
+  schemas:
+    Pets1:
+      type: array
+      items:
+        $ref: "#/components/schemas/Pets2"
+    Pets2:
+      type: array
+      items:
+        $ref: "#/components/schemas/Pets3"
+    Pets3:
+      type: array
+      items:
+        $ref: '../not/a/component/'
