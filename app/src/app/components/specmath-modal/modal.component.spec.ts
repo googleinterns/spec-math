@@ -26,9 +26,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputOptions } from 'src/shared/interfaces';
 import { queryElement } from '../../../shared/functions';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
@@ -52,11 +55,15 @@ describe('ModalComponent', () => {
         MatInputModule,
         MatStepperModule,
         MatTooltipModule,
+        HttpClientTestingModule
       ],
       providers: [
         {
           provide: MatDialogRef, useValue: { close: () => { } }
         },
+        {
+          provide: SpecMathService, useClass: StubSpecMathService
+        }
       ]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(ModalComponent);
@@ -126,6 +133,19 @@ describe('ModalComponent', () => {
     const confirmOperationComponent =
       fixture.debugElement.query(By.directive(ConfirmOperationComponent)).nativeElement;
     expect(confirmOperationComponent).toBeTruthy();
+  });
+
+  it('populates the merge conflicts array when conflicts are received from the backend', async () => {
+    modal.specFilesUploadOptions = {
+      specFiles: [
+        new File(['content'], 'spec1.yaml'),
+        new File(['content'], 'spec2.yaml')
+      ],
+      valid: true
+    };
+
+    await modal.mergeOperation();
+    expect(modal.hasMergeConflicts).toEqual(true);
   });
 });
 
