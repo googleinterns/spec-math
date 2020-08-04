@@ -72,7 +72,7 @@ limitations under the License. -->
       </mat-step>
     </mat-horizontal-stepper>
     <div class="modal-step-footer-container">
-      <div class="modal-step-conflicts-count" *ngIf="mergeConflicts">
+      <div class="modal-step-conflicts-count" *ngIf="shouldDisplayConflictCounter">
         <b>
           {{ conflictsCount }}
         </b>

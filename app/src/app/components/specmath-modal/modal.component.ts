@@ -157,6 +157,7 @@ export class ModalComponent {
         break;
       case 'success':
         this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+        break;
     }
   }
 
@@ -227,6 +228,10 @@ export class ModalComponent {
 
   get shouldShowBackButton(): boolean {
     return this.currentStep > 0;
+  }
+
+  get shouldDisplayConflictCounter(): boolean {
+    return this.currentStep === Steps.resolveConflicts;
   }
 
   get mergeConflictsResolved(): boolean {
