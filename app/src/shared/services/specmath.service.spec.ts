@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
-import { SpecMathService } from '../shared/services/specmath.service';
-import { mergeSpecsMockRequest } from './mocks/mockRequests';
-import { mergeSpecsMockResponse } from './mocks/mockResponses';
-import { routes } from '../shared/routes';
-import { SpecMathMergeResponse } from 'src/shared/interfaces';
+import { SpecMathService } from './specmath.service';
+import { mergeSpecsMockRequest } from '../../tests/mocks/mockRequests';
+import { mergeSpecsMockResponse } from '../../tests/mocks/mockResponses';
+import { routes } from '../routes';
+import { SpecMathMergeResponse, SpecMathMergeRequest } from 'src/shared/interfaces';
 
 describe('SpecMathService', () => {
   let service: SpecMathService;
@@ -29,12 +29,13 @@ describe('SpecMathService', () => {
     beforeEach(() => {
       httpMockObject = TestBed.inject(HttpTestingController);
       service = TestBed.inject(SpecMathService);
+      const mockSpeckSet: SpecMathMergeRequest = {
+        spec1: mergeSpecsMockRequest.spec1,
+        spec2: mergeSpecsMockRequest.spec2,
+        defaultsFile: mergeSpecsMockRequest.defaultsFile
+      };
 
-      mergeSpecsMockCall = service.mergeSpecs(
-        mergeSpecsMockRequest.spec1,
-        mergeSpecsMockRequest.spec2,
-        mergeSpecsMockRequest.defaultsFile
-      );
+      mergeSpecsMockCall = service.mergeSpecs(mockSpeckSet);
     });
 
     it('receives a response when a POST request is sent to the merge endpoint', () => {
