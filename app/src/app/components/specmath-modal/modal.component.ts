@@ -104,7 +104,7 @@ export class ModalComponent {
 
   constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
               private cdr: ChangeDetectorRef,
-              private mockService: SpecMathService) {
+              private specMathService: SpecMathService) {
     dialogRef.disableClose = true;
   }
 
@@ -158,7 +158,7 @@ export class ModalComponent {
 
   async mergeOperation() {
     const mergeSet = await this.generateMergeSet();
-    const callResponse = await this.mockService.mergeSpecs(mergeSet).toPromise();
+    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
 
     switch (callResponse?.status) {
       case 'conflicts':
@@ -166,12 +166,13 @@ export class ModalComponent {
         break;
       case 'success':
         this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+        break;
     }
   }
 
   async sendResolvedConflicts() {
     const mergeSet = await this.generateMergeSet();
-    const callResponse = await this.mockService.mergeSpecs(mergeSet).toPromise();
+    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
     this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
   }
 
@@ -236,6 +237,10 @@ export class ModalComponent {
 
   get shouldShowBackButton(): boolean {
     return this.currentStep > 0;
+  }
+
+  get shouldDisplayConflictCounter(): boolean {
+    return this.currentStep === Steps.resolveConflicts;
   }
 
   get mergeConflictsResolved(): boolean {

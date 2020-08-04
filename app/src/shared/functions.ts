@@ -9,8 +9,8 @@ export const readFileAsString = (file: File): Promise<string> => {
   const reader = new FileReader();
   return new Promise((resolve) => {
     reader.readAsText(file);
-    reader.onload = () => {
+    reader.addEventListener('load', () => {
       resolve(reader.result.toString());
-    };
+    });
   });
 };
