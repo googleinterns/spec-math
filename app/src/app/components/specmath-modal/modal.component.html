@@ -14,14 +14,21 @@ limitations under the License. -->
 
 <div class="modal-container">
   <mat-dialog-content>
+    <div *ngIf="loadingOperation" class="modal-step-loading-overlay">
+      <div class="modal-step-loading-label">
+        <mat-spinner></mat-spinner>
+        <h4>
+          Processing operation
+        </h4>
+      </div>
+    </div>
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
         <h3>
           Merge specs
-          <b class="step-indicator">{{ currentStep + 1 }}/{{ LAST_STEP + 1 }}</b>
         </h3>
-        <p *ngIf="currentStep > FIRST_STEP" class="mat-caption">
-          {{ newFileName }}
+        <p class="mat-caption">
+          {{ stepLabel }}
         </p>
       </div>
       <button
@@ -51,38 +58,55 @@ limitations under the License. -->
         ></app-spec-files-upload>
       </mat-step>
       <mat-step>
-        <app-confirm-operation *ngIf="validFiles"
+        <app-confirm-operation
+          *ngIf="validFiles"
           [defaultsFileUploadOptions]="defaultsFileUploadOptions"
           [specFilesUploadOptions]="specFilesUploadOptions"
         ></app-confirm-operation>
       </mat-step>
+      <mat-step *ngIf="mergeConflicts">
+        <app-resolve-conflict
+          (resolvedOptions)="handleResolvedOptions($event)"
+          [mergeConflicts]="mergeConflicts"
+        ></app-resolve-conflict>
+      </mat-step>
     </mat-horizontal-stepper>
-    <div class="modal-step-controls-container">
-      <button
-        id="modal-button-back"
-        mat-button
-        class="modal-step-button-secondary"
-        aria-label="Back button to go back to the previous step"
-        (click)="previousStep(stepper)"
-        *ngIf="currentStep > FIRST_STEP"
-      >
-        Back
-      </button>
-      <div
-        [matTooltip]="nextButtonTooltipText"
-        matTooltipPosition="above"
-        [matTooltipDisabled]="nextButtonEnabled"
-      >
+    <div class="modal-step-footer-container">
+      <div class="modal-step-conflicts-count" *ngIf="shouldDisplayConflictCounter">
+        <b>
+          {{ conflictsCount }}
+        </b>
+        <p class="modal-step-conflicts-label">
+          conflicts resolved
+        </p>
+      </div>
+      <div class="modal-step-controls-container">
         <button
-          id="modal-button-next"
+          id="modal-button-back"
           mat-button
-          class="modal-step-button-main"
-          aria-label="Next button to go to the next step"
-          (click)="nextStep(stepper)"
-          [disabled]="!nextButtonEnabled"
+          class="modal-step-button-secondary"
+          aria-label="Back button to go back to the previous step"
+          (click)="previousStep(stepper)"
+          *ngIf="shouldShowBackButton"
         >
-          {{ nextButtonText }}
+          Back
         </button>
+        <div
+          [matTooltip]="nextButtonTooltipText"
+          matTooltipPosition="above"
+          [matTooltipDisabled]="nextButtonEnabled"
+        >
+          <button
+            id="modal-button-next"
+            mat-button
+            class="modal-step-button-main"
+            aria-label="Next button to go to the next step"
+            (click)="nextStep(stepper)"
+            [disabled]="!nextButtonEnabled"
+          >
+            {{ nextButtonText }}
+          </button>
+        </div>
       </div>
     </div>
   </mat-dialog-content>

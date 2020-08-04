@@ -15,6 +15,7 @@
 @import '../../../shared/constants.scss';
 
 .modal-container {
+  position: relative;
   height: 60vh;
   width: 60vw;
 }
@@ -27,6 +28,28 @@
     flex-direction: column;
   }
   
+  &-loading {
+    &-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(255, 255, 255, 0.80);
+      z-index: 2;
+      display: flex;
+    }
+
+    &-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+
+      & h4 {
+        margin-top: 1rem;
+      }
+    }
+  }
+
   &-header {
     &-container {
       display: flex;
@@ -41,13 +64,39 @@
     }
   }
 
+  &-conflicts {
+    &-label {
+      margin: 0;
+    }
+
+    &-count {
+      display: flex;
+      flex-direction: row;
+      margin-right: auto;
+      margin-left: 0;
+
+      & b {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &-footer {
+    &-container {
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
   &-controls {
     &-container {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-end;
-      height: 36px;
 
       :last-child {
         margin-left: 8px;
@@ -62,10 +111,15 @@
   }
 
   &-content {
+    width: 100%;
+    max-height: calc(100% - 3rem);
     display: flex;
     margin: auto;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 
     & p.mat-caption {
       margin-bottom: 20px;
@@ -122,11 +176,11 @@
     max-height: 100%;
   }
 
-  .mat-chip-list-wrapper {
+  .modal-step-chip-list-container {
     flex-direction: column;
   }
 
-  .modal-step-chip-list-container {
-    flex-direction: column;
+  .modal-step-conflicts-label {
+    display: none;
   }
 }

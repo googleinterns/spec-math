@@ -12,16 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { SpecNameInputOptions, DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
+import {
+  SpecNameInputOptions,
+  DefaultsFileUploadOptions,
+  SpecFilesUploadOptions,
+  MergeConflict,
+  ResolvedMergeConflictOptions,
+  SpecMathMergeRequest,
+} from 'src/shared/interfaces';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { readFileAsString } from 'src/shared/functions';
 
 enum Steps {
   specNameInput = 0,
   defaultsFileUpload = 1,
   specFilesUpload = 2,
   confirmOperation = 3,
+  resolveConflicts = 4,
 }
 
 type StepOptions = {
@@ -29,30 +39,43 @@ type StepOptions = {
     toolTipText?: string,
     nextStep?: Steps,
     previousStep?: Steps,
-    nextButtonText?: string
+    nextButtonText?: string,
+    lastBaseStep?: boolean,
+    stepLabel: string,
   };
 };
 
-const stepOptions: StepOptions = {
+const stepList: StepOptions = {
   [Steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Name new spec',
   },
   [Steps.defaultsFileUpload]: {
     nextStep: Steps.specFilesUpload,
     previousStep: Steps.specNameInput,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Defaults file',
   },
   [Steps.specFilesUpload]: {
     toolTipText: 'You must upload a set of spec files',
     nextStep: Steps.confirmOperation,
     previousStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next'
+    nextButtonText: 'Next',
+    stepLabel: 'Spec files'
   },
   [Steps.confirmOperation]: {
     previousStep: Steps.specFilesUpload,
-    nextButtonText: 'Confirm'
+    nextButtonText: 'Confirm',
+    stepLabel: 'Confirm operation',
+    lastBaseStep: true,
+  },
+  [Steps.resolveConflicts]: {
+    previousStep: Steps.confirmOperation,
+    toolTipText: 'You must resolve all merge conflicts',
+    nextButtonText: 'Resolve',
+    stepLabel: 'Resolving conflicts',
   }
 };
 
@@ -62,9 +85,7 @@ const stepOptions: StepOptions = {
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent {
-  FIRST_STEP = Steps.specNameInput;
-  LAST_STEP = Steps.confirmOperation;
-  currentStep: Steps = Steps.specNameInput;
+  currentStep = Steps.specNameInput;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
     valid: false
@@ -76,24 +97,95 @@ export class ModalComponent {
     specFiles: [],
     valid: false,
   };
+  resultSpec: File;
+  mergeConflicts: MergeConflict[];
+  loadingOperation = false;
 
-  constructor(readonly dialogRef: MatDialogRef<ModalComponent>) {
+  constructor(readonly dialogRef: MatDialogRef<ModalComponent>,
+              private cdr: ChangeDetectorRef,
+              private specMathService: SpecMathService) {
     dialogRef.disableClose = true;
   }
 
-  nextStep(stepper: MatStepper): void {
-    if (this.currentStep === Steps.confirmOperation) {
-      this.dialogRef.close();
+  async nextStep(stepper: MatStepper) {
+    const currStep = stepList[this.currentStep];
+
+    if (currStep.lastBaseStep) {
+      this.loadingOperation = true;
+      await this.mergeOperation();
+      this.loadingOperation = false;
+      this.cdr.detectChanges();
+
+      if (!this.hasMergeConflicts) {
+        this.finalizeSteps();
+        return;
+      }
+    }
+
+    if (this.mergeConflictsResolved) {
+      if (!this.hasMergeConflicts) {
+        this.finalizeSteps();
+        return;
+      }
+
+      this.loadingOperation = true;
+      await this.sendResolvedConflicts();
+      this.loadingOperation = false;
+      this.finalizeSteps();
       return;
     }
 
-    this.currentStep = stepOptions[this.currentStep].nextStep;
-    stepper.selectedIndex = this.currentStep;
+    stepper.selectedIndex = ++this.currentStep;
   }
 
-  previousStep(stepper: MatStepper): void {
-    this.currentStep = stepOptions[this.currentStep].previousStep;
-    stepper.selectedIndex = this.currentStep;
+  previousStep(stepper: MatStepper) {
+    stepper.selectedIndex = --this.currentStep;
+  }
+
+  finalizeSteps() {
+    // ?This closing call will carry all the files to the parent component
+    this.dialogRef.close();
+  }
+
+  async mergeOperation() {
+    const mergeSet = await this.generateMergeSet();
+    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
+
+    switch (callResponse?.status) {
+      case 'conflicts':
+        this.mergeConflicts = callResponse.conflicts;
+        break;
+      case 'success':
+        this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+        break;
+    }
+  }
+
+  async sendResolvedConflicts() {
+    const mergeSet = await this.generateMergeSet();
+    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
+    this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+  }
+
+  async generateMergeSet(): Promise<SpecMathMergeRequest> {
+    const requestBody: SpecMathMergeRequest = {
+      spec1: await readFileAsString(this.specFilesUploadOptions.specFiles[0]),
+      spec2: await readFileAsString(this.specFilesUploadOptions.specFiles[1]),
+    };
+
+    if (this.defaultsFileUploadOptions?.defaultsFile) {
+      requestBody.defaultsFile = await readFileAsString(this.defaultsFileUploadOptions.defaultsFile);
+    }
+
+    if (this.hasMergeConflicts) {
+      requestBody.mergeConflicts = this.mergeConflicts;
+    }
+
+    return requestBody;
+  }
+
+  get hasMergeConflicts() {
+    return !!this.mergeConflicts;
   }
 
   get validFiles(): boolean {
@@ -105,7 +197,7 @@ export class ModalComponent {
   }
 
   get nextButtonTooltipText(): string {
-    return stepOptions[this.currentStep].toolTipText;
+    return stepList[this.currentStep].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
@@ -114,13 +206,36 @@ export class ModalComponent {
         return this.specNameInputOptions?.valid;
       case Steps.specFilesUpload:
         return this.specFilesUploadOptions?.valid;
+      case Steps.resolveConflicts:
+        return this.mergeConflictsResolved;
       default:
         return true;
     }
   }
 
   get nextButtonText(): string {
-    return stepOptions[this.currentStep].nextButtonText;
+    return stepList[this.currentStep].nextButtonText;
+  }
+
+  get stepLabel(): string {
+    return stepList[this.currentStep].stepLabel;
+  }
+
+  get conflictsCount(): string {
+    const resolvedConflicts = this.mergeConflicts.filter(curr => curr.resolvedValue).length;
+    return `${resolvedConflicts}/${this.mergeConflicts.length}`;
+  }
+
+  get shouldShowBackButton(): boolean {
+    return this.currentStep > 0;
+  }
+
+  get shouldDisplayConflictCounter(): boolean {
+    return this.currentStep === Steps.resolveConflicts;
+  }
+
+  get mergeConflictsResolved(): boolean {
+    return !!this.mergeConflicts && this.mergeConflicts.every((conflict) => conflict.resolvedValue);
   }
 
   handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
@@ -133,5 +248,9 @@ export class ModalComponent {
 
   handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
     this.specFilesUploadOptions = specFilesUploadOptions;
+  }
+
+  handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
+    this.mergeConflicts[resolvedOptions.index].resolvedValue = resolvedOptions.value;
   }
 }

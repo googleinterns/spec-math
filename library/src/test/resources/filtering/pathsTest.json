@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/pets/*"
+  },
+  {
+    "path": "/pets/{id}"
+  },
+  {
+    "path": "*"
+  },
+  {
+    "path": "/pets/hello.*world"
+  },
+  {
+    "path": "/pets/*/{id}"
+  }
+]

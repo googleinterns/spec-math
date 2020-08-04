@@ -1,14 +1,15 @@
 export interface SpecMathMergeRequest {
   spec1: string;
   spec2: string;
-  defaultsFile: string;
+  defaultsFile?: string;
+  mergeConflicts?: MergeConflict[];
 }
 
 export interface MergeConflict {
   keypath: string;
   option1: string;
   option2: string;
-  resolvedValue: string;
+  resolvedValue?: string;
 }
 
 export interface SpecMathMergeResponse {
@@ -29,4 +30,9 @@ export interface DefaultsFileUploadOptions {
 export interface SpecFilesUploadOptions {
   specFiles: File [];
   valid: boolean;
+}
+
+export interface ResolvedMergeConflictOptions {
+  index: number;
+  value: string;
 }
