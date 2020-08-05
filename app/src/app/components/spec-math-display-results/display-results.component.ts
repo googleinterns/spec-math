@@ -27,7 +27,7 @@ export class DisplayResultsComponent implements OnInit {
   @Input() operationSet: OperationSet;
   resultsRendered = false;
   defaultsRendered = false;
-  specsRendered = new Array(this.operationSet.specFiles.length).fill(false);
+  specsRendered: boolean[];
 
   downloadOperationSet() {
     console.log('create and download zip');
@@ -69,6 +69,17 @@ export class DisplayResultsComponent implements OnInit {
     });
   }
 
+  renderSpecFile(index: number) {
+    if (this.specsRendered[index]) {
+      return;
+    }
+    this.specsRendered[index] = true;
+
+    readFileAsString(this.operationSet.specFiles[index]).then((res) => {
+      this.renderYamlToDiv(`spec-file-${index}-render`, yaml.load(res));
+    });
+  }
+
   renderFile(event: MatTabChangeEvent) {
     const tab = event.tab.textLabel;
 
@@ -83,7 +94,7 @@ export class DisplayResultsComponent implements OnInit {
 
     if (tab.includes('Spec')) {
       const index = parseInt(tab.slice(tab.length - 1), 10) - 1;
-      console.log(index);
+      this.renderSpecFile(index);
     }
   }
 
@@ -109,11 +120,6 @@ export class DisplayResultsComponent implements OnInit {
 
   ngOnInit() {
     this.renderResultsFile();
-    // this.operationSet.specFiles.forEach((file, index) => {
-    //   readFileAsString(file).then((res) => {
-    //     console.log(yaml.load(res));
-    //     this.renderYamlToDiv(`spec-file-${index}-render`, yaml.load(res));
-    //   });
-    // });
+    this.specsRendered = new Array(this.operationSet.specFiles.length).fill(false);
   }
 }
