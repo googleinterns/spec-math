@@ -14,7 +14,7 @@ limitations under the License. -->
 
 <div class="results-container">
   <div class="results-header-container">
-    <h2 class="results-label mat-display-2">
+    <h2 class="results-label mat-display-3">
       {{ resultsSpecFileDisplayName }}
       <h4>
         New merge set
@@ -45,9 +45,7 @@ limitations under the License. -->
             <button mat-menu-item>Download</button>
           </mat-menu>
         </div>
-        <div class="results-tab-file-container">
-          content
-        </div>
+        <div id="results-file-render" class="results-tab-file-container"></div>
       </div>
     </mat-tab>
     <mat-tab *ngIf="defaultsFileValid" label="Defaults">
@@ -68,9 +66,7 @@ limitations under the License. -->
             <button mat-menu-item>Download</button>
           </mat-menu>
         </div>
-        <div class="results-tab-file-container">
-          content
-        </div>
+        <div id="defaults-file-render" class="results-tab-file-container"></div>
       </div>
     </mat-tab>
     <mat-tab
@@ -94,9 +90,7 @@ limitations under the License. -->
             <button mat-menu-item>Download</button>
           </mat-menu>
         </div>
-        <div class="results-tab-file-container">
-          content
-        </div>
+        <div [id]="'spec-file-' + i + '-render'" class="results-tab-file-container"></div>
       </div>
     </mat-tab>
   </mat-tab-group>
