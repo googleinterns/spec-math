@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 import { OperationSet } from 'src/shared/interfaces';
 import * as yaml from 'js-yaml';
 import { readFileAsString } from 'src/shared/functions';
@@ -22,7 +22,7 @@ import { readFileAsString } from 'src/shared/functions';
   templateUrl: './display-results.component.html',
   styleUrls: ['./display-results.component.scss']
 })
-export class DisplayResultsComponent implements OnInit {
+export class DisplayResultsComponent implements AfterViewInit {
   @Input() operationSet: OperationSet;
 
   downloadOperationSet() {
@@ -49,9 +49,36 @@ export class DisplayResultsComponent implements OnInit {
     return this.operationSet.specFiles;
   }
 
-  ngOnInit() {
+  renderYamlToDiv(divId: string, yamlJSON: object) {
+    const renderDiv = document.getElementById(divId);
+
+    console.log(renderDiv);
+
+    Object.keys(yamlJSON).forEach((key) => {
+      const fileTextNode = document.createTextNode(`${key}: ${yamlJSON[key]}`);
+      const renderNode = document.createElement('p').appendChild(fileTextNode);
+      renderDiv.appendChild(renderNode);
+      renderDiv.appendChild(document.createElement('br'));
+    });
+  }
+
+  ngAfterViewInit() {
     readFileAsString(this.operationSet.resultSpec.file).then((res) => {
-      console.log(yaml.load(res));
+      this.renderYamlToDiv('results-file-render',  yaml.load(res));
+    });
+
+    if (this.defaultsFileValid) {
+      readFileAsString(this.operationSet.defaultsFile).then((res) => {
+        console.log(yaml.load(res));
+        this.renderYamlToDiv('defaults-file-render',  yaml.load(res));
+      });
+    }
+
+    this.operationSet.specFiles.forEach((file, index) => {
+      readFileAsString(file).then((res) => {
+        console.log(yaml.load(res));
+        this.renderYamlToDiv(`spec-file-${index}-render`,  yaml.load(res));
+      });
     });
   }
 }
