@@ -25,7 +25,11 @@ limitations under the License. -->
       DOWNLOAD
     </button>
   </div>
-  <mat-tab-group class="results-tabs-container" animationDuration="0ms">
+  <mat-tab-group
+    (selectedTabChange)="renderFile($event)"
+    class="results-tabs-container"
+    animationDuration="0ms"
+  >
     <mat-tab label="Result">
       <div class="results-tab-container">
         <div class="results-tab-file-header-container">
@@ -71,7 +75,7 @@ limitations under the License. -->
     </mat-tab>
     <mat-tab
       *ngFor="let spec of specFiles; let i = index"
-      [label]="'Spec ' + (i + 1)"
+      [label]="specLabel(i)"
     >
       <div class="results-tab-container">
         <div class="results-tab-file-header-container">
@@ -90,7 +94,10 @@ limitations under the License. -->
             <button mat-menu-item>Download</button>
           </mat-menu>
         </div>
-        <div [id]="'spec-file-' + i + '-render'" class="results-tab-file-container"></div>
+        <div
+          [id]="'spec-file-' + i + '-render'"
+          class="results-tab-file-container"
+        ></div>
       </div>
     </mat-tab>
   </mat-tab-group>
