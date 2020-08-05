@@ -29,9 +29,9 @@ limitations under the License. -->
     <mat-tab label="Result">
       <div class="results-tab-container">
         <div class="results-tab-file-header-container">
-          <h4>
-            {{ resultsSpecFileDisplayName }}
-          </h4>
+          <h2 class="mat-headline">
+            {{ resultSpecFileName }}
+          </h2>
           <button
             class="results-tab-menu-button"
             [mat-menu-trigger-for]="resultsMenu"
@@ -53,9 +53,9 @@ limitations under the License. -->
     <mat-tab *ngIf="defaultsFileValid" label="Defaults">
       <div class="results-tab-container">
         <div class="results-tab-file-header-container">
-          <h4>
+          <h2 class="mat-headline">
             {{ defaultsFileName }}
-          </h4>
+          </h2>
           <button
             class="results-tab-menu-button"
             [mat-menu-trigger-for]="defaultsMenu"
@@ -79,12 +79,20 @@ limitations under the License. -->
     >
       <div class="results-tab-container">
         <div class="results-tab-file-header-container">
-          <h4>
+          <h2 class="mat-headline">
             {{ spec.name }}
-          </h4>
-          <button mat-icon-button aria-label="More button for spec files">
+          </h2>
+          <button
+            class="results-tab-menu-button"
+            [mat-menu-trigger-for]="specMenu"
+            mat-icon-button
+            aria-label="More button for spec files"
+          >
             <mat-icon>more_vert</mat-icon>
           </button>
+          <mat-menu xPosition="before" overlapTrigger #specMenu="matMenu">
+            <button mat-menu-item>Download</button>
+          </mat-menu>
         </div>
         <div class="results-tab-file-container">
           content

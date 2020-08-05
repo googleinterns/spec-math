@@ -165,7 +165,7 @@ export class ModalComponent {
         this.mergeConflicts = callResponse.conflicts;
         break;
       case 'success':
-        this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+        this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
         break;
     }
   }
