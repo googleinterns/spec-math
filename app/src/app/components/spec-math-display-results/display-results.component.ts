@@ -12,16 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OperationSet } from 'src/shared/interfaces';
+import * as yaml from 'js-yaml';
+import { readFileAsString } from 'src/shared/functions';
 
 @Component({
   selector: 'app-display-results',
   templateUrl: './display-results.component.html',
   styleUrls: ['./display-results.component.scss']
 })
-export class DisplayResultsComponent {
+export class DisplayResultsComponent implements OnInit {
   @Input() operationSet: OperationSet;
+
+  downloadOperationSet() {
+    console.log('create and download zip');
+  }
 
   get defaultsFileValid(): boolean {
     return !!this.operationSet?.defaultsFile;
@@ -41,5 +47,11 @@ export class DisplayResultsComponent {
 
   get specFiles(): File[] {
     return this.operationSet.specFiles;
+  }
+
+  ngOnInit() {
+    readFileAsString(this.operationSet.resultSpec.file).then((res) => {
+      console.log(yaml.load(res));
+    });
   }
 }

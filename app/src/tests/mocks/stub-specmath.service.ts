@@ -7,7 +7,7 @@ import { SpecMathService } from 'src/shared/services/specmath.service';
 
 @Injectable()
 export class StubSpecMathService extends SpecMathService {
-  called = false;
+  called = true;
 
   mergeSpecs(): Observable<SpecMathMergeResponse> {
     let mockResponse: SpecMathMergeResponse;
@@ -47,7 +47,8 @@ export class StubSpecMathService extends SpecMathService {
     } else {
       mockResponse = {
         status: 'success',
-        result: `openapi: "3.0.0"
+        result: `
+        openapi: "3.0.0"
         info:
           version: 1.0.0
           title: Swagger Petstore

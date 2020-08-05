@@ -20,6 +20,45 @@
     flex-direction: column;
   }
 
+  &-tab {
+    &-container {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 2rem);
+      padding: 1rem;
+    }
+
+    &-menu-button {
+      margin-right: 0;
+      margin-left: auto;
+    }
+
+    &-file {
+      &-header {
+        &-container {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+        }
+      }
+
+      &-container {
+        margin-top: 1rem;
+        width: 100%;
+      }
+    }
+  }
+
+  &-header {
+    &-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  }
+
   &-label {
     margin-top: 1rem;
     margin-left: 1rem;
@@ -31,4 +70,8 @@
       width: 100%;
     }
   }
+}
+
+* {
+  outline: solid 1px red;
 }

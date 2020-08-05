@@ -13,19 +13,83 @@ See the License for the specific language governing permissions and
 limitations under the License. -->
 
 <div class="results-container">
-  <h1 class="results-label mat-display-2">
-    Merge Set: {{ resultsSpecFileDisplayName }}
-  </h1>
+  <div class="results-header-container">
+    <h2 class="results-label mat-display-2">
+      {{ resultsSpecFileDisplayName }}
+      <h4>
+        New merge set
+      </h4>
+    </h2>
+    <button mat-button class="primary">
+      <mat-icon>arrow_circle_down</mat-icon>
+      DOWNLOAD
+    </button>
+  </div>
   <mat-tab-group class="results-tabs-container" animationDuration="0ms">
-    <mat-tab [label]="resultSpecFileName">
-      <div id="swagger-results">
+    <mat-tab label="Result">
+      <div class="results-tab-container">
+        <div class="results-tab-file-header-container">
+          <h4>
+            {{ resultsSpecFileDisplayName }}
+          </h4>
+          <button
+            class="results-tab-menu-button"
+            [mat-menu-trigger-for]="resultsMenu"
+            mat-icon-button
+            aria-label="More button for result file"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu xPosition="before" overlapTrigger #resultsMenu="matMenu">
+            <button mat-menu-item>Code diff</button>
+            <button mat-menu-item>Download</button>
+          </mat-menu>
+        </div>
+        <div class="results-tab-file-container">
+          content
+        </div>
       </div>
     </mat-tab>
-    <mat-tab *ngIf="defaultsFileValid" [label]="defaultsFileName">
-      Defaults
+    <mat-tab *ngIf="defaultsFileValid" label="Defaults">
+      <div class="results-tab-container">
+        <div class="results-tab-file-header-container">
+          <h4>
+            {{ defaultsFileName }}
+          </h4>
+          <button
+            class="results-tab-menu-button"
+            [mat-menu-trigger-for]="defaultsMenu"
+            mat-icon-button
+            aria-label="More button for defaults file"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu xPosition="before" overlapTrigger #defaultsMenu="matMenu">
+            <button mat-menu-item>Download</button>
+          </mat-menu>
+        </div>
+        <div class="results-tab-file-container">
+          content
+        </div>
+      </div>
     </mat-tab>
-    <mat-tab *ngFor="let spec of specFiles" [label]="spec.name">
-      {{ spec.name }}
+    <mat-tab
+      *ngFor="let spec of specFiles; let i = index"
+      [label]="'Spec ' + (i + 1)"
+    >
+      <div class="results-tab-container">
+        <div class="results-tab-file-header-container">
+          <h4>
+            {{ spec.name }}
+          </h4>
+          <button mat-icon-button aria-label="More button for spec files">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+        <div class="results-tab-file-container">
+          content
+        </div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

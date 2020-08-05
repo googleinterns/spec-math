@@ -16,10 +16,19 @@ import { NgModule } from '@angular/core';
 import { DisplayResultsComponent } from './display-results.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [DisplayResultsComponent],
-  imports: [MatTabsModule, BrowserModule],
+  imports: [
+    MatTabsModule,
+    BrowserModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule
+  ],
   exports: [DisplayResultsComponent]
 })
 export class DisplayResultsModule { }
