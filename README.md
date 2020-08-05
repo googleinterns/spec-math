@@ -1,10 +1,13 @@
 # Spec Math
 ## Overview
-Spec Math is a platform for performing operations on OpenAPI specifications. [OpenAPI](https://github.com/OAI/OpenAPI-Specification) is the industry-standard
+Spec Math is a platform for performing operations on OpenAPI specifications. 
+[OpenAPI](https://github.com/OAI/OpenAPI-Specification) is the industry-standard
 format for machine-readable REST API descriptions.
 
 ## About this document
-This document contains an overview about Spec Math and this repository. For more specific documentation 
+This document contains an overview about Spec Math and this repository. One of the goals of this document
+is to provide descriptions of Spec Math which, along with the [Java implementation in this repo](library)
+ For more specific documentation 
 and installation instructions, please look at the respective folder in the directory structure
 described below.
 
