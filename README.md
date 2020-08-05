@@ -5,30 +5,32 @@ Spec Math is a platform for performing operations on OpenAPI specifications.
 format for machine-readable REST API descriptions.
 
 ## About this document
-This document contains an overview about Spec Math and this repository. One of the goals of this document
-is to provide descriptions of Spec Math which, along with the [Java implementation in this repo](library)
- For more specific documentation 
-and installation instructions, please look at the respective folder in the directory structure
+This document contains an overview of this repository as well as a description of Spec Math.
+
+A goal of this document is to highlight the capabilities of Spec Math as well as
+rigorously describe its operations and functions. While this repository already contains
+a [Java implementation](library) of Spec Math, we hope that this document will provide
+enough information such that developers could also implement Spec Math in any language
+of their choosing. For more specific documentation and installation instructions, please look at the respective folder in the directory structure
 described below.
 
 ## Directory structure
-- The `library` folder contains the "Spec Math Library", an implementation of Spec Math in Java. 
-- The `web` folder showcases an
+- The [library](library) folder contains the "Spec Math Library", an implementation of Spec Math in Java.
+- The [web](web) folder showcases an
 example usage of the Spec Math Library through an API which is connected to the frontend application in the
-`app` folder.
+[app](app) folder.
 
-## Spec Math Library
+## Spec Math and the Spec Math Library
 
 ### Background
-
 Specifications play a critical role in the API lifecycle. They can enforce a contract between client
 and server teams, easily generate documentation and client libraries, reduce the work of
 creating a proxy for an existing service and much more. The
 Spec Math project aims to afford even more power to API developers who use the OpenAPI
-specification. The Spec Math Library will enable them to do the following:
+specification. The [Spec Math Library](library) will enable them to do the following:
 
-- Merge two or more OpenAPI specifications into one.
-- Filter an OpenAPI specification into a new one based on specified criteria.
+- Merge two (or more in a future update) OpenAPI specifications into one.
+- Filter an OpenAPI specification into a new spec based on specified criteria.
 - Overlay an OpenAPI specification.
 - And more, discussed in the sections and examples below.
 
@@ -38,13 +40,13 @@ portions of an API. These teams might include marketing, inventory, analytics, a
 teams were to work off of the same specification, it could become an extremely long and
 unwieldy document. Then, if the developers want to expose a subset of functionality to specific
 user groups and developer teams, they would perform a tedious, manual, and error-prone
-cherry-pick of features to add to a new spec. These are both one of many where Spec Math can
+cherry-pick of features to add to a new spec. These are some examples where Spec Math could
 come to the rescue.
 
 #### Union
 One feature of Spec Math is to merge two or more specs into one. The developers could
 then have each team working on their own APIs with their own respective specs. From there, the
-developers can leverage the Spec Math Library to create a unified spec to describe the APIs
+developers can leverage the [Spec Math Library](library) to create a unified spec to describe the APIs
 developed across all the teams.
 
 #### Filter
@@ -71,22 +73,27 @@ Application” which will be applied to the resultant specification.
 
 ### Overview
 
-This section provides a high-level overview of the capabilities of the Spec Math Library while
-also defining some other terminology. See the background section for a description of why
-some of these capabilities of Spec Math might be useful.
+This section provides descriptions of Spec Math operations. See the background section for an example of how
+some of these capabilities of Spec Math might be useful.   
+
+For additional specific examples of each operation described below, please take a look at the integration
+tests for the [Spec Math Library](library/src/test/java/org/specmath/library/SpecMathTest.java). Tests are
+provided for some example usages of the operations discussed below. Each test contains a sample input and output.
 
 #### Operations
+
 ##### Union
 
 ##### Union Of Two Specs
-Union takes specs A and B to create a new spec C which contains A and B.
+Union of two specs takes specs A and B along with an optional set of rules to create a new spec C which contains A and B.
+
 A collision occurs when two YAML key paths have different primitive values. For example, if
 spec A had `info: license: name: MIT` and spec B had `info: license: name: GPL`, there would be
 a conflict in the `info: license: name` key path. To resolve this, the user can provide a defaults
 file as an overlay. In cases where the overlay cannot resolve the conflict, the conflicting key
 paths will be reported back. The user can then resolve the conflicts by either:
 
-- using a conflict resolution object passed in as a parameter to the union,
+- using a conflict resolution file ([sample](library/src/test/resources/conflictMerged.yaml) passed in as a parameter to the union,
 - manually resolving the specs by removing the conflict
 - or updating the defaults file.
 
@@ -94,16 +101,19 @@ paths will be reported back. The user can then resolve the conflicts by either:
 The requirements for union of multiple specs are still being determined. 
 
 #### Overlay
-Overlay takes spec A along with an overlay file O (sample here LINK) to modify spec A. O is a spec fragment
+Overlay takes spec A along with a defaults file D ([sample](library/src/test/resources/metadata.yaml)) to modify spec A. D is a spec fragment
 which will be placed "on top" of spec A. 
-In the case of a collision, the overlay file takes priority. 
-An overlay operation is a specialized Union operation between A and O where O will always take priority.
+In the case of a collision, the defaults file takes priority. 
+An overlay operation is a specialized Union operation between A and D where D will always take priority.
 Therefore, Overlay operations will not have conflicts. 
 
 #### Filter
 Filtering takes spec A along with a filter file F to create a new spec B which contains a subset
 of features from A according to F. A filter file contains a list of Filter Criteria Objects, discussed below.
 Only the component references from A which are relevant to B will be included.
+
+Below is a list of properties which can be added to a Filter Criteria Object. A filter file F is a list of
+Filter Criteria Objects. For examples of F, please see the JSON files in the [filtering tests resources directory](library/src/test/resources/filtering)
 
 - **FILTER BY TAGS**. The user can achieve fine-grained filtering functionality extremely
 easily by just adding specific tags to the spec. For example, the user could mark
@@ -125,10 +135,7 @@ filtering.
 will be included. Future work includes the ability to provide an “exclude” option to filter criteria, which will exclude
 paths matching the criteria in the resultant spec.
 
-Users can provide a list of objects which contain a path, an operation, or both.
-These paths and operations will be filtered on.
-
-In addition to Filter Criteria, there will also be other filtering “options” or “parameters”. Similar
+In addition to a filter file, users can also specify other filtering “options” or “parameters”. Similar
 to the union operation, the API product which is represented by the result of a filter operation is
 quite different from the spec which was used to filter. Therefore, a useful option will be to
 provide metadata about the resultant spec.
