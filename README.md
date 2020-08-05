@@ -68,8 +68,8 @@ than the input specs. This is why overlaying functionality will also be supporte
 be applied using a “default file” which contains metadata about the final API product that is
 produced from Spec Math operations. For example, if a company wishes to build a web
 application using filtered pieces of their unified API, the original spec will no longer have an
-accurate “info: title” key path. The overlay will contain something like "info: title: Company Web
-Application” which will be applied to the resultant specification.
+accurate `info: title` key path. The overlay will contain something like `info: title: Company Web
+Application` which will be applied to the resultant specification.
 
 ### Overview
 
@@ -93,7 +93,7 @@ a conflict in the `info: license: name` key path. To resolve this, the user can 
 file as an overlay. In cases where the overlay cannot resolve the conflict, the conflicting key
 paths will be reported back. The user can then resolve the conflicts by either:
 
-- using a conflict resolution file ([sample](library/src/test/resources/conflictMerged.yaml) passed in as a parameter to the union,
+- using a conflict resolution file ([sample](library/src/test/resources/conflictMerged.yaml)) passed in as a parameter to the union,
 - manually resolving the specs by removing the conflict
 - or updating the defaults file.
 
@@ -113,7 +113,7 @@ of features from A according to F. A filter file contains a list of Filter Crite
 Only the component references from A which are relevant to B will be included.
 
 Below is a list of properties which can be added to a Filter Criteria Object. A filter file F is a list of
-Filter Criteria Objects. For examples of F, please see the JSON files in the [filtering tests resources directory](library/src/test/resources/filtering)
+Filter Criteria Objects. For examples of F, please see the JSON files in the [filtering tests resources directory](library/src/test/resources/filtering).
 
 - **FILTER BY TAGS**. The user can achieve fine-grained filtering functionality extremely
 easily by just adding specific tags to the spec. For example, the user could mark
@@ -131,14 +131,15 @@ filtering.
  as well as desired operations (e.g. get, put)
   - Paths are specified in the `path` property in the filter criteria
   - Operations are specified in the `operations` property in the filter criteria
-- **FILTER OPTIONS**. By default, when the user provides a list of filter criteria, all matches
-will be included. Future work includes the ability to provide an “exclude” option to filter criteria, which will exclude
-paths matching the criteria in the resultant spec.
-
+  
 In addition to a filter file, users can also specify other filtering “options” or “parameters”. Similar
 to the union operation, the API product which is represented by the result of a filter operation is
 quite different from the spec which was used to filter. Therefore, a useful option will be to
-provide metadata about the resultant spec.
+provide metadata about the resultant spec. 
+
+By default, when the user provides a list of filter criteria, all matches
+will be included. Future work includes the ability to provide an “exclude” option, which will exclude
+paths matching the criteria in the resultant spec.
 
 ## Copyright
 
