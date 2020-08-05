@@ -1,6 +1,6 @@
 # Spec Math
 ## Overview
-Spec Math is a platform for performing operations on OpenAPI specifications. OpenAPI is the industry-standard
+Spec Math is a platform for performing operations on OpenAPI specifications. [OpenAPI](https://github.com/OAI/OpenAPI-Specification) is the industry-standard
 format for machine-readable REST API descriptions.
 
 ## About this document
