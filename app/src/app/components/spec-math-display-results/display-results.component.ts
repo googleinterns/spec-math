@@ -17,6 +17,10 @@ import { OperationSet } from 'src/shared/interfaces';
 import * as yaml from 'js-yaml';
 import { readFileAsString } from 'src/shared/functions';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import * as fileSaver from 'file-saver';
+import * as JSZip from 'jszip';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-display-results',
@@ -30,7 +34,33 @@ export class DisplayResultsComponent implements OnInit {
   specsRendered: boolean[];
 
   downloadOperationSet() {
-    console.log('create and download zip');
+    this.generateOperationSetZip().subscribe(set => {
+      set.generateAsync({ type: 'blob' }).then((zipContent) => {
+        fileSaver.saveAs(zipContent, `${this.resultsSpecFileDisplayName}-merge-set`);
+      });
+    });
+  }
+
+  generateOperationSetZip(): Observable<JSZip> {
+    return new Observable((observer) => {
+      const operatioSetZip = new JSZip();
+
+      const resultFileContent = readFileAsString(this.operationSet.resultSpec.file);
+      operatioSetZip.file(this.resultSpecFileName, resultFileContent);
+
+      if (this.defaultsFileValid) {
+        const defaultsFileContent = readFileAsString(this.operationSet.defaultsFile);
+        operatioSetZip.file(this.defaultsFileName, defaultsFileContent);
+      }
+
+      this.operationSet.specFiles.forEach((spec) => {
+        const specFileContent = readFileAsString(spec);
+        operatioSetZip.file(spec.name, specFileContent);
+      });
+
+      console.log(operatioSetZip.files);
+      observer.next(operatioSetZip);
+    });
   }
 
   specLabel(index: number) {
