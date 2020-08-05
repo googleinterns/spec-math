@@ -19,7 +19,6 @@ import { readFileAsString } from 'src/shared/functions';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import * as fileSaver from 'file-saver';
 import * as JSZip from 'jszip';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -132,11 +131,9 @@ export class DisplayResultsComponent implements OnInit {
       case 'Result':
         this.renderResultsFile();
         break;
-    }
-
-    if (tab.includes('Spec')) {
-      const index = parseInt(tab.slice(tab.length - 1), 10) - 1;
-      this.renderSpecFile(index);
+      default:
+        const index = parseInt(tab.slice(tab.length - 1), 10) - 1;
+        this.renderSpecFile(index);
     }
   }
 

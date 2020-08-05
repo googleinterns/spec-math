@@ -29,6 +29,14 @@
     }
   }
 
+  &-tabs {
+    &-container {
+      height: 100%;
+      width: 100%;
+      margin-top: 1rem;
+    }
+  }
+
   &-tab {
     &-container {
       display: flex;
@@ -63,13 +71,6 @@
     margin-top: 1rem;
     margin-left: 1rem;
   }
-
-  &-tabs {
-    &-container {
-      height: 100%;
-      width: 100%;
-    }
-  }
 }
 
 @media (max-width: 768px) {
@@ -84,7 +85,7 @@
   }
 }
 
-// For debugging purposes
+// Debugging
 // * {
 //   outline: solid 1px red;
 // }
