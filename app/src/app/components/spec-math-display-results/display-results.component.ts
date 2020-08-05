@@ -33,6 +33,20 @@ export class DisplayResultsComponent implements OnInit {
   defaultsRendered = false;
   specsRendered: boolean[];
 
+  async downloadFile(type: string, index?: number) {
+    switch (type) {
+      case 'result':
+        fileSaver.saveAs(this.operationSet.resultSpec.file, `${this.resultsSpecFileDisplayName}.yaml`);
+        break;
+      case 'defaults':
+        fileSaver.saveAs(this.operationSet.defaultsFile);
+        break;
+      case 'spec':
+        fileSaver.saveAs(this.specFiles[index]);
+        break;
+    }
+  }
+
   downloadOperationSet() {
     this.generateOperationSetZip().subscribe(set => {
       set.generateAsync({ type: 'blob' }).then((zipContent) => {
@@ -44,7 +58,6 @@ export class DisplayResultsComponent implements OnInit {
   generateOperationSetZip(): Observable<JSZip> {
     return new Observable((observer) => {
       const operatioSetZip = new JSZip();
-
       const resultFileContent = readFileAsString(this.operationSet.resultSpec.file);
       operatioSetZip.file(this.resultSpecFileName, resultFileContent);
 
@@ -53,12 +66,11 @@ export class DisplayResultsComponent implements OnInit {
         operatioSetZip.file(this.defaultsFileName, defaultsFileContent);
       }
 
-      this.operationSet.specFiles.forEach((spec) => {
+      this.specFiles.forEach((spec) => {
         const specFileContent = readFileAsString(spec);
         operatioSetZip.file(spec.name, specFileContent);
       });
 
-      console.log(operatioSetZip.files);
       observer.next(operatioSetZip);
     });
   }
@@ -105,7 +117,7 @@ export class DisplayResultsComponent implements OnInit {
     }
     this.specsRendered[index] = true;
 
-    readFileAsString(this.operationSet.specFiles[index]).then((res) => {
+    readFileAsString(this.specFiles[index]).then((res) => {
       this.renderYamlToDiv(`spec-file-${index}-render`, yaml.load(res));
     });
   }
@@ -150,6 +162,6 @@ export class DisplayResultsComponent implements OnInit {
 
   ngOnInit() {
     this.renderResultsFile();
-    this.specsRendered = new Array(this.operationSet.specFiles.length).fill(false);
+    this.specsRendered = new Array(this.specFiles.length).fill(false);
   }
 }

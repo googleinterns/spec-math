@@ -46,7 +46,9 @@ limitations under the License. -->
           </button>
           <mat-menu xPosition="before" overlapTrigger #resultsMenu="matMenu">
             <button mat-menu-item>Code diff</button>
-            <button mat-menu-item>Download</button>
+            <button (click)="downloadFile('result')" mat-menu-item>
+              Download
+            </button>
           </mat-menu>
         </div>
         <div id="results-file-render" class="results-tab-file-container"></div>
@@ -67,7 +69,9 @@ limitations under the License. -->
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu xPosition="before" overlapTrigger #defaultsMenu="matMenu">
-            <button mat-menu-item>Download</button>
+            <button (click)="downloadFile('defaults')" mat-menu-item>
+              Download
+            </button>
           </mat-menu>
         </div>
         <div id="defaults-file-render" class="results-tab-file-container"></div>
@@ -91,7 +95,9 @@ limitations under the License. -->
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu xPosition="before" overlapTrigger #specMenu="matMenu">
-            <button mat-menu-item>Download</button>
+            <button (click)="downloadFile('spec', i)" mat-menu-item>
+              Download
+            </button>
           </mat-menu>
         </div>
         <div
