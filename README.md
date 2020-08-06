@@ -8,11 +8,13 @@ format for machine-readable REST API descriptions.
 This document contains an overview of this repository as well as a description of Spec Math.
 
 A goal of this document is to highlight the capabilities of Spec Math and
-describe its operations and functions. While this repository already contains
-a [Java implementation](library) of Spec Math, we hope that this document (along with the
-[Java implementation](library)) will provide
-enough information such that developers could also implement Spec Math in any language
-of their choosing. For more specific documentation and installation instructions, please look 
+describe its operations and functions so that you can determine if it might be useful to your project. 
+
+While this repository already contains a [Java implementation](library) of Spec Math, we acknowledge that
+your project might have different language needs and hope that this document (along with the
+[Java implementation](library)) will also provide
+enough information such that you could implement Spec Math in any language
+of your choosing. For more specific documentation and installation instructions, please look 
 at the respective folder in the directory structure
 described below.
 
