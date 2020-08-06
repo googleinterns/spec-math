@@ -59,8 +59,8 @@ class SpecMathTest {
 
   @Test
   void union_withConflicts_throws() throws IOException {
-    String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
-    String spec2String = Files.readString(Path.of("src/test/resources/elgoogBilling.yaml"));
+    String spec1String = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
+    String spec2String = Files.readString(Path.of("src/test/resources/petstoreBilling.yaml"));
 
     UnionConflictException e =
         assertThrows(UnionConflictException.class, () -> SpecMath.union(spec1String, spec2String));
@@ -80,15 +80,15 @@ class SpecMathTest {
   @Test
   void union_withDefaults_succeeds()
       throws IOException, UnionConflictException, UnexpectedTypeException {
-    String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
-    String spec2String = Files.readString(Path.of("src/test/resources/elgoogBilling.yaml"));
-    String defaults = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
+    String spec1String = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
+    String spec2String = Files.readString(Path.of("src/test/resources/petstoreBilling.yaml"));
+    String defaults = Files.readString(Path.of("src/test/resources/petstoreMetadata.yaml"));
 
     UnionOptions unionOptions = UnionOptions.builder().defaults(defaults).build();
     String actual = SpecMath.union(spec1String, spec2String, unionOptions);
 
     String expected =
-        Files.readString(Path.of("src/test/resources/elgoogBillingAndMarketingMetadataUnion.yaml"));
+        Files.readString(Path.of("src/test/resources/petstoreBillingAndMarketingMetadataUnion.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -149,21 +149,21 @@ class SpecMathTest {
   @Test
   void union_withEqualStrings_returnsOriginalString()
       throws IOException, UnionConflictException, UnexpectedTypeException {
-    String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
-    String spec2String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
+    String spec1String = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
+    String spec2String = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
     String actual = SpecMath.union(spec1String, spec2String);
-    String expected = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
+    String expected = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
   void overlay_appliedToSpec_succeeds() throws IOException, UnexpectedTypeException {
-    String spec1String = Files.readString(Path.of("src/test/resources/elgoogMarketing.yaml"));
-    String overlay = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
+    String spec1String = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
+    String overlay = Files.readString(Path.of("src/test/resources/petstoreMetadata.yaml"));
     String actual = SpecMath.applyOverlay(overlay, spec1String);
     String expected =
-        Files.readString(Path.of("src/test/resources/elgoogBillingOverlayedWithMetadata.yaml"));
+        Files.readString(Path.of("src/test/resources/petstoreBillingOverlayedWithMetadata.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -226,7 +226,7 @@ class SpecMathTest {
         Files.readString(Path.of("src/test/resources/filtering/filteringMonolithicSpec.yaml"));
     String filterCriteria =
         Files.readString(Path.of("src/test/resources/filtering/allFilterCriteria.json"));
-    String defaults = Files.readString(Path.of("src/test/resources/elgoogMetadata.yaml"));
+    String defaults = Files.readString(Path.of("src/test/resources/petstoreMetadata.yaml"));
     FilterOptions filterOptions = FilterOptions.builder().defaults(defaults).build();
     String actual = SpecMath.filter(specString, filterCriteria, filterOptions);
     String expected =
