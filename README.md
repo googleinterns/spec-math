@@ -113,9 +113,9 @@ The requirements for union of multiple specs are still being determined.
 #### Overlay
 Overlay takes spec A along with a defaults file D ([sample](library/src/test/resources/metadata.yaml)) to modify spec A. D is a spec fragment
 which will be placed "on top" of spec A. 
-In the case of a collision, the defaults file takes priority. 
+In the case of a would-be collision, the defaults file takes priority. 
 An overlay operation is a specialized Union operation between A and D where D will always take priority.
-Therefore, Overlay operations will not have collisions (or union conflicts). 
+Therefore, Overlay operations will not have union conflicts. 
 
 #### Filter
 Filtering takes spec A along with a filter file F to create a new spec B which contains a subset
