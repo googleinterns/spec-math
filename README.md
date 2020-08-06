@@ -1,7 +1,7 @@
 # Spec Math
 ## Overview
 Spec Math is a platform for performing operations on OpenAPI specifications. 
-[OpenAPI](https://github.com/OAI/OpenAPI-Specification) is the industry-standard
+[OpenAPI](https://github.com/OAI/OpenAPI-Specification) is an industry-standard
 format for machine-readable REST API descriptions.
 
 ## About this document
@@ -35,7 +35,7 @@ specification. The [Spec Math Library](library) will enable them to do the follo
 
 - Merge two (or more in a future update) OpenAPI specifications into one.
 - Filter an OpenAPI specification into a new spec based on specified criteria.
-- Overlay an OpenAPI specification.
+- Overlay an OpenAPI specification by superimposing partial specs with domain-specific annotations.
 - And more, discussed in the sections and examples below.
 
 While these features are currently supported in the [Spec Math Library](library), please
@@ -97,7 +97,7 @@ provided for some example usages of the operations discussed below. Each test co
 ##### Union Of Two Specs
 Union of two specs takes specs A and B along with an optional set of rules to create a new spec C which contains A and B.
 
-A collision occurs when two YAML key paths have different primitive values. For example, if
+A collision (or union conflict) occurs when two YAML key paths have different primitive values. For example, if
 spec A had `info: license: name: MIT` and spec B had `info: license: name: GPL`, there would be
 a conflict in the `info: license: name` key path. To resolve this, the user can provide a defaults
 file as an overlay. In cases where the overlay cannot resolve the conflict, the conflicting key
@@ -115,7 +115,7 @@ Overlay takes spec A along with a defaults file D ([sample](library/src/test/res
 which will be placed "on top" of spec A. 
 In the case of a collision, the defaults file takes priority. 
 An overlay operation is a specialized Union operation between A and D where D will always take priority.
-Therefore, Overlay operations will not have conflicts. 
+Therefore, Overlay operations will not have collisions (or union conflicts). 
 
 #### Filter
 Filtering takes spec A along with a filter file F to create a new spec B which contains a subset
