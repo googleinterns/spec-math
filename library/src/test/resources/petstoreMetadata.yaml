@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Elgoog APIs
+  title: The Best Petstore APIs
   version: 1.0.0
-  description: An API for Elgoog
+  description: An API for The Best Petstore
 servers:
-  - url: http://cloud.elgoog.com/
+  - url: http://thebestpetstore.com/

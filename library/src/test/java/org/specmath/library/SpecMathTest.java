@@ -67,12 +67,12 @@ class SpecMathTest {
 
     ArrayList<Conflict> expectedConflicts = new ArrayList<>();
     expectedConflicts.add(
-        new Conflict("[info, title]", "Elgoog Marketing Team API", "Elgoog Billing Team API"));
+        new Conflict("[info, title]", "The Best Petstore Marketing Team API", "The Best Petstore Billing Team API"));
     expectedConflicts.add(
         new Conflict(
             "[info, description]",
-            "An API for Elgoog's marketing team",
-            "An API for Elgoog's billing team"));
+            "An API for The Best Petstore's marketing team",
+            "An API for The Best Petstore's billing team"));
 
     assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
   }
