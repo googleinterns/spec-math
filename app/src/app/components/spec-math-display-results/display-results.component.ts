@@ -78,13 +78,27 @@ export class DisplayResultsComponent implements OnInit {
     return `Spec ${index + 1}`;
   }
 
-  renderYamlToDiv(divId: string, yamlJSON: object) {
+  renderTextToDiv(divId: string, text: string) {
     const renderDiv = document.getElementById(divId);
-    Object.keys(yamlJSON).forEach((key) => {
-      const fileTextNode = document.createTextNode(`${key}: ${yamlJSON[key]}`);
-      const renderNode = document.createElement('p').appendChild(fileTextNode);
-      renderDiv.appendChild(renderNode);
-      renderDiv.appendChild(document.createElement('br'));
+    const fileTextNode = document.createTextNode(text);
+    const textNode = document.createElement('p').appendChild(fileTextNode);
+    const divNode = document.createElement('div');
+    divNode.appendChild(textNode);
+    renderDiv.appendChild(divNode);
+  }
+
+  renderObjectToDiv(divId: string, objectNode: object) {
+    if (typeof(objectNode) !== 'object') {
+      return;
+    }
+
+    Object.keys(objectNode).forEach((key) => {
+      if (typeof(objectNode[key]) === 'object') {
+        this.renderTextToDiv(divId, `${key}:`);
+      } else {
+        this.renderTextToDiv(divId, `${key}: ${objectNode[key]}`);
+      }
+      this.renderObjectToDiv(divId, objectNode[key]);
     });
   }
 
@@ -95,7 +109,7 @@ export class DisplayResultsComponent implements OnInit {
     this.resultsRendered = true;
 
     readFileAsString(this.operationSet.resultSpec.file).then((res) => {
-      this.renderYamlToDiv('results-file-render', yaml.load(res));
+      this.renderObjectToDiv('results-file-render', yaml.load(res));
     });
   }
 
@@ -106,7 +120,7 @@ export class DisplayResultsComponent implements OnInit {
     this.defaultsRendered = true;
 
     readFileAsString(this.operationSet.defaultsFile).then((res) => {
-      this.renderYamlToDiv('defaults-file-render', yaml.load(res));
+      this.renderObjectToDiv('defaults-file-render', yaml.load(res));
     });
   }
 
@@ -117,7 +131,7 @@ export class DisplayResultsComponent implements OnInit {
     this.specsRendered[index] = true;
 
     readFileAsString(this.specFiles[index]).then((res) => {
-      this.renderYamlToDiv(`spec-file-${index}-render`, yaml.load(res));
+      this.renderObjectToDiv(`spec-file-${index}-render`, yaml.load(res));
     });
   }
 
