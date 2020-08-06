@@ -7,17 +7,19 @@ format for machine-readable REST API descriptions.
 ## About this document
 This document contains an overview of this repository as well as a description of Spec Math.
 
-A goal of this document is to highlight the capabilities of Spec Math as well as
-rigorously describe its operations and functions. While this repository already contains
-a [Java implementation](library) of Spec Math, we hope that this document will provide
+A goal of this document is to highlight the capabilities of Spec Math and
+describe its operations and functions. While this repository already contains
+a [Java implementation](library) of Spec Math, we hope that this document (along with the
+[Java implementation](library)) will provide
 enough information such that developers could also implement Spec Math in any language
-of their choosing. For more specific documentation and installation instructions, please look at the respective folder in the directory structure
+of their choosing. For more specific documentation and installation instructions, please look 
+at the respective folder in the directory structure
 described below.
 
 ## Directory structure
 - The [library](library) folder contains the "Spec Math Library", an implementation of Spec Math in Java.
-- The [web](web) folder showcases an
-example usage of the Spec Math Library through an API which is connected to the frontend application in the
+- The [web](web) folder showcases an example usage of the Spec Math Library through an API which is connected
+ to the frontend application in the
 [app](app) folder.
 
 ## Spec Math and the Spec Math Library
@@ -34,13 +36,19 @@ specification. The [Spec Math Library](library) will enable them to do the follo
 - Overlay an OpenAPI specification.
 - And more, discussed in the sections and examples below.
 
+While these features are currently supported in the [Spec Math Library](library), please
+note that "Spec Math" as a platform could theoretically support many other operations on OpenAPI specifications.
+Contributions of new features and operations are welcome!
+
+Below is a simple example of a use case of Spec Math.
+
 Let's suppose there is a complex project with several teams working on it. 
 Each team is responsible for developing different
 portions of an API. These teams might include marketing, inventory, analytics, and others. If all
 teams were to work off of the same specification, it could become an extremely long and
 unwieldy document. Then, if the developers want to expose a subset of functionality to specific
 user groups and developer teams, they would perform a tedious, manual, and error-prone
-cherry-pick of features to add to a new spec. These are some examples where Spec Math could
+cherry-pick of features to add to a new spec. These are some examples of where Spec Math could
 come to the rescue.
 
 #### Union
