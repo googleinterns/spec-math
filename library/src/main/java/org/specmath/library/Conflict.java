@@ -18,6 +18,7 @@ package org.specmath.library;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * POJO which is used to represent a org.specmath.library.Conflict resulting from a union operation.
@@ -53,6 +54,10 @@ public class Conflict {
 
   public Object getResolvedValue() {
     return resolvedValue;
+  }
+
+  public void addOption(Object option) {
+    this.options.add(option);
   }
 
   @Override

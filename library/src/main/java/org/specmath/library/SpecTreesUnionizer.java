@@ -26,23 +26,36 @@ import java.util.Stack;
 
 /** Provides functions for performing union operations on spec trees represented as Maps. */
 public class SpecTreesUnionizer {
-//  static LinkedHashMap<String, Object> unionMultipleSpecs(List<LinkedHashMap<String, Object>> mapsToMerge)
-//      throws UnionConflictException, UnexpectedTypeException {
-//    var outputSpec = mapsToMerge.get(0);
-//
-////    for (int i = 1; i<mapsToMerge.size(); i++){
-////
-////      try{
-////        outputSpec = union(outputSpec, mapsToMerge.get(i));
-////      } catch(UnionConflictException e){
-////        List<Conflict> conflicts = e.getConflicts();
-////
-////
-////      }
-////
-////    }
-//
-//  }
+  static LinkedHashMap<String, Object> unionMultipleSpecs(
+      List<LinkedHashMap<String, Object>> mapsToMerge, UnionizerUnionParams unionizerUnionParams)
+      throws UnionConflictException, UnexpectedTypeException {
+    var outputSpec = mapsToMerge.get(0);
+    var allConflicts = new ArrayList<Conflict>();
+
+    for (int i = 1; i < mapsToMerge.size(); i++) {
+      outputSpec =
+          union(
+              outputSpec,
+              mapsToMerge.get(i),
+              false,
+              new Stack<String>(),
+              allConflicts,
+              new HashMap<String, Object>());
+    }
+
+    removeConflictsFixedByDefaults(unionizerUnionParams.defaults(), allConflicts);
+
+    LinkedHashMap<String, Object> defaultsMap =
+        new LinkedHashMap<>(unionizerUnionParams.defaults());
+
+    LinkedHashMap<String, Object> resolvedMap = applyOverlay(defaultsMap, outputSpec);
+
+    if (allConflicts.isEmpty()) {
+      return outputSpec;
+    }
+
+    throw new UnionConflictException(allConflicts);
+  }
 
   /**
    * Performs a union on {@code mapToMergeInto} and {@code mapToMerge} and returns the result.
@@ -317,6 +330,18 @@ public class SpecTreesUnionizer {
         // can be resolved by a conflictResolution
         mapToMergeInto.put(key, conflictResolutions.get(keypathString));
       } else {
+        for (Conflict conflict: conflicts){
+          if (conflict.getKeypath().equals(keypathString)){
+             // already have this keypath, so add it to the options
+            if (!conflict.getOptions().contains(value1)){
+              conflict.addOption(value1);
+            }
+            if (!conflict.getOptions().contains(value2)){
+              conflict.addOption(value2);
+            }
+            return;
+          }
+        }
         List<Object> options = new ArrayList<>();
         options.add(value1);
         options.add(value2);

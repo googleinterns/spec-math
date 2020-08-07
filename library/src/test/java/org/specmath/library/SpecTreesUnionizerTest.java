@@ -216,13 +216,13 @@ class SpecTreesUnionizerTest {
   void applyOverlay_succeeds() throws UnexpectedTypeException, FileNotFoundException {
     LinkedHashMap<String, Object> specString =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
-            "src/test/resources/elgoogMarketing.yaml");
+            "src/test/resources/petstoreMarketing.yaml");
     LinkedHashMap<String, Object> overlay =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
-            "src/test/resources/elgoogMetadata.yaml");
+            "src/test/resources/petstoreMetadata.yaml");
     LinkedHashMap<String, Object> expected =
         YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
-            "src/test/resources/elgoogBillingOverlayedWithMetadata.yaml");
+            "src/test/resources/petstoreBillingOverlayedWithMetadata.yaml");
 
     assertThat(SpecTreesUnionizer.applyOverlay(overlay, specString)).isEqualTo(expected);
   }
