@@ -15,7 +15,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OperationSet } from 'src/shared/interfaces';
 import { readFileAsString } from 'src/shared/functions';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable } from 'rxjs';
 import * as fileSaver from 'file-saver';
 import * as yaml from 'js-yaml';
