@@ -26,6 +26,24 @@ import java.util.Stack;
 
 /** Provides functions for performing union operations on spec trees represented as Maps. */
 public class SpecTreesUnionizer {
+//  static LinkedHashMap<String, Object> unionMultipleSpecs(List<LinkedHashMap<String, Object>> mapsToMerge)
+//      throws UnionConflictException, UnexpectedTypeException {
+//    var outputSpec = mapsToMerge.get(0);
+//
+////    for (int i = 1; i<mapsToMerge.size(); i++){
+////
+////      try{
+////        outputSpec = union(outputSpec, mapsToMerge.get(i));
+////      } catch(UnionConflictException e){
+////        List<Conflict> conflicts = e.getConflicts();
+////
+////
+////      }
+////
+////    }
+//
+//  }
+
   /**
    * Performs a union on {@code mapToMergeInto} and {@code mapToMerge} and returns the result.
    *
@@ -299,7 +317,10 @@ public class SpecTreesUnionizer {
         // can be resolved by a conflictResolution
         mapToMergeInto.put(key, conflictResolutions.get(keypathString));
       } else {
-        Conflict conflict = new Conflict(keypathString, value1, value2);
+        List<Object> options = new ArrayList<>();
+        options.add(value1);
+        options.add(value2);
+        Conflict conflict = new Conflict(keypathString, options);
         conflicts.add(conflict);
       }
     }

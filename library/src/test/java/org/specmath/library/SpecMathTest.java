@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class SpecMathTest {
@@ -66,13 +67,17 @@ class SpecMathTest {
         assertThrows(UnionConflictException.class, () -> SpecMath.union(spec1String, spec2String));
 
     ArrayList<Conflict> expectedConflicts = new ArrayList<>();
+
+    //    Arrays.asList()
     expectedConflicts.add(
-        new Conflict("[info, title]", "Elgoog Marketing Team API", "Elgoog Billing Team API"));
+        new Conflict(
+            "[info, title]",
+            Arrays.asList("Elgoog Marketing Team API", "Elgoog Billing Team API")));
     expectedConflicts.add(
         new Conflict(
             "[info, description]",
-            "An API for Elgoog's marketing team",
-            "An API for Elgoog's billing team"));
+            Arrays.asList(
+                "An API for Elgoog's marketing team", "An API for Elgoog's billing team")));
 
     assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
   }

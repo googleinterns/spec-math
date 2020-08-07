@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,9 +99,9 @@ class SpecTreesUnionizerTest {
 
     ArrayList<Conflict> expectedConflicts = new ArrayList<>();
     expectedConflicts.add(
-        new Conflict("[info, title]", "Swagger Petstore Platform", "Swagger Petstore Marketing"));
+        new Conflict("[info, title]", Arrays.asList("Swagger Petstore Platform", "Swagger Petstore Marketing")));
     expectedConflicts.add(
-        new Conflict("[paths, /pets, get, summary]", "List all pets", "List every pet"));
+        new Conflict("[paths, /pets, get, summary]", Arrays.asList("List all pets", "List every pet")));
 
     assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
   }
