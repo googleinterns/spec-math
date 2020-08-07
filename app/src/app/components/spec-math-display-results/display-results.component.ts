@@ -25,6 +25,16 @@ interface YamlLevel {
   level: number;
 }
 
+const yamlLevelColors = {
+  0: 'grey',
+  1: 'black',
+  2: 'orange',
+  3: 'green',
+  4: 'purple',
+  5: 'red',
+  6: 'cyan'
+};
+
 @Component({
   selector: 'app-display-results',
   templateUrl: './display-results.component.html',
@@ -118,6 +128,10 @@ export class DisplayResultsComponent implements OnInit {
     this.specFiles.forEach(async (spec, index) => {
       await this.flattenFile(spec, this.specsLevels[index]);
     });
+  }
+
+  yamlLevelColor(level: number): string {
+    return yamlLevelColors[level];
   }
 
   get defaultsFileValid(): boolean {

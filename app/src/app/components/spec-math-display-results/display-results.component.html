@@ -54,10 +54,11 @@ limitations under the License. -->
         <div id="results-file-render" class="results-tab-file-container">
           <div
             *ngFor="let level of resultsLevels"
-            [ngClass]="[
-              'results-attribute-container',
-              'results-level-' + level.level
-            ]"
+            class="results-attribute-container"
+            [ngStyle]="{
+              'margin-left': +level.level + 'rem',
+              'border-left-color': yamlLevelColor(level.level)
+            }"
           >
             <p>
               {{ level.attribute }}
@@ -89,10 +90,11 @@ limitations under the License. -->
         <div id="defaults-file-render" class="results-tab-file-container">
           <div
             *ngFor="let level of defaultsLevels"
-            [ngClass]="[
-              'results-attribute-container',
-              'results-level-' + level.level
-            ]"
+            class="results-attribute-container"
+            [ngStyle]="{
+              'margin-left': +level.level + 'rem',
+              'border-left-color': yamlLevelColor(level.level)
+            }"
           >
             <p>
               {{ level.attribute }}
@@ -130,10 +132,11 @@ limitations under the License. -->
         >
           <div
             *ngFor="let level of specsLevels[i]"
-            [ngClass]="[
-              'results-attribute-container',
-              'results-level-' + level.level
-            ]"
+            class="results-attribute-container"
+            [ngStyle]="{
+              'margin-left': +level.level + 'rem',
+              'border-left-color': yamlLevelColor(level.level)
+            }"
           >
             <p>
               {{ level.attribute }}

@@ -79,12 +79,11 @@
 
   &-attribute {
     &-container {
-      width: calc(100% - 20px);
       background-color: white;
-      border-left-color: black;
-      border-left-width: 4px;
+      border-left-width: 2px;
       border-left-style: solid;
       padding: 8px;
+      width: max-content;
       background-image: linear-gradient(#FFE15D, #FFE15D);
       background-size: 0% 100%;
       background-repeat: no-repeat;
@@ -100,30 +99,10 @@
         background-size: 100% 100%;
       }
     }
-
-  }
-  
-  &-level {
-    &-0 {
-      border-left-color: orange;
-    }
-
-    &-1 {
-      width: calc(100% - 2rem - 4px);
-      margin-left: 1rem;
-      border-left-color: purple;
-    }
-
-    &-2 {
-      width: calc(100% - 3rem - 4px);
-      margin-left: 2rem;
-      border-left-color: red;
-    }
   }
 
   &-label {
     margin-top: 1rem;
-    margin-left: 1rem;
   }
 }
 
