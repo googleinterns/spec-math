@@ -14,12 +14,17 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { OperationSet } from 'src/shared/interfaces';
-import * as yaml from 'js-yaml';
 import { readFileAsString } from 'src/shared/functions';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import * as fileSaver from 'file-saver';
-import * as JSZip from 'jszip';
 import { Observable } from 'rxjs';
+import * as fileSaver from 'file-saver';
+import * as yaml from 'js-yaml';
+import * as JSZip from 'jszip';
+
+interface YamlLevel {
+  attribute: string;
+  level: number;
+}
 
 @Component({
   selector: 'app-display-results',
@@ -31,6 +36,9 @@ export class DisplayResultsComponent implements OnInit {
   resultsRendered = false;
   defaultsRendered = false;
   specsRendered: boolean[];
+  resultsLevels: YamlLevel[];
+  defaultsLevels: YamlLevel[];
+  specsLevels: [YamlLevel[]];
 
   async downloadFile(type: string, index?: number) {
     switch (type) {
@@ -110,6 +118,7 @@ export class DisplayResultsComponent implements OnInit {
 
     readFileAsString(this.operationSet.resultSpec.file).then((res) => {
       this.renderObjectToDiv('results-file-render', yaml.load(res));
+      this.flattenYaml([], 0, yaml.load(res));
     });
   }
 
@@ -151,6 +160,29 @@ export class DisplayResultsComponent implements OnInit {
     }
   }
 
+  flattenYaml(levelArray: YamlLevel[], level: number, objectNode: object) {
+    Object.keys(objectNode).forEach((key) => {
+      if (typeof(objectNode[key]) === 'object') {
+        levelArray.push({
+          attribute: `${key}:`,
+          level,
+        });
+        this.flattenYaml(levelArray, level + 1, objectNode[key]);
+      } else {
+        levelArray.push({
+          attribute: `${key}: ${objectNode[key]}`,
+          level,
+        });
+      }
+    });
+  }
+
+  generateYamlLevels() {
+    // ?Flatten results file
+    // ?Flatten defaults file
+    // ?Flatten all specs
+  }
+
   get defaultsFileValid(): boolean {
     return !!this.operationSet?.defaultsFile;
   }
@@ -172,6 +204,7 @@ export class DisplayResultsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.generateYamlLevels();
     this.renderResultsFile();
     this.specsRendered = new Array(this.specFiles.length).fill(false);
   }
