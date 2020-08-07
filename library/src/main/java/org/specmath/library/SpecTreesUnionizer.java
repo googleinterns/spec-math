@@ -26,7 +26,7 @@ import java.util.Stack;
 
 /** Provides functions for performing union operations on spec trees represented as Maps. */
 public class SpecTreesUnionizer {
-  static LinkedHashMap<String, Object> unionMultipleSpecs(
+  static LinkedHashMap<String, Object> union(
       List<LinkedHashMap<String, Object>> mapsToMerge, UnionizerUnionParams unionizerUnionParams)
       throws UnionConflictException, UnexpectedTypeException {
     var outputSpec = mapsToMerge.get(0);
