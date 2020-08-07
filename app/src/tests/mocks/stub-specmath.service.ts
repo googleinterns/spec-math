@@ -7,7 +7,7 @@ import { SpecMathService } from 'src/shared/services/specmath.service';
 
 @Injectable()
 export class StubSpecMathService extends SpecMathService {
-  called = true;
+  called = false;
 
   mergeSpecs(): Observable<SpecMathMergeResponse> {
     let mockResponse: SpecMathMergeResponse;
