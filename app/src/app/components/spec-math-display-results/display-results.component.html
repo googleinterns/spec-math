@@ -26,7 +26,6 @@ limitations under the License. -->
     </button>
   </div>
   <mat-tab-group
-    (selectedTabChange)="renderFile($event)"
     class="results-tabs-container"
     animationDuration="0ms"
     id="results-tab-group"
@@ -52,7 +51,13 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div id="results-file-render" class="results-tab-file-container"></div>
+        <div id="results-file-render" class="results-tab-file-container">
+          <div *ngFor="let level of resultsLevels">
+            <p>
+              {{ level.attribute }}
+            </p>
+          </div>
+        </div>
       </div>
     </mat-tab>
     <mat-tab *ngIf="defaultsFileValid" label="Defaults">

@@ -36,9 +36,9 @@ export class DisplayResultsComponent implements OnInit {
   resultsRendered = false;
   defaultsRendered = false;
   specsRendered: boolean[];
-  resultsLevels: YamlLevel[];
-  defaultsLevels: YamlLevel[];
-  specsLevels: [YamlLevel[]];
+  resultsLevels: YamlLevel[] = [];
+  defaultsLevels: YamlLevel[] = [];
+  specsLevels: YamlLevel[][];
 
   async downloadFile(type: string, index?: number) {
     switch (type) {
@@ -86,78 +86,10 @@ export class DisplayResultsComponent implements OnInit {
     return `Spec ${index + 1}`;
   }
 
-  renderTextToDiv(divId: string, text: string) {
-    const renderDiv = document.getElementById(divId);
-    const fileTextNode = document.createTextNode(text);
-    const textNode = document.createElement('p').appendChild(fileTextNode);
-    const divNode = document.createElement('div');
-    divNode.appendChild(textNode);
-    renderDiv.appendChild(divNode);
-  }
-
-  renderObjectToDiv(divId: string, objectNode: object) {
-    if (typeof(objectNode) !== 'object') {
-      return;
-    }
-
-    Object.keys(objectNode).forEach((key) => {
-      if (typeof(objectNode[key]) === 'object') {
-        this.renderTextToDiv(divId, `${key}:`);
-      } else {
-        this.renderTextToDiv(divId, `${key}: ${objectNode[key]}`);
-      }
-      this.renderObjectToDiv(divId, objectNode[key]);
+  async flattenFile(yamlFile: File, levelsArray: YamlLevel[]) {
+    await readFileAsString(yamlFile).then((res) => {
+      this.flattenYaml(levelsArray, 0, yaml.load(res));
     });
-  }
-
-  renderResultsFile() {
-    if (this.resultsRendered) {
-      return;
-    }
-    this.resultsRendered = true;
-
-    readFileAsString(this.operationSet.resultSpec.file).then((res) => {
-      this.renderObjectToDiv('results-file-render', yaml.load(res));
-      this.flattenYaml([], 0, yaml.load(res));
-    });
-  }
-
-  renderDefaultsFile() {
-    if (this.defaultsRendered) {
-      return;
-    }
-    this.defaultsRendered = true;
-
-    readFileAsString(this.operationSet.defaultsFile).then((res) => {
-      this.renderObjectToDiv('defaults-file-render', yaml.load(res));
-    });
-  }
-
-  renderSpecFile(index: number) {
-    if (this.specsRendered[index]) {
-      return;
-    }
-    this.specsRendered[index] = true;
-
-    readFileAsString(this.specFiles[index]).then((res) => {
-      this.renderObjectToDiv(`spec-file-${index}-render`, yaml.load(res));
-    });
-  }
-
-  renderFile(event: MatTabChangeEvent) {
-    const tab = event.tab.textLabel;
-
-    switch (tab) {
-      case 'Defaults':
-        this.renderDefaultsFile();
-        break;
-      case 'Result':
-        this.renderResultsFile();
-        break;
-      default:
-        const index = parseInt(tab.slice(tab.length - 1), 10) - 1;
-        this.renderSpecFile(index);
-    }
   }
 
   flattenYaml(levelArray: YamlLevel[], level: number, objectNode: object) {
@@ -177,10 +109,16 @@ export class DisplayResultsComponent implements OnInit {
     });
   }
 
-  generateYamlLevels() {
-    // ?Flatten results file
-    // ?Flatten defaults file
-    // ?Flatten all specs
+  async generateYamlLevels() {
+    await this.flattenFile(this.operationSet.resultSpec.file, this.resultsLevels);
+
+    if (this.defaultsFileValid) {
+      await this.flattenFile(this.operationSet.defaultsFile, this.defaultsLevels);
+    }
+
+    this.specFiles.forEach(async (spec, index) => {
+      await this.flattenFile(spec, this.specsLevels[index]);
+    });
   }
 
   get defaultsFileValid(): boolean {
@@ -204,8 +142,8 @@ export class DisplayResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.generateYamlLevels();
-    this.renderResultsFile();
     this.specsRendered = new Array(this.specFiles.length).fill(false);
+    this.specsLevels = new Array(this.specFiles.length).fill([]);
+    this.generateYamlLevels();
   }
 }
