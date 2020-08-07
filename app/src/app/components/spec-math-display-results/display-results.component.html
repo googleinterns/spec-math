@@ -52,7 +52,13 @@ limitations under the License. -->
           </mat-menu>
         </div>
         <div id="results-file-render" class="results-tab-file-container">
-          <div *ngFor="let level of resultsLevels">
+          <div
+            *ngFor="let level of resultsLevels"
+            [ngClass]="[
+              'results-attribute-container',
+              'results-level-' + level.level
+            ]"
+          >
             <p>
               {{ level.attribute }}
             </p>
@@ -80,7 +86,19 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div id="defaults-file-render" class="results-tab-file-container"></div>
+        <div id="defaults-file-render" class="results-tab-file-container">
+          <div
+            *ngFor="let level of defaultsLevels"
+            [ngClass]="[
+              'results-attribute-container',
+              'results-level-' + level.level
+            ]"
+          >
+            <p>
+              {{ level.attribute }}
+            </p>
+          </div>
+        </div>
       </div>
     </mat-tab>
     <mat-tab
@@ -109,7 +127,19 @@ limitations under the License. -->
         <div
           [id]="'spec-file-' + i + '-render'"
           class="results-tab-file-container"
-        ></div>
+        >
+          <div
+            *ngFor="let level of specsLevels[i]"
+            [ngClass]="[
+              'results-attribute-container',
+              'results-level-' + level.level
+            ]"
+          >
+            <p>
+              {{ level.attribute }}
+            </p>
+          </div>
+        </div>
       </div>
     </mat-tab>
   </mat-tab-group>
