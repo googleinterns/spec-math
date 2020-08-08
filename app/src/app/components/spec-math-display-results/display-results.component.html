@@ -51,13 +51,13 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div id="results-file-render" class="results-tab-file-container">
+        <div class="results-tab-file-container">
           <div
             *ngFor="let level of resultsLevels"
             class="results-attribute-container"
             [ngStyle]="{
-              'margin-left': +level.level + 'rem',
-              'border-left-color': yamlLevelColor(level.level)
+              'margin-left': + level.level + 'rem',
+              'border-left-color': generateLevelColor(level.level)
             }"
           >
             <p>
@@ -87,7 +87,7 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div id="defaults-file-render" class="results-tab-file-container">
+        <div class="results-tab-file-container">
           <div
             *ngFor="let level of defaultsLevels"
             class="results-attribute-container"
@@ -126,10 +126,7 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div
-          [id]="'spec-file-' + i + '-render'"
-          class="results-tab-file-container"
-        >
+        <div class="results-tab-file-container">
           <div
             *ngFor="let level of specsLevels[i]"
             class="results-attribute-container"
