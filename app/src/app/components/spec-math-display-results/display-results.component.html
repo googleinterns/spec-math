@@ -53,19 +53,23 @@ limitations under the License. -->
         </div>
         <div class="results-tab-file-container">
           <div
-            *ngFor="let level of resultsLevels"
-            class="results-attribute-container"
-            [ngStyle]="{
-              'margin-left': +level.level + 'rem'
-            }"
+            *ngFor="let level of resultsLevels; let i = index"
+            class="results-attribute-line"
           >
-            <p
+            <p class="results-attribute-line-number">
+              {{ i + 1 }}
+            </p>
+            <div
+              class="results-attribute-container"
               [ngStyle]="{
+                'margin-left': +level.level + 'rem',
                 'border-left-color': generateLevelColor(level.level)
               }"
             >
-              {{ level.attribute }}
-            </p>
+              <p>
+                {{ level.attribute }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
