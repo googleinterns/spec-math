@@ -135,7 +135,7 @@ export class DisplayResultsComponent implements OnInit {
   }
 
   generateLevelColor(level: number) {
-    return `rgb(0, 0, 0, ${1.0 - level / 10})`;
+    return `rgb(255, 255, 255, ${1.0 - level / 10})`;
   }
 
   get defaultsFileValid(): boolean {
