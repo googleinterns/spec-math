@@ -82,8 +82,9 @@
       background-color: black;
       border-left-width: 2px;
       border-left-style: solid;
+      border-left-color: white;
       padding: 8px;
-      width: max-content;
+      width: 100%;
       background-image: linear-gradient(#424242, #424242);
       background-size: 0% 100%;
       background-repeat: no-repeat;
@@ -105,9 +106,20 @@
       align-items: center;
       width: 100%;
 
+      &-counter {
+        height: 100%;
+        width: 1rem;
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: darkslategrey;
+      }
+
       &-label {
         background-color: darkslategrey;
         padding: 8px;
+        height: calc(100% - 16px);
+        display: flex;
+        align-items: center;
 
         & p {
           width: 36px;
@@ -133,6 +145,10 @@
       margin-left: auto;
       margin-right: 0;
     }
+  }
+
+  .results-tab-file-container {
+    width: 100%;
   }
 }
 

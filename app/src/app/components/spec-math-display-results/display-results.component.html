@@ -62,13 +62,10 @@ limitations under the License. -->
               </p>
             </div>
             <div
-              class="results-attribute-container"
-              [ngStyle]="{
-                'margin-left': +level.level + 'rem',
-                'border-left-color': 'white',
-                width: '100%'
-              }"
-            >
+              *ngFor="let indent of [].constructor(level.level)"
+              class="results-attribute-line-counter"
+            ></div>
+            <div class="results-attribute-container">
               <p>
                 {{ level.attribute }}
               </p>
@@ -108,13 +105,10 @@ limitations under the License. -->
               </p>
             </div>
             <div
-              class="results-attribute-container"
-              [ngStyle]="{
-                'margin-left': +level.level + 'rem',
-                'border-left-color': 'white',
-                width: '100%'
-              }"
-            >
+              *ngFor="let indent of [].constructor(level.level)"
+              class="results-attribute-line-counter"
+            ></div>
+            <div class="results-attribute-container">
               <p>
                 {{ level.attribute }}
               </p>
