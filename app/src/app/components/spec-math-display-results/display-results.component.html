@@ -56,14 +56,16 @@ limitations under the License. -->
             *ngFor="let level of resultsLevels; let i = index"
             class="results-attribute-line"
           >
-            <p class="results-attribute-line-number">
-              {{ i + 1 }}
-            </p>
+            <div>
+              <p class="results-attribute-line-number">
+                {{ i + 1 }}
+              </p>
+            </div>
             <div
               class="results-attribute-container"
               [ngStyle]="{
                 'margin-left': +level.level + 'rem',
-                'border-left-color': generateLevelColor(level.level)
+                'border-left-color': 'white'
               }"
             >
               <p>

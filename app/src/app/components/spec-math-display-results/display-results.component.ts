@@ -134,10 +134,6 @@ export class DisplayResultsComponent implements OnInit {
     return yamlLevelColors[level];
   }
 
-  generateLevelColor(level: number) {
-    return `rgb(255, 255, 255, ${1.0 - level / 10})`;
-  }
-
   get defaultsFileValid(): boolean {
     return !!this.operationSet?.defaultsFile;
   }
