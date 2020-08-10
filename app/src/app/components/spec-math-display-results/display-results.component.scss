@@ -103,13 +103,18 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      width: 100%;
 
-      &-number {
-        width: 36px;
-        color: white;
-        margin: 0;
-        margin-left: 8px;
-        margin-right: 8px;
+      &-label {
+        background-color: darkslategrey;
+        padding: 8px;
+
+        & p {
+          width: 36px;
+          color: white;
+          margin: 0;
+          text-align: end;
+        }
       }
     }
   }

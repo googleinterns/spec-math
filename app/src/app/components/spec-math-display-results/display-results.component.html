@@ -56,8 +56,8 @@ limitations under the License. -->
             *ngFor="let level of resultsLevels; let i = index"
             class="results-attribute-line"
           >
-            <div>
-              <p class="results-attribute-line-number">
+            <div class="results-attribute-line-label">
+              <p>
                 {{ i + 1 }}
               </p>
             </div>
@@ -65,7 +65,8 @@ limitations under the License. -->
               class="results-attribute-container"
               [ngStyle]="{
                 'margin-left': +level.level + 'rem',
-                'border-left-color': 'white'
+                'border-left-color': 'white',
+                width: '100%'
               }"
             >
               <p>
@@ -98,16 +99,26 @@ limitations under the License. -->
         </div>
         <div class="results-tab-file-container">
           <div
-            *ngFor="let level of defaultsLevels"
-            class="results-attribute-container"
-            [ngStyle]="{
-              'margin-left': +level.level + 'rem',
-              'border-left-color': yamlLevelColor(level.level)
-            }"
+            *ngFor="let level of defaultsLevels; let i = index"
+            class="results-attribute-line"
           >
-            <p>
-              {{ level.attribute }}
-            </p>
+            <div class="results-attribute-line-label">
+              <p>
+                {{ i + 1 }}
+              </p>
+            </div>
+            <div
+              class="results-attribute-container"
+              [ngStyle]="{
+                'margin-left': +level.level + 'rem',
+                'border-left-color': 'white',
+                width: '100%'
+              }"
+            >
+              <p>
+                {{ level.attribute }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -137,16 +148,26 @@ limitations under the License. -->
         </div>
         <div class="results-tab-file-container">
           <div
-            *ngFor="let level of specsLevels[i]"
-            class="results-attribute-container"
-            [ngStyle]="{
-              'margin-left': +level.level + 'rem',
-              'border-left-color': yamlLevelColor(level.level)
-            }"
+            *ngFor="let level of specsLevels[i]; let i = index"
+            class="results-attribute-line"
           >
-            <p>
-              {{ level.attribute }}
-            </p>
+            <div class="results-attribute-line-label">
+              <p>
+                {{ i + 1 }}
+              </p>
+            </div>
+            <div
+              class="results-attribute-container"
+              [ngStyle]="{
+                'margin-left': +level.level + 'rem',
+                'border-left-color': 'white',
+                width: '100%'
+              }"
+            >
+              <p>
+                {{ level.attribute }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
