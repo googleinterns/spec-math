@@ -77,9 +77,9 @@ public class SpecTreesUnionizer {
 
     if (conflicts.isEmpty()) {
       return resolvedMap;
-    } else {
-      throw new UnionConflictException(conflicts);
     }
+
+    throw new UnionConflictException(conflicts);
   }
 
   /**
