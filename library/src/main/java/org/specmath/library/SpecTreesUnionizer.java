@@ -107,9 +107,11 @@ public class SpecTreesUnionizer {
   static LinkedHashMap<String, Object> union(
       List<LinkedHashMap<String, Object>> mapsToMerge, UnionizerUnionParams unionizerUnionParams)
       throws UnionConflictException, UnexpectedTypeException {
-    LinkedHashMap<String, Object> mergedSpec = mapsToMerge.get(0);
+
     var allConflicts = new ArrayList<Conflict>();
 
+    // merge all the specs in mapsToMerge together
+    LinkedHashMap<String, Object> mergedSpec = mapsToMerge.get(0);
     for (int i = 1; i < mapsToMerge.size(); i++) {
       mergedSpec =
           union(
