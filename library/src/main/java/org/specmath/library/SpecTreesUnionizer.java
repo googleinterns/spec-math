@@ -26,7 +26,6 @@ import java.util.Stack;
 
 /** Provides functions for performing union operations on spec trees represented as Maps. */
 public class SpecTreesUnionizer {
-
   /**
    * Performs a union on {@code mapToMergeInto} and {@code mapToMerge} and returns the result.
    *
