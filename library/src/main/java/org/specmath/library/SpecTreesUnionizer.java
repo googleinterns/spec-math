@@ -96,7 +96,7 @@ public class SpecTreesUnionizer {
   }
 
   /**
-   * Performs a union on on the list of maps in @{code mapsToMerge} with the given {@code
+   * Performs a union on on the list of maps in {@code mapsToMerge} with the given {@code
    * unionizerUnionParams} and returns the result.
    *
    * @param mapsToMerge the list of maps to merge
