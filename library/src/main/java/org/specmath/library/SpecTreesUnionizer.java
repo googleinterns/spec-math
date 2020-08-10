@@ -26,36 +26,6 @@ import java.util.Stack;
 
 /** Provides functions for performing union operations on spec trees represented as Maps. */
 public class SpecTreesUnionizer {
-  static LinkedHashMap<String, Object> union(
-      List<LinkedHashMap<String, Object>> mapsToMerge, UnionizerUnionParams unionizerUnionParams)
-      throws UnionConflictException, UnexpectedTypeException {
-    var outputSpec = mapsToMerge.get(0);
-    var allConflicts = new ArrayList<Conflict>();
-
-    for (int i = 1; i < mapsToMerge.size(); i++) {
-      outputSpec =
-          union(
-              outputSpec,
-              mapsToMerge.get(i),
-              false,
-              new Stack<String>(),
-              allConflicts,
-              new HashMap<String, Object>());
-    }
-
-    removeConflictsFixedByDefaults(unionizerUnionParams.defaults(), allConflicts);
-
-    LinkedHashMap<String, Object> defaultsMap =
-        new LinkedHashMap<>(unionizerUnionParams.defaults());
-
-    LinkedHashMap<String, Object> resolvedMap = applyOverlay(defaultsMap, outputSpec);
-
-    if (allConflicts.isEmpty()) {
-      return outputSpec;
-    }
-
-    throw new UnionConflictException(allConflicts);
-  }
 
   /**
    * Performs a union on {@code mapToMergeInto} and {@code mapToMerge} and returns the result.
@@ -111,6 +81,59 @@ public class SpecTreesUnionizer {
     } else {
       throw new UnionConflictException(conflicts);
     }
+  }
+
+  /**
+   * Performs a union on the list of maps in {@code mapsToMerge} and returns the result.
+   *
+   * @param mapsToMerge the list of maps to merge
+   * @return the result of a union on the list of maps in {@code mapsToMerge}
+   */
+  static LinkedHashMap<String, Object> union(List<LinkedHashMap<String, Object>> mapsToMerge)
+      throws UnionConflictException, UnexpectedTypeException {
+    UnionizerUnionParams unionizerUnionParams = UnionizerUnionParams.builder().build();
+
+    return union(mapsToMerge, unionizerUnionParams);
+  }
+
+  /**
+   * Performs a union on on the list of maps in @{code mapsToMerge} with the given {@code
+   * unionizerUnionParams} and returns the result.
+   *
+   * @param mapsToMerge the list of maps to merge
+   * @param unionizerUnionParams a set of special options which can be applied during the union
+   * @return the result of a union on the list of maps in {@code mapsToMerge} with options from
+   *     {@code unionizerUnionParams} applied
+   */
+  static LinkedHashMap<String, Object> union(
+      List<LinkedHashMap<String, Object>> mapsToMerge, UnionizerUnionParams unionizerUnionParams)
+      throws UnionConflictException, UnexpectedTypeException {
+    LinkedHashMap<String, Object> mergedSpec = mapsToMerge.get(0);
+    var allConflicts = new ArrayList<Conflict>();
+
+    for (int i = 1; i < mapsToMerge.size(); i++) {
+      mergedSpec =
+          union(
+              mergedSpec,
+              mapsToMerge.get(i),
+              false,
+              new Stack<String>(),
+              allConflicts,
+              unionizerUnionParams.conflictResolutions());
+    }
+
+    removeConflictsFixedByDefaults(unionizerUnionParams.defaults(), allConflicts);
+
+    LinkedHashMap<String, Object> defaultsMap =
+        new LinkedHashMap<>(unionizerUnionParams.defaults());
+
+    LinkedHashMap<String, Object> resolvedMap = applyOverlay(defaultsMap, mergedSpec);
+
+    if (allConflicts.isEmpty()) {
+      return resolvedMap;
+    }
+
+    throw new UnionConflictException(allConflicts);
   }
 
   /**
@@ -337,7 +360,7 @@ public class SpecTreesUnionizer {
                 .findAny()
                 .orElse(null);
 
-        if (conflictWithSameKeypath != null){
+        if (conflictWithSameKeypath != null) {
           if (!conflictWithSameKeypath.getOptions().contains(value1)) {
             conflictWithSameKeypath.addOption(value1);
           }

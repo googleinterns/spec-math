@@ -18,4 +18,3 @@ paths:
         - name: petId
           schema:
             type: string
-
