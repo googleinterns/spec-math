@@ -330,18 +330,24 @@ public class SpecTreesUnionizer {
         // can be resolved by a conflictResolution
         mapToMergeInto.put(key, conflictResolutions.get(keypathString));
       } else {
-        for (Conflict conflict: conflicts){
-          if (conflict.getKeypath().equals(keypathString)){
-             // already have this keypath, so add it to the options
-            if (!conflict.getOptions().contains(value1)){
-              conflict.addOption(value1);
-            }
-            if (!conflict.getOptions().contains(value2)){
-              conflict.addOption(value2);
-            }
-            return;
+        // if it exists, attempt to add the conflicting values to an existing conflict object
+        Conflict conflictWithSameKeypath =
+            conflicts.stream()
+                .filter(conflict -> conflict.getKeypath().equals(keypathString))
+                .findAny()
+                .orElse(null);
+
+        if (conflictWithSameKeypath != null){
+          if (!conflictWithSameKeypath.getOptions().contains(value1)) {
+            conflictWithSameKeypath.addOption(value1);
           }
+          if (!conflictWithSameKeypath.getOptions().contains(value2)) {
+            conflictWithSameKeypath.addOption(value2);
+          }
+          return;
         }
+
+        // there was no already existing conflict object with the keypath. Make a new one
         List<Object> options = new ArrayList<>();
         options.add(value1);
         options.add(value2);
