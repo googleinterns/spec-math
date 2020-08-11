@@ -51,6 +51,7 @@ class SpecMathTest {
     UnionOptions unionOptions =
         UnionOptions.builder().defaults(defaults).conflictResolutions(conflictResolutions).build();
     String actual = SpecMath.union(spec1String, spec2String, unionOptions);
+    
     String expected =
         Files.readString(Path.of("src/test/resources/conflictsMergedWithDefaults.yaml"));
 
@@ -66,16 +67,13 @@ class SpecMathTest {
         assertThrows(UnionConflictException.class, () -> SpecMath.union(spec1String, spec2String));
 
     ArrayList<Conflict> expectedConflicts = new ArrayList<>();
-
     expectedConflicts.add(
-        new Conflict(
-            "[info, title]",
-            Arrays.asList("The Best Petstore Marketing Team API", "The Best Petstore Billing Team API")));
+        new Conflict("[info, title]", "The Best Petstore Marketing Team API", "The Best Petstore Billing Team API"));
     expectedConflicts.add(
         new Conflict(
             "[info, description]",
-            Arrays.asList(
-                "An API for The Best Petstore's marketing team", "An API for The Best Petstore's billing team")));
+            "An API for The Best Petstore's marketing team",
+            "An API for The Best Petstore's billing team"));
 
     assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
   }
