@@ -51,7 +51,6 @@ class SpecMathTest {
     UnionOptions unionOptions =
         UnionOptions.builder().defaults(defaults).conflictResolutions(conflictResolutions).build();
     String actual = SpecMath.union(spec1String, spec2String, unionOptions);
-    
     String expected =
         Files.readString(Path.of("src/test/resources/conflictsMergedWithDefaults.yaml"));
 
