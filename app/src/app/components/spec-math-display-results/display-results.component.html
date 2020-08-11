@@ -51,27 +51,10 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div class="results-tab-file-container">
-          <div
-            *ngFor="let level of resultsLevels; let i = index"
-            class="results-attribute-line"
-          >
-            <div class="results-attribute-line-label">
-              <p>
-                {{ i + 1 }}
-              </p>
-            </div>
-            <div
-              *ngFor="let indent of [].constructor(level.level)"
-              class="results-attribute-line-counter"
-            ></div>
-            <div class="results-attribute-container">
-              <p>
-                {{ level.attribute }}
-              </p>
-            </div>
-          </div>
-        </div>
+        <app-yaml-render
+          class="results-tab-file-container"
+          [yamlLevels]="resultsLevels"
+        ></app-yaml-render>
       </div>
     </mat-tab>
     <mat-tab *ngIf="defaultsFileValid" label="Defaults">
@@ -94,27 +77,10 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div class="results-tab-file-container">
-          <div
-            *ngFor="let level of defaultsLevels; let i = index"
-            class="results-attribute-line"
-          >
-            <div class="results-attribute-line-label">
-              <p>
-                {{ i + 1 }}
-              </p>
-            </div>
-            <div
-              *ngFor="let indent of [].constructor(level.level)"
-              class="results-attribute-line-counter"
-            ></div>
-            <div class="results-attribute-container">
-              <p>
-                {{ level.attribute }}
-              </p>
-            </div>
-          </div>
-        </div>
+        <app-yaml-render
+          class="results-tab-file-container"
+          [yamlLevels]="defaultsLevels"
+        ></app-yaml-render>
       </div>
     </mat-tab>
     <mat-tab
@@ -140,30 +106,10 @@ limitations under the License. -->
             </button>
           </mat-menu>
         </div>
-        <div class="results-tab-file-container">
-          <div
-            *ngFor="let level of specsLevels[i]; let i = index"
-            class="results-attribute-line"
-          >
-            <div class="results-attribute-line-label">
-              <p>
-                {{ i + 1 }}
-              </p>
-            </div>
-            <div
-              class="results-attribute-container"
-              [ngStyle]="{
-                'margin-left': +level.level + 'rem',
-                'border-left-color': 'white',
-                width: '100%'
-              }"
-            >
-              <p>
-                {{ level.attribute }}
-              </p>
-            </div>
-          </div>
-        </div>
+        <app-yaml-render
+          class="results-tab-file-container"
+          [yamlLevels]="specsLevels[i]"
+        ></app-yaml-render>
       </div>
     </mat-tab>
   </mat-tab-group>

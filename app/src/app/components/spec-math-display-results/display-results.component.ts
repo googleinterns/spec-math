@@ -13,27 +13,12 @@
 // limitations under the License.
 
 import { Component, Input, OnInit } from '@angular/core';
-import { OperationSet } from 'src/shared/interfaces';
+import { OperationSet, YamlLevel } from 'src/shared/interfaces';
 import { readFileAsString } from 'src/shared/functions';
 import { Observable } from 'rxjs';
 import * as fileSaver from 'file-saver';
 import * as yaml from 'js-yaml';
 import * as JSZip from 'jszip';
-
-interface YamlLevel {
-  attribute: string;
-  level: number;
-}
-
-const yamlLevelColors = {
-  0: 'grey',
-  1: 'black',
-  2: 'orange',
-  3: 'green',
-  4: 'purple',
-  5: 'red',
-  6: 'cyan'
-};
 
 @Component({
   selector: 'app-display-results',
@@ -128,10 +113,6 @@ export class DisplayResultsComponent implements OnInit {
     this.specFiles.forEach(async (spec, index) => {
       await this.flattenFile(spec, this.specsLevels[index]);
     });
-  }
-
-  yamlLevelColor(level: number): string {
-    return yamlLevelColors[level];
   }
 
   get defaultsFileValid(): boolean {

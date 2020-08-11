@@ -43,6 +43,6 @@ import { DisplayResultsModule } from './components/spec-math-display-results/dis
     DisplayResultsModule
   ],
   providers: [],
-  bootstrap: [AppComponent, NavBarComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

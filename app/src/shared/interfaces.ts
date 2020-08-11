@@ -48,3 +48,8 @@ export interface ResolvedMergeConflictOptions {
   index: number;
   value: string;
 }
+
+export interface YamlLevel {
+  attribute: string;
+  level: number;
+}

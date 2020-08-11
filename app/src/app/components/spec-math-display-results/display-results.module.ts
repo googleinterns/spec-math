@@ -19,9 +19,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { YamlRenderComponent } from './yaml-render/yaml-render.component';
 
 @NgModule({
-  declarations: [DisplayResultsComponent],
+  declarations: [
+    DisplayResultsComponent,
+    YamlRenderComponent
+  ],
   imports: [
     MatTabsModule,
     BrowserModule,

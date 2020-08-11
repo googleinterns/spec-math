@@ -65,68 +65,11 @@
       }
 
       &-container {
-        background-color: black;
         width: 60%;
         height: 100%;
         margin-top: 1rem;
         overflow: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  }
-
-  &-attribute {
-    &-container {
-      background-color: black;
-      border-left-width: 2px;
-      border-left-style: solid;
-      border-left-color: white;
-      padding: 8px;
-      width: 100%;
-      background-image: linear-gradient(#424242, #424242);
-      background-size: 0% 100%;
-      background-repeat: no-repeat;
-      transition: background-size 0.2s ease;
-
-      & p {
-        color: white;
-        margin: 0;
-      }
-
-      &:hover {
-        background-size: 100% 100%;
-      }
-    }
-
-    &-line {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      width: 100%;
-
-      &-counter {
-        height: 100%;
-        width: 1rem;
-        border-right-width: 1px;
-        border-right-style: solid;
-        border-right-color: darkslategrey;
-      }
-
-      &-label {
-        background-color: darkslategrey;
-        padding: 8px;
-        height: calc(100% - 16px);
-        display: flex;
-        align-items: center;
-
-        & p {
-          width: 36px;
-          color: white;
-          margin: 0;
-          text-align: end;
-        }
+        background-color: black;
       }
     }
   }
