@@ -15,7 +15,9 @@
 .results {
   &-container {
     height: 100%;
-    width: 100%;
+    width: calc(100% - 64px);
+    padding-right: 32px;
+    padding-left: 32px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -27,6 +29,24 @@
       flex-direction: row;
       align-items: flex-end;
       justify-content: space-between;
+      padding: 32px;
+    }
+
+    &-divider {
+      width: 100%;
+      margin-top: 8px;
+      margin-bottom: 32px;
+    }
+
+    &-text {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      & h2 {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -43,9 +63,9 @@
     &-container {
       display: flex;
       flex-direction: column;
-      height: calc(100% - 3rem);
-      width: 100%;
-      padding-top: 1rem;
+      height: calc(100% - 64px);
+      width: calc(100% - 64px);
+      padding: 32px;
       overflow: hidden;
     }
 
@@ -65,7 +85,7 @@
       }
 
       &-container {
-        width: 60%;
+        width: 100%;
         height: 100%;
         margin-top: 1rem;
         overflow: auto;
@@ -76,6 +96,10 @@
 
   &-label {
     margin-top: 1rem;
+    
+    & h4 {
+      margin: none;
+    }
   }
 }
 
@@ -88,6 +112,10 @@
       margin-left: auto;
       margin-right: 0;
     }
+  }
+
+  .results-header-text {
+    width: 100%;
   }
 
   .results-tab-file-container {

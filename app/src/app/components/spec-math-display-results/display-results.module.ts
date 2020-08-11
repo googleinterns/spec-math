@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { YamlRenderComponent } from './yaml-render/yaml-render.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { YamlRenderComponent } from './yaml-render/yaml-render.component';
     BrowserModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
   ],
   exports: [DisplayResultsComponent]
 })
