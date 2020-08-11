@@ -96,6 +96,41 @@ public class SpecMath {
     return SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(unionResultMap);
   }
 
+  public static String union(List<String> specsToMerge)
+      throws UnionConflictException, UnexpectedTypeException, IOException {
+    UnionOptions params = UnionOptions.builder().build();
+
+    return union(specsToMerge, params);
+  }
+
+  public static String union(List<String> specsToMerge, UnionOptions unionOptions)
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    LinkedHashMap<String, Object> defaults =
+        YamlStringToSpecTreeConverter.convertYamlStringToSpecTree(unionOptions.defaults());
+
+    var specTreesToMerge = new ArrayList<LinkedHashMap<String, Object>>();
+
+    for (String spec: specsToMerge){
+      specTreesToMerge.add(YamlStringToSpecTreeConverter.convertYamlStringToSpecTree(spec));
+    }
+
+    var conflictStringToConflictMapConverter = new ConflictStringToConflictMapConverter();
+    HashMap<String, Object> conflictResolutionsMap =
+        conflictStringToConflictMapConverter.convertConflictResolutionsStringToConflictMap(
+            unionOptions.conflictResolutions());
+
+    UnionizerUnionParams unionizerUnionParams =
+        UnionizerUnionParams.builder()
+            .defaults(defaults)
+            .conflictResolutions(conflictResolutionsMap)
+            .build();
+
+    LinkedHashMap<String, Object> unionResultMap =
+        SpecTreesUnionizer.union(specTreesToMerge, unionizerUnionParams);
+
+    return SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(unionResultMap);
+  }
+
   /**
    * Performs the filter operation on a spec represented as a string using the {@code
    * filterCriteriaList}
