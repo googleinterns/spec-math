@@ -7,7 +7,7 @@ import { SpecMathService } from 'src/shared/services/specmath.service';
 
 @Injectable()
 export class StubSpecMathService extends SpecMathService {
-  called = true;
+  called = false;
 
   mergeSpecs(): Observable<SpecMathMergeResponse> {
     let mockResponse: SpecMathMergeResponse;
@@ -18,29 +18,9 @@ export class StubSpecMathService extends SpecMathService {
         status: 'conflicts',
         conflicts: [
           {
-            keypath: '/dogs',
-            option1: 'Option A',
-            option2: 'Option B',
-          },
-          {
-            keypath: '/cats',
-            option1: 'Option A',
-            option2: 'Option B',
-          },
-          {
-            keypath: '/pets/categories',
-            option1: 'Option A',
-            option2: 'Option B',
-          },
-          {
-            keypath: '/dogs',
-            option1: 'Option A',
-            option2: 'Option B',
-          },
-          {
-            keypath: '/cats',
-            option1: 'Option A',
-            option2: 'Option B',
+            keypath: '[paths, /pets, get, summary]',
+            option1: 'get the specified pets',
+            option2: 'get the specified pets',
           },
         ],
       };
@@ -48,74 +28,37 @@ export class StubSpecMathService extends SpecMathService {
       mockResponse = {
         status: 'success',
         result: `
-        openapi: "3.0.0"
+        openapi: 3.0.0
         info:
-          version: 1.0.0
-          title: Swagger Petstore
+          title: Default Swagger Petstore
           license:
             name: MIT
+          version: 1.0.2
         servers:
           - url: http://petstore.swagger.io/v1
         paths:
           /pets:
             get:
-              summary: List all pets
-              operationId: listPets
+              summary: get the pets
               tags:
                 - pets
-              parameters:
-                - name: limit
-                  in: query
-                  description: How many items to return at one time (max 100)
-                  required: false
-                  schema:
-                    type: integer
-                    format: int32
-              responses:
-                '200':
-                  description: A paged array of pets
-                  headers:
-                    x-next:
-                      description: A link to the next page of responses
-                      schema:
-                        type: string
-                  content:
-                    application/json:
-                      schema:
-                        $ref: "#/components/schemas/Pets"
-                default:
-                  description: unexpected error
-                  content:
-                    application/json:
-                      schema:
-                        $ref: "#/components/schemas/Error"
-            post:
-              summary: Create a pet
-              operationId: createPets
-              tags:
-                - pets
+                - dogs
               responses:
                 '201':
                   description: Null response
-                default:
-                  description: unexpected error
-                  content:
-                    application/json:
-                      schema:
-                        $ref: "#/components/schemas/Error"
+                '202':
+                  description: Hello world
+              operationId: listPets
+            post:
+              summary: Create a pet
           /pets/{petId}:
             get:
-              summary: Info for a specific pet
-              operationId: showPetById
-              tags:
-                - pets
+              summary: hello
               parameters:
-                - name: petId
+                - name: petId1
                   in: path
-                  required: true
-                  description: The id of the pet to retrieve
-                  schema:
-                    type: string
+                - name: petId2
+                  in: path2
               responses:
                 '200':
                   description: Expected response to a valid request
@@ -123,12 +66,12 @@ export class StubSpecMathService extends SpecMathService {
                     application/json:
                       schema:
                         $ref: "#/components/schemas/Pet"
-                default:
-                  description: unexpected error
-                  content:
-                    application/json:
-                      schema:
-                        $ref: "#/components/schemas/Error"
+          /newPath:
+            get:
+              parameters:
+                - name: petId
+                  schema:
+                    type: string
         components:
           schemas:
             Pet:
@@ -143,21 +86,6 @@ export class StubSpecMathService extends SpecMathService {
                 name:
                   type: string
                 tag:
-                  type: string
-            Pets:
-              type: array
-              items:
-                $ref: "#/components/schemas/Pet"
-            Error:
-              type: object
-              required:
-                - code
-                - message
-              properties:
-                code:
-                  type: integer
-                  format: int32
-                message:
                   type: string`,
       };
     }

@@ -27,12 +27,9 @@ import * as JSZip from 'jszip';
 })
 export class DisplayResultsComponent implements OnInit {
   @Input() operationSet: OperationSet;
-  resultsRendered = false;
-  defaultsRendered = false;
-  specsRendered: boolean[];
   resultsLevels: YamlLevel[] = [];
   defaultsLevels: YamlLevel[] = [];
-  specsLevels: YamlLevel[][];
+  specsLevels: YamlLevel[][] = [];
 
   async downloadFile(type: string, index?: number) {
     switch (type) {
@@ -115,6 +112,12 @@ export class DisplayResultsComponent implements OnInit {
     });
   }
 
+  initializeSpecLevels() {
+    this.specFiles.forEach(() => {
+      this.specsLevels.push([]);
+    });
+  }
+
   get mergeDescription(): string {
     const defaults = this.defaultsFileValid ? `using ${this.defaultsFileName} and ` : '';
     const specs = this.specFiles.reduce((acc, spec, index) => {
@@ -145,8 +148,7 @@ export class DisplayResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.specsRendered = new Array(this.specFiles.length).fill(false);
-    this.specsLevels = new Array(this.specFiles.length).fill([]);
+    this.initializeSpecLevels();
     this.generateYamlLevels();
   }
 }
