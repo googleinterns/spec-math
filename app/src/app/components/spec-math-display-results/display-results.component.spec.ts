@@ -12,4 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { DisplayResultsComponent } from './display-results.component';
 
+import { MatTabsModule } from '@angular/material/tabs';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+
+describe('DisplayResultsComponent', () => {
+  let fixture: ComponentFixture<DisplayResultsComponent>;
+  let component: DisplayResultsComponent;
+
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      declarations: [
+        DisplayResultsComponent,
+      ],
+      imports: [
+        MatTabsModule,
+        BrowserModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDividerModule
+      ],
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(DisplayResultsComponent);
+      component = fixture.componentInstance;
+    });
+  });
+
+  it('creates the DisplayResultsComponent', () => {
+    expect(component).toBeTruthy();
+  });
+});
