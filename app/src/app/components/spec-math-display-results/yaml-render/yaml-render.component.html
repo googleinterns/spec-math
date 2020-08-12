@@ -13,10 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License. -->
 
 <div *ngIf="yamlLevels" class="render-container">
-  <div
-    *ngFor="let level of yamlLevels; let i = index"
-    class="render-line"
-  >
+  <div *ngFor="let level of yamlLevels; let i = index" class="render-line">
     <div class="render-line-label">
       <p>
         {{ i + 1 }}
@@ -29,6 +26,13 @@ limitations under the License. -->
     <div class="render-attribute">
       <p>
         {{ level.attribute }}
+      </p>
+    </div>
+  </div>
+  <div class="render-line">
+    <div class="render-line-label">
+      <p>
+        {{ yamlLevels.length + 1 }}
       </p>
     </div>
   </div>
