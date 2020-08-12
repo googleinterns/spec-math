@@ -26,7 +26,12 @@ limitations under the License. -->
         {{ mergeDescription }}
       </p>
     </div>
-    <button (click)="downloadOperationSet()" mat-button class="primary">
+    <button
+      id="results-zip-download"
+      (click)="downloadOperationSet()"
+      mat-button
+      class="primary"
+    >
       <mat-icon>arrow_circle_down</mat-icon>
       DOWNLOAD
     </button>
@@ -44,6 +49,7 @@ limitations under the License. -->
           </h2>
           <button
             class="results-tab-menu-button"
+            id="results-options-menu"
             [mat-menu-trigger-for]="resultsMenu"
             mat-icon-button
             aria-label="More button for result file"
@@ -52,7 +58,11 @@ limitations under the License. -->
           </button>
           <mat-menu xPosition="before" overlapTrigger #resultsMenu="matMenu">
             <button mat-menu-item>Code diff</button>
-            <button (click)="downloadFile('result')" mat-menu-item>
+            <button
+              id="results-options-download"
+              (click)="downloadFile('result')"
+              mat-menu-item
+            >
               Download
             </button>
           </mat-menu>
@@ -70,6 +80,7 @@ limitations under the License. -->
             {{ defaultsFileName }}
           </h2>
           <button
+            id="defaults-options-menu"
             class="results-tab-menu-button"
             [mat-menu-trigger-for]="defaultsMenu"
             mat-icon-button
@@ -78,7 +89,11 @@ limitations under the License. -->
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu xPosition="before" overlapTrigger #defaultsMenu="matMenu">
-            <button (click)="downloadFile('defaults')" mat-menu-item>
+            <button
+              id="defaults-options-download"
+              (click)="downloadFile('defaults')"
+              mat-menu-item
+            >
               Download
             </button>
           </mat-menu>
@@ -103,11 +118,16 @@ limitations under the License. -->
             [mat-menu-trigger-for]="specMenu"
             mat-icon-button
             aria-label="More button for spec files"
+            [id]="'spec-' + i + 'options-menu'"
           >
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu xPosition="before" overlapTrigger #specMenu="matMenu">
-            <button (click)="downloadFile('spec', i)" mat-menu-item>
+            <button
+              [id]="'spec-' + i + 'options-download'"
+              (click)="downloadFile('spec', i)"
+              mat-menu-item
+            >
               Download
             </button>
           </mat-menu>

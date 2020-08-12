@@ -21,6 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { queryElement } from 'src/shared/functions';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DisplayResultsComponent', () => {
   let fixture: ComponentFixture<DisplayResultsComponent>;
@@ -37,7 +39,8 @@ describe('DisplayResultsComponent', () => {
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
-        MatDividerModule
+        MatDividerModule,
+        BrowserAnimationsModule
       ],
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(DisplayResultsComponent);
@@ -47,5 +50,51 @@ describe('DisplayResultsComponent', () => {
 
   it('creates the DisplayResultsComponent', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('downloads the OperationSet zip file when the DOWNLOAD button is clicked', () => {
+    component.operationSet = {
+      specFiles: [
+        new File(['openapi: 3.0.0'], 'spec1.yaml'),
+        new File(['openapi: 3.0.0'], 'spec2.yaml')
+      ],
+      resultSpec: {
+        file: new File(['openapi: 3.0.0'], 'results.yaml'),
+        name: 'test_spec'
+      },
+      valid: true
+    };
+
+    fixture.detectChanges();
+    const spy = spyOn(component, 'downloadOperationSet');
+    const downloadButton = queryElement(fixture, '#results-zip-download').nativeElement;
+
+    downloadButton.click();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('downloads each separate file when each file type download button is clicked', () => {
+    component.operationSet = {
+      specFiles: [
+        new File(['openapi: 3.0.0'], 'spec1.yaml'),
+        new File(['openapi: 3.0.0'], 'spec2.yaml')
+      ],
+      resultSpec: {
+        file: new File(['openapi: 3.0.0'], 'results.yaml'),
+        name: 'test_spec'
+      },
+      valid: true
+    };
+
+    fixture.detectChanges();
+    const spy = spyOn(component, 'downloadFile');
+
+    const resultsMenu = queryElement(fixture, '#results-options-menu').nativeElement;
+    resultsMenu.click();
+
+    fixture.detectChanges();
+    const resultsDownload = queryElement(fixture, '#results-options-download').nativeElement;
+    resultsDownload.click();
+    expect(spy).toHaveBeenCalledWith('result');
   });
 });
