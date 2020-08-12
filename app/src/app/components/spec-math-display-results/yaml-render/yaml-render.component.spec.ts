@@ -14,6 +14,7 @@
 
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { YamlRenderComponent } from './yaml-render.component';
+import { queryElement } from 'src/shared/functions';
 
 describe('YamlRenderComponent', () => {
   let fixture: ComponentFixture<YamlRenderComponent>;
@@ -32,5 +33,18 @@ describe('YamlRenderComponent', () => {
 
   it('creates the YamlRenderComponent', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renders a YAML file when given a YamlLevel array', () => {
+    component.yamlLevels = [
+      {
+        attribute: 'openapi: 3.0.0',
+        level: 0
+      }
+    ];
+
+    fixture.detectChanges();
+    const renderDiv = queryElement(fixture, '.render-container').nativeElement;
+    expect(renderDiv).toBeTruthy();
   });
 });
