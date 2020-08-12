@@ -35,7 +35,21 @@ describe('YamlRenderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('renders a YAML file when given a YamlLevel array', () => {
+  it('calls flattenFile on init when given a YAML file', () => {
+    const spy = spyOn(component, 'flattenFile');
+
+    component.yamlLevels = [
+      {
+        attribute: 'openapi: 3.0.0',
+        level: 0
+      }
+    ];
+
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('renders a YAML file', () => {
     component.yamlLevels = [
       {
         attribute: 'openapi: 3.0.0',
