@@ -12,14 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { YamlLevel } from 'src/shared/interfaces';
+import { flattenYamlFile } from 'src/shared/functions';
 
 @Component({
   selector: 'app-yaml-render',
   templateUrl: './yaml-render.component.html',
   styleUrls: ['./yaml-render.component.scss']
 })
-export class YamlRenderComponent {
-  @Input() yamlLevels: YamlLevel[];
+export class YamlRenderComponent implements OnInit {
+  @Input() yamlFile: File;
+  yamlLevels: YamlLevel[] = [];
+
+  flattenFile() {
+    flattenYamlFile(this.yamlFile).then((yamlArray) => {
+      this.yamlLevels = yamlArray;
+    });
+  }
+
+  ngOnInit() {
+    this.flattenFile();
+  }
 }

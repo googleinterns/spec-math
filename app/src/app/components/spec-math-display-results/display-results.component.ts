@@ -17,7 +17,6 @@ import { OperationSet, YamlLevel } from 'src/shared/interfaces';
 import { readFileAsString } from 'src/shared/functions';
 import { Observable } from 'rxjs';
 import * as fileSaver from 'file-saver';
-import * as yaml from 'js-yaml';
 import * as JSZip from 'jszip';
 
 @Component({
@@ -25,11 +24,8 @@ import * as JSZip from 'jszip';
   templateUrl: './display-results.component.html',
   styleUrls: ['./display-results.component.scss']
 })
-export class DisplayResultsComponent implements OnInit {
+export class DisplayResultsComponent {
   @Input() operationSet: OperationSet;
-  resultsLevels: YamlLevel[] = [];
-  defaultsLevels: YamlLevel[] = [];
-  specsLevels: YamlLevel[][] = [];
 
   async downloadFile(type: string, index?: number) {
     switch (type) {
@@ -77,47 +73,6 @@ export class DisplayResultsComponent implements OnInit {
     return `Spec ${index + 1}`;
   }
 
-  async flattenFile(yamlFile: File, levelsArray: YamlLevel[]) {
-    await readFileAsString(yamlFile).then((res) => {
-      this.flattenYaml(levelsArray, 0, yaml.load(res));
-    });
-  }
-
-  flattenYaml(levelArray: YamlLevel[], level: number, objectNode: object) {
-    Object.keys(objectNode).forEach((key) => {
-      if (typeof (objectNode[key]) === 'object') {
-        levelArray.push({
-          attribute: `${key}:`,
-          level,
-        });
-        this.flattenYaml(levelArray, level + 1, objectNode[key]);
-      } else {
-        levelArray.push({
-          attribute: `${key}: ${objectNode[key]}`,
-          level,
-        });
-      }
-    });
-  }
-
-  async generateYamlLevels() {
-    await this.flattenFile(this.operationSet.resultSpec.file, this.resultsLevels);
-
-    if (this.defaultsFileValid) {
-      await this.flattenFile(this.operationSet.defaultsFile, this.defaultsLevels);
-    }
-
-    this.specFiles.forEach(async (spec, index) => {
-      await this.flattenFile(spec, this.specsLevels[index]);
-    });
-  }
-
-  initializeSpecLevels() {
-    this.specFiles.forEach(() => {
-      this.specsLevels.push([]);
-    });
-  }
-
   get mergeDescription(): string {
     const defaults = this.defaultsFileValid ? `using ${this.defaultsFileName} and ` : '';
     const specs = this.specFiles.reduce((acc, spec, index) => {
@@ -145,10 +100,5 @@ export class DisplayResultsComponent implements OnInit {
 
   get specFiles(): File[] {
     return this.operationSet.specFiles;
-  }
-
-  ngOnInit() {
-    this.initializeSpecLevels();
-    this.generateYamlLevels();
   }
 }

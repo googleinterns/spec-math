@@ -59,7 +59,7 @@ limitations under the License. -->
         </div>
         <app-yaml-render
           class="results-tab-file-container"
-          [yamlLevels]="resultsLevels"
+          [yamlFile]="operationSet.resultSpec.file"
         ></app-yaml-render>
       </div>
     </mat-tab>
@@ -85,7 +85,7 @@ limitations under the License. -->
         </div>
         <app-yaml-render
           class="results-tab-file-container"
-          [yamlLevels]="defaultsLevels"
+          [yamlFile]="operationSet.defaultsFile"
         ></app-yaml-render>
       </div>
     </mat-tab>
@@ -114,7 +114,7 @@ limitations under the License. -->
         </div>
         <app-yaml-render
           class="results-tab-file-container"
-          [yamlLevels]="specsLevels[i]"
+          [yamlFile]="specFiles[i]"
         ></app-yaml-render>
       </div>
     </mat-tab>
