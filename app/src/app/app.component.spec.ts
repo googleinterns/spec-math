@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { ModalModule } from './components/specmath-modal/modal.module';
 import { NavBarComponent } from './components/specmath-navbar/navbar.component';
+import { queryElement } from 'src/shared/functions';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -56,9 +57,11 @@ describe('AppComponent', () => {
   });
 
   it('opens the operations menu when the New button is clicked', () => {
-    const button = fixture.debugElement.query(By.css('#operation-menu-button-desktop')).nativeElement;
+    const button = queryElement(fixture, '#operation-menu-button-desktop').nativeElement;
     button.click();
+
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('#operation-menu'))).toBeTruthy();
+    const menu = queryElement(fixture, '#operation-menu');
+    expect(menu).toBeTruthy();
   });
 });

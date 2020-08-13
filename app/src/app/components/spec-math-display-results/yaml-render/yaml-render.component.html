@@ -1,0 +1,39 @@
+<!-- Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+
+<div *ngIf="yamlLevels" class="render-container">
+  <div *ngFor="let level of yamlLevels; let i = index" class="render-line">
+    <div class="render-line-label">
+      <p>
+        {{ i + 1 }}
+      </p>
+    </div>
+    <div
+      *ngFor="let indent of [].constructor(level.level)"
+      class="render-line-counter"
+    ></div>
+    <div class="render-attribute">
+      <p>
+        {{ level.attribute }}
+      </p>
+    </div>
+  </div>
+  <div class="render-line">
+    <div class="render-line-label">
+      <p>
+        {{ yamlLevels.length + 1 }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,7 @@ import {
   DefaultsFileUploadOptions,
   SpecFilesUploadOptions,
   MergeConflict,
+  OperationSet,
   ResolvedMergeConflictOptions,
   SpecMathMergeRequest,
 } from 'src/shared/interfaces';
@@ -143,8 +144,13 @@ export class ModalComponent {
   }
 
   finalizeSteps() {
-    // ?This closing call will carry all the files to the parent component
-    this.dialogRef.close();
+    const finalOperationSet: OperationSet = {
+      specFiles: this.specFilesUploadOptions.specFiles,
+      defaultsFile: this.defaultsFileUploadOptions?.defaultsFile,
+      resultSpec: this.resultSpec,
+      valid: true,
+    };
+    this.dialogRef.close(finalOperationSet);
   }
 
   async mergeOperation() {
@@ -156,7 +162,7 @@ export class ModalComponent {
         this.mergeConflicts = callResponse.conflicts;
         break;
       case 'success':
-        this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+        this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
         break;
     }
   }
@@ -164,7 +170,7 @@ export class ModalComponent {
   async sendResolvedConflicts() {
     const mergeSet = await this.generateMergeSet();
     const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
-    this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+    this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
   }
 
   async generateMergeSet(): Promise<SpecMathMergeRequest> {

@@ -15,6 +15,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './components/specmath-modal/modal.component';
+import { OperationSet } from 'src/shared/interfaces';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +23,17 @@ import { ModalComponent } from './components/specmath-modal/modal.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(readonly dialog: MatDialog) {
+  operationSet: OperationSet = {
+    specFiles: [],
+    resultSpec: null,
+    valid: false
+  };
 
-  }
+  constructor(readonly dialog: MatDialog) { }
 
   openDialog(): void {
-    this.dialog.open(ModalComponent);
+    this.dialog.open(ModalComponent).afterClosed().subscribe((results: OperationSet) => {
+      this.operationSet = results;
+    });
   }
 }

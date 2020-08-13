@@ -36,8 +36,7 @@
                 "node_modules/",
                 "src/sass"
               ]
-            },
-            "scripts": []
+            }
           },
           "configurations": {
             "production": {

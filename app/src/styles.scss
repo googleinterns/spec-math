@@ -50,6 +50,10 @@ a {
   height: calc(100% - 52px - 36px);
 }
 
+.mat-tab-body-wrapper { 
+  height: 100%;
+}
+
 @media (max-width: 768px) {
   .mat-chip-list-wrapper {
     width: calc(100% + 4px);

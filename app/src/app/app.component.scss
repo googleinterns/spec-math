@@ -31,12 +31,16 @@
   &.left-panel {
     flex-direction: column;
     align-items: flex-start;
+    width: 256px;
+    position: absolute;
   }
   
   &.right-panel {
-    width: 100%;
+    width: calc(100% - 256px);
+    height: calc(100% - 2rem);
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -66,6 +70,15 @@
   }
 }
 
+.operation-results-container {
+  height: 100%;
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .mdc-fab__label {
   text-transform: none;
   margin-left: 12px;
@@ -78,6 +91,16 @@
 
   #operation-menu-button-mobile {
     display: block;
+  }
+
+  .main {
+    &.left-panel {
+      width: 0;
+    }
+    
+    &.right-panel {
+      width: 100%;
+    }
   }
 }
 

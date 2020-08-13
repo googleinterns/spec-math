@@ -32,7 +32,19 @@ export interface SpecFilesUploadOptions {
   valid: boolean;
 }
 
+export interface OperationSet {
+  specFiles: File [];
+  defaultsFile?: File;
+  resultSpec: File;
+  valid: boolean;
+}
+
 export interface ResolvedMergeConflictOptions {
   index: number;
   value: string;
+}
+
+export interface YamlLevel {
+  attribute: string;
+  level: number;
 }
