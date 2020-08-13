@@ -25,13 +25,13 @@ export class YamlRenderComponent implements OnInit {
   @Input() yamlFile: File;
   yamlLevels: YamlLevel[] = [];
 
-  flattenFile() {
-    flattenYamlFile(this.yamlFile).then((yamlArray) => {
+  flattenFile(yamlFile: File) {
+    flattenYamlFile(yamlFile).then((yamlArray) => {
       this.yamlLevels = yamlArray;
     });
   }
 
   ngOnInit() {
-    this.flattenFile();
+    this.flattenFile(this.yamlFile);
   }
 }

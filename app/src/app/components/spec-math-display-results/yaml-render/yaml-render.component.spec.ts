@@ -37,25 +37,16 @@ describe('YamlRenderComponent', () => {
 
   it('calls flattenFile on init when given a YAML file', () => {
     const spy = spyOn(component, 'flattenFile');
+    const newFile = new File(['openapi: 3.0.0'], 'file.yaml');
 
-    component.yamlLevels = [
-      {
-        attribute: 'openapi: 3.0.0',
-        level: 0
-      }
-    ];
+    component.yamlFile = newFile;
 
     fixture.detectChanges();
-    expect(spy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledWith(newFile);
   });
 
   it('renders a YAML file', () => {
-    component.yamlLevels = [
-      {
-        attribute: 'openapi: 3.0.0',
-        level: 0
-      }
-    ];
+    component.yamlFile = new File(['openapi: 3.0.0'], 'file.yaml');
 
     fixture.detectChanges();
     const renderDiv = queryElement(fixture, '.render-container').nativeElement;
