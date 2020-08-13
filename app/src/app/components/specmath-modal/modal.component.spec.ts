@@ -147,6 +147,26 @@ describe('ModalComponent', () => {
     await modal.mergeOperation();
     expect(modal.hasMergeConflicts).toEqual(true);
   });
+
+  it('calls the dialog close method when the final step is reached', () => {
+    const spy = spyOn(modal.dialogRef, 'close');
+
+    modal.specFilesUploadOptions = {
+      specFiles: [
+        new File(['content'], 'spec1.yaml'),
+        new File(['content'], 'spec2.yaml')
+      ],
+      valid: true
+    };
+    modal.specNameInputOptions = {
+      newFileName: 'test',
+      valid: true,
+    };
+
+    fixture.detectChanges();
+    modal.finalizeSteps();
+    expect(spy).toHaveBeenCalled();
+  });
 });
 
 /**

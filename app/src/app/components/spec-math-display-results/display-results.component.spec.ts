@@ -58,10 +58,7 @@ describe('DisplayResultsComponent', () => {
         new File(['openapi: 3.0.0'], 'spec1.yaml'),
         new File(['openapi: 3.0.0'], 'spec2.yaml')
       ],
-      resultSpec: {
-        file: new File(['openapi: 3.0.0'], 'results.yaml'),
-        name: 'test_spec'
-      },
+      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
       valid: true
     };
 
@@ -79,10 +76,7 @@ describe('DisplayResultsComponent', () => {
         new File(['openapi: 3.0.0'], 'spec1.yaml'),
         new File(['openapi: 3.0.0'], 'spec2.yaml')
       ],
-      resultSpec: {
-        file: new File(['openapi: 3.0.0'], 'results.yaml'),
-        name: 'test_spec'
-      },
+      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
       valid: true
     };
 
@@ -95,6 +89,6 @@ describe('DisplayResultsComponent', () => {
     fixture.detectChanges();
     const resultsDownload = queryElement(fixture, '#results-options-download').nativeElement;
     resultsDownload.click();
-    expect(spy).toHaveBeenCalledWith('result');
+    expect(spy).toHaveBeenCalledWith(component.operationSet.resultSpec);
   });
 });
