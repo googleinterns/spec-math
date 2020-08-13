@@ -147,10 +147,7 @@ export class ModalComponent {
     const finalOperationSet: OperationSet = {
       specFiles: this.specFilesUploadOptions.specFiles,
       defaultsFile: this.defaultsFileUploadOptions?.defaultsFile,
-      resultSpec: {
-        name: this.specNameInputOptions.newFileName,
-        file: this.resultSpec
-      },
+      resultSpec: this.resultSpec,
       valid: true,
     };
     this.dialogRef.close(finalOperationSet);
@@ -173,7 +170,7 @@ export class ModalComponent {
   async sendResolvedConflicts() {
     const mergeSet = await this.generateMergeSet();
     const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
-    this.resultSpec = new File([callResponse.result], this.specNameInputOptions.newFileName);
+    this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
   }
 
   async generateMergeSet(): Promise<SpecMathMergeRequest> {

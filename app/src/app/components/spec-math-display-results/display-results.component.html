@@ -60,7 +60,7 @@ limitations under the License. -->
             <button mat-menu-item>Code diff</button>
             <button
               id="results-options-download"
-              (click)="downloadFile('result')"
+              (click)="downloadFile(operationSet.resultSpec)"
               mat-menu-item
             >
               Download
@@ -69,7 +69,7 @@ limitations under the License. -->
         </div>
         <app-yaml-render
           class="results-tab-file-container"
-          [yamlFile]="operationSet.resultSpec.file"
+          [yamlFile]="operationSet.resultSpec"
         ></app-yaml-render>
       </div>
     </mat-tab>
@@ -91,7 +91,7 @@ limitations under the License. -->
           <mat-menu xPosition="before" overlapTrigger #defaultsMenu="matMenu">
             <button
               id="defaults-options-download"
-              (click)="downloadFile('defaults')"
+              (click)="downloadFile(operationSet.defaultsFile)"
               mat-menu-item
             >
               Download
@@ -125,7 +125,7 @@ limitations under the License. -->
           <mat-menu xPosition="before" overlapTrigger #specMenu="matMenu">
             <button
               [id]="'spec-' + i + 'options-download'"
-              (click)="downloadFile('spec', i)"
+              (click)="downloadFile(spec)"
               mat-menu-item
             >
               Download

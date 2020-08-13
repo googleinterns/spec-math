@@ -27,18 +27,8 @@ import * as JSZip from 'jszip';
 export class DisplayResultsComponent {
   @Input() operationSet: OperationSet;
 
-  async downloadFile(type: string, index?: number) {
-    switch (type) {
-      case 'result':
-        fileSaver.saveAs(this.operationSet.resultSpec.file, `${this.resultsSpecFileDisplayName}.yaml`);
-        break;
-      case 'defaults':
-        fileSaver.saveAs(this.operationSet.defaultsFile);
-        break;
-      case 'spec':
-        fileSaver.saveAs(this.specFiles[index]);
-        break;
-    }
+  async downloadFile(yamlFile: File) {
+    fileSaver.saveAs(yamlFile);
   }
 
   downloadOperationSet() {
@@ -49,10 +39,10 @@ export class DisplayResultsComponent {
     });
   }
 
-  generateOperationSetZip(): Observable<JSZip> {
+  private generateOperationSetZip(): Observable<JSZip> {
     return new Observable((observer) => {
       const operationSetZip = new JSZip();
-      const resultFileContent = readFileAsString(this.operationSet.resultSpec.file);
+      const resultFileContent = readFileAsString(this.operationSet.resultSpec);
       operationSetZip.file(this.resultSpecFileName, resultFileContent);
 
       if (this.defaultsFileValid) {
@@ -86,11 +76,11 @@ export class DisplayResultsComponent {
   }
 
   get resultSpecFileName(): string {
-    return this.operationSet.resultSpec.file.name;
+    return this.operationSet.resultSpec.name;
   }
 
   get resultsSpecFileDisplayName(): string {
-    return this.operationSet.resultSpec.name;
+    return this.operationSet.resultSpec.name.slice(0, this.resultSpecFileName.indexOf('.yaml'));
   }
 
   get defaultsFileName(): string {
