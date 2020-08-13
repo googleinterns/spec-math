@@ -17,7 +17,7 @@ export const readFileAsString = (file: File): Promise<string> => {
   });
 };
 
-export const flattenYamlToArray = (levelArray: YamlLevel[], level: number, objectNode: object) => {
+const flattenYamlToArray = (levelArray: YamlLevel[], level: number, objectNode: object) => {
   const isArray = Array.isArray(objectNode);
 
   Object.keys(objectNode).forEach((key) => {

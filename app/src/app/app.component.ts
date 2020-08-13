@@ -28,19 +28,8 @@ export class AppComponent {
     resultSpec: null,
     valid: false
   };
-  // operationSet: OperationSet = {
-  //   specFiles: [new File(['content'], 'spec1.yaml'), new File(['content'], 'spec1.yaml')],
-  //   defaultsFile: new File(['content'], 'deafults.yaml'),
-  //   valid: true,
-  //   resultSpec: {
-  //     name: 'new_spec',
-  //     file: new File(['content'], 'results.yaml'),
-  //   }
-  // };
 
-  constructor(readonly dialog: MatDialog) {
-
-  }
+  constructor(readonly dialog: MatDialog) { }
 
   openDialog(): void {
     this.dialog.open(ModalComponent).afterClosed().subscribe((results: OperationSet) => {
