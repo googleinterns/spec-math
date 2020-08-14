@@ -24,6 +24,11 @@
     "@material/animation": "^6.0.0",
     "@material/fab": "^6.0.0",
     "@material/menu": "^6.0.0",
+    "@types/file-saver": "^2.0.1",
+    "@types/js-yaml": "^3.12.5",
+    "file-saver": "^2.0.2",
+    "js-yaml": "^3.14.0",
+    "jszip": "^3.5.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

@@ -46,7 +46,7 @@ describe('SpecNameInputComponent', () => {
     });
   }));
 
-  it('creates the Step1 component', () => {
+  it('creates the SpecNameInputComponent', () => {
     expect(component).toBeTruthy();
   });
 

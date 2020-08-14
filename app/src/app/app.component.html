@@ -17,21 +17,32 @@ limitations under the License. -->
 <mat-drawer-container class="container">
   <mat-drawer class="main left-panel" mode="side" opened>
     <div class="operation-menu-container">
-      <button id="operation-menu-button-desktop" class="mdc-fab desktop mdc-fab--extended new-button" 
-        [mat-menu-trigger-for]="operationMenu">
+      <button
+        id="operation-menu-button-desktop"
+        class="mdc-fab desktop mdc-fab--extended new-button"
+        [mat-menu-trigger-for]="operationMenu"
+      >
         <div class="mdc-fab__ripple"></div>
         <img src="../assets/img/fab-icon.png" />
         <span class="mdc-fab__label">New</span>
       </button>
       <mat-menu id="operation-menu" overlapTrigger #operationMenu="matMenu">
-        <button id="operation-menu-merge-button" mat-menu-item (click)="openDialog()">Merge</button>
-        <button id="operation-menu-overlay-button" mat-menu-item>Overlay</button>
+        <button
+          id="operation-menu-merge-button"
+          mat-menu-item
+          (click)="openDialog()"
+        >
+          Merge
+        </button>
+        <button id="operation-menu-overlay-button" mat-menu-item>
+          Overlay
+        </button>
       </mat-menu>
     </div>
   </mat-drawer>
 
   <mat-drawer-content id="main-container" class="main right-panel padded">
-    <div id="empty-text-container">
+    <div *ngIf="!operationSet.valid" id="empty-text-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
@@ -40,7 +51,17 @@ limitations under the License. -->
       </h4>
     </div>
 
-    <button id="operation-menu-button-mobile" class="mdc-fab mobile" [mat-menu-trigger-for]="operationMenu">
+    <app-display-results
+      class="operation-results-container"
+      *ngIf="operationSet.valid"
+      [operationSet]="operationSet"
+    ></app-display-results>
+
+    <button
+      id="operation-menu-button-mobile"
+      class="mdc-fab mobile"
+      [mat-menu-trigger-for]="operationMenu"
+    >
       <div class="mdc-fab__ripple"></div>
       <img src="../assets/img/fab-icon.png" />
     </button>
