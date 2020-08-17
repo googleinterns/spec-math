@@ -26,7 +26,7 @@ limitations under the License. -->
     [fixedInViewport]="mobileQuery.matches"
     class="main left-panel"
     mode="side"
-    opened
+    [opened]="!mobileQuery.matches"
   >
     <div class="operation-menu-container">
       <button
@@ -75,16 +75,13 @@ limitations under the License. -->
     </div>
   </mat-sidenav>
 
-  <mat-sidenav-content
-    id="main-container"
-    class="main right-panel padded"
-  >
+  <mat-sidenav-content id="main-container" class="main right-panel padded">
     <div *ngIf="mainPanelContent === 0" id="empty-text-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
       <h4 class="mat-h4 mat-subheading-1">
-        Use the "New" button to get started
+        Use the {{ snav.opened ? '"New" button' : 'menu' }} to get started
       </h4>
     </div>
 
