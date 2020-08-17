@@ -20,7 +20,14 @@ limitations under the License. -->
 </div>
 
 <mat-sidenav-container class="container">
-  <mat-sidenav #snav class="main left-panel" mode="side" opened>
+  <mat-sidenav
+    #snav
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches"
+    class="main left-panel"
+    mode="side"
+    opened
+  >
     <div class="operation-menu-container">
       <button
         id="operation-menu-button-desktop"
@@ -44,14 +51,35 @@ limitations under the License. -->
         </button>
       </mat-menu>
     </div>
+    <div class="side-options-container">
+      <div
+        (click)="selectSideNavOption(2)"
+        class="side-option"
+        [ngClass]="{ selected: mainPanelContent === 2 }"
+      >
+        <mat-icon>settings</mat-icon>
+        <p>
+          Default files
+        </p>
+      </div>
+      <div
+        (click)="selectSideNavOption(3)"
+        class="side-option"
+        [ngClass]="{ selected: mainPanelContent === 3 }"
+      >
+        <mat-icon>info</mat-icon>
+        <p>
+          About Spec Math
+        </p>
+      </div>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content
     id="main-container"
     class="main right-panel padded"
-    [ngClass]="{ 'nav-hidden': snav.opened }"
   >
-    <div *ngIf="!operationSet.valid" id="empty-text-container">
+    <div *ngIf="mainPanelContent === 0" id="empty-text-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
@@ -62,7 +90,7 @@ limitations under the License. -->
 
     <app-display-results
       class="operation-results-container"
-      *ngIf="operationSet.valid"
+      *ngIf="mainPanelContent === 1"
       [operationSet]="operationSet"
     ></app-display-results>
   </mat-sidenav-content>

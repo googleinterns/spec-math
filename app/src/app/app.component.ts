@@ -12,10 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './components/specmath-modal/modal.component';
 import { OperationSet } from 'src/shared/interfaces';
+import { MediaMatcher } from '@angular/cdk/layout';
+
+enum MainPanel {
+  'empty',
+  'result',
+  'defaults',
+  'about'
+}
 
 @Component({
   selector: 'app-root',
@@ -23,17 +31,28 @@ import { OperationSet } from 'src/shared/interfaces';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  mainPanelContent = MainPanel.empty;
+  mobileQuery: MediaQueryList;
   operationSet: OperationSet = {
     specFiles: [],
     resultSpec: null,
     valid: false
   };
 
-  constructor(readonly dialog: MatDialog) { }
+  constructor(readonly dialog: MatDialog, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 768px)');
+  }
+
+  selectSideNavOption(option: MainPanel) {
+    this.mainPanelContent = option;
+  }
 
   openDialog(): void {
-    this.dialog.open(ModalComponent).afterClosed().subscribe((results: OperationSet) => {
-      this.operationSet = results;
+    this.dialog.open(ModalComponent).afterClosed().subscribe((results?: OperationSet) => {
+      if (results) {
+        this.operationSet = results;
+        this.mainPanelContent = MainPanel.result;
+      }
     });
   }
 }
