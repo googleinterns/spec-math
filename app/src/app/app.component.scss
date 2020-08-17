@@ -129,6 +129,10 @@
     border-bottom: 1px solid #dadce0;
     margin-top: -1px;
     padding: 8px;
+
+    & #extend-button {
+      margin-left: 16px;
+    }
   }
 
   &-logo {
