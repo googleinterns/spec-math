@@ -40,7 +40,7 @@ import { DisplayResultsModule } from './components/spec-math-display-results/dis
     MatDividerModule,
     MatButtonModule,
     ModalModule,
-    DisplayResultsModule
+    DisplayResultsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,10 +12,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-<app-navbar></app-navbar>
+<div class="nav-bar">
+  <button mat-icon-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img src="../../../assets/img/specmath_logo.svg" class="nav-logo" />
+</div>
 
-<mat-drawer-container class="container">
-  <mat-drawer class="main left-panel" mode="side" opened>
+<mat-sidenav-container class="container">
+  <mat-sidenav #snav class="main left-panel" mode="side" opened>
     <div class="operation-menu-container">
       <button
         id="operation-menu-button-desktop"
@@ -39,9 +44,13 @@ limitations under the License. -->
         </button>
       </mat-menu>
     </div>
-  </mat-drawer>
+  </mat-sidenav>
 
-  <mat-drawer-content id="main-container" class="main right-panel padded">
+  <mat-sidenav-content
+    id="main-container"
+    class="main right-panel padded"
+    [ngClass]="{ 'nav-hidden': snav.opened }"
+  >
     <div *ngIf="!operationSet.valid" id="empty-text-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
@@ -56,14 +65,5 @@ limitations under the License. -->
       *ngIf="operationSet.valid"
       [operationSet]="operationSet"
     ></app-display-results>
-
-    <button
-      id="operation-menu-button-mobile"
-      class="mdc-fab mobile"
-      [mat-menu-trigger-for]="operationMenu"
-    >
-      <div class="mdc-fab__ripple"></div>
-      <img src="../assets/img/fab-icon.png" />
-    </button>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
