@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-.defaults {
+.about {
   &-container {
     width: 100%;
     display: flex;
@@ -56,11 +56,6 @@
 
   &-description {
     margin-top: 32px;
-    padding-right: 32px;
-    padding-left: 32px;
-  }
-
-  &-file {
     padding-right: 32px;
     padding-left: 32px;
   }

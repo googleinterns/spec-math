@@ -28,9 +28,15 @@ import { DisplayResultsModule } from './components/spec-math-display-results/dis
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
+import { AboutPageComponent } from './components/about-page/about-page.component';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent, DefaultsPageComponent],
+  declarations: [
+    AppComponent,
+    NavBarComponent,
+    DefaultsPageComponent,
+    AboutPageComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
