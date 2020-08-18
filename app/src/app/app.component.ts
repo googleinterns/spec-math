@@ -22,13 +22,13 @@ enum MainPanel {
   'empty',
   'result',
   'defaults',
-  'about'
+  'about',
 }
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   mainPanelContent = MainPanel.empty;
@@ -36,10 +36,13 @@ export class AppComponent {
   operationSet: OperationSet = {
     specFiles: [],
     resultSpec: null,
-    valid: false
+    valid: false,
   };
 
-  constructor(readonly dialog: MatDialog, media: MediaMatcher) {
+  constructor(
+    readonly dialog: MatDialog,
+    media: MediaMatcher,
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
   }
 
@@ -47,12 +50,26 @@ export class AppComponent {
     this.mainPanelContent = option;
   }
 
+  handleRoute(route: string) {
+    switch (route) {
+      case 'defaults':
+        this.selectSideNavOption(MainPanel.defaults);
+        break;
+      case 'about':
+        this.selectSideNavOption(MainPanel.about);
+        break;
+    }
+  }
+
   openDialog(): void {
-    this.dialog.open(ModalComponent).afterClosed().subscribe((results?: OperationSet) => {
-      if (results) {
-        this.operationSet = results;
-        this.mainPanelContent = MainPanel.result;
-      }
-    });
+    this.dialog
+      .open(ModalComponent)
+      .afterClosed()
+      .subscribe((results?: OperationSet) => {
+        if (results) {
+          this.operationSet = results;
+          this.mainPanelContent = MainPanel.result;
+        }
+      });
   }
 }

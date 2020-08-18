@@ -16,10 +16,10 @@ limitations under the License. -->
   <div class="defaults-header-container">
     <div class="defaults-header-text">
       <h2 class="defaults-label mat-display-3 card-subtitle">
-        Defaults file
+        Default files
       </h2>
       <mat-divider class="defaults-header-divider"></mat-divider>
-      <p>
+      <p class="mat-body">
         YAML file used to auto resolve the conflicts that may arise from a merge
         operation.
       </p>
@@ -29,23 +29,23 @@ limitations under the License. -->
     <app-yaml-render [yamlFile]="sampleDefaultsFile"></app-yaml-render>
   </div>
   <div class="defaults-description">
-    <h3>
+    <h2>
       How is it used?
-    </h3>
+    </h2>
     <p>
-      This file can be used to merge a set of files and prevent conflicts in the
+      This example file can be used to merge a set of files and prevent conflicts in the
       fields of
 		</p>
-		<li>
-			<ul>
+		<mat-list>
+			<mat-list-item>
 				openapi
-			</ul>
-			<ul>
+			</mat-list-item>
+			<mat-list-item>
 				info
-			</ul>
-			<ul>
+			</mat-list-item>
+			<mat-list-item>
 				title
-			</ul>
-		</li>
+			</mat-list-item>
+		</mat-list>
   </div>
 </div>

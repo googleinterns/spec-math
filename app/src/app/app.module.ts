@@ -27,13 +27,10 @@ import { NavBarComponent } from './components/specmath-navbar/navbar.component';
 import { DisplayResultsModule } from './components/spec-math-display-results/display-results.module';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavBarComponent,
-    DefaultsPageComponent,
-  ],
+  declarations: [AppComponent, NavBarComponent, DefaultsPageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -44,9 +41,9 @@ import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
     MatButtonModule,
     ModalModule,
     DisplayResultsModule,
-    YamlRenderModule
+    YamlRenderModule,
+    MatListModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
