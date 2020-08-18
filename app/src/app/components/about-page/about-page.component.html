@@ -20,8 +20,9 @@ limitations under the License. -->
       </h2>
       <mat-divider class="about-header-divider"></mat-divider>
       <p class="mat-body">
-        Google Summer 2020 intern project built by <b>Rafi Khaled</b> &
-        <b>Omar Flores</b>
+        Google Summer 2020 intern project built under the
+        <a href="https://cloud.google.com/apigee">Google Cloud Apigee</a>
+        platform.
       </p>
     </div>
   </div>
@@ -47,16 +48,49 @@ limitations under the License. -->
     <p>
       Spec Math supports a series of operations such as
     </p>
-    <mat-list>
-      <mat-list-item>
+    <div class="about-operation">
+      <h3>
         Merge
-      </mat-list-item>
-      <mat-list-item>
-        Overlay
-      </mat-list-item>
-      <mat-list-item>
-        Filtering
-      </mat-list-item>
-    </mat-list>
+      </h3>
+      <iframe
+        src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FljpxOolNaTuLCDxzh24AfE%2FMerge-prototype%3Fnode-id%3D1%253A112%26viewport%3D917%252C727%252C1.1506778001785278%26scaling%3Dmin-zoom&chrome=DOCUMENTATION"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+  <div class="about-description">
+    <h2>
+      The team
+    </h2>
+    <p>Made with {{ "<3" }} and lots of googleyness by</p>
+    <div class="about-team-container">
+      <div class="about-team-member">
+        <div class="about-team-picture-container">
+          <img src="../../../assets/img/rafi.jpg" alt="Rafi's picture" />
+        </div>
+        <a href="https://github.com/rkhaled98">Rafi Khaled</a>
+      </div>
+      <div class="about-team-member">
+        <div class="about-team-picture-container">
+          <img src="../../../assets/img/omar.png" alt="Omar's picture" />
+        </div>
+        <a href="https://github.com/OmarG247">Omar Flores</a>
+      </div>
+    </div>
+    <p>
+      And guided by our incredible hosts <b>Sean</b>, <b>Rod</b>, <b>Tim</b> &
+      <b>Clayton</b>.
+    </p>
+  </div>
+  <div class="about-description">
+    <h2>
+      Source code
+    </h2>
+    <p>
+      Check out our
+      <a href="https://github.com/googleinterns/spec-math">GitHub repo</a> and
+      give us a ⭐!
+    </p>
+    <p><a (click)="debugMode()">debug</a> mode</p>
   </div>
 </div>

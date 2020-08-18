@@ -19,4 +19,16 @@ import { Component } from '@angular/core';
   templateUrl: './about-page.component.html',
   styleUrls: ['./about-page.component.scss'],
 })
-export class AboutPageComponent { }
+export class AboutPageComponent {
+  debugEnabled = false;
+
+  debugMode() {
+    if (this.debugEnabled) {
+      document.body.classList.remove('debug-mode');
+      this.debugEnabled = false;
+    } else {
+      document.body.classList.add('debug-mode');
+      this.debugEnabled = true;
+    }
+  }
+}

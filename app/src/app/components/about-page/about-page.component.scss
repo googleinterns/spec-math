@@ -48,7 +48,7 @@
 
   &-label {
     margin-top: 1rem;
-    
+
     & h4 {
       margin: none;
     }
@@ -58,5 +58,51 @@
     margin-top: 32px;
     padding-right: 32px;
     padding-left: 32px;
+  }
+
+  &-operation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & iframe {
+      margin: auto;
+      width: 100%;
+      height: 610px;
+      border: none;
+      box-shadow: 0px 0px 8px rgb(0, 0, 0, 0.5);
+    }
+  }
+
+  &-team {
+    &-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 16px;
+    }
+
+    &-member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-picture-container {
+      height: 164px;
+      width: 164px;
+      padding: 16px;
+
+      & img {
+        height: 100%;
+        width: 100%;
+        border-radius: 100%;
+      }
+
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
   }
 }
