@@ -14,6 +14,12 @@
 
 import { Component } from '@angular/core';
 
+enum Diagram {
+  'merge',
+  'overlay',
+  'filter'
+}
+
 @Component({
   selector: 'app-about-page',
   templateUrl: './about-page.component.html',
@@ -21,6 +27,11 @@ import { Component } from '@angular/core';
 })
 export class AboutPageComponent {
   debugEnabled = false;
+  diagram = null;
+
+  displayDiagram(diagram: Diagram) {
+    this.diagram = diagram;
+  }
 
   debugMode() {
     if (this.debugEnabled) {

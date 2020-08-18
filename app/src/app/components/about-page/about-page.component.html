@@ -52,7 +52,26 @@ limitations under the License. -->
       <h3>
         Merge
       </h3>
+      <p>
+        Combine a set of spec files into a new spec.
+        <a (click)="displayDiagram(0)">Learn more</a>
+      </p>
       <iframe
+        *ngIf="diagram === 0"
+        src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FljpxOolNaTuLCDxzh24AfE%2FMerge-prototype%3Fnode-id%3D1%253A112%26viewport%3D917%252C727%252C1.1506778001785278%26scaling%3Dmin-zoom&chrome=DOCUMENTATION"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="about-operation">
+      <h3>
+        Overlay
+      </h3>
+      <p>
+        Replace a set of attributes or paths on a spec using a spec fragment.
+        <a (click)="displayDiagram(1)">Learn more</a>
+      </p>
+      <iframe
+        *ngIf="diagram === 1"
         src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FljpxOolNaTuLCDxzh24AfE%2FMerge-prototype%3Fnode-id%3D1%253A112%26viewport%3D917%252C727%252C1.1506778001785278%26scaling%3Dmin-zoom&chrome=DOCUMENTATION"
         allowfullscreen
       ></iframe>

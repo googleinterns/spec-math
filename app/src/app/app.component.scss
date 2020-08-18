@@ -37,7 +37,7 @@
     padding-right: 4px;
     z-index: 3;
   }
-  
+
   &.right-panel {
     width: 100%;
     height: calc(100% - 2rem);
@@ -139,16 +139,13 @@
   &-logo {
     display: block;
     object-fit: contain;
-    height: 48px;  
+    height: 48px;
     margin-left: 16px;
+    cursor: pointer;
   }
 }
 
 .mdc-fab__label {
   text-transform: none;
   margin-left: 12px;
-}
-
-@media (max-width: 768px) {
-
 }
