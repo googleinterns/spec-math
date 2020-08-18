@@ -81,14 +81,19 @@ limitations under the License. -->
         You haven't created any new specifications yet
       </h2>
       <h4 class="mat-h4 mat-subheading-1">
-        Use the {{ snav.opened ? '"New" button' : 'menu' }} to get started
+        Use the {{ snav.opened ? '"New" button' : "menu" }} to get started
       </h4>
     </div>
 
     <app-display-results
-      class="operation-results-container"
+      class="detail-container"
       *ngIf="mainPanelContent === 1"
       [operationSet]="operationSet"
     ></app-display-results>
+
+    <app-defaults-page
+      class="detail-container"
+      *ngIf="mainPanelContent === 2"
+    ></app-defaults-page>
   </mat-sidenav-content>
 </mat-sidenav-container>

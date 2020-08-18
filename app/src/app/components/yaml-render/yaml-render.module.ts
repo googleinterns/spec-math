@@ -13,28 +13,16 @@
 // limitations under the License.
 
 import { NgModule } from '@angular/core';
-import { DisplayResultsComponent } from './display-results.component';
-import { MatTabsModule } from '@angular/material/tabs';
+import { YamlRenderComponent } from './yaml-render.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDividerModule } from '@angular/material/divider';
-import { YamlRenderModule } from '../yaml-render/yaml-render.module';
 
 @NgModule({
   declarations: [
-    DisplayResultsComponent,
+    YamlRenderComponent
   ],
   imports: [
-    MatTabsModule,
-    BrowserModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDividerModule,
-    YamlRenderModule
+    BrowserModule
   ],
-  exports: [DisplayResultsComponent]
+  exports: [YamlRenderComponent]
 })
-export class DisplayResultsModule { }
+export class YamlRenderModule { }
