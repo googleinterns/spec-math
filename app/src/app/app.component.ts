@@ -20,12 +20,18 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-enum MainPanel {
-  'empty',
-  'result',
-  'defaults',
-  'about',
-}
+type Route = 'home' | 'result' | 'defaults' | 'about';
+
+type Routes = {
+  [route in Route]: string;
+};
+
+const routes: Routes = {
+  home: '/',
+  result: '/result',
+  defaults: '/defaults',
+  about: '/about',
+};
 
 @Component({
   selector: 'app-root',
@@ -33,7 +39,7 @@ enum MainPanel {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  mainPanelContent = MainPanel.empty;
+  currentRoute = routes.home;
   mobileQuery: MediaQueryList;
   operationSet: OperationSet = {
     specFiles: [],
@@ -50,30 +56,23 @@ export class AppComponent {
     router.events
       .pipe(filter((event: RouterEvent) => event instanceof NavigationEnd))
       .subscribe((path: RouterEvent) => {
-        this.handleRoute(path.url);
+        const url = path.url;
+
+        if (url === '/result' && !this.operationSet.valid) {
+          this.setRoute('home');
+          return;
+        }
+        this.handleRoute(url);
       });
   }
 
-  selectSideNavOption(option: MainPanel) {
-    switch (option) {
-      case MainPanel.defaults:
-        this.router.navigateByUrl('/defaults');
-        break;
-    }
+  setRoute(route: Route) {
+    this.router.navigateByUrl(routes[route]);
   }
 
   handleRoute(route: string) {
-    console.log(route);
-
-    switch (route) {
-      case '/defaults':
-        console.log('here');
-        this.selectSideNavOption(MainPanel.defaults);
-        break;
-      case '/about':
-        this.selectSideNavOption(MainPanel.about);
-        break;
-    }
+    const routePath = route === '/' ? 'home' : route.slice(1, route.length);
+    this.currentRoute = routePath;
   }
 
   openDialog(): void {
@@ -83,7 +82,7 @@ export class AppComponent {
       .subscribe((results?: OperationSet) => {
         if (results) {
           this.operationSet = results;
-          this.mainPanelContent = MainPanel.result;
+          this.setRoute('result');
         }
       });
   }

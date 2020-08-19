@@ -46,11 +46,7 @@ import { RouterModule } from '@angular/router';
     MatListModule,
     RouterModule.forRoot([
       {
-        path: 'defaults',
-        component: AppComponent,
-      },
-      {
-        path: '',
+        path: '**',
         component: AppComponent,
       },
     ]),

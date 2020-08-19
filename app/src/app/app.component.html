@@ -17,7 +17,7 @@ limitations under the License. -->
     <mat-icon>menu</mat-icon>
   </button>
   <img
-    (click)="selectSideNavOption(0)"
+    (click)="setRoute('home')"
     src="../../../assets/img/specmath_logo.svg"
     id="spec-math-logo"
     class="nav-logo"
@@ -58,9 +58,9 @@ limitations under the License. -->
     </div>
     <div class="side-options-container">
       <div
-        (click)="selectSideNavOption(2)"
+        (click)="setRoute('defaults')"
         class="side-option"
-        [ngClass]="{ selected: mainPanelContent === 2 }"
+        [ngClass]="{ selected: currentRoute === 'defaults' }"
         id="about-default-files-button"
       >
         <mat-icon>api</mat-icon>
@@ -69,9 +69,9 @@ limitations under the License. -->
         </p>
       </div>
       <div
-        (click)="selectSideNavOption(3)"
+        (click)="setRoute('about')"
         class="side-option"
-        [ngClass]="{ selected: mainPanelContent === 3 }"
+        [ngClass]="{ selected: currentRoute === 'about' }"
         id="about-spec-math-button"
       >
         <mat-icon>info</mat-icon>
@@ -83,7 +83,7 @@ limitations under the License. -->
   </mat-sidenav>
 
   <mat-sidenav-content id="main-container" class="main right-panel padded">
-    <div *ngIf="mainPanelContent === 0" id="empty-page-container">
+    <div *ngIf="currentRoute === 'home'" id="empty-page-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>
@@ -94,18 +94,18 @@ limitations under the License. -->
 
     <app-display-results
       class="detail-container"
-      *ngIf="mainPanelContent === 1"
+      *ngIf="currentRoute === 'result'"
       [operationSet]="operationSet"
     ></app-display-results>
 
     <app-defaults-page
       class="detail-container"
-      *ngIf="mainPanelContent === 2"
+      *ngIf="currentRoute === 'defaults'"
     ></app-defaults-page>
 
     <app-about-page
       class="detail-container"
-      *ngIf="mainPanelContent === 3"
+      *ngIf="currentRoute === 'about'"
     ></app-about-page>
   </mat-sidenav-content>
 </mat-sidenav-container>
