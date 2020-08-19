@@ -19,6 +19,7 @@ limitations under the License. -->
   <img
     (click)="selectSideNavOption(0)"
     src="../../../assets/img/specmath_logo.svg"
+    id="spec-math-logo"
     class="nav-logo"
   />
 </div>
@@ -60,16 +61,18 @@ limitations under the License. -->
         (click)="selectSideNavOption(2)"
         class="side-option"
         [ngClass]="{ selected: mainPanelContent === 2 }"
+        id="about-default-files-button"
       >
         <mat-icon>api</mat-icon>
         <p>
-          Default files
+          About Default files
         </p>
       </div>
       <div
         (click)="selectSideNavOption(3)"
         class="side-option"
         [ngClass]="{ selected: mainPanelContent === 3 }"
+        id="about-spec-math-button"
       >
         <mat-icon>info</mat-icon>
         <p>
@@ -80,7 +83,7 @@ limitations under the License. -->
   </mat-sidenav>
 
   <mat-sidenav-content id="main-container" class="main right-panel padded">
-    <div *ngIf="mainPanelContent === 0" id="empty-text-container">
+    <div *ngIf="mainPanelContent === 0" id="empty-page-container">
       <h2 class="mat-h2 mat-title">
         You haven't created any new specifications yet
       </h2>

@@ -17,6 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './components/specmath-modal/modal.component';
 import { OperationSet } from 'src/shared/interfaces';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 enum MainPanel {
   'empty',
@@ -40,22 +42,35 @@ export class AppComponent {
   };
 
   constructor(
+    private router: Router,
     readonly dialog: MatDialog,
-    media: MediaMatcher,
+    media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
+    router.events
+      .pipe(filter((event: RouterEvent) => event instanceof NavigationEnd))
+      .subscribe((path: RouterEvent) => {
+        this.handleRoute(path.url);
+      });
   }
 
   selectSideNavOption(option: MainPanel) {
-    this.mainPanelContent = option;
+    switch (option) {
+      case MainPanel.defaults:
+        this.router.navigateByUrl('/defaults');
+        break;
+    }
   }
 
   handleRoute(route: string) {
+    console.log(route);
+
     switch (route) {
-      case 'defaults':
+      case '/defaults':
+        console.log('here');
         this.selectSideNavOption(MainPanel.defaults);
         break;
-      case 'about':
+      case '/about':
         this.selectSideNavOption(MainPanel.about);
         break;
     }

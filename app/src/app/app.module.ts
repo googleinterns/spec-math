@@ -28,13 +28,10 @@ import { DefaultsPageComponent } from './components/defaults-page/defaults-page.
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { AboutPageComponent } from './components/about-page/about-page.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DefaultsPageComponent,
-    AboutPageComponent,
-  ],
+  declarations: [AppComponent, DefaultsPageComponent, AboutPageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -47,6 +44,16 @@ import { AboutPageComponent } from './components/about-page/about-page.component
     DisplayResultsModule,
     YamlRenderModule,
     MatListModule,
+    RouterModule.forRoot([
+      {
+        path: 'defaults',
+        component: AppComponent,
+      },
+      {
+        path: '',
+        component: AppComponent,
+      },
+    ]),
   ],
   bootstrap: [AppComponent],
 })
