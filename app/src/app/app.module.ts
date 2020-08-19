@@ -23,7 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ModalModule } from './components/specmath-modal/modal.module';
-import { NavBarComponent } from './components/specmath-navbar/navbar.component';
 import { DisplayResultsModule } from './components/spec-math-display-results/display-results.module';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
@@ -33,7 +32,6 @@ import { AboutPageComponent } from './components/about-page/about-page.component
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
     DefaultsPageComponent,
     AboutPageComponent,
   ],

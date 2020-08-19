@@ -138,8 +138,10 @@
   &-logo {
     display: block;
     object-fit: contain;
-    height: 48px;
-    margin-left: 16px;
+    height: 36px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 16px;
     cursor: pointer;
   }
 }
