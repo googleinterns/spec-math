@@ -29,6 +29,7 @@ import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
+import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -49,6 +50,12 @@ describe('AppComponent', () => {
         DisplayResultsModule,
         YamlRenderModule,
         MatListModule,
+        RouterModule.forRoot([
+          {
+            path: '**',
+            component: AppComponent,
+          },
+        ]),
       ],
     })
       .compileComponents()
@@ -72,28 +79,22 @@ describe('AppComponent', () => {
     expect(menu).toBeTruthy();
   });
 
-  it('opens the empty page when the logo is clicked', () => {
-    const logo = queryElement(fixture, '#spec-math-logo').nativeElement;
-    logo.click();
-
-    fixture.detectChanges();
-    const emptyPage = queryElement(fixture, '#empty-page-container').nativeElement;
-    expect(emptyPage).toBeTruthy();
-  });
-
-  it('opens the About Default files page when its button is clicked', () => {
-    const aboutDefaultFilesButton = queryElement(fixture, '#about-default-files-button').nativeElement;
-    const spy = spyOn(app, 'selectSideNavOption');
+  fit('opens the About Default files page when its button is clicked', () => {
+    const aboutDefaultFilesButton = queryElement(
+      fixture,
+      '#about-default-files-button'
+    ).nativeElement;
+    const spy = spyOn(app, 'setRoute');
     aboutDefaultFilesButton.click();
 
     fixture.detectChanges();
-    const aboutDefaultFilesPage = fixture.debugElement.query(By.directive(DefaultsPageComponent)).nativeElement;
+    const aboutDefaultFilesPage = fixture.debugElement.query(
+      By.directive(DefaultsPageComponent)
+    ).nativeElement;
     expect(aboutDefaultFilesPage).toBeTruthy();
-    // expect(spy).toHaveBeenCalledWith(2);
-    // expect(app.mainPanelContent).toEqual(2);
+    expect(spy).toHaveBeenCalledWith('defaults');
+    expect(app.currentRoute).toEqual('defaults');
   });
 
-  it('opens the About Spec Math page when its button is clicked', () => {
-    
-  });
+  it('opens the About Spec Math page when its button is clicked', () => {});
 });
