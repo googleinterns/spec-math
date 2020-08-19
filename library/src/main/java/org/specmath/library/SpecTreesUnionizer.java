@@ -77,9 +77,64 @@ public class SpecTreesUnionizer {
 
     if (conflicts.isEmpty()) {
       return resolvedMap;
-    } else {
-      throw new UnionConflictException(conflicts);
     }
+
+    throw new UnionConflictException(conflicts);
+  }
+
+  /**
+   * Performs a union on the list of maps in {@code mapsToMerge} and returns the result.
+   *
+   * @param mapsToMerge the list of maps to merge
+   * @return the result of a union on the list of maps in {@code mapsToMerge}
+   */
+  static LinkedHashMap<String, Object> union(List<LinkedHashMap<String, Object>> mapsToMerge)
+      throws UnionConflictException, UnexpectedTypeException {
+    UnionizerUnionParams unionizerUnionParams = UnionizerUnionParams.builder().build();
+
+    return union(mapsToMerge, unionizerUnionParams);
+  }
+
+  /**
+   * Performs a union on on the list of maps in {@code mapsToMerge} with the given {@code
+   * unionizerUnionParams} and returns the result.
+   *
+   * @param mapsToMerge the list of maps to merge
+   * @param unionizerUnionParams a set of special options which can be applied during the union
+   * @return the result of a union on the list of maps in {@code mapsToMerge} with options from
+   *     {@code unionizerUnionParams} applied
+   */
+  static LinkedHashMap<String, Object> union(
+      List<LinkedHashMap<String, Object>> mapsToMerge, UnionizerUnionParams unionizerUnionParams)
+      throws UnionConflictException, UnexpectedTypeException {
+
+    var allConflicts = new ArrayList<Conflict>();
+
+    // merge all the specs in mapsToMerge together
+    LinkedHashMap<String, Object> mergedSpec = mapsToMerge.get(0);
+    for (int i = 1; i < mapsToMerge.size(); i++) {
+      mergedSpec =
+          union(
+              mergedSpec,
+              mapsToMerge.get(i),
+              false,
+              new Stack<String>(),
+              allConflicts,
+              unionizerUnionParams.conflictResolutions());
+    }
+
+    removeConflictsFixedByDefaults(unionizerUnionParams.defaults(), allConflicts);
+
+    LinkedHashMap<String, Object> defaultsMap =
+        new LinkedHashMap<>(unionizerUnionParams.defaults());
+
+    LinkedHashMap<String, Object> resolvedMap = applyOverlay(defaultsMap, mergedSpec);
+
+    if (allConflicts.isEmpty()) {
+      return resolvedMap;
+    }
+
+    throw new UnionConflictException(allConflicts);
   }
 
   /**
@@ -299,9 +354,35 @@ public class SpecTreesUnionizer {
         // can be resolved by a conflictResolution
         mapToMergeInto.put(key, conflictResolutions.get(keypathString));
       } else {
-        Conflict conflict = new Conflict(keypathString, value1, value2);
-        conflicts.add(conflict);
+        handleConflict(value1, value2, conflicts, keypathString);
       }
     }
+  }
+
+  private static void handleConflict(Object value1, Object value2, ArrayList<Conflict> conflicts,
+      String keypathString) {
+    // if it exists, attempt to add the conflicting values to an existing conflict object
+    Conflict conflictWithSameKeypath =
+        conflicts.stream()
+            .filter(conflict -> conflict.getKeypath().equals(keypathString))
+            .findAny()
+            .orElse(null);
+
+    if (conflictWithSameKeypath != null) {
+      if (!conflictWithSameKeypath.getOptions().contains(value1)) {
+        conflictWithSameKeypath.addOption(value1);
+      }
+      if (!conflictWithSameKeypath.getOptions().contains(value2)) {
+        conflictWithSameKeypath.addOption(value2);
+      }
+      return;
+    }
+
+    // there was no already existing conflict object with the keypath. Make a new one
+    List<Object> options = new ArrayList<>();
+    options.add(value1);
+    options.add(value2);
+    Conflict conflict = new Conflict(keypathString, options);
+    conflicts.add(conflict);
   }
 }

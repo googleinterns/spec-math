@@ -16,6 +16,7 @@ limitations under the License.
 
 package org.specmath.library;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,8 +24,7 @@ import java.util.Objects;
  */
 public class Conflict {
   private String keypath;
-  private Object optionA;
-  private Object optionB;
+  private List<Object> options;
   private Object resolvedValue;
 
   /**
@@ -34,22 +34,17 @@ public class Conflict {
   public Conflict() {}
 
   /**
-   * Create this org.specmath.library.Conflict object with a conflicting keypath, and the two
-   * options for resolving the conflicts.
+   * Create this org.specmath.library.Conflict object with a conflicting keypath, and the options
+   * for resolving the conflicts.
    */
-  public Conflict(String keypath, Object optionA, Object optionB) {
+  public Conflict(String keypath, List<Object> options) {
     this.keypath = keypath;
-    this.optionA = optionA;
-    this.optionB = optionB;
+    this.options = options;
   }
 
   /** getters are required for serialization of JSON string to conflict objects */
-  public Object getOptionA() {
-    return optionA;
-  }
-
-  public Object getOptionB() {
-    return optionB;
+  public List<Object> getOptions() {
+    return options;
   }
 
   public String getKeypath() {
@@ -60,30 +55,28 @@ public class Conflict {
     return resolvedValue;
   }
 
+  public void addOption(Object option) {
+    this.options.add(option);
+  }
+
   @Override
   public boolean equals(Object o) {
     Conflict conflict = (Conflict) o;
     return keypath.equals(conflict.keypath)
-        && optionA.equals(conflict.optionA)
-        && optionB.equals(conflict.optionB)
+        && options.equals(conflict.options)
         && Objects.equals(resolvedValue, conflict.resolvedValue);
   }
 
   @Override
   public String toString() {
-    return "org.specmath.library.Conflict{"
+    return "Conflict{"
         + "keypath='"
         + keypath
         + '\''
-        + ", optionA='"
-        + optionA
-        + '\''
-        + ", optionB='"
-        + optionB
-        + '\''
-        + ", resolvedValue='"
+        + ", options="
+        + options
+        + ", resolvedValue="
         + resolvedValue
-        + '\''
         + '}';
   }
 }

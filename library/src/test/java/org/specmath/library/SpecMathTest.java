@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class SpecMathTest {
@@ -50,7 +51,6 @@ class SpecMathTest {
     UnionOptions unionOptions =
         UnionOptions.builder().defaults(defaults).conflictResolutions(conflictResolutions).build();
     String actual = SpecMath.union(spec1String, spec2String, unionOptions);
-
     String expected =
         Files.readString(Path.of("src/test/resources/conflictsMergedWithDefaults.yaml"));
 
@@ -66,13 +66,16 @@ class SpecMathTest {
         assertThrows(UnionConflictException.class, () -> SpecMath.union(spec1String, spec2String));
 
     ArrayList<Conflict> expectedConflicts = new ArrayList<>();
+
     expectedConflicts.add(
-        new Conflict("[info, title]", "The Best Petstore Marketing Team API", "The Best Petstore Billing Team API"));
+        new Conflict(
+            "[info, title]",
+            Arrays.asList("The Best Petstore Marketing Team API", "The Best Petstore Billing Team API")));
     expectedConflicts.add(
         new Conflict(
             "[info, description]",
-            "An API for The Best Petstore's marketing team",
-            "An API for The Best Petstore's billing team"));
+            Arrays.asList(
+                "An API for The Best Petstore's marketing team", "An API for The Best Petstore's billing team")));
 
     assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
   }
@@ -153,6 +156,131 @@ class SpecMathTest {
     String spec2String = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
     String actual = SpecMath.union(spec1String, spec2String);
     String expected = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void union_withListOfEqualSpecs_returnsOriginalString()
+    throws IOException, UnionConflictException, UnexpectedTypeException {
+    String spec1String = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
+
+    var listOfSpecTrees = new ArrayList<String>();
+    listOfSpecTrees.add(spec1String);
+    listOfSpecTrees.add(spec1String);
+    listOfSpecTrees.add(spec1String);
+    listOfSpecTrees.add(spec1String);
+
+    String actual = SpecMath.union(listOfSpecTrees);
+    String expected = Files.readString(Path.of("src/test/resources/petstoreMarketing.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void union_withListOfTwoSpecs_succeeds()
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    String spec1 = Files.readString(Path.of("src/test/resources/noConflict1.yaml"));
+    String spec2 = Files.readString(Path.of("src/test/resources/noConflict2.yaml"));
+
+    var listOfSpecTrees = new ArrayList<String>();
+    listOfSpecTrees.add(spec1);
+    listOfSpecTrees.add(spec2);
+
+    String actual = SpecMath.union(listOfSpecTrees);
+    String expected = Files.readString(Path.of("src/test/resources/noConflictMerged.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void union_withMultipleSpecs_succeeds()
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    String spec1 = Files.readString(Path.of("src/test/resources/noConflict1.yaml"));
+    String spec2 = Files.readString(Path.of("src/test/resources/noConflict2.yaml"));
+    String spec3 = Files.readString(Path.of("src/test/resources/noConflict3.yaml"));
+
+    var listOfSpecTrees = new ArrayList<String>();
+    listOfSpecTrees.add(spec1);
+    listOfSpecTrees.add(spec2);
+    listOfSpecTrees.add(spec3);
+
+    String actual = SpecMath.union(listOfSpecTrees);
+    String expected = Files.readString(Path.of("src/test/resources/noConflict3SpecsMerged.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void union_withMultipleConflictingSpecs_throwsExceptionWithMultipleOptionsInConflictObject()
+      throws IOException {
+    String spec1 = Files.readString(Path.of("src/test/resources/conflict1.yaml"));
+    String spec2 = Files.readString(Path.of("src/test/resources/conflict2.yaml"));
+    String spec3 = Files.readString(Path.of("src/test/resources/conflict3.yaml"));
+
+    var listOfSpecTrees = new ArrayList<String>();
+    listOfSpecTrees.add(spec1);
+    listOfSpecTrees.add(spec2);
+    listOfSpecTrees.add(spec3);
+
+    UnionConflictException e =
+        assertThrows(UnionConflictException.class, () -> SpecMath.union(listOfSpecTrees));
+
+    ArrayList<Conflict> expectedConflicts = new ArrayList<>();
+    expectedConflicts.add(
+        new Conflict(
+            "[paths, /pets, get, summary]",
+            Arrays.asList("CONFLICT 1", "CONFLICT 2", "CONFLICT 3")));
+
+    assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
+  }
+
+  @Test
+  void union_withMultipleConflictingSpecs_succeedsByResolvingWithConflictResolutions()
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    String spec1 = Files.readString(Path.of("src/test/resources/conflict1.yaml"));
+    String spec2 = Files.readString(Path.of("src/test/resources/conflict2.yaml"));
+    String spec3 = Files.readString(Path.of("src/test/resources/conflict3.yaml"));
+
+    var listOfSpecTrees = new ArrayList<String>();
+    listOfSpecTrees.add(spec1);
+    listOfSpecTrees.add(spec2);
+    listOfSpecTrees.add(spec3);
+
+    String conflictResolutions = Files.readString(Path.of("src/test/resources/conflictsMergedResolutions.json"));
+
+    UnionOptions unionOptions = UnionOptions.builder().conflictResolutions(conflictResolutions).build();
+
+    String actual = SpecMath.union(listOfSpecTrees, unionOptions);
+    String expected = Files.readString(Path.of("src/test/resources/conflictMerged.yaml"));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void union_withMultipleSpecs_succeedsByApplyingConflictResolutionsAndDefaults()
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    String spec1 = Files.readString(Path.of("src/test/resources/conflict1.yaml"));
+    String spec2 = Files.readString(Path.of("src/test/resources/conflict2.yaml"));
+    String spec3 = Files.readString(Path.of("src/test/resources/conflict3.yaml"));
+
+    var listOfSpecTrees = new ArrayList<String>();
+    listOfSpecTrees.add(spec1);
+    listOfSpecTrees.add(spec2);
+    listOfSpecTrees.add(spec3);
+
+    String defaults = Files.readString(Path.of("src/test/resources/conflictDefaults.yaml"));
+
+    String conflictResolutions = Files.readString(Path.of("src/test/resources/conflictsMergedResolutions.json"));
+
+    UnionOptions unionOptions =
+        UnionOptions.builder()
+            .defaults(defaults)
+            .conflictResolutions(conflictResolutions)
+            .build();
+
+    String actual = SpecMath.union(listOfSpecTrees, unionOptions);
+    String expected = Files.readString(Path.of("src/test/resources/conflictsMergedWithDefaults.yaml"));
 
     assertThat(actual).isEqualTo(expected);
   }

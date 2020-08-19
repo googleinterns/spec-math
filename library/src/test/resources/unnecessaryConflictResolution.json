@@ -1,6 +1,5 @@
 [ {
   "keypath" : "[info, title]",
-  "optionA" : "",
-  "optionB" : "",
+  "options" : ["", ""],
   "resolvedValue" : "CONFLICT RESOLUTION TITLE"
 } ]
