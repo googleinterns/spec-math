@@ -354,30 +354,35 @@ public class SpecTreesUnionizer {
         // can be resolved by a conflictResolution
         mapToMergeInto.put(key, conflictResolutions.get(keypathString));
       } else {
-        // if it exists, attempt to add the conflicting values to an existing conflict object
-        Conflict conflictWithSameKeypath =
-            conflicts.stream()
-                .filter(conflict -> conflict.getKeypath().equals(keypathString))
-                .findAny()
-                .orElse(null);
-
-        if (conflictWithSameKeypath != null) {
-          if (!conflictWithSameKeypath.getOptions().contains(value1)) {
-            conflictWithSameKeypath.addOption(value1);
-          }
-          if (!conflictWithSameKeypath.getOptions().contains(value2)) {
-            conflictWithSameKeypath.addOption(value2);
-          }
-          return;
-        }
-
-        // there was no already existing conflict object with the keypath. Make a new one
-        List<Object> options = new ArrayList<>();
-        options.add(value1);
-        options.add(value2);
-        Conflict conflict = new Conflict(keypathString, options);
-        conflicts.add(conflict);
+        handleConflict(value1, value2, conflicts, keypathString);
       }
     }
+  }
+
+  private static void handleConflict(Object value1, Object value2, ArrayList<Conflict> conflicts,
+      String keypathString) {
+    // if it exists, attempt to add the conflicting values to an existing conflict object
+    Conflict conflictWithSameKeypath =
+        conflicts.stream()
+            .filter(conflict -> conflict.getKeypath().equals(keypathString))
+            .findAny()
+            .orElse(null);
+
+    if (conflictWithSameKeypath != null) {
+      if (!conflictWithSameKeypath.getOptions().contains(value1)) {
+        conflictWithSameKeypath.addOption(value1);
+      }
+      if (!conflictWithSameKeypath.getOptions().contains(value2)) {
+        conflictWithSameKeypath.addOption(value2);
+      }
+      return;
+    }
+
+    // there was no already existing conflict object with the keypath. Make a new one
+    List<Object> options = new ArrayList<>();
+    options.add(value1);
+    options.add(value2);
+    Conflict conflict = new Conflict(keypathString, options);
+    conflicts.add(conflict);
   }
 }
