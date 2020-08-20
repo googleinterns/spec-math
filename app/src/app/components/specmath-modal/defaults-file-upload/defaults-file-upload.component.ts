@@ -30,7 +30,7 @@ export class DefaultsFileUploadComponent  {
 
   @Output() options: EventEmitter<DefaultsFileUploadOptions> = new EventEmitter();
 
-  constructor(private router: Router, readonly dialog: MatDialog) { }
+  constructor(readonly router: Router, readonly dialog: MatDialog) { }
 
   handleDefaultsFileInput(files: FileList) {
     this.defaultsFileUploadOptions.defaultsFile = files[0];
