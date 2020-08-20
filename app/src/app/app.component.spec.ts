@@ -96,11 +96,12 @@ describe('AppComponent', () => {
     expect(spy).toHaveBeenCalledWith('defaults');
     expect(app.currentRoute).toEqual('defaults');
 
-    // const defaultsPage = fixture.debugElement.query(By.directive(DefaultsPageComponent)).nativeElement;
-    // expect(defaultsPage).toBeTruthy();
+    fixture.detectChanges();
+    const defaultsPage = fixture.debugElement.query(By.directive(DefaultsPageComponent));
+    expect(defaultsPage).toBeTruthy();
   }));
 
-  it('opens the About Spec Math page when its button is clicked', fakeAsync (() => {
+  it('opens the About Spec Math page when its button is clicked', fakeAsync(() => {
     const aboutSpecMathButton = queryElement(
       fixture,
       '#about-spec-math-button'
@@ -114,5 +115,9 @@ describe('AppComponent', () => {
 
     expect(spy).toHaveBeenCalledWith('about');
     expect(app.currentRoute).toEqual('about');
+
+    fixture.detectChanges();
+    const aboutPage = fixture.debugElement.query(By.directive(AboutPageComponent));
+    expect(aboutPage).toBeTruthy();
   }));
 });
