@@ -34,8 +34,12 @@ export class SpecFilesUploadComponent {
   @Output() options: EventEmitter<SpecFilesUploadOptions> = new EventEmitter();
 
   handleSpecFileInput(files: FileList) {
-    this.specFilesUploadOptions.specFiles.push(...Array.from(filesListToArray(files)));
+    this.validateFiles(filesListToArray(files));
     this.specUploads.nativeElement.value = '';
+  }
+
+  validateFiles(files: File[]) {
+    this.specFilesUploadOptions.specFiles.push(...Array.from(files));
     this.emitFileStatus();
   }
 
