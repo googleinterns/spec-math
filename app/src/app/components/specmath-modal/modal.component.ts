@@ -155,9 +155,10 @@ export class ModalComponent {
 
   async mergeOperation() {
     const mergeSet = await this.generateMergeSet();
+    console.log(mergeSet);
     const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
 
-    switch (callResponse?.status) {
+    switch (callResponse.status) {
       case 'conflicts':
         this.mergeConflicts = callResponse.conflicts;
         break;
@@ -175,8 +176,7 @@ export class ModalComponent {
 
   async generateMergeSet(): Promise<SpecMathMergeRequest> {
     const requestBody: SpecMathMergeRequest = {
-      spec1: await readFileAsString(this.specFilesUploadOptions.specFiles[0]),
-      spec2: await readFileAsString(this.specFilesUploadOptions.specFiles[1]),
+      specs: await Promise.all(this.specFilesUploadOptions.specFiles.map((spec) => readFileAsString(spec)))
     };
 
     if (this.defaultsFileUploadOptions?.defaultsFile) {
