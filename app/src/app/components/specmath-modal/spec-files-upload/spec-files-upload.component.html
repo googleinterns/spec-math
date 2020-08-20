@@ -30,27 +30,16 @@ limitations under the License. -->
       </div>
       <div *ngIf="specFilesUploadOptions.specFiles">
         <mat-chip-list id="spec-files-chip-list">
-          <div
-            class="modal-step-chip-list-container"
+          <mat-chip
             *ngFor="let spec of specFilesUploadOptions.specFiles; let i = index"
+            [selectable]="true"
+            [removable]="true"
+            (removed)="removeSpecFile(i)"
           >
-            <mat-chip
-              *ngIf="spec"
-              [selectable]="true"
-              [removable]="true"
-              (removed)="removeSpecFile(i)"
-            >
-              <mat-icon class="modal-step-chip-icon">description</mat-icon>
-              {{ spec.name }}
-              <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <mat-icon
-              class="spec-files-add-icon"
-              *ngIf="i < specFilesUploadOptions.specFiles.length - 1"
-            >
-              add
-            </mat-icon>
-          </div>
+            <mat-icon class="modal-step-chip-icon">description</mat-icon>
+            {{ spec.name }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
         </mat-chip-list>
       </div>
     </div>
