@@ -75,7 +75,7 @@ export class AppComponent {
     this.currentRoute = routePath;
   }
 
-  openDialog(): void {
+  openDialog() {
     this.dialog
       .open(ModalComponent)
       .afterClosed()

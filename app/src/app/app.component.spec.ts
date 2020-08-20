@@ -79,22 +79,35 @@ describe('AppComponent', () => {
     expect(menu).toBeTruthy();
   });
 
-  fit('opens the About Default files page when its button is clicked', () => {
+  it('opens the About Default files page when its button is clicked', () => {
     const aboutDefaultFilesButton = queryElement(
       fixture,
       '#about-default-files-button'
     ).nativeElement;
+
     const spy = spyOn(app, 'setRoute');
     aboutDefaultFilesButton.click();
 
     fixture.detectChanges();
-    const aboutDefaultFilesPage = fixture.debugElement.query(
-      By.directive(DefaultsPageComponent)
-    ).nativeElement;
+    const aboutDefaultFilesPage = fixture.debugElement.query(By.directive(DefaultsPageComponent)).nativeElement;
     expect(aboutDefaultFilesPage).toBeTruthy();
     expect(spy).toHaveBeenCalledWith('defaults');
-    expect(app.currentRoute).toEqual('defaults');
+    expect(app.currentRoute).toEqual('/defaults');
   });
 
-  it('opens the About Spec Math page when its button is clicked', () => {});
+  it('opens the About Spec Math page when its button is clicked', () => {
+    const aboutDefaultFilesButton = queryElement(
+      fixture,
+      '#about-spec-math-button'
+    ).nativeElement;
+
+    const spy = spyOn(app, 'setRoute');
+    aboutDefaultFilesButton.click();
+
+    fixture.detectChanges();
+    const aboutDefaultFilesPage = fixture.debugElement.query(By.directive(AboutPageComponent)).nativeElement;
+    expect(aboutDefaultFilesPage).toBeTruthy();
+    expect(spy).toHaveBeenCalledWith('about');
+    expect(app.currentRoute).toEqual('/about');
+  });
 });
