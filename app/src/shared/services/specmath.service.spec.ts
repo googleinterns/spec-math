@@ -30,8 +30,7 @@ describe('SpecMathService', () => {
       httpMockObject = TestBed.inject(HttpTestingController);
       service = TestBed.inject(SpecMathService);
       const mockSpeckSet: SpecMathMergeRequest = {
-        spec1: mergeSpecsMockRequest.spec1,
-        spec2: mergeSpecsMockRequest.spec2,
+        specs: mergeSpecsMockRequest.specs,
         defaultsFile: mergeSpecsMockRequest.defaultsFile
       };
 
