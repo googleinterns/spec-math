@@ -48,7 +48,7 @@ export class AppComponent {
   };
 
   constructor(
-    private router: Router,
+    readonly router: Router,
     readonly dialog: MatDialog,
     media: MediaMatcher
   ) {
