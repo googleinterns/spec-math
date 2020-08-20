@@ -155,7 +155,6 @@ export class ModalComponent {
 
   async mergeOperation() {
     const mergeSet = await this.generateMergeSet();
-    console.log(mergeSet);
     const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
 
     switch (callResponse.status) {
