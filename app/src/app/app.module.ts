@@ -29,6 +29,7 @@ import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { RouterModule } from '@angular/router';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [AppComponent, DefaultsPageComponent, AboutPageComponent],
@@ -44,6 +45,7 @@ import { RouterModule } from '@angular/router';
     DisplayResultsModule,
     YamlRenderModule,
     MatListModule,
+    MatExpansionModule,
     RouterModule.forRoot([
       {
         path: '**',

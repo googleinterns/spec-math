@@ -20,9 +20,29 @@ limitations under the License. -->
       </h2>
       <mat-divider class="defaults-header-divider"></mat-divider>
       <p class="mat-body">
-        YAML file used to describe the metadata of a new spec and auto resolve
-        the conflicts that may arise from a merge operation.
+        YAML file used to describe the metadata of a new spec and provide
+        additional information for operations such as
       </p>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Merge
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          Used to impose new metadata on a new specification as well as to aute
+          resolve conflicts that might emerge from performing the merge
+          operation.
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Filter
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          Used to impose new metadata on a the final result of the operation.
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
   <div class="defaults-file">

@@ -27,11 +27,6 @@ enum Diagram {
 })
 export class AboutPageComponent {
   debugEnabled = false;
-  diagram = null;
-
-  displayDiagram(diagram: Diagram) {
-    this.diagram = diagram;
-  }
 
   debugMode() {
     if (this.debugEnabled) {

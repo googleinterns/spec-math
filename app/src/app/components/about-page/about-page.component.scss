@@ -76,9 +76,7 @@
       border: none;
       margin-right: auto;
       margin-left: auto;
-      margin-top: 32px;
-      margin-bottom: 32px;
-      box-shadow: 0px 0px 8px rgb(0, 0, 0, 0.5);
+      margin-top: 16px;
     }
   }
 
@@ -96,7 +94,8 @@
       align-items: center;
       padding: 16px;
 
-      & a, p {
+      & a,
+      p {
         text-align: center;
       }
     }
@@ -126,7 +125,12 @@
       &-container {
         flex-direction: column;
         align-items: center;
-        // justify-content: flex-start;
+      }
+    }
+
+    &-operation {
+      & iframe {
+        display: none;
       }
     }
   }
