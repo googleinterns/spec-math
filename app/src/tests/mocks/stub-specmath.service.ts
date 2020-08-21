@@ -18,9 +18,20 @@ export class StubSpecMathService extends SpecMathService {
         status: 'conflicts',
         conflicts: [
           {
-            keypath: '[paths, /pets, get, summary]',
-            option1: 'get the specified pets',
-            option2: 'get the specified pets',
+            keypath: 'paths -> /pets -> get -> summary',
+            options: [
+              'get the specified pets',
+              'get the specified pet',
+              'get the other pets',
+            ],
+          },
+          {
+            keypath: 'paths -> /pets -> post -> summary]',
+            options: [
+              'get the specified cat',
+              'get the specified cats',
+              'get the other cats',
+            ],
           },
         ],
       };

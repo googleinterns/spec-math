@@ -15,7 +15,6 @@
 import { Component, EventEmitter, Output, ViewChild, DebugElement } from '@angular/core';
 import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
 
-const NUM_SPEC_FILES = 2;
 const filesListToArray = (files: FileList) => Array.from(files);
 
 @Component({
@@ -26,7 +25,6 @@ const filesListToArray = (files: FileList) => Array.from(files);
 export class SpecFilesUploadComponent {
   @ViewChild('specsInput') specUploads: DebugElement;
 
-  specFilesNum = NUM_SPEC_FILES;
   fileUploadError = false;
   specFilesUploadOptions: SpecFilesUploadOptions = {
     specFiles: [],
@@ -41,16 +39,6 @@ export class SpecFilesUploadComponent {
   }
 
   validateFiles(files: File[]) {
-    const emptyFileSpots =
-      this.specFilesNum - this.specFilesUploadOptions.specFiles.length;
-
-    if (files.length > emptyFileSpots) {
-      this.fileUploadError = true;
-      return;
-    } else {
-      this.fileUploadError = false;
-    }
-
     this.specFilesUploadOptions.specFiles.push(...Array.from(files));
     this.emitFileStatus();
   }
@@ -61,7 +49,7 @@ export class SpecFilesUploadComponent {
   }
 
   emitFileStatus() {
-    this.specFilesUploadOptions.valid = (this.specFilesUploadOptions.specFiles.length === this.specFilesNum);
+    this.specFilesUploadOptions.valid = this.specFilesUploadOptions.specFiles.length >= 2;
 
     const specFilesUploadOptionsCopy: SpecFilesUploadOptions = {
       specFiles: [...this.specFilesUploadOptions.specFiles],

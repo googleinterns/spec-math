@@ -12,13 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-<ng-template #defaultsChip>
-  <mat-chip>
-    <mat-icon class="modal-step-chip-icon defaults">settings</mat-icon>
-    {{ defaultsFileUploadOptions.defaultsFile.name }}
-  </mat-chip>
-</ng-template>
-
 <div class="modal-step-container">
   <div class="modal-step-content">
     <div class="modal-step-instructions">
@@ -26,27 +19,18 @@ limitations under the License. -->
     </div>
     <div class="confirm-operation-container">
       <mat-chip-list id="confirm-operation-chip-container">
-        <div
-          *ngIf="defaultsFileUploadOptions.defaultsFile"
-          class="modal-step-chip-list-container"
-        >
-          <ng-container [ngTemplateOutlet]="defaultsChip"></ng-container>
-          <mat-icon>add</mat-icon>
-        </div>
-        <div
-          class="modal-step-chip-list-container"
+        <mat-chip *ngIf="defaultsFileUploadOptions.defaultsFile">
+          <mat-icon class="modal-step-chip-icon defaults">api</mat-icon>
+          {{ defaultsFileUploadOptions.defaultsFile.name }}
+        </mat-chip>
+        <mat-chip
           *ngFor="let file of specFilesUploadOptions.specFiles; let i = index"
         >
-          <mat-chip>
-            <mat-icon class="modal-step-chip-icon spec">
-              description
-            </mat-icon>
-            {{ file.name }}
-          </mat-chip>
-          <mat-icon *ngIf="i < specFilesUploadOptions.specFiles.length - 1">
-            add
+          <mat-icon class="modal-step-chip-icon spec">
+            description
           </mat-icon>
-        </div>
+          {{ file.name }}
+        </mat-chip>
       </mat-chip-list>
     </div>
   </div>
