@@ -117,17 +117,15 @@
       }
     }
   }
-}
 
-@media (max-width: 768px) {
-  .about {
+  @media (max-width: 768px) {
     &-team {
       &-container {
         flex-direction: column;
         align-items: center;
       }
     }
-
+  
     &-operation {
       & iframe {
         display: none;
