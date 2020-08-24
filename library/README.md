@@ -28,7 +28,7 @@ For descriptions of these operations, please see the [root of the repository](ht
 
 ##### Of Two or More Specs
 
-The `union` function can be called on a list of specs or spec fragments. For example,
+The `union` function can be called on a list of specs or spec fragments. For example:
 
 ```java
 String spec1 = Files.readString(Path.of("src/test/resources/noConflict1.yaml"));
@@ -63,7 +63,7 @@ simply supply it as a second argument to `union` like so:
 
 ```java
 UnionOptions unionOptions = //... see following sections for more details
-return SpecMath.union(listOfSpec, unionOptions);
+return SpecMath.union(listOfSpecs, unionOptions);
 ```
 
 You can use all or some of the options:
