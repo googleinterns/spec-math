@@ -14,11 +14,7 @@
 
 import { Component } from '@angular/core';
 
-enum Diagram {
-  'merge',
-  'overlay',
-  'filter'
-}
+const DEBUG_MODE_CLASS = 'debug-mode';
 
 @Component({
   selector: 'app-about-page',
@@ -26,15 +22,9 @@ enum Diagram {
   styleUrls: ['./about-page.component.scss'],
 })
 export class AboutPageComponent {
-  debugEnabled = false;
-
   debugMode() {
-    if (this.debugEnabled) {
-      document.body.classList.remove('debug-mode');
-      this.debugEnabled = false;
-    } else {
-      document.body.classList.add('debug-mode');
-      this.debugEnabled = true;
-    }
+    document.body.classList.contains(DEBUG_MODE_CLASS)
+      ? document.body.classList.remove(DEBUG_MODE_CLASS)
+      : document.body.classList.add(DEBUG_MODE_CLASS);
   }
 }
