@@ -66,7 +66,7 @@ import { HttpClientModule } from '@angular/common/http';
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
   ],
-  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
+  providers: [SpecMathService],
   bootstrap: [ModalComponent]
 })
 export class ModalModule { }
