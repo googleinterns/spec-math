@@ -2,7 +2,10 @@
 
 A library for performing operations on OpenAPI specifications. 
 
-For a description of Spec Math itself, please see the [root of the repository](https://github.com/googleinterns/spec-math#spec-math-and-the-spec-math-library).
+## About this document
+This document contains information about using the Spec Math Library. 
+For a description of Spec Math itself, please see the README at the
+[root of the repository](https://github.com/googleinterns/spec-math#spec-math-and-the-spec-math-library).
 
 ## Running tests
 
