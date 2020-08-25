@@ -58,13 +58,6 @@
     </dependencies>
 
     <build>
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>appassembler-maven-plugin</artifactId>-->
-<!--                <version>1.10</version>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -81,7 +74,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-
 </project>
