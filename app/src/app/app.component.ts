@@ -12,20 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './components/specmath-modal/modal.component';
 import { OperationSet } from 'src/shared/interfaces';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { OperationService } from 'src/shared/services/results.service';
-
-type Route = 'home' | 'result' | 'defaults' | 'about';
-
-type Routes = {
-  [route in Route]: string;
-};
+import { MatSidenav } from '@angular/material/sidenav';
+import { SideNavService } from 'src/shared/services/sidenav.service';
 
 const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 
@@ -34,14 +29,16 @@ const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild('snav') sideNav: MatSidenav;
   mobileQuery: MediaQueryList;
 
   constructor(
     readonly router: Router,
     readonly dialog: MatDialog,
     readonly results: OperationService,
-    media: MediaMatcher
+    readonly sideNavService: SideNavService,
+    readonly media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia(MOBILE_MEDIA_QUERY);
   }
@@ -56,5 +53,9 @@ export class AppComponent {
           this.router.navigateByUrl('results');
         }
       });
+  }
+
+  ngAfterViewInit() {
+    this.sideNavService.setSideNav(this.sideNav);
   }
 }

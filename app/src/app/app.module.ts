@@ -27,11 +27,21 @@ import { DisplayResultsModule } from './components/spec-math-display-results/dis
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { AppRoutingModule } from './app-routing.module';
 import { OperationService } from 'src/shared/services/results.service';
+import { RouterModule, Routes } from '@angular/router';
+import { AboutPageComponent } from './components/about-page/about-page.component';
+import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
+import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
+import { EmptyPageComponent } from './components/empty-page/empty-page.component';
+import { SideNavService } from 'src/shared/services/sidenav.service';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    EmptyPageComponent,
+    AboutPageComponent,
+    DefaultsPageComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -45,9 +55,26 @@ import { OperationService } from 'src/shared/services/results.service';
     YamlRenderModule,
     MatListModule,
     MatExpansionModule,
-    AppRoutingModule,
+    RouterModule.forRoot([
+      {
+        path: 'about',
+        component: AboutPageComponent,
+      },
+      {
+        path: 'defaults',
+        component: DefaultsPageComponent,
+      },
+      {
+        path: 'results',
+        component: DisplayResultsComponent,
+      },
+      {
+        path: '**',
+        component: EmptyPageComponent,
+      },
+    ]),
   ],
-  providers: [OperationService],
+  providers: [OperationService, SideNavService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

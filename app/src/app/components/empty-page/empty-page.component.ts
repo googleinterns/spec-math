@@ -13,10 +13,13 @@
 // limitations under the License.
 
 import { Component } from '@angular/core';
+import { SideNavService } from 'src/shared/services/sidenav.service';
 
 @Component({
   selector: 'app-empty-page',
   templateUrl: './empty-page.component.html',
   styleUrls: ['./empty-page.component.scss'],
 })
-export class EmptyPageComponent { }
+export class EmptyPageComponent {
+  constructor(readonly sideNav: SideNavService) { }
+}

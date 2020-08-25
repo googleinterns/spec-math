@@ -35,4 +35,13 @@ export class SideNavService {
   toggle() {
     this.sideNav.toggle();
   }
+
+  /**
+   * Returns the state of the SideNav for interaction purposes
+   *
+   * @returns a boolean representing the state of the SideNav
+   */
+  isOpened(): boolean {
+    return this.sideNav.opened;
+  }
 }

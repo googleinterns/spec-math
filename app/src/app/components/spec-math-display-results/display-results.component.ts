@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import * as fileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { OperationService } from 'src/shared/services/results.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-results',
@@ -28,8 +29,9 @@ import { OperationService } from 'src/shared/services/results.service';
 export class DisplayResultsComponent {
   operationSet: OperationSet;
 
-  constructor(operations: OperationService) {
-    this.operationSet = operations.getResults();
+  constructor(operations: OperationService, router: Router) {
+    const results = operations.getResults();
+    results.valid ? this.operationSet = results : router.navigateByUrl('/');
   }
 
   async downloadFile(yamlFile: File) {
