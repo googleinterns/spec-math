@@ -97,17 +97,17 @@ class UnionCommand implements Callable<Integer> {
 
     System.out.println("To resolve the conflicts you have three choices:");
     System.out.printf(
-        "1: Automatically resolving the conflicts by updating the \"resolvedValue\" property in %s"
+        "1: Updating the \"resolvedValue\" property in %s"
             + " with your desired option, and then passing that file into the union as an"
             + " additional parameter using the -c flag\n\n",
         conflictsFilename);
     System.out.printf(
-        "2: Manually resolve the conflicts by looking at %s and changing the input YAML files\n\n",
+        "2: Looking at %s and manually updating the input YAML files\n\n",
         conflictsFilename);
     System.out.printf(
-        "3: Resolve the conflicts by updating/creating a defaults file with "
-            + "overrides for the conflicting keypaths in %s, and pass in the new defaults file"
-            + " into the union as an additional parameter using the -d flags\n\n",
+        "3: Updating/creating a defaults file with "
+            + "overrides for the conflicting keypaths in %s, and passing in the new defaults file"
+            + " into the union as an additional parameter using the -d flag\n\n",
         conflictsFilename);
   }
 
