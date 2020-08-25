@@ -17,7 +17,7 @@ limitations under the License. -->
     <mat-icon>menu</mat-icon>
   </button>
   <img
-    (click)="setRoute('home')"
+    routerLink="/"
     src="../assets/img/specmath_logo.svg"
     id="spec-math-logo"
     class="nav-logo"
@@ -58,9 +58,9 @@ limitations under the License. -->
     </div>
     <div class="side-options-container">
       <div
-        (click)="setRoute('defaults')"
+        routerLink="defaults"
         class="side-option"
-        [ngClass]="{ selected: currentRoute === 'defaults' }"
+        routerLinkActive="selected"
         id="about-default-files-button"
       >
         <mat-icon>api</mat-icon>
@@ -69,9 +69,9 @@ limitations under the License. -->
         </p>
       </div>
       <div
-        (click)="setRoute('about')"
+        routerLink="about"
         class="side-option"
-        [ngClass]="{ selected: currentRoute === 'about' }"
+        routerLinkActive="selected"
         id="about-spec-math-button"
       >
         <mat-icon>info</mat-icon>
@@ -83,29 +83,8 @@ limitations under the License. -->
   </mat-sidenav>
 
   <mat-sidenav-content id="main-container" class="main right-panel padded">
-    <div *ngIf="currentRoute === 'home'" id="empty-page-container">
-      <h2 class="mat-h2 mat-title">
-        You haven't created any new specifications yet
-      </h2>
-      <h4 class="mat-h4 mat-subheading-1">
-        Use the {{ snav.opened ? '"New" button' : "menu" }} to get started
-      </h4>
+    <div class="detail-container">
+      <router-outlet></router-outlet>
     </div>
-
-    <app-display-results
-      class="detail-container"
-      *ngIf="currentRoute === 'result'"
-      [operationSet]="operationSet"
-    ></app-display-results>
-
-    <app-defaults-page
-      class="detail-container"
-      *ngIf="currentRoute === 'defaults'"
-    ></app-defaults-page>
-
-    <app-about-page
-      class="detail-container"
-      *ngIf="currentRoute === 'about'"
-    ></app-about-page>
   </mat-sidenav-content>
 </mat-sidenav-container>

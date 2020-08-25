@@ -24,15 +24,14 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ModalModule } from './components/specmath-modal/modal.module';
 import { DisplayResultsModule } from './components/spec-math-display-results/display-results.module';
-import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
-import { AboutPageComponent } from './components/about-page/about-page.component';
-import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AppRoutingModule } from './app-routing.module';
+import { OperationService } from 'src/shared/services/results.service';
 
 @NgModule({
-  declarations: [AppComponent, DefaultsPageComponent, AboutPageComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -46,13 +45,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     YamlRenderModule,
     MatListModule,
     MatExpansionModule,
-    RouterModule.forRoot([
-      {
-        path: '**',
-        component: AppComponent,
-      },
-    ]),
+    AppRoutingModule,
   ],
+  providers: [OperationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

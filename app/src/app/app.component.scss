@@ -70,6 +70,10 @@
       background-color: rgba(0, 0, 0, 0.04);
     }
 
+    &:focus {
+      outline: none;
+    }
+
     &.selected {
       font-weight: 600;
       background-color: #e8f0fe;
@@ -143,6 +147,10 @@
     padding-bottom: 6px;
     padding-left: 16px;
     cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 

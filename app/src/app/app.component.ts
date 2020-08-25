@@ -19,6 +19,7 @@ import { OperationSet } from 'src/shared/interfaces';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { OperationService } from 'src/shared/services/results.service';
 
 type Route = 'home' | 'result' | 'defaults' | 'about';
 
@@ -26,12 +27,7 @@ type Routes = {
   [route in Route]: string;
 };
 
-const routes: Routes = {
-  home: '/',
-  result: '/result',
-  defaults: '/defaults',
-  about: '/about',
-};
+const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 
 @Component({
   selector: 'app-root',
@@ -39,40 +35,15 @@ const routes: Routes = {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  currentRoute = routes.home;
   mobileQuery: MediaQueryList;
-  operationSet: OperationSet = {
-    specFiles: [],
-    resultSpec: null,
-    valid: false,
-  };
 
   constructor(
     readonly router: Router,
     readonly dialog: MatDialog,
+    readonly results: OperationService,
     media: MediaMatcher
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 768px)');
-    router.events
-      .pipe(filter((event: RouterEvent) => event instanceof NavigationEnd))
-      .subscribe((path: RouterEvent) => {
-        const url = path.url;
-
-        if (url === '/result' && !this.operationSet.valid) {
-          this.setRoute('home');
-          return;
-        }
-        this.handleRoute(url);
-      });
-  }
-
-  setRoute(route: Route) {
-    this.router.navigateByUrl(routes[route]);
-  }
-
-  handleRoute(route: string) {
-    const routePath = route === '/' ? 'home' : route.slice(1, route.length);
-    this.currentRoute = routePath;
+    this.mobileQuery = media.matchMedia(MOBILE_MEDIA_QUERY);
   }
 
   openDialog() {
@@ -81,8 +52,8 @@ export class AppComponent {
       .afterClosed()
       .subscribe((results?: OperationSet) => {
         if (results) {
-          this.operationSet = results;
-          this.setRoute('result');
+          this.results.setResults(results);
+          this.router.navigateByUrl('results');
         }
       });
   }
