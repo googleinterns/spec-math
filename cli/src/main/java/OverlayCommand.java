@@ -30,9 +30,7 @@ class OverlayCommand implements Callable<Integer> {
   private Path specFilePath;
 
   public static void main(String[] args) {
-    int exitCode =
-        new CommandLine(new OverlayCommand())
-            .execute(args);
+    int exitCode = new CommandLine(new OverlayCommand()).execute(args);
     System.exit(exitCode);
   }
 

@@ -43,9 +43,7 @@ class UnionCommand implements Callable<Integer> {
   SpecMathWrapper specMath = new SpecMathWrapper();
 
   public static void main(String[] args) {
-    int exitCode =
-        new CommandLine(new UnionCommand())
-            .execute(args);
+    int exitCode = new CommandLine(new UnionCommand()).execute(args);
     System.exit(exitCode);
   }
 

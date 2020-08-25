@@ -38,9 +38,7 @@ class FilterCommand implements Callable<Integer> {
   private Path specFilePath;
 
   public static void main(String[] args) {
-    int exitCode =
-        new CommandLine(new FilterCommand())
-            .execute(args);
+    int exitCode = new CommandLine(new FilterCommand()).execute(args);
     System.exit(exitCode);
   }
 
