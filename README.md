@@ -79,7 +79,8 @@ be applied using a “default file” which contains metadata about the final AP
 produced from Spec Math operations. For example, if a company wishes to build a web
 application using filtered pieces of their unified API, the original spec will no longer have an
 accurate `info: title` key path. The overlay will contain something like `info: title: Company Web
-Application` which will be applied to the resultant specification.
+Application` which will be applied to the resultant specification. Another example is to have overlays
+created for different stages in the lifecycle as an API moves from pre production to production.
 
 ### Overview
 
@@ -108,7 +109,12 @@ paths will be reported back. The user can then resolve the conflicts by either:
 - or updating the defaults file.
 
 ##### Union Of Multiple Specs
-The requirements for union of multiple specs are still being determined. 
+Union of multiple specs takes a list of specs L along with an optional set of rules to create a new spec
+which contains all specs in L.
+
+A collision (or union conflict) occurs when a YAML key path has several possible options across two
+or more specs. The example from "Union of Two Specs" is the same, except that conflicts can occur
+across more than just two specs. The methods to resolve conflicts are also the same.
 
 #### Overlay
 Overlay takes spec A along with a defaults file D ([sample](library/src/test/resources/metadata.yaml)) to modify spec A. D is a spec fragment
