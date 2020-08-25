@@ -18,7 +18,7 @@ import { ModalComponent } from './components/specmath-modal/modal.component';
 import { OperationSet } from 'src/shared/interfaces';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { OperationService } from 'src/shared/services/results.service';
+import { OperationService } from 'src/shared/services/operation.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { SideNavService } from 'src/shared/services/sidenav.service';
 

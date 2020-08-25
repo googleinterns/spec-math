@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { OperationSet } from 'src/shared/interfaces';
 import { readFileAsString } from 'src/shared/functions';
 import { Observable } from 'rxjs';
 import * as fileSaver from 'file-saver';
 import * as JSZip from 'jszip';
-import { OperationService } from 'src/shared/services/results.service';
+import { OperationService } from 'src/shared/services/operation.service';
 import { Router } from '@angular/router';
 
 @Component({

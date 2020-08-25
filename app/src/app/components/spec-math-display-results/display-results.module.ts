@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { YamlRenderModule } from '../yaml-render/yaml-render.module';
+import { OperationService } from 'src/shared/services/operation.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { YamlRenderModule } from '../yaml-render/yaml-render.module';
     MatDividerModule,
     YamlRenderModule
   ],
-  exports: [DisplayResultsComponent]
+  providers: [OperationService],
+  exports: [DisplayResultsComponent],
 })
 export class DisplayResultsModule { }

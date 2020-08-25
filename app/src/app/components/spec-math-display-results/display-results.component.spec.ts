@@ -23,10 +23,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { queryElement } from 'src/shared/functions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OperationService } from 'src/shared/services/operation.service';
 
 describe('DisplayResultsComponent', () => {
   let fixture: ComponentFixture<DisplayResultsComponent>;
   let component: DisplayResultsComponent;
+  let operationService: OperationService;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -45,6 +47,16 @@ describe('DisplayResultsComponent', () => {
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(DisplayResultsComponent);
       component = fixture.componentInstance;
+      operationService = TestBed.inject(OperationService);
+
+      operationService.setResults({
+        specFiles: [
+          new File(['openapi: 3.0.0'], 'spec1.yaml'),
+          new File(['openapi: 3.0.0'], 'spec2.yaml')
+        ],
+        resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
+        valid: true
+      });
     });
   });
 
@@ -52,17 +64,7 @@ describe('DisplayResultsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('downloads the OperationSet zip file when the DOWNLOAD button is clicked', () => {
-    component.operationSet = {
-      specFiles: [
-        new File(['openapi: 3.0.0'], 'spec1.yaml'),
-        new File(['openapi: 3.0.0'], 'spec2.yaml')
-      ],
-      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
-      valid: true
-    };
-
-    fixture.detectChanges();
+  fit('downloads the OperationSet zip file when the "Download operation set" button is clicked', () => {
     const spy = spyOn(component, 'downloadOperationSet');
     const downloadButton = queryElement(fixture, '#results-zip-download').nativeElement;
 

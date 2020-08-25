@@ -39,7 +39,7 @@ import { RouterModule, Router } from '@angular/router';
 import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { OperationService } from 'src/shared/services/results.service';
+import { OperationService } from 'src/shared/services/operation.service';
 import { SideNavService } from 'src/shared/services/sidenav.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
