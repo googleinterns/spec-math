@@ -1,6 +1,9 @@
 # Spec Math CLI
 
-A command line interface which exposes some operations from the Spec Math Library
+A command line interface which exposes some operations from the Spec Math Library.
+
+As a prerequisite, please read about Spec Math and the Spec Math operations [here](https://github.com/googleinterns/spec-math#spec-math)
+or [here](https://github.com/googleinterns/spec-math/tree/master/library).
 
 ## Getting Up and Running
 
