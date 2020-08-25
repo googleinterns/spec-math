@@ -40,7 +40,6 @@ class FilterCommand implements Callable<Integer> {
   public static void main(String[] args) {
     int exitCode =
         new CommandLine(new FilterCommand())
-            .setExecutionExceptionHandler(new PrintExceptionMessageHandler())
             .execute(args);
     System.exit(exitCode);
   }
