@@ -14,7 +14,7 @@ import picocli.CommandLine.Parameters;
     mixinStandardHelpOptions = true)
 class OverlayCommand implements Callable<Integer> {
   @Option(
-      names = {"--output"},
+      names = {"-o", "--output"},
       required = true,
       description = "name of the output file")
   String outputFilename;

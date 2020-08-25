@@ -2,6 +2,9 @@ import java.util.concurrent.Callable;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
+/**
+ * The entry point of the CLI. The main purpose is to declare the subcommands under the main command.
+ */
 @Command(
     subcommands = {UnionCommand.class, FilterCommand.class, OverlayCommand.class},
     mixinStandardHelpOptions = true,
