@@ -13,6 +13,7 @@ import picocli.CommandLine.Parameters;
 @Command(
     name = "filter",
     description = "Perform the filter operation.",
+    version = "1.0",
     mixinStandardHelpOptions = true)
 class FilterCommand implements Callable<Integer> {
   @Option(
@@ -33,10 +34,10 @@ class FilterCommand implements Callable<Integer> {
       description = "path to the filter file")
   Path filterFilePath;
 
-  SpecMathService specMath = new SpecMathService();
-
-  @Parameters(arity = "1")
+  @Parameters(arity = "1", description = "path to the spec file")
   private Path specFilePath;
+
+  SpecMathService specMath = new SpecMathService();
 
   public static void main(String[] args) {
     int exitCode = new CommandLine(new FilterCommand()).execute(args);
