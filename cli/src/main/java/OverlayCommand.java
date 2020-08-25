@@ -2,7 +2,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
-import org.specmath.library.SpecMath;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -25,8 +24,10 @@ class OverlayCommand implements Callable<Integer> {
       description = "path to the overlay file")
   Path overlayFilePath;
 
+  SpecMathWrapper specMath = new SpecMathWrapper();
+
   @Parameters(arity = "1")
-  private Path file;
+  private Path specFilePath;
 
   public static void main(String[] args) {
     int exitCode =
@@ -44,9 +45,9 @@ class OverlayCommand implements Callable<Integer> {
       overlay = Files.readString(overlayFilePath);
     }
 
-    String specString = Files.readString(file);
+    String specString = Files.readString(specFilePath);
+    String result = specMath.applyOverlay(overlay, specString);
 
-    String result = SpecMath.applyOverlay(overlay, specString);
     Files.writeString(Paths.get(outputFilename), result);
     System.out.printf(
         "The overlay operation succeeded. Result file written to %s.\n", outputFilename);

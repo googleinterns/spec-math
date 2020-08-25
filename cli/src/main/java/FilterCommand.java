@@ -2,8 +2,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
+import org.specmath.library.AllUnmatchedFilterException;
 import org.specmath.library.FilterOptions;
-import org.specmath.library.SpecMath;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -21,7 +21,7 @@ class FilterCommand implements Callable<Integer> {
   String outputFilename;
 
   @Option(
-      names = {"-d", "--defaults"},
+      names = {"-d", "--defaults", "--overlay"},
       required = false,
       description = "path to defaults file")
   Path defaultsPath;
@@ -32,8 +32,10 @@ class FilterCommand implements Callable<Integer> {
       description = "path to the filter file")
   Path filterFilePath;
 
+  SpecMathWrapper specMath = new SpecMathWrapper();
+
   @Parameters(arity = "1")
-  private Path file;
+  private Path specFilePath;
 
   public static void main(String[] args) {
     int exitCode =
@@ -51,16 +53,20 @@ class FilterCommand implements Callable<Integer> {
       defaults = Files.readString(defaultsPath);
     }
 
-    FilterOptions filterOptions =
-        FilterOptions.builder().defaults(defaults).build();
+    FilterOptions filterOptions = FilterOptions.builder().defaults(defaults).build();
 
-    String specString = Files.readString(file);
+    String specString = Files.readString(specFilePath);
     String filterFileString = Files.readString(filterFilePath);
 
-    String result = SpecMath.filter(specString, filterFileString, filterOptions);
-    Files.writeString(Paths.get(outputFilename), result);
-    System.out.printf(
-        "The filter operation succeeded. Result file written to %s.\n", outputFilename);
+    try {
+      String result = specMath.filter(specString, filterFileString, filterOptions);
+
+      Files.writeString(Paths.get(outputFilename), result);
+      System.out.printf(
+          "The filter operation succeeded. Result file written to %s.\n", outputFilename);
+    } catch (AllUnmatchedFilterException e) {
+      System.out.println("The filter operation failed. The result of the filter was empty.");
+    }
 
     return 0;
   }
