@@ -17,7 +17,7 @@ import { OperationSet } from '../interfaces';
 
 @Injectable()
 export class OperationService {
-  results: OperationSet = {
+  private results: OperationSet = {
     specFiles: [],
     resultSpec: null,
     valid: false,
@@ -26,7 +26,7 @@ export class OperationService {
   /**
    * Sets the results which are used by DisplayResultsComponent after the completion of an operation
    *
-   * @param spec1 - The first spec file to be used in the operation
+   * @param results - an OperationSet object
    */
   setResults(results: OperationSet) {
     this.results = results;

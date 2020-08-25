@@ -12,7 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { TestBed, async, ComponentFixture, flush, tick, fakeAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  async,
+  ComponentFixture,
+  flush,
+  tick,
+  fakeAsync,
+} from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 import { BrowserModule, By } from '@angular/platform-browser';
@@ -30,7 +37,9 @@ import { MatListModule } from '@angular/material/list';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { RouterModule } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
+import { EmptyPageComponent } from './components/empty-page/empty-page.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -38,7 +47,6 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent, DefaultsPageComponent, AboutPageComponent],
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -51,11 +59,23 @@ describe('AppComponent', () => {
         DisplayResultsModule,
         YamlRenderModule,
         MatListModule,
-        RouterTestingModule,
+        MatExpansionModule,
         RouterModule.forRoot([
           {
+            path: 'about',
+            component: AboutPageComponent,
+          },
+          {
+            path: 'defaults',
+            component: DefaultsPageComponent,
+          },
+          {
+            path: 'results',
+            component: DisplayResultsComponent,
+          },
+          {
             path: '**',
-            component: AppComponent,
+            component: EmptyPageComponent,
           },
         ]),
       ],
@@ -87,7 +107,7 @@ describe('AppComponent', () => {
       '#about-default-files-button'
     ).nativeElement;
 
-    const spy = spyOn(app, 'setRoute').and.callThrough();
+    const spy = spyOn(app.router, 'navigateByUrl').and.callThrough();
     aboutDefaultFilesButton.click();
 
     fixture.detectChanges();
@@ -97,15 +117,15 @@ describe('AppComponent', () => {
     expect(app.currentRoute).toEqual('defaults');
 
     fixture.detectChanges();
-    const defaultsPage = fixture.debugElement.query(By.directive(DefaultsPageComponent));
+    const defaultsPage = fixture.debugElement.query(
+      By.directive(DefaultsPageComponent)
+    );
     expect(defaultsPage).toBeTruthy();
   }));
 
   it('opens the About Spec Math page when its button is clicked', fakeAsync(() => {
-    const aboutSpecMathButton = queryElement(
-      fixture,
-      '#about-spec-math-button'
-    ).nativeElement;
+    const aboutSpecMathButton = queryElement(fixture, '#about-spec-math-button')
+      .nativeElement;
 
     const spy = spyOn(app, 'setRoute').and.callThrough();
     aboutSpecMathButton.click();
@@ -117,7 +137,9 @@ describe('AppComponent', () => {
     expect(app.currentRoute).toEqual('about');
 
     fixture.detectChanges();
-    const aboutPage = fixture.debugElement.query(By.directive(AboutPageComponent));
+    const aboutPage = fixture.debugElement.query(
+      By.directive(AboutPageComponent)
+    );
     expect(aboutPage).toBeTruthy();
   }));
 });
