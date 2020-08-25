@@ -21,5 +21,9 @@ import { SideNavService } from 'src/shared/services/sidenav.service';
   styleUrls: ['./empty-page.component.scss'],
 })
 export class EmptyPageComponent {
-  constructor(readonly sideNav: SideNavService) { }
+  constructor(readonly sideNav: SideNavService) {}
+
+  get interaction() {
+    return this.sideNav.isOpened() ? '"New" button' : 'menu';
+  }
 }

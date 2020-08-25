@@ -12,4 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+.empty-page-container {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  padding-top: 164px;
+  text-align: center;
+}
