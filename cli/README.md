@@ -3,11 +3,11 @@
 A command line interface which exposes some operations from the Spec Math Library.
 
 As a prerequisite, please read about Spec Math and the Spec Math operations [here](https://github.com/googleinterns/spec-math#spec-math)
-or [here](https://github.com/googleinterns/spec-math/tree/master/library).
+and [here](https://github.com/googleinterns/spec-math/tree/master/library).
 
 ## Getting Up and Running
 
-### For Unix Based Operating Systems
+### For Unix Based Operating System
 
 First, navigate to the [cli folder](.) in your terminal. Then run the following commands:
 
@@ -16,7 +16,7 @@ mvn clean install compile
 mvn package appassembler:assemble
 ```
 
-After doing so, the binary will be located at
+After doing so, the binary for the entrypoint to the Spec Math CLI will be located at
 /target/appassembler/bin/specmath in the [cli folder](.). You can run it with the help command like so:
 
 `sh /target/appassembler/bin/specmath --help`
@@ -41,7 +41,7 @@ Each of the Spec Math operations have their own subcommands with their own optio
 - `specmath filter`
 - `specmath overlay`
 
-To get help for each of these subcommands, use the `-h` or `--help` flag to learn more, (e.g. `specmath union -h`).
+To get help for each of these subcommands, use the `-h` or `--help` flag to learn more (e.g. `specmath union -h`).
 
 ## Running tests
 
