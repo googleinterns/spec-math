@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,10 +25,10 @@ class OverlayCommand implements Callable<Integer> {
       description = "path to the overlay file")
   Path overlayFilePath;
 
-  SpecMathWrapper specMath = new SpecMathWrapper();
-
   @Parameters(arity = "1")
   private Path specFilePath;
+
+  SpecMathWrapper specMath = new SpecMathWrapper();
 
   public static void main(String[] args) {
     int exitCode = new CommandLine(new OverlayCommand()).execute(args);
@@ -43,12 +44,16 @@ class OverlayCommand implements Callable<Integer> {
     }
 
     String specString = Files.readString(specFilePath);
-    String result = specMath.applyOverlay(overlay, specString);
 
-    Files.writeString(Paths.get(outputFilename), result);
+    String result = specMath.applyOverlay(overlay, specString);
+    writeResultToDisk(result);
     System.out.printf(
         "The overlay operation succeeded. Result file written to %s.\n", outputFilename);
 
     return 0;
+  }
+
+  void writeResultToDisk(String result) throws IOException {
+    Files.writeString(Paths.get(outputFilename), result);
   }
 }

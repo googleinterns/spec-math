@@ -1,6 +1,8 @@
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -31,7 +34,7 @@ class FilterCommandTest {
 
   @Mock private SpecMathWrapper specMath;
 
-  @InjectMocks private FilterCommand filterCommand;
+  @Spy @InjectMocks private FilterCommand filterCommand;
 
   @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -65,6 +68,7 @@ class FilterCommandTest {
     assertThat(out.toString())
         .isEqualTo(
             "The filter operation succeeded. Result file written to src/test/resources/fakeFileName.yaml.\n");
+    verify(filterCommand, times(1)).writeResultToDisk(anyString());
   }
 
   @Test

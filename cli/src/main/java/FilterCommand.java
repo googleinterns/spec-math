@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -57,8 +58,7 @@ class FilterCommand implements Callable<Integer> {
 
     try {
       String result = specMath.filter(specString, filterFileString, filterOptions);
-
-      Files.writeString(Paths.get(outputFilename), result);
+      writeResultToDisk(result);
       System.out.printf(
           "The filter operation succeeded. Result file written to %s.\n", outputFilename);
     } catch (AllUnmatchedFilterException e) {
@@ -66,5 +66,9 @@ class FilterCommand implements Callable<Integer> {
     }
 
     return 0;
+  }
+
+  void writeResultToDisk(String result) throws IOException {
+    Files.writeString(Paths.get(outputFilename), result);
   }
 }

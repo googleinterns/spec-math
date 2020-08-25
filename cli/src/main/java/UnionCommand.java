@@ -69,7 +69,7 @@ class UnionCommand implements Callable<Integer> {
 
     try {
       String result = specMath.union(specStrings, unionOptions);
-      Files.writeString(Paths.get(outputFilename), result);
+      writeResultToDisk(result);
 
       System.out.printf(
           "The union operation succeeded. Result file written to %s.\n", outputFilename);
@@ -78,6 +78,10 @@ class UnionCommand implements Callable<Integer> {
     }
 
     return 0;
+  }
+
+  void writeResultToDisk(String result) throws IOException {
+    Files.writeString(Paths.get(outputFilename), result);
   }
 
   private void handleUnionConflictException(UnionConflictException e) throws IOException {
@@ -103,7 +107,7 @@ class UnionCommand implements Callable<Integer> {
         conflictsFilename);
   }
 
-  private String writeConflictFileToDisk(UnionConflictException e) throws IOException {
+  String writeConflictFileToDisk(UnionConflictException e) throws IOException {
     String conflictsFilename = outputFilename + "_CONFLICTS";
 
     ObjectMapper mapper = new ObjectMapper();

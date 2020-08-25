@@ -1,8 +1,11 @@
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -23,9 +27,10 @@ class OverlayCommandTest {
   final PrintStream originalErr = System.err;
   final ByteArrayOutputStream out = new ByteArrayOutputStream();
   final ByteArrayOutputStream err = new ByteArrayOutputStream();
+
   @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
   @Mock private SpecMathWrapper specMath;
-  @InjectMocks private OverlayCommand overlayCommand;
+  @Spy @InjectMocks private OverlayCommand overlayCommand;
 
   @BeforeEach
   public void setUpStreams() {
@@ -42,7 +47,7 @@ class OverlayCommandTest {
   }
 
   @Test
-  public void overlay_withoutException_succeeds() throws UnexpectedTypeException {
+  public void overlay_withoutException_succeeds() throws UnexpectedTypeException, IOException {
     when(specMath.applyOverlay(anyString(), anyString())).thenReturn("");
 
     String[] args =
@@ -55,5 +60,6 @@ class OverlayCommandTest {
     assertThat(out.toString())
         .isEqualTo(
             "The overlay operation succeeded. Result file written to src/test/resources/fakeFileName.yaml.\n");
+    verify(overlayCommand, times(1)).writeResultToDisk(anyString());
   }
 }
