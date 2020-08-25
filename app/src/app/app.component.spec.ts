@@ -17,7 +17,6 @@ import {
   async,
   ComponentFixture,
   flush,
-  tick,
   fakeAsync,
 } from '@angular/core/testing';
 import { AppComponent } from './app.component';
@@ -36,17 +35,27 @@ import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { OperationService } from 'src/shared/services/results.service';
+import { SideNavService } from 'src/shared/services/sidenav.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
+  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [
+        AppComponent,
+        EmptyPageComponent,
+        AboutPageComponent,
+        DefaultsPageComponent,
+      ],
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -60,7 +69,7 @@ describe('AppComponent', () => {
         YamlRenderModule,
         MatListModule,
         MatExpansionModule,
-        RouterModule.forRoot([
+        RouterTestingModule.withRoutes([
           {
             path: 'about',
             component: AboutPageComponent,
@@ -79,10 +88,12 @@ describe('AppComponent', () => {
           },
         ]),
       ],
+      providers: [OperationService, SideNavService],
     })
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(AppComponent);
+        router = TestBed.inject(Router);
         app = fixture.componentInstance;
       });
   }));
@@ -107,14 +118,12 @@ describe('AppComponent', () => {
       '#about-default-files-button'
     ).nativeElement;
 
-    const spy = spyOn(app.router, 'navigateByUrl').and.callThrough();
     aboutDefaultFilesButton.click();
 
     fixture.detectChanges();
     flush();
 
-    expect(spy).toHaveBeenCalledWith('defaults');
-    expect(app.currentRoute).toEqual('defaults');
+    expect(router.url).toEqual('/defaults');
 
     fixture.detectChanges();
     const defaultsPage = fixture.debugElement.query(
@@ -123,23 +132,43 @@ describe('AppComponent', () => {
     expect(defaultsPage).toBeTruthy();
   }));
 
-  it('opens the About Spec Math page when its button is clicked', fakeAsync(() => {
-    const aboutSpecMathButton = queryElement(fixture, '#about-spec-math-button')
-      .nativeElement;
+  it('opens the About page when its button is clicked', fakeAsync(() => {
+    const aboutButton = queryElement(
+      fixture,
+      '#about-spec-math-button'
+    ).nativeElement;
 
-    const spy = spyOn(app, 'setRoute').and.callThrough();
-    aboutSpecMathButton.click();
+    aboutButton.click();
 
     fixture.detectChanges();
     flush();
 
-    expect(spy).toHaveBeenCalledWith('about');
-    expect(app.currentRoute).toEqual('about');
+    expect(router.url).toEqual('/about');
 
     fixture.detectChanges();
     const aboutPage = fixture.debugElement.query(
       By.directive(AboutPageComponent)
     );
     expect(aboutPage).toBeTruthy();
+  }));
+
+  it('opens the Empty page when the logo is clicked', fakeAsync(() => {
+    const logo = queryElement(
+      fixture,
+      '#spec-math-logo'
+    ).nativeElement;
+
+    logo.click();
+
+    fixture.detectChanges();
+    flush();
+
+    expect(router.url).toEqual('/');
+
+    fixture.detectChanges();
+    const emptyPage = fixture.debugElement.query(
+      By.directive(EmptyPageComponent)
+    );
+    expect(emptyPage).toBeTruthy();
   }));
 });
