@@ -11,7 +11,7 @@ import picocli.CommandLine.Command;
     mixinStandardHelpOptions = true,
     name = "specmath",
     version = "1.0",
-    description = "Perform operations on OpenAPI Specifications")
+    description = "Perform Spec Math operations on OpenAPI Specifications. For more information please see the README.")
 public class SpecMath implements Callable<Integer> {
   public static void main(String[] args) {
     Integer exitCode = new CommandLine(new SpecMath()).execute(args);

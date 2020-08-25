@@ -12,7 +12,7 @@ import picocli.CommandLine.Parameters;
 
 @Command(
     name = "filter",
-    description = "Perform the filter operation.",
+    description = "Perform the filter operation",
     version = "1.0",
     mixinStandardHelpOptions = true)
 class FilterCommand implements Callable<Integer> {

@@ -16,7 +16,7 @@ import picocli.CommandLine.Parameters;
 
 @Command(
     name = "union",
-    description = "Perform the union operation.",
+    description = "Perform the union operation",
     version = "1.0",
     mixinStandardHelpOptions = true)
 class UnionCommand implements Callable<Integer> {

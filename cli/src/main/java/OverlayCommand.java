@@ -10,7 +10,7 @@ import picocli.CommandLine.Parameters;
 
 @Command(
     name = "overlay",
-    description = "Perform the overlay operation.",
+    description = "Perform the overlay operation",
     version = "1.0",
     mixinStandardHelpOptions = true)
 class OverlayCommand implements Callable<Integer> {
