@@ -42,6 +42,8 @@ Each of the Spec Math operations have their own subcommands with their own optio
 - `specmath overlay`
 
 To get help for each of these subcommands, use the `-h` or `--help` flag to learn more (e.g. `specmath union -h`).
+Also, as a prerequisite, please read about Spec Math and the Spec Math operations [here](https://github.com/googleinterns/spec-math#spec-math)
+and [here](https://github.com/googleinterns/spec-math/tree/master/library).
 
 ## Running tests
 
