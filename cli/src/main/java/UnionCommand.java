@@ -17,6 +17,7 @@ import picocli.CommandLine.Parameters;
 @Command(
     name = "union",
     description = "Perform the union operation.",
+    version = "1.0",
     mixinStandardHelpOptions = true)
 class UnionCommand implements Callable<Integer> {
   @Option(
@@ -37,7 +38,10 @@ class UnionCommand implements Callable<Integer> {
       description = "path to conflict resolutions file")
   Path conflictResolutionsPath;
 
-  @Parameters(arity = "2..*")
+  @Parameters(
+      arity = "2..*",
+      paramLabel = "FILEPATH",
+      description = "two or more paths to specs to merge")
   private List<Path> filePathsOfSpecsToMerge;
 
   SpecMathService specMath = new SpecMathService();

@@ -11,6 +11,7 @@ import picocli.CommandLine.Parameters;
 @Command(
     name = "overlay",
     description = "Perform the overlay operation.",
+    version = "1.0",
     mixinStandardHelpOptions = true)
 class OverlayCommand implements Callable<Integer> {
   @Option(
@@ -25,7 +26,7 @@ class OverlayCommand implements Callable<Integer> {
       description = "path to the overlay file")
   Path overlayFilePath;
 
-  @Parameters(arity = "1")
+  @Parameters(arity = "1", description = "path to the spec file")
   private Path specFilePath;
 
   SpecMathService specMath = new SpecMathService();
