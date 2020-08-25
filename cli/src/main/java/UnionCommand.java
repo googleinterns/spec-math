@@ -40,7 +40,7 @@ class UnionCommand implements Callable<Integer> {
   @Parameters(arity = "2..*")
   private List<Path> filePathsOfSpecsToMerge;
 
-  SpecMathWrapper specMath = new SpecMathWrapper();
+  SpecMathService specMath = new SpecMathService();
 
   public static void main(String[] args) {
     int exitCode = new CommandLine(new UnionCommand()).execute(args);

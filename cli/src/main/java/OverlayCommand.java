@@ -28,7 +28,7 @@ class OverlayCommand implements Callable<Integer> {
   @Parameters(arity = "1")
   private Path specFilePath;
 
-  SpecMathWrapper specMath = new SpecMathWrapper();
+  SpecMathService specMath = new SpecMathService();
 
   public static void main(String[] args) {
     int exitCode = new CommandLine(new OverlayCommand()).execute(args);

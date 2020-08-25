@@ -32,7 +32,7 @@ class FilterCommandTest {
   final ByteArrayOutputStream out = new ByteArrayOutputStream();
   final ByteArrayOutputStream err = new ByteArrayOutputStream();
 
-  @Mock private SpecMathWrapper specMath;
+  @Mock private SpecMathService specMath;
 
   @Spy @InjectMocks private FilterCommand filterCommand;
 
@@ -72,7 +72,7 @@ class FilterCommandTest {
   }
 
   @Test
-  public void filter_withException_displayeErrorMessage()
+  public void filter_withException_displaysErrorMessage()
       throws UnionConflictException, UnexpectedTypeException, IOException,
           AllUnmatchedFilterException {
     when(specMath.filter(anyString(), anyString(), any(FilterOptions.class)))

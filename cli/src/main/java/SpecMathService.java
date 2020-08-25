@@ -22,8 +22,8 @@ import org.specmath.library.UnexpectedTypeException;
 import org.specmath.library.UnionConflictException;
 import org.specmath.library.UnionOptions;
 
-/** Wrapper functions for the Spec Math Library which are used by the CLI. */
-class SpecMathWrapper {
+/** Functions from the Spec Math Library which are used by the CLI. */
+class SpecMathService {
   String union(List<String> specsToMerge, UnionOptions unionOptions)
       throws IOException, UnionConflictException, UnexpectedTypeException {
     return org.specmath.library.SpecMath.union(specsToMerge, unionOptions);

@@ -35,7 +35,7 @@ class UnionCommandTest {
   final ByteArrayOutputStream out = new ByteArrayOutputStream();
   final ByteArrayOutputStream err = new ByteArrayOutputStream();
 
-  @Mock private SpecMathWrapper specMath;
+  @Mock private SpecMathService specMath;
 
   @Spy @InjectMocks private UnionCommand unionCommand;
 

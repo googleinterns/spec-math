@@ -29,7 +29,7 @@ class OverlayCommandTest {
   final ByteArrayOutputStream err = new ByteArrayOutputStream();
 
   @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
-  @Mock private SpecMathWrapper specMath;
+  @Mock private SpecMathService specMath;
   @Spy @InjectMocks private OverlayCommand overlayCommand;
 
   @BeforeEach

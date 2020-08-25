@@ -33,7 +33,7 @@ class FilterCommand implements Callable<Integer> {
       description = "path to the filter file")
   Path filterFilePath;
 
-  SpecMathWrapper specMath = new SpecMathWrapper();
+  SpecMathService specMath = new SpecMathService();
 
   @Parameters(arity = "1")
   private Path specFilePath;
