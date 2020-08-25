@@ -7,7 +7,7 @@ and [here](https://github.com/googleinterns/spec-math/tree/master/library).
 
 ## Getting Up and Running
 
-### For Unix Based Operating System
+### For Unix Based Operating Systems
 
 First, navigate to the [cli folder](.) in your terminal. Then run the following commands:
 
