@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-.results {
+.about {
   &-container {
     width: 100%;
     display: flex;
@@ -36,7 +36,7 @@
     }
 
     &-text {
-      width: 60%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -47,87 +47,89 @@
     }
   }
 
-  &-tabs {
-    &-container {
-      height: 100%;
-      width: 100%;
-      margin-top: 1rem;
-    }
-  }
-
-  &-tab {
-    &-container {
-      display: flex;
-      flex-direction: column;
-      height: calc(100% - 64px);
-      width: calc(100% - 64px);
-      padding: 32px;
-    }
-
-    &-menu-button {
-      margin-right: 0;
-      margin-left: auto;
-    }
-
-    &-file {
-      &-header {
-        &-container {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-start;
-          justify-content: flex-start;
-        }
-      }
-
-      &-container {
-        width: 100%;
-        height: 100%;
-        margin-top: 1rem;
-        background-color: black;
-      }
-    }
-  }
-
   &-label {
     margin-top: 1rem;
-    
+
     & h4 {
       margin: none;
     }
   }
-}
 
-@media (max-width: 768px) {
-  .results {
+  &-description {
+    margin-top: 32px;
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+
+  &-operation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & h3 {
+      margin: 0;
+    }
+
+    & iframe {
+      width: 100%;
+      height: 640px;
+      border: none;
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 16px;
+    }
+  }
+
+  &-team {
     &-container {
-      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
     }
 
-    &-header {
-      &-container {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 8px;
-    
-        & button {
-          margin-left: auto;
-          margin-right: 0;
-        }
-      }
+    &-member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
 
-      &-text {
-        width: 100%;
+      & a,
+      p {
+        text-align: center;
       }
     }
-    
-    &-tab-container {
+
+    &-picture-container {
+      height: 164px;
+      width: 164px;
       padding: 8px;
-      height: calc(100% - 16px);
-      width: calc(100% - 16px);
-    }
+      margin-bottom: 8px;
 
-    &-tab-file-container {
-      width: 100%;
+      & img {
+        height: 100%;
+        width: 100%;
+        border-radius: 100%;
+      }
+
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    &-team {
+      &-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  
+    &-operation {
+      & iframe {
+        display: none;
+      }
     }
   }
 }

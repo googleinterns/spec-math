@@ -31,12 +31,15 @@
   &.left-panel {
     flex-direction: column;
     align-items: flex-start;
-    width: 256px;
+    width: 252px;
     position: absolute;
+    border-right: none;
+    padding-right: 4px;
+    z-index: 3;
   }
-  
+
   &.right-panel {
-    width: calc(100% - 256px);
+    width: 100%;
     height: calc(100% - 2rem);
     flex-direction: column;
     align-items: center;
@@ -44,9 +47,48 @@
   }
 }
 
-#empty-text-container {
-  margin: 10rem auto auto auto;
-  text-align: center;
+.side {
+  &-options {
+    &-container {
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+    }
+  }
+
+  &-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 0px 8px 32px;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.selected {
+      font-weight: 600;
+      background-color: #e8f0fe;
+      color: #1967d2;
+    }
+
+    & mat-icon {
+      margin-right: 24px;
+    }
+
+    & p {
+      font-weight: 500;
+      margin: 0;
+    }
+  }
 }
 
 .mdc-fab--extended {
@@ -61,16 +103,12 @@
   &.desktop {
     padding-left: 12px;
     padding-right: 24px;
-  }
-
-  &.mobile {
-    position: absolute;
-    bottom: 5rem;
-    right: 2rem;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 }
 
-.operation-results-container {
+.detail-container {
   height: 100%;
   width: 100%;
   max-width: 1140px;
@@ -79,33 +117,39 @@
   align-items: center;
 }
 
+.nav {
+  &-bar {
+    background-color: $white;
+    width: calc(100% - 16px);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #dadce0;
+    margin-top: -1px;
+    padding: 8px;
+
+    & #extend-button {
+      margin-left: 16px;
+    }
+  }
+
+  &-logo {
+    display: block;
+    object-fit: contain;
+    height: 36px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 16px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 .mdc-fab__label {
   text-transform: none;
   margin-left: 12px;
-}
-
-@media (max-width: 768px) {
-  #operation-menu-button-desktop {
-    display: none;
-  }
-
-  #operation-menu-button-mobile {
-    display: block;
-  }
-
-  .main {
-    &.left-panel {
-      width: 0;
-    }
-    
-    &.right-panel {
-      width: 100%;
-    }
-  }
-}
-
-@media (min-width: 769px) {
-  #operation-menu-button-mobile {
-    display: none;
-  }
 }

@@ -23,13 +23,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ModalModule } from './components/specmath-modal/modal.module';
-import { NavBarComponent } from './components/specmath-navbar/navbar.component';
 import { DisplayResultsModule } from './components/spec-math-display-results/display-results.module';
+import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { OperationService } from 'src/shared/services/operation.service';
+import { RouterModule, Routes } from '@angular/router';
+import { AboutPageComponent } from './components/about-page/about-page.component';
+import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
+import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
+import { EmptyPageComponent } from './components/empty-page/empty-page.component';
+import { SideNavService } from 'src/shared/services/sidenav.service';
+import { routes } from 'src/shared/routes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent
+    EmptyPageComponent,
+    AboutPageComponent,
+    DefaultsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,9 +52,30 @@ import { DisplayResultsModule } from './components/spec-math-display-results/dis
     MatDividerModule,
     MatButtonModule,
     ModalModule,
-    DisplayResultsModule
+    DisplayResultsModule,
+    YamlRenderModule,
+    MatListModule,
+    MatExpansionModule,
+    RouterModule.forRoot([
+      {
+        path: routes.aboutSpecMath,
+        component: AboutPageComponent,
+      },
+      {
+        path: routes.aboutDefaults,
+        component: DefaultsPageComponent,
+      },
+      {
+        path: routes.results,
+        component: DisplayResultsComponent,
+      },
+      {
+        path: '**',
+        component: EmptyPageComponent,
+      },
+    ]),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [OperationService, SideNavService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
