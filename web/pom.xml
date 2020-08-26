@@ -75,6 +75,12 @@
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.truth</groupId>
+			<artifactId>truth</artifactId>
+			<version>1.0.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -96,6 +102,8 @@
 							<inputSpec>
 								${project.basedir}/../docs/contract.yaml
 							</inputSpec>
+							<generateApis>true</generateApis>
+							<generateApiTests>true</generateApiTests>
 							<generatorName>spring</generatorName>
 							<apiPackage>org.specmath.restapi.api</apiPackage>
 							<modelPackage>org.specmath.restapi.model</modelPackage>
