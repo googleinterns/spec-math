@@ -16,6 +16,9 @@ import org.specmath.restapi.model.MergeRequest;
 import org.specmath.restapi.model.OperationResponse;
 import org.specmath.restapi.model.OverlayRequest;
 
+/**
+ * Service functions which handle Spec Math related requests to the API
+ */
 public class SpecMathService {
 
   OperationResponse handleMergeRequest(MergeRequest mergeRequest) {
@@ -57,15 +60,24 @@ public class SpecMathService {
     }
   }
 
+  /**
+   * Class function for the static SpecMath function, used for mocking purposes
+   */
   String union(List<String> specs, UnionOptions unionOptions)
       throws UnionConflictException, UnexpectedTypeException, IOException {
     return SpecMath.union(specs, unionOptions);
   }
 
+  /**
+   * Class function for the static SpecMath function, used for mocking purposes
+   */
   String applyOverlay(String overlay, String spec) throws UnexpectedTypeException {
     return SpecMath.applyOverlay(overlay, spec);
   }
 
+  /**
+   * Cast the conflict objects in {@code e} to {@code MergeConflict} objects
+   */
   private List<MergeConflict> castMergeConflictObject(UnionConflictException e) {
     List<MergeConflict> mergeConflicts = new ArrayList<>();
 
@@ -80,6 +92,9 @@ public class SpecMathService {
     return mergeConflicts;
   }
 
+  /**
+   * Performs the union operation by creating the {@code UnionOptions} and other parameters needed
+   */
   private String performUnionOperation(MergeRequest mergeRequest)
       throws IOException, UnionConflictException, UnexpectedTypeException {
     String conflictRes = castConflictResolutionsToString(mergeRequest);
@@ -93,6 +108,10 @@ public class SpecMathService {
     return union(specs, unionOptions);
   }
 
+  /**
+   * Turn the incoming conflict resolutions object into a string to be used by the Spec Math
+   * Library
+   */
   private String castConflictResolutionsToString(MergeRequest mergeRequest)
       throws JsonProcessingException {
     if (mergeRequest.getConflictResolutions() != null) {
