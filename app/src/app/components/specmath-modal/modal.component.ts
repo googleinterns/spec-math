@@ -183,7 +183,7 @@ export class ModalComponent {
     }
 
     if (this.hasMergeConflicts) {
-      requestBody.mergeConflicts = this.mergeConflicts;
+      requestBody.conflictResolutions = this.mergeConflicts;
     }
 
     return requestBody;
