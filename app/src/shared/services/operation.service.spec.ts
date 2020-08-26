@@ -20,7 +20,7 @@ describe('OperationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [OperationService]
+      providers: [OperationService],
     });
     service = TestBed.inject(OperationService);
   });
@@ -29,7 +29,25 @@ describe('OperationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('sets results when an OperationSet is provided through setResults', () => {
-    
+  it('sets and reads results when an OperationSet is provided through setResults and read through getResults', () => {
+    service.setResults({
+      specFiles: [
+        new File(['openapi: 3.0.0'], 'spec1.yaml'),
+        new File(['openapi: 3.0.0'], 'spec2.yaml'),
+      ],
+      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
+      valid: true,
+    });
+
+    const results = service.getResults();
+
+    expect(results).toEqual({
+      specFiles: [
+        new File(['openapi: 3.0.0'], 'spec1.yaml'),
+        new File(['openapi: 3.0.0'], 'spec2.yaml'),
+      ],
+      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
+      valid: true,
+    });
   });
 });

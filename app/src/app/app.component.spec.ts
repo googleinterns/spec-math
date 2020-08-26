@@ -35,7 +35,7 @@ import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
