@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { SpecMathService } from './specmath.service';
 import { mergeSpecsMockRequest } from '../../tests/mocks/mockRequests';
 import { mergeSpecsMockResponse } from '../../tests/mocks/mockResponses';
-import { routes } from '../routes';
+import { routes, SPEC_MATH_URL } from '../routes';
 import { SpecMathMergeResponse, SpecMathMergeRequest } from 'src/shared/interfaces';
 
 describe('SpecMathService', () => {
@@ -42,7 +42,7 @@ describe('SpecMathService', () => {
         expect(res).toEqual(mergeSpecsMockResponse);
       });
 
-      const mockRequest = httpMockObject.expectOne(routes.mergeSpecs);
+      const mockRequest = httpMockObject.expectOne(`${SPEC_MATH_URL}${routes.mergeSpecs}`);
       expect(mockRequest.request.method).toBe('POST');
       mockRequest.flush(mergeSpecsMockResponse);
     });
