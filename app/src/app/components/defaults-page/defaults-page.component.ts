@@ -13,11 +13,15 @@
 // limitations under the License.
 
 import { Component } from '@angular/core';
+
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: 'app-defaults-page',
+  templateUrl: './defaults-page.component.html',
+  styleUrls: ['./defaults-page.component.scss'],
 })
-export class NavBarComponent {
-  debug = true;
+export class DefaultsPageComponent {
+  sampleDefaultsFile = new File([`
+  openapi: 3.0.0
+  info:
+    title: Default Swagger Petstore`], 'sample.yaml');
 }

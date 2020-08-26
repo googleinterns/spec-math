@@ -22,11 +22,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { queryElement } from 'src/shared/functions';
+import { OperationService } from 'src/shared/services/operation.service';
+import { YamlRenderModule } from '../yaml-render/yaml-render.module';
+import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DisplayResultsComponent', () => {
   let fixture: ComponentFixture<DisplayResultsComponent>;
   let component: DisplayResultsComponent;
+  let operationService: OperationService;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -40,9 +44,22 @@ describe('DisplayResultsComponent', () => {
         MatIconModule,
         MatMenuModule,
         MatDividerModule,
+        YamlRenderModule,
+        RouterTestingModule,
         BrowserAnimationsModule
       ],
+      providers: [OperationService],
     }).compileComponents().then(() => {
+      operationService = TestBed.inject(OperationService);
+      operationService.setResults({
+        specFiles: [
+          new File(['openapi: 3.0.0'], 'spec1.yaml'),
+          new File(['openapi: 3.0.0'], 'spec2.yaml')
+        ],
+        resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
+        valid: true
+      });
+
       fixture = TestBed.createComponent(DisplayResultsComponent);
       component = fixture.componentInstance;
     });
@@ -52,16 +69,7 @@ describe('DisplayResultsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('downloads the OperationSet zip file when the DOWNLOAD button is clicked', () => {
-    component.operationSet = {
-      specFiles: [
-        new File(['openapi: 3.0.0'], 'spec1.yaml'),
-        new File(['openapi: 3.0.0'], 'spec2.yaml')
-      ],
-      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
-      valid: true
-    };
-
+  it('downloads the OperationSet zip file when the "Download operation set" button is clicked', () => {
     fixture.detectChanges();
     const spy = spyOn(component, 'downloadOperationSet');
     const downloadButton = queryElement(fixture, '#results-zip-download').nativeElement;
@@ -71,18 +79,8 @@ describe('DisplayResultsComponent', () => {
   });
 
   it('downloads each separate file when each file type download button is clicked', () => {
-    component.operationSet = {
-      specFiles: [
-        new File(['openapi: 3.0.0'], 'spec1.yaml'),
-        new File(['openapi: 3.0.0'], 'spec2.yaml')
-      ],
-      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
-      valid: true
-    };
-
     fixture.detectChanges();
     const spy = spyOn(component, 'downloadFile');
-
     const resultsMenu = queryElement(fixture, '#results-options-menu').nativeElement;
     resultsMenu.click();
 

@@ -1,0 +1,190 @@
+<!-- Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+
+<div class="about-container">
+  <div class="about-header-container">
+    <div class="about-header-text">
+      <h2 class="about-label mat-display-3 card-subtitle">
+        Spec Math
+      </h2>
+      <mat-divider class="about-header-divider"></mat-divider>
+      <p class="mat-body">
+        Google Summer 2020 intern project built under the
+        <a href="https://cloud.google.com/apigee">Google Cloud Apigee</a>
+        platform.
+      </p>
+    </div>
+  </div>
+  <div class="about-description">
+    <h2>
+      What is Spec Math?
+    </h2>
+    <p>
+      Spec Math is a service for performing operations on OpenAPI
+      specifications.
+      <a href="http://spec.openapis.org/oas/v3.0.3">OpenAPI</a> is an
+      industry-standard format for machine-readable REST API descriptions.
+    </p>
+    <p>
+      Specifications play a critical role in the API lifecycle. They can enforce
+      a contract between client and server teams, easily generate documentation
+      and client libraries, reduce the work of creating a proxy for an existing
+      service and much more.
+    </p>
+    <p>
+      The Spec Math project aims to afford even more power to API developers who
+      use the OpenAPI specification.
+    </p>
+  </div>
+  <div class="about-description">
+    <h2>
+      How does it work?
+    </h2>
+    <p>
+      We use tree traversal algorithms to represent a YAML file and have the
+      ability to compare or edit each of these "nodes".
+    </p>
+  </div>
+  <div class="about-description">
+    <h2>
+      What can it do?
+    </h2>
+    <p>
+      Spec Math supports a series of operations such as
+    </p>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Merge
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="about-operation">
+          <p>
+            One feature of Spec Math is to merge two or more specs into one. The
+            developers could then have each team working on their own APIs with
+            their own respective specs.
+          </p>
+          <p>
+            From there, the developers can leverage the Spec Math Library to
+            create a unified spec to describe the APIs developed across all the
+            teams.
+          </p>
+          <iframe
+            src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FljpxOolNaTuLCDxzh24AfE%2FMerge-prototype%3Fnode-id%3D1%253A112%26viewport%3D917%252C727%252C1.1506778001785278%26scaling%3Dmin-zoom&chrome=DOCUMENTATION"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Overlay
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="about-operation">
+          <p>
+            Overlay allows developers to place OpenAPI spec fragments on top of
+            existing specs. For example, in the case of both filtering and
+            merging, the resultant spec represents a different API product than
+            the input specs. This is why overlaying functionality will also be
+            supported.
+          </p>
+          <p>
+            An overlay can be applied using a “default file” which contains
+            metadata about the final API product that is produced from Spec Math
+            operations.
+          </p>
+          <iframe
+            src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F9LOouJr64YGUrVsiu2lqfQ%2FSpec-Math-Overlay-prototype%3Fnode-id%3D2%253A191%26viewport%3D-973%252C405%252C0.8020760416984558%26scaling%3Dmin-zoom&chrome=DOCUMENTATION"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Filter
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="about-operation">
+          <p>
+            The developers are now able to unify the specs across multiple teams
+            using the union feature of the Spec Math Library. Now, though,
+            providers want to give specific user groups and developer teams
+            access to portions of the unified API.
+          </p>
+          <p>
+            For example, the developers now want to create a public API with all
+            of the API endpoints across all teams that do not require internal
+            authentication. It would be a tedious and error-prone process to
+            manually cherry-pick pieces of the unified API and paste them into a
+            new public API spec.
+          </p>
+          <p>
+            With filtering, the developers can provide the unified spec, along
+            with a list of filter criteria that they want to match, and get a
+            new spec matching the criteria. Filtering would allow the developers
+            to generate a new spec with only the "public" tagged operations.
+          </p>
+          <iframe
+            src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FcGzxjrAO0rgETAAbrbcMq5%2FSpec-Math-Filter-prototype%3Fnode-id%3D5%253A13%26viewport%3D590%252C421%252C0.8348931670188904%26scaling%3Dmin-zoom&chrome=DOCUMENTATION"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="about-description">
+    <h2>
+      The team
+    </h2>
+    <p>Made with {{ "<3" }} and lots of googleyness by</p>
+    <div class="about-team-container">
+      <div class="about-team-member">
+        <div class="about-team-picture-container">
+          <img src="../../../assets/img/rafi.jpg" alt="Rafi's picture" />
+        </div>
+        <a href="https://github.com/rkhaled98">Rafi Khaled</a>
+        <p>
+          Spec Math library, API design and implementation
+        </p>
+      </div>
+      <div class="about-team-member">
+        <div class="about-team-picture-container">
+          <img src="../../../assets/img/omar.png" alt="Omar's picture" />
+        </div>
+        <a href="https://github.com/OmarG247">Omar Flores</a>
+        <p>
+          UI/UX Design, frontend implemetation, and API design
+        </p>
+      </div>
+    </div>
+    <p>
+      And guided by our incredible hosts <b>Sean</b>, <b>Rod</b>, <b>Tim</b> &
+      <b>Clayton</b>.
+    </p>
+  </div>
+  <div class="about-description">
+    <h2>
+      Source code
+    </h2>
+    <p>
+      Check out our
+      <a href="https://github.com/googleinterns/spec-math">GitHub repo</a> and
+      give us a ⭐!
+    </p>
+    <p><a (click)="debugMode()">debug</a> mode</p>
+  </div>
+</div>

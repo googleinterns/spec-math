@@ -12,10 +12,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-<app-navbar></app-navbar>
+<div class="nav-bar">
+  <button id="extend-button" mat-icon-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img
+    routerLink="/"
+    src="../assets/img/specmath_logo.svg"
+    id="spec-math-logo"
+    class="nav-logo"
+  />
+</div>
 
-<mat-drawer-container class="container">
-  <mat-drawer class="main left-panel" mode="side" opened>
+<mat-sidenav-container class="container">
+  <mat-sidenav
+    #snav
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches"
+    class="main left-panel"
+    mode="side"
+    [opened]="!mobileQuery.matches"
+  >
     <div class="operation-menu-container">
       <button
         id="operation-menu-button-desktop"
@@ -39,31 +56,35 @@ limitations under the License. -->
         </button>
       </mat-menu>
     </div>
-  </mat-drawer>
-
-  <mat-drawer-content id="main-container" class="main right-panel padded">
-    <div *ngIf="!operationSet.valid" id="empty-text-container">
-      <h2 class="mat-h2 mat-title">
-        You haven't created any new specifications yet
-      </h2>
-      <h4 class="mat-h4 mat-subheading-1">
-        Use the "New" button to get started
-      </h4>
+    <div class="side-options-container">
+      <div
+        routerLink="defaults"
+        class="side-option"
+        routerLinkActive="selected"
+        id="about-default-files-button"
+      >
+        <mat-icon>api</mat-icon>
+        <p>
+          About Default files
+        </p>
+      </div>
+      <div
+        routerLink="about"
+        class="side-option"
+        routerLinkActive="selected"
+        id="about-spec-math-button"
+      >
+        <mat-icon>info</mat-icon>
+        <p>
+          About Spec Math
+        </p>
+      </div>
     </div>
+  </mat-sidenav>
 
-    <app-display-results
-      class="operation-results-container"
-      *ngIf="operationSet.valid"
-      [operationSet]="operationSet"
-    ></app-display-results>
-
-    <button
-      id="operation-menu-button-mobile"
-      class="mdc-fab mobile"
-      [mat-menu-trigger-for]="operationMenu"
-    >
-      <div class="mdc-fab__ripple"></div>
-      <img src="../assets/img/fab-icon.png" />
-    </button>
-  </mat-drawer-content>
-</mat-drawer-container>
+  <mat-sidenav-content id="main-container" class="main right-panel padded">
+    <div class="detail-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

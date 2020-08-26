@@ -34,6 +34,7 @@ import { StubSpecMathService } from '../../../tests/mocks/stub-specmath.service'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpecMathService } from '../../../shared/services/specmath.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatRadioModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   exports: [
     ModalComponent,
