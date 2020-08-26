@@ -97,6 +97,73 @@ public class SpecMath {
   }
 
   /**
+   * Performs the union operation on a list of specs represented as YAML strings.
+   *
+   * <p>This operation will attempt to combine a list of specs represented as YAML strings using the logic
+   * provided in the SpecTreeUnionizer class. Since no special options are provided, it will attempt
+   * the union and if any conflicts are found a {@code org.specmath.library.UnionConflictException}
+   * will be thrown.
+   *
+   * @param specsToMerge a list of OpenAPI specifications represented as YAML strings to merge
+   * @return the result of the union on spec1 and spec2, as a YAML string.
+   * @throws IOException if there was a parsing issue in reading conflictResolutions
+   * @throws UnionConflictException if there was a conflict in the union process, i.e. when two
+   *     keypaths have the same value.
+   * @throws UnexpectedTypeException an unexpected type was met during the union
+   */
+  public static String union(List<String> specsToMerge)
+      throws UnionConflictException, UnexpectedTypeException, IOException {
+    UnionOptions params = UnionOptions.builder().build();
+
+    return union(specsToMerge, params);
+  }
+
+  /**
+   * Performs the union operation on a list of specs represented as YAML strings with {@code
+   * org.specmath.library.UnionOptions}.
+   *
+   * <p>If {@code org.specmath.library.UnionOptions} are provided, then it will apply the options as
+   * is appropriate based on the logic in the {@code SpecTreeUnionizer} class. If {@code
+   * org.specmath.library.UnionOptions} cannot resolve the conflict then a {@code
+   * org.specmath.library.UnionConflictException} will be thrown.
+   *
+   * @param specsToMerge a list of OpenAPI specifications represented as YAML strings to merge
+   * @param unionOptions a set of special options which can be applied during the union
+   * @return the result of the union on spec1 and spec2, as a YAML string
+   * @throws IOException if there was a parsing issue in reading conflictResolutions
+   * @throws UnionConflictException if there was a conflict in the union process, i.e. when two
+   *     keypaths have the same value
+   * @throws UnexpectedTypeException an unexpected type was met during the union
+   */
+  public static String union(List<String> specsToMerge, UnionOptions unionOptions)
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    LinkedHashMap<String, Object> defaults =
+        YamlStringToSpecTreeConverter.convertYamlStringToSpecTree(unionOptions.defaults());
+
+    var specTreesToMerge = new ArrayList<LinkedHashMap<String, Object>>();
+
+    for (String spec: specsToMerge){
+      specTreesToMerge.add(YamlStringToSpecTreeConverter.convertYamlStringToSpecTree(spec));
+    }
+
+    var conflictStringToConflictMapConverter = new ConflictStringToConflictMapConverter();
+    HashMap<String, Object> conflictResolutionsMap =
+        conflictStringToConflictMapConverter.convertConflictResolutionsStringToConflictMap(
+            unionOptions.conflictResolutions());
+
+    UnionizerUnionParams unionizerUnionParams =
+        UnionizerUnionParams.builder()
+            .defaults(defaults)
+            .conflictResolutions(conflictResolutionsMap)
+            .build();
+
+    LinkedHashMap<String, Object> unionResultMap =
+        SpecTreesUnionizer.union(specTreesToMerge, unionizerUnionParams);
+
+    return SpecTreeToYamlStringConverter.convertSpecTreeToYamlString(unionResultMap);
+  }
+
+  /**
    * Performs the filter operation on a spec represented as a string using the {@code
    * filterCriteriaList}
    *

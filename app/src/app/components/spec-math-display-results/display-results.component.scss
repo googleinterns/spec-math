@@ -14,11 +14,10 @@
 
 .results {
   &-container {
-    width: calc(100% - 64px);
-    padding-right: 32px;
-    padding-left: 32px;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    padding-bottom: 40px;
   }
 
   &-header {
@@ -102,7 +101,6 @@
   .results {
     &-container {
       width: 100%;
-      padding: 0;
     }
 
     &-header {
@@ -133,8 +131,3 @@
     }
   }
 }
-
-// Debugging
-// * {
-//   outline: solid 1px darkslateblue;
-// }

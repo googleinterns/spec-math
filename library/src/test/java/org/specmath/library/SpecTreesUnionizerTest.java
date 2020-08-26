@@ -17,10 +17,13 @@ limitations under the License.
 package org.specmath.library;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,9 +101,12 @@ class SpecTreesUnionizerTest {
 
     ArrayList<Conflict> expectedConflicts = new ArrayList<>();
     expectedConflicts.add(
-        new Conflict("[info, title]", "Swagger Petstore Platform", "Swagger Petstore Marketing"));
+        new Conflict(
+            "[info, title]",
+            Arrays.asList("Swagger Petstore Platform", "Swagger Petstore Marketing")));
     expectedConflicts.add(
-        new Conflict("[paths, /pets, get, summary]", "List all pets", "List every pet"));
+        new Conflict(
+            "[paths, /pets, get, summary]", Arrays.asList("List all pets", "List every pet")));
 
     assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
   }
@@ -209,6 +215,155 @@ class SpecTreesUnionizerTest {
     map2.put("samekey", "not a map");
 
     assertThrows(UnexpectedTypeException.class, () -> SpecTreesUnionizer.union(map1, map2));
+  }
+
+  @Test
+  void union_withListOfTwoSpecTrees_succeeds()
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    LinkedHashMap<String, Object> map1 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/noConflict1.yaml");
+    LinkedHashMap<String, Object> map2 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/noConflict2.yaml");
+
+    var listOfSpecTrees = new ArrayList<LinkedHashMap<String, Object>>();
+    listOfSpecTrees.add(map1);
+    listOfSpecTrees.add(map2);
+
+    LinkedHashMap<String, Object> expected =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/noConflictMerged.yaml");
+
+    LinkedHashMap<String, Object> actual = SpecTreesUnionizer.union(listOfSpecTrees);
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void union_withMultipleSpecTrees_succeeds()
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    LinkedHashMap<String, Object> map1 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/noConflict1.yaml");
+    LinkedHashMap<String, Object> map2 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/noConflict2.yaml");
+    LinkedHashMap<String, Object> map3 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/noConflict3.yaml");
+
+    var listOfSpecTrees = new ArrayList<LinkedHashMap<String, Object>>();
+    listOfSpecTrees.add(map1);
+    listOfSpecTrees.add(map2);
+    listOfSpecTrees.add(map3);
+
+    LinkedHashMap<String, Object> expected =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/noConflict3SpecsMerged.yaml");
+
+    LinkedHashMap<String, Object> actual = SpecTreesUnionizer.union(listOfSpecTrees);
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void union_withMultipleConflictingSpecTrees_throwsExceptionContainingMultipleOptionsInConflictObject()
+      throws FileNotFoundException {
+    LinkedHashMap<String, Object> map1 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict1.yaml");
+    LinkedHashMap<String, Object> map2 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict2.yaml");
+    LinkedHashMap<String, Object> map3 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict3.yaml");
+
+    var listOfSpecTrees = new ArrayList<LinkedHashMap<String, Object>>();
+    listOfSpecTrees.add(map1);
+    listOfSpecTrees.add(map2);
+    listOfSpecTrees.add(map3);
+
+    UnionConflictException e =
+        assertThrows(UnionConflictException.class, () -> SpecTreesUnionizer.union(listOfSpecTrees));
+
+    ArrayList<Conflict> expectedConflicts = new ArrayList<>();
+    expectedConflicts.add(
+        new Conflict(
+            "[paths, /pets, get, summary]",
+            Arrays.asList("CONFLICT 1", "CONFLICT 2", "CONFLICT 3")));
+
+    assertThat(e.getConflicts()).isEqualTo(expectedConflicts);
+  }
+
+  @Test
+  void union_withMultipleConflictingSpecTrees_succeedsByResolvingWithConflictResolutions()
+      throws FileNotFoundException, UnionConflictException, UnexpectedTypeException {
+    LinkedHashMap<String, Object> map1 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict1.yaml");
+    LinkedHashMap<String, Object> map2 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict2.yaml");
+    LinkedHashMap<String, Object> map3 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict3.yaml");
+
+    var listOfSpecTrees = new ArrayList<LinkedHashMap<String, Object>>();
+    listOfSpecTrees.add(map1);
+    listOfSpecTrees.add(map2);
+    listOfSpecTrees.add(map3);
+
+    HashMap<String, Object> conflictResolutions = new HashMap<>();
+    conflictResolutions.put("[paths, /pets, get, summary]", "get the pets");
+
+    UnionizerUnionParams unionizerUnionParams =
+        UnionizerUnionParams.builder().conflictResolutions(conflictResolutions).build();
+
+    LinkedHashMap<String, Object> expected =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflictMerged.yaml");
+
+    assertThat(SpecTreesUnionizer.union(listOfSpecTrees, unionizerUnionParams)).isEqualTo(expected);
+  }
+
+  @Test
+  void union_withMultipleSpecTrees_succeedsByApplyingConflictResolutionsAndDefaults()
+      throws FileNotFoundException, UnionConflictException, UnexpectedTypeException {
+    LinkedHashMap<String, Object> map1 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict1.yaml");
+    LinkedHashMap<String, Object> map2 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict2.yaml");
+    LinkedHashMap<String, Object> map3 =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflict3.yaml");
+
+    var listOfSpecTrees = new ArrayList<LinkedHashMap<String, Object>>();
+    listOfSpecTrees.add(map1);
+    listOfSpecTrees.add(map2);
+    listOfSpecTrees.add(map3);
+
+    LinkedHashMap<String, Object> defaults =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflictDefaults.yaml");
+
+    HashMap<String, Object> conflictResolutions = new HashMap<>();
+    conflictResolutions.put("[paths, /pets, get, summary]", "get the pets");
+
+    UnionizerUnionParams unionizerUnionParams =
+        UnionizerUnionParams.builder()
+            .defaults(defaults)
+            .conflictResolutions(conflictResolutions)
+            .build();
+
+    LinkedHashMap<String, Object> expected =
+        YamlStringToSpecTreeConverter.convertYamlFileToSpecTree(
+            "src/test/resources/conflictsMergedWithDefaults.yaml");
+
+    assertThat(SpecTreesUnionizer.union(listOfSpecTrees, unionizerUnionParams)).isEqualTo(expected);
   }
 
   @Test

@@ -12,21 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { TestBed, async } from '@angular/core/testing';
-import { NavBarComponent } from './navbar.component';
+import { Component } from '@angular/core';
+import { SideNavService } from 'src/shared/services/sidenav.service';
 
-describe('NavBarComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        NavBarComponent
-      ],
-    }).compileComponents();
-  }));
+@Component({
+  selector: 'app-empty-page',
+  templateUrl: './empty-page.component.html',
+  styleUrls: ['./empty-page.component.scss'],
+})
+export class EmptyPageComponent {
+  constructor(readonly sideNav: SideNavService) {}
 
-  it('creates the navbar component', () => {
-    const fixture = TestBed.createComponent(NavBarComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-});
+  get interaction() {
+    return this.sideNav.isOpened() ? '"New" button' : 'menu';
+  }
+}
