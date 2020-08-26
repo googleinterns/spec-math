@@ -1,0 +1,84 @@
+<!-- Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+
+<div class="defaults-container">
+  <div class="defaults-header-container">
+    <div class="defaults-header-text">
+      <h2 class="defaults-label mat-display-3 card-subtitle">
+        Default files
+      </h2>
+      <mat-divider class="defaults-header-divider"></mat-divider>
+      <p class="mat-body">
+        YAML file used to describe the metadata of a new spec and provide
+        additional information for operations such as
+      </p>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Merge
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          Used to impose new metadata on a new specification as well as to aute
+          resolve conflicts that might emerge from performing the merge
+          operation.
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Filter
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          Used to impose new metadata on a the final result of the operation.
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <div class="defaults-file">
+    <app-yaml-render [yamlFile]="sampleDefaultsFile"></app-yaml-render>
+  </div>
+  <div class="defaults-description">
+    <h2>
+      How is it used?
+    </h2>
+    <p>
+      This example file can be used to merge a set of files and prevent
+      conflicts in the fields of
+    </p>
+    <mat-list>
+      <mat-list-item>
+        openapi
+      </mat-list-item>
+      <mat-list-item>
+        info
+      </mat-list-item>
+      <mat-list-item>
+        title
+      </mat-list-item>
+    </mat-list>
+    <p>
+      In this example, the resulting file from the operation would contain the
+      metadata described in the defaults file.
+    </p>
+  </div>
+  <div class="defaults-description">
+    <h2>
+      Metadata
+    </h2>
+    <p>
+      In this example, the resulting file from the operation would contain the
+      metadata described in the defaults file.
+    </p>
+  </div>
+</div>

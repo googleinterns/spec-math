@@ -19,13 +19,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { YamlRenderComponent } from './yaml-render/yaml-render.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { YamlRenderModule } from '../yaml-render/yaml-render.module';
+import { OperationService } from 'src/shared/services/operation.service';
 
 @NgModule({
   declarations: [
     DisplayResultsComponent,
-    YamlRenderComponent
   ],
   imports: [
     MatTabsModule,
@@ -33,8 +33,10 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    YamlRenderModule
   ],
-  exports: [DisplayResultsComponent]
+  providers: [OperationService],
+  exports: [DisplayResultsComponent],
 })
 export class DisplayResultsModule { }

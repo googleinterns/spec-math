@@ -12,7 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-<div class="results-container">
+<div class="results-container" *ngIf="operationSet.valid">
   <div class="results-header-container">
     <div class="results-header-text">
       <h2 class="results-label mat-display-3 card-subtitle">
@@ -33,7 +33,7 @@ limitations under the License. -->
       class="primary"
     >
       <mat-icon>arrow_circle_down</mat-icon>
-      DOWNLOAD
+      Download operation set
     </button>
   </div>
   <mat-tab-group

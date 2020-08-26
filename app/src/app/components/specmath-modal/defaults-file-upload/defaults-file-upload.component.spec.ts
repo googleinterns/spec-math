@@ -14,12 +14,14 @@
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { DefaultsFileUploadComponent } from './defaults-file-upload.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { queryElement } from '../../../../shared/functions';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 describe('DefaultsFileUploadComponent', () => {
   let fixture: ComponentFixture<DefaultsFileUploadComponent>;
@@ -27,19 +29,27 @@ describe('DefaultsFileUploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DefaultsFileUploadComponent
-      ],
+      declarations: [DefaultsFileUploadComponent],
       imports: [
         MatIconModule,
         BrowserModule,
         MatChipsModule,
-        MatButtonModule
+        MatButtonModule,
+        RouterTestingModule.withRoutes([]),
+        MatDialogModule
       ],
-    }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(DefaultsFileUploadComponent);
-      component = fixture.componentInstance;
-    });
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: { close: () => {} },
+        },
+      ],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(DefaultsFileUploadComponent);
+        component = fixture.componentInstance;
+      });
   }));
 
   it('creates the Step2 component', () => {
@@ -48,9 +58,24 @@ describe('DefaultsFileUploadComponent', () => {
 
   it('shows the defaults file chip when a file is uploaded', () => {
     fixture.detectChanges();
-    component.defaultsFileUploadOptions = { defaultsFile: new File(['content'], 'defaults.yaml') };
+    component.defaultsFileUploadOptions = {
+      defaultsFile: new File(['content'], 'defaults.yaml'),
+    };
     fixture.detectChanges();
-    const defaultsFileChip = queryElement(fixture, '#defaults-file-chip').nativeElement;
+    const defaultsFileChip = queryElement(fixture, '#defaults-file-chip')
+      .nativeElement;
     expect(defaultsFileChip).toBeTruthy();
+  });
+
+  it('closes the modal and navigates to /defaults when the Lean more link is clicked', () => {
+    const dialogSpy = spyOn(component.dialog, 'closeAll');
+    const routerSpy = spyOn(component.router, 'navigateByUrl');
+    const learnMoreLink = queryElement(fixture, '#learn-more-defaults')
+      .nativeElement;
+    learnMoreLink.click();
+
+    fixture.detectChanges();
+    expect(dialogSpy).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalledWith('defaults');
   });
 });

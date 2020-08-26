@@ -29,6 +29,8 @@ body {
 a {
   color: $material-blue-600;
   text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 #modal-stepper {
@@ -58,5 +60,11 @@ a {
   .mat-chip-list-wrapper {
     width: calc(100% + 4px);
     flex-direction: column;
+  }
+}
+
+.debug-mode {
+  * {
+    outline: solid 2px lightslategray;
   }
 }

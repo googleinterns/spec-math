@@ -14,6 +14,8 @@
 
 import { Component, EventEmitter, Output, ViewChild, DebugElement } from '@angular/core';
 import { DefaultsFileUploadOptions } from '../../../../shared/interfaces';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-defaults-file-upload',
@@ -28,10 +30,17 @@ export class DefaultsFileUploadComponent  {
 
   @Output() options: EventEmitter<DefaultsFileUploadOptions> = new EventEmitter();
 
+  constructor(readonly router: Router, readonly dialog: MatDialog) { }
+
   handleDefaultsFileInput(files: FileList) {
     this.defaultsFileUploadOptions.defaultsFile = files[0];
     this.defaultsUpload.nativeElement.value = '';
     this.options.emit(this.defaultsFileUploadOptions);
+  }
+
+  navigateToDefaultsPage() {
+    this.dialog.closeAll();
+    this.router.navigateByUrl('defaults');
   }
 
   removeDefaultsFile() {

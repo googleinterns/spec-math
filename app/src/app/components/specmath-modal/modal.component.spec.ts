@@ -32,6 +32,7 @@ import { SpecNameInputOptions } from 'src/shared/interfaces';
 import { queryElement } from '../../../shared/functions';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
@@ -55,7 +56,8 @@ describe('ModalComponent', () => {
         MatInputModule,
         MatStepperModule,
         MatTooltipModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
       ],
       providers: [
         {
