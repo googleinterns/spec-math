@@ -18,5 +18,6 @@
 .confirm-operation {
   &-container {
     margin-top: 1rem;
+    max-width: calc(100% - 32px);
   }
 }

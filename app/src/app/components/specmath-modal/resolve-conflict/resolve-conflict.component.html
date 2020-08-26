@@ -40,21 +40,15 @@ limitations under the License. -->
           (change)="emitResolvedValue($event.value, i)"
         >
           <mat-radio-button
-            [id]="'conflict-' + i + '-radio-option-1'"
+            *ngFor="let option of conflict.options; let j = index"
+            [id]="'conflict-' + i + '-radio-option-' + j"
             class="conflicts-radio-button"
-            [value]="conflict.option1"
+            [value]="option"
           >
-            {{ conflict.option1 }}
-          </mat-radio-button>
-          <mat-radio-button
-            [id]="'conflict-' + i + '-radio-option-2'"
-            class="conflicts-radio-button"
-            [value]="conflict.option2"
-          >
-            {{ conflict.option2 }}
+            {{ option }}
           </mat-radio-button>
         </mat-radio-group>
-        <mat-action-row>
+        <mat-action-row *ngIf="localConflicts.length > 1">
           <button
             mat-button
             color="warn"

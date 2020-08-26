@@ -52,18 +52,15 @@ describe('ResolveConflictComponent', () => {
     component.mergeConflicts = [
       {
         keypath: '/path1',
-        option1: 'Option A',
-        option2: 'Option B',
+        options: ['Option A', 'Option B'],
       },
       {
         keypath: '/path2',
-        option1: 'Option A',
-        option2: 'Option B',
+        options: ['Option A', 'Option B'],
       },
       {
-        keypath: '/api/path3',
-        option1: 'Option A',
-        option2: 'Option B',
+        keypath: '/path3',
+        options: ['Option A', 'Option B'],
       },
     ];
 
@@ -81,18 +78,15 @@ describe('ResolveConflictComponent', () => {
     component.mergeConflicts = [
       {
         keypath: '/path1',
-        option1: 'Option A',
-        option2: 'Option B',
+        options: ['Option A', 'Option B'],
       },
       {
         keypath: '/path2',
-        option1: 'Option A',
-        option2: 'Option B',
+        options: ['Option A', 'Option B'],
       },
       {
-        keypath: '/api/path3',
-        option1: 'Option A',
-        option2: 'Option B',
+        keypath: '/path3',
+        options: ['Option A', 'Option B'],
       },
     ];
 
@@ -102,10 +96,10 @@ describe('ResolveConflictComponent', () => {
       const conflictOptionGroup = queryElement(fixture, `#conflict-${index}-radio-group`);
 
       fixture.detectChanges();
-      conflictOptionGroup.triggerEventHandler('change', { value: conflict.option1 });
+      conflictOptionGroup.triggerEventHandler('change', { value: conflict.options[0] });
 
       fixture.detectChanges();
-      expect(spy).toHaveBeenCalledWith(conflict.option1, index);
+      expect(spy).toHaveBeenCalledWith(conflict.options[0], index);
     });
   });
 });

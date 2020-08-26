@@ -1,14 +1,12 @@
 export interface SpecMathMergeRequest {
-  spec1: string;
-  spec2: string;
+  specs: string[];
   defaultsFile?: string;
-  mergeConflicts?: MergeConflict[];
+  conflictResolutions?: MergeConflict[];
 }
 
 export interface MergeConflict {
   keypath: string;
-  option1: string;
-  option2: string;
+  options: string[];
   resolvedValue?: string;
 }
 
