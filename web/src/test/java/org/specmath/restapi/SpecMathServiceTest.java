@@ -81,7 +81,8 @@ class SpecMathServiceTest {
 
   @Test
   void handleOverlayRequest_withException_hasOperationErrorStatus() throws UnexpectedTypeException {
-    doThrow(UnexpectedTypeException.class).when(specMathService).applyOverlay(anyString(), anyString());
+    doThrow(UnexpectedTypeException.class).when(specMathService)
+        .applyOverlay(anyString(), anyString());
 
     OverlayRequest overlayRequest = new OverlayRequest();
     overlayRequest.setOverlay("");
