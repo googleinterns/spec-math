@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 import { SpecMathService } from './specmath.service';
 import { mergeSpecsMockRequest } from '../../tests/mocks/mockRequests';
 import { mergeSpecsMockResponse } from '../../tests/mocks/mockResponses';
-import { routes } from '../routes';
+import { routes, SPEC_MATH_URL } from '../routes';
 import { SpecMathMergeResponse, SpecMathMergeRequest } from 'src/shared/interfaces';
 
 describe('SpecMathService', () => {
@@ -44,8 +44,7 @@ describe('SpecMathService', () => {
       httpMockObject = TestBed.inject(HttpTestingController);
       service = TestBed.inject(SpecMathService);
       const mockSpeckSet: SpecMathMergeRequest = {
-        spec1: mergeSpecsMockRequest.spec1,
-        spec2: mergeSpecsMockRequest.spec2,
+        specs: mergeSpecsMockRequest.specs,
         defaultsFile: mergeSpecsMockRequest.defaultsFile
       };
 
@@ -57,7 +56,7 @@ describe('SpecMathService', () => {
         expect(res).toEqual(mergeSpecsMockResponse);
       });
 
-      const mockRequest = httpMockObject.expectOne(routes.mergeSpecs);
+      const mockRequest = httpMockObject.expectOne(`${SPEC_MATH_URL}${routes.mergeSpecs}`);
       expect(mockRequest.request.method).toBe('POST');
       mockRequest.flush(mergeSpecsMockResponse);
     });

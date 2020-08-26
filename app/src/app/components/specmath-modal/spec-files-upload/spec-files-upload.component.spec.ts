@@ -46,39 +46,6 @@ describe('SpecFilesUploadComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('displays the error message when an incorrect number of files is uploaded', () => {
-    fixture.detectChanges();
-    component.fileUploadError = true;
-
-    fixture.detectChanges();
-    const errorMessage = queryElement(fixture, '#spec-files-upload-error').nativeElement;
-    expect(errorMessage).toBeTruthy();
-  });
-
-  it('displays a spec file chip when a spec file is uploaded', () => {
-    fixture.detectChanges();
-
-    component.validateFiles([
-      new File(['content'], 'spec1.yaml'),
-    ]);
-    fixture.detectChanges();
-
-    const specFilesChipListContaine = queryElement(fixture, '.modal-step-chip-list-container').nativeElement;
-    expect(specFilesChipListContaine).toBeTruthy();
-  });
-
-  it('displays at least one + icon when at least one file has been uploaded', () => {
-    fixture.detectChanges();
-
-    component.validateFiles([
-      new File(['content'], 'spec1.yaml'),
-    ]);
-    fixture.detectChanges();
-
-    const plusIcon = queryElement(fixture, '.spec-files-add-icon').nativeElement;
-    expect(plusIcon).toBeTruthy();
-  });
-
   it('emits a valid SpecFilesUploadOptions object when the correct amount of files is uploaded', () => {
     const spy = spyOn(component.options, 'emit');
 

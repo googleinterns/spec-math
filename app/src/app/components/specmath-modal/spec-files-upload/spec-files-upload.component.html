@@ -15,7 +15,7 @@ limitations under the License. -->
 <div class="modal-step-container">
   <div class="modal-step-content">
     <div class="modal-step-instructions">
-      <p class="mat-body-2">Select <b>{{ specFilesNum }}</b> spec files</p>
+      <p class="mat-body-2">Select at least <b>2</b> spec files</p>
     </div>
     <div class="spec-files-content">
       <div *ngIf="specFilesUploadOptions.specFiles.length === 0">
@@ -30,22 +30,16 @@ limitations under the License. -->
       </div>
       <div *ngIf="specFilesUploadOptions.specFiles">
         <mat-chip-list id="spec-files-chip-list">
-          <div
-            class="modal-step-chip-list-container"
+          <mat-chip
             *ngFor="let spec of specFilesUploadOptions.specFiles; let i = index"
+            [selectable]="true"
+            [removable]="true"
+            (removed)="removeSpecFile(i)"
           >
-            <mat-chip
-              *ngIf="spec"
-              [selectable]="true"
-              [removable]="true"
-              (removed)="removeSpecFile(i)"
-            >
-              <mat-icon class="modal-step-chip-icon">description</mat-icon>
-              {{ spec.name }}
-              <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <mat-icon class="spec-files-add-icon" *ngIf="i < specFilesNum - 1">add</mat-icon>
-          </div>
+            <mat-icon class="modal-step-chip-icon">description</mat-icon>
+            {{ spec.name }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
         </mat-chip-list>
       </div>
     </div>
@@ -60,26 +54,16 @@ limitations under the License. -->
         multiple
       />
       <label for="defaults-file-input">
-        <div
-          matTooltip="You've already uploaded {{ specFilesNum }} spec files"
-          matTooltipPosition="below"
-          [matTooltipDisabled]="specFilesUploadOptions.specFiles.length !== specFilesNum"
+        <button
+          id="specs-upload-button"
+          (click)="specsInput.click()"
+          mat-button
+          class="modal-step-button-secondary"
         >
-          <button
-            [disabled]="specFilesUploadOptions.specFiles.length === specFilesNum"
-            id="specs-upload-button"
-            (click)="specsInput.click()"
-            mat-button
-            class="modal-step-button-secondary"
-          >
-            <mat-icon>file_upload</mat-icon>
-            SELECT FILE
-          </button>
-        </div>
+          <mat-icon>file_upload</mat-icon>
+          SELECT FILE
+        </button>
       </label>
-      <p id="spec-files-upload-error" class="mat-body-strong mat-error" *ngIf="fileUploadError">
-        You cannot upload more than {{ specFilesNum }} spec files
-      </p>
     </div>
   </div>
 </div>
