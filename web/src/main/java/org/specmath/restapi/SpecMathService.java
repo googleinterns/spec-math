@@ -48,13 +48,13 @@ public class SpecMathService {
   OperationResponse handleOverlayRequest(OverlayRequest overlayRequest) {
     OperationResponse ret = new OperationResponse();
     try {
-      String resultSpec = applyOverlay(overlayRequest.getOverlay(), overlayRequest.getSpec());
+      String resultSpec = performOverlayOperation(overlayRequest);
 
       ret.setResult(resultSpec);
       ret.setStatus("success");
 
       return ret;
-    } catch (UnexpectedTypeException e) {
+    } catch (Exception e) {
       ret.setStatus("operation error");
       return ret;
     }
@@ -63,16 +63,8 @@ public class SpecMathService {
   /**
    * Class function for the static SpecMath function, used for mocking purposes
    */
-  String union(List<String> specs, UnionOptions unionOptions)
-      throws UnionConflictException, UnexpectedTypeException, IOException {
-    return SpecMath.union(specs, unionOptions);
-  }
-
-  /**
-   * Class function for the static SpecMath function, used for mocking purposes
-   */
-  String applyOverlay(String overlay, String spec) throws UnexpectedTypeException {
-    return SpecMath.applyOverlay(overlay, spec);
+  String performOverlayOperation(OverlayRequest overlayRequest) throws UnexpectedTypeException {
+    return SpecMath.applyOverlay(overlayRequest.getOverlay(), overlayRequest.getSpec());
   }
 
   /**
@@ -95,7 +87,7 @@ public class SpecMathService {
   /**
    * Performs the union operation by creating the {@code UnionOptions} and other parameters needed
    */
-  private String performUnionOperation(MergeRequest mergeRequest)
+  String performUnionOperation(MergeRequest mergeRequest)
       throws IOException, UnionConflictException, UnexpectedTypeException {
     String conflictRes = castConflictResolutionsToString(mergeRequest);
     String defaults = mergeRequest.getDefaults() == null ? "" : mergeRequest.getDefaults();
@@ -105,7 +97,7 @@ public class SpecMathService {
 
     List<String> specs = mergeRequest.getSpecs();
 
-    return union(specs, unionOptions);
+    return SpecMath.union(specs, unionOptions);
   }
 
   /**
