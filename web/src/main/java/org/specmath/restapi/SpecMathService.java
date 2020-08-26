@@ -61,10 +61,28 @@ public class SpecMathService {
   }
 
   /**
-   * Class function for the static SpecMath function, used for mocking purposes
+   * Performs the overlay operation by extracting the parameters from the overlayRequest object and
+   * and calling the Spec Math Library function
    */
   String performOverlayOperation(OverlayRequest overlayRequest) throws UnexpectedTypeException {
     return SpecMath.applyOverlay(overlayRequest.getOverlay(), overlayRequest.getSpec());
+  }
+
+  /**
+   * Performs the union operation by creating the {@code UnionOptions} and other parameters needed
+   * and calling the Spec Math Library function
+   */
+  String performUnionOperation(MergeRequest mergeRequest)
+      throws IOException, UnionConflictException, UnexpectedTypeException {
+    String conflictRes = castConflictResolutionsToString(mergeRequest);
+    String defaults = mergeRequest.getDefaults() == null ? "" : mergeRequest.getDefaults();
+
+    UnionOptions unionOptions = UnionOptions.builder().defaults(defaults)
+        .conflictResolutions(conflictRes).build();
+
+    List<String> specs = mergeRequest.getSpecs();
+
+    return SpecMath.union(specs, unionOptions);
   }
 
   /**
@@ -82,22 +100,6 @@ public class SpecMathService {
     }
 
     return mergeConflicts;
-  }
-
-  /**
-   * Performs the union operation by creating the {@code UnionOptions} and other parameters needed
-   */
-  String performUnionOperation(MergeRequest mergeRequest)
-      throws IOException, UnionConflictException, UnexpectedTypeException {
-    String conflictRes = castConflictResolutionsToString(mergeRequest);
-    String defaults = mergeRequest.getDefaults() == null ? "" : mergeRequest.getDefaults();
-
-    UnionOptions unionOptions = UnionOptions.builder().defaults(defaults)
-        .conflictResolutions(conflictRes).build();
-
-    List<String> specs = mergeRequest.getSpecs();
-
-    return SpecMath.union(specs, unionOptions);
   }
 
   /**
