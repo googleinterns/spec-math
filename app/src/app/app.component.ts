@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { OperationService } from 'src/shared/services/operation.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { SideNavService } from 'src/shared/services/sidenav.service';
+import { routes } from 'src/shared/routes';
 
 const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 
@@ -32,6 +33,7 @@ const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 export class AppComponent implements AfterViewInit {
   @ViewChild('snav') sideNav: MatSidenav;
   mobileQuery: MediaQueryList;
+  localRoutes = routes;
 
   constructor(
     readonly router: Router,
@@ -50,7 +52,7 @@ export class AppComponent implements AfterViewInit {
       .subscribe((results?: OperationSet) => {
         if (results) {
           this.results.setResults(results);
-          this.router.navigateByUrl('results');
+          this.router.navigateByUrl(this.localRoutes.results);
         }
       });
   }

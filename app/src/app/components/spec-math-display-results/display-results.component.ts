@@ -20,6 +20,7 @@ import * as fileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { OperationService } from 'src/shared/services/operation.service';
 import { Router } from '@angular/router';
+import { routes } from 'src/shared/routes';
 
 @Component({
   selector: 'app-display-results',
@@ -31,7 +32,7 @@ export class DisplayResultsComponent {
 
   constructor(operations: OperationService, router: Router) {
     const results = operations.getResults();
-    results.valid ? this.operationSet = results : router.navigateByUrl('/');
+    results.valid ? this.operationSet = results : router.navigateByUrl(routes.home);
   }
 
   async downloadFile(yamlFile: File) {

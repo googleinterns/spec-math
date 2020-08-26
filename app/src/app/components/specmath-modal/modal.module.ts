@@ -60,6 +60,7 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    RouterModule
   ],
   exports: [
     ModalComponent,

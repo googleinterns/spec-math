@@ -34,6 +34,7 @@ import { DefaultsPageComponent } from './components/defaults-page/defaults-page.
 import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { SideNavService } from 'src/shared/services/sidenav.service';
+import { routes } from 'src/shared/routes';
 
 @NgModule({
   declarations: [
@@ -57,15 +58,15 @@ import { SideNavService } from 'src/shared/services/sidenav.service';
     MatExpansionModule,
     RouterModule.forRoot([
       {
-        path: 'about',
+        path: routes.aboutSpecMath,
         component: AboutPageComponent,
       },
       {
-        path: 'defaults',
+        path: routes.aboutDefaults,
         component: DefaultsPageComponent,
       },
       {
-        path: 'results',
+        path: routes.results,
         component: DisplayResultsComponent,
       },
       {
