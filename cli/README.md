@@ -9,21 +9,23 @@ and [here](https://github.com/googleinterns/spec-math/tree/master/library).
 
 ### For Unix Based Operating Systems
 
-As the Spec Math Library has not yet been uploaded to Maven, you will need to first need to navigate
+You should first clone the repository:
+
+```
+git clone https://github.com/googleinterns/spec-math.git
+```
+
+As the Spec Math Library has not yet been uploaded to Maven, you will need to navigate
 to the [library folder](../library) in your terminal. Then run the following commands:
 
 ```
-mvn clean
-mvn install
-mvn compile
+mvn clean install
 ```
 
 Then, navigate to the [cli folder](.) in your terminal and run these commands:
 
 ```
-mvn clean
-mvn install
-mvn compile
+mvn clean install
 mvn package appassembler:assemble
 ```
 
