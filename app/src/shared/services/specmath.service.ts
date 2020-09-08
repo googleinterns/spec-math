@@ -38,7 +38,7 @@ export class SpecMathService {
    */
   mergeSpecs(requestBody: SpecMathMergeRequest): Observable<SpecMathMergeResponse> {
     // Using a pipe to be able to convert the response object to a SpecMathResponse type
-    return this.http.post(`${routes.mergeSpecs}`, requestBody, requestOptions)
+    return this.http.post(`${SPEC_MATH_URL}${routes.version}${routes.mergeSpecs}`, requestBody, requestOptions)
       .pipe(map(response => response as any as SpecMathMergeResponse));
   }
 }
