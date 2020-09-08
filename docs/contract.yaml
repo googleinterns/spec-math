@@ -10,7 +10,7 @@ paths:
   /operations/merge:
     post:
       description: |
-        perform a union on two specs, with optional defaults file and conflict resolutions.
+        perform a union on two or more specs, with optional defaults file and conflict resolutions.
         The endpoint may return a "success" status code along with the merged spec, which is the
         result of a successful union, or a "conflicts" code, which means some unhandled conflicts occurred
         in the union. In the latter case, an array of conflict objects will be sent. The user now has two
@@ -75,15 +75,14 @@ components:
       description: holds data required for the union operation
       type: object
       required:
-        - spec1
-        - spec2
+        - specs
       properties:
-        spec1:
-          description: an OpenAPI specification
-          type: string
-        spec2:
-          description: an OpenAPI specification
-          type: string
+        specs:
+          description: a list of two or more OpenAPI specifications
+          type: array
+          items:
+            type: string
+          minItems: 2
         defaults:
           description: an OpenAPI specification fragment which contains metadata about the merged spec
           type: string
@@ -114,12 +113,12 @@ components:
         keypath:
           type: string
           example: paths:/pet:post:summary
-        option1:
-          type: string
-          example: Post a single pet
-        option2:
-          type: string
-          example: Post several pets
+        options:
+          description: a list of options for the keypath
+          type: array
+          items:
+            type: string
+            example: Post a single pet
         resolvedValue:
           type: string
           example: Post a single pet
