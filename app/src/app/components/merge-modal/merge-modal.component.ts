@@ -82,8 +82,8 @@ const stepList: StepOptions = {
 
 @Component({
   selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  templateUrl: './merge-modal.component.html',
+  styleUrls: ['./merge-modal.component.scss']
 })
 export class ModalComponent {
   currentStep = Steps.specNameInput;

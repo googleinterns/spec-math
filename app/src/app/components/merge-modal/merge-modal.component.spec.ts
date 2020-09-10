@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { ModalComponent } from './modal.component';
+import { ModalComponent } from './merge-modal.component';
 
 import { BrowserModule, By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

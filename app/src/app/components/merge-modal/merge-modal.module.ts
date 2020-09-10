@@ -22,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ModalComponent } from './modal.component';
+import { ModalComponent } from './merge-modal.component';
 import { NgModule } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
