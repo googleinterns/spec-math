@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { queryElement } from '../../../../shared/functions';
+import { queryElement } from 'src/shared/functions';
 
 describe('ResolveConflictComponent', () => {
   let fixture: ComponentFixture<ResolveConflictComponent>;

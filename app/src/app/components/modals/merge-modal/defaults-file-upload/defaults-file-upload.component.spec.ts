@@ -20,7 +20,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
-import { queryElement } from '../../../../shared/functions';
+import { queryElement } from 'src/shared/functions';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 describe('DefaultsFileUploadComponent', () => {

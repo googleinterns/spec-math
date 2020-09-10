@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { Component, EventEmitter, Output, ViewChild, DebugElement } from '@angular/core';
-import { SpecFilesUploadOptions } from '../../../../shared/interfaces';
+import { SpecFilesUploadOptions } from 'src/shared/interfaces';
 
 const filesListToArray = (files: FileList) => Array.from(files);
 

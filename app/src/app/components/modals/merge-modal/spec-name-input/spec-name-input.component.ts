@@ -14,7 +14,7 @@
 
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { SpecNameInputOptions } from '../../../../shared/interfaces';
+import { SpecNameInputOptions } from 'src/shared/interfaces';
 
 @Component({
   selector: 'app-spec-name-input',

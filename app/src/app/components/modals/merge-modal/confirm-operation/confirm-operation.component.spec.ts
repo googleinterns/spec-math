@@ -18,7 +18,7 @@ import { ConfirmOperationComponent } from './confirm-operation.component';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { queryElement } from '../../../../shared/functions';
+import { queryElement } from 'src/shared/functions';
 
 describe('ConfirmOperationComponent', () => {
   let fixture: ComponentFixture<ConfirmOperationComponent>;

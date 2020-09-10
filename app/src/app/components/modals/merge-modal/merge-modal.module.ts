@@ -30,9 +30,9 @@ import { SpecNameInputComponent } from './spec-name-input/spec-name-input.compon
 import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { StubSpecMathService } from '../../../tests/mocks/stub-specmath.service';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { SpecMathService } from '../../../shared/services/specmath.service';
+import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 

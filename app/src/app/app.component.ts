@@ -14,7 +14,7 @@
 
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from './components/merge-modal/merge-modal.component';
+import { ModalComponent } from './components/modals/merge-modal/merge-modal.component';
 import { OperationSet } from 'src/shared/interfaces';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
@@ -24,6 +24,10 @@ import { SideNavService } from 'src/shared/services/sidenav.service';
 import { routes } from 'src/shared/routes';
 
 const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
+const modalOperation = {
+  merge: ModalComponent,
+  // overlay: OverlayComponent,
+};
 
 @Component({
   selector: 'app-root',
@@ -45,9 +49,11 @@ export class AppComponent implements AfterViewInit {
     this.mobileQuery = media.matchMedia(MOBILE_MEDIA_QUERY);
   }
 
-  openDialog() {
+  openModal(operation: string) {
+    const targetModal = modalOperation[operation];
+
     this.dialog
-      .open(ModalComponent)
+      .open(targetModal)
       .afterClosed()
       .subscribe((results?: OperationSet) => {
         if (results) {

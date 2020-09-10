@@ -12,12 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import '../../../../shared/constants.scss';
-@import '../merge-modal.component.scss';
 
-.confirm-operation {
-  &-container {
-    margin-top: 1rem;
-    max-width: calc(100% - 32px);
-  }
-}

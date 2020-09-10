@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { Component, EventEmitter, Output, ViewChild, DebugElement } from '@angular/core';
-import { DefaultsFileUploadOptions } from '../../../../shared/interfaces';
+import { DefaultsFileUploadOptions } from 'src/shared/interfaces';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
