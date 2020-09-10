@@ -12,4 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
+@Component({
+  selector: 'app-modal',
+  templateUrl: './overlay-modal.component.html',
+  styleUrls: ['./overlay-modal.component.scss']
+})
+export class OverlayModalComponent {
+
+}

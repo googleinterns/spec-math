@@ -22,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ModalComponent } from './merge-modal.component';
+import { MergeModalComponent } from './merge-modal.component';
 import { NgModule } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
@@ -38,7 +38,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    ModalComponent,
+    MergeModalComponent,
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
@@ -63,12 +63,12 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   exports: [
-    ModalComponent,
+    MergeModalComponent,
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
   ],
   providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
-  bootstrap: [ModalComponent]
+  bootstrap: [MergeModalComponent]
 })
 export class ModalModule { }

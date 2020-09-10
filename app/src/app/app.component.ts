@@ -14,7 +14,7 @@
 
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from './components/modals/merge-modal/merge-modal.component';
+import { MergeModalComponent } from './components/modals/merge-modal/merge-modal.component';
 import { OperationSet } from 'src/shared/interfaces';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ import { routes } from 'src/shared/routes';
 
 const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 const modalOperation = {
-  merge: ModalComponent,
+  merge: MergeModalComponent,
   // overlay: OverlayComponent,
 };
 

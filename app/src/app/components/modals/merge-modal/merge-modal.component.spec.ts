@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { ModalComponent } from './merge-modal.component';
+import { MergeModalComponent } from './merge-modal.component';
 
 import { BrowserModule, By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,19 +29,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputOptions } from 'src/shared/interfaces';
-import { queryElement } from '../../../shared/functions';
+import { queryElement } from 'src/shared/functions';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ModalComponent', () => {
-  let fixture: ComponentFixture<ModalComponent>;
-  let modal: ModalComponent;
+describe('MergeModalComponent', () => {
+  let fixture: ComponentFixture<MergeModalComponent>;
+  let modal: MergeModalComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ModalComponent,
+        MergeModalComponent,
         SpecNameInputStubComponent,
         DefaultsFileUploadComponent,
         SpecFilesUploadComponent,
@@ -68,7 +68,7 @@ describe('ModalComponent', () => {
         }
       ]
     }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(ModalComponent);
+      fixture = TestBed.createComponent(MergeModalComponent);
       modal = fixture.componentInstance;
     });
   }));
