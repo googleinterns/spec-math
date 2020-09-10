@@ -56,24 +56,27 @@ import { routes } from 'src/shared/routes';
     YamlRenderModule,
     MatListModule,
     MatExpansionModule,
-    RouterModule.forRoot([
-      {
-        path: routes.aboutSpecMath,
-        component: AboutPageComponent,
-      },
-      {
-        path: routes.aboutDefaults,
-        component: DefaultsPageComponent,
-      },
-      {
-        path: routes.results,
-        component: DisplayResultsComponent,
-      },
-      {
-        path: '**',
-        component: EmptyPageComponent,
-      },
-    ]),
+    RouterModule.forRoot(
+      [
+        {
+          path: routes.aboutSpecMath,
+          component: AboutPageComponent,
+        },
+        {
+          path: routes.aboutDefaults,
+          component: DefaultsPageComponent,
+        },
+        {
+          path: routes.results,
+          component: DisplayResultsComponent,
+        },
+        {
+          path: '**',
+          component: EmptyPageComponent,
+        },
+      ],
+      { useHash: true }
+    ),
   ],
   providers: [OperationService, SideNavService],
   bootstrap: [AppComponent],
