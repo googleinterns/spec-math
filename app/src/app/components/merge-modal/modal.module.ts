@@ -68,7 +68,7 @@ import { RouterModule } from '@angular/router';
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
   ],
-  providers: [SpecMathService],
+  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
   bootstrap: [ModalComponent]
 })
 export class ModalModule { }

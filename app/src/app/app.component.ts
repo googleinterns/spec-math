@@ -14,7 +14,7 @@
 
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from './components/specmath-modal/modal.component';
+import { ModalComponent } from './components/merge-modal/modal.component';
 import { OperationSet } from 'src/shared/interfaces';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
