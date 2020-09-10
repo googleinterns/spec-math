@@ -22,11 +22,12 @@ import { OperationService } from 'src/shared/services/operation.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { SideNavService } from 'src/shared/services/sidenav.service';
 import { routes } from 'src/shared/routes';
+import { OverlayModalComponent } from './components/modals/overlay-modal/overlay-modal.component';
 
 const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 const modalOperation = {
   merge: MergeModalComponent,
-  // overlay: OverlayComponent,
+  overlay: OverlayModalComponent,
 };
 
 @Component({
