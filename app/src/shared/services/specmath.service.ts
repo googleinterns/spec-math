@@ -14,7 +14,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SpecMathMergeRequest, SpecMathOverlayRequest, OperationResponse } from '../interfaces';
+import { MergeRequest, OverlayRequest, OperationResponse } from '../interfaces';
 import { routes, SPEC_MATH_URL } from '../routes';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -30,28 +30,26 @@ export class SpecMathService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Performs a call to the operations/merge endpoint to perform an operation on a set of files
+   * Performs a call to the operations/merge endpoint
    *
-   * @param requestBody - An SpecMathMergeRequest object which can contain
+   * @param requestBody - An MergeRequest object which can contain
    * 1. A defaults file
    * 2. Specs used for the operation
    * 3. In the case that merge conflicts occur, an object containing conflict resolutions
    */
-  mergeSpecs(requestBody: SpecMathMergeRequest): Observable<OperationResponse> {
-    // Using a pipe to be able to convert the response object to a SpecMathResponse type
+  mergeSpecs(requestBody: MergeRequest): Observable<OperationResponse> {
     return this.http.post(`${SPEC_MATH_URL}${routes.version}${routes.mergeSpecs}`, requestBody, requestOptions)
       .pipe(map(response => response as any as OperationResponse));
   }
 
   /**
-   * Performs a call to the operations/overlay endpoint to perform an operation on a set of files
+   * Performs a call to the operations/overlay endpoint
    *
-   * @param requestBody - An SpecMathMergeRequest object which can contain
+   * @param requestBody - An MergeRequest object which can contain
    * 1. An overlay file
    * 2. Spec used to complete the operation
    */
-  overlaySpecs(requestBody: SpecMathOverlayRequest): Observable<OperationResponse> {
-    // Using a pipe to be able to convert the response object to a SpecMathResponse type
+  overlaySpecs(requestBody: OverlayRequest): Observable<OperationResponse> {
     return this.http.post(`${SPEC_MATH_URL}${routes.version}${routes.overlaySpecs}`, requestBody, requestOptions)
       .pipe(map(response => response as any as OperationResponse));
   }

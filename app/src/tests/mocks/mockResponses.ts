@@ -1,7 +1,7 @@
-import { SpecMathMergeResponse } from 'src/shared/interfaces';
+import { OperationResponse } from 'src/shared/interfaces';
 
-export const mergeSpecsMockResponse: SpecMathMergeResponse = {
-  status: 'conflict detected',
+export const operationMockResponse: OperationResponse = {
+  status: 'conflicts',
   conflicts: [
     {
       keypath: 'sample keypath',

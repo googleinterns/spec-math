@@ -1,4 +1,4 @@
-export interface SpecMathMergeRequest {
+export interface MergeRequest {
   specs: string[];
   defaultsFile?: string;
   conflictResolutions?: MergeConflict[];
@@ -16,7 +16,7 @@ export interface OperationResponse {
   conflicts?: MergeConflict [];
 }
 
-export interface SpecMathOverlayRequest {
+export interface OverlayRequest {
   spec: string;
   overlay: string;
 }
