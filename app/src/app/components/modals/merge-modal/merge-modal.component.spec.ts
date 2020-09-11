@@ -18,7 +18,6 @@ import { MergeModalComponent } from './merge-modal.component';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, Output, EventEmitter } from '@angular/core';
-import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,7 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
-import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputOptions } from 'src/shared/interfaces';
 import { queryElement } from 'src/shared/functions';
 import { SpecMathService } from 'src/shared/services/specmath.service';
@@ -44,8 +42,6 @@ describe('MergeModalComponent', () => {
       declarations: [
         MergeModalComponent,
         SpecNameInputStubComponent,
-        DefaultsFileUploadComponent,
-        SpecFilesUploadComponent,
       ],
       imports: [
         BrowserAnimationsModule,
