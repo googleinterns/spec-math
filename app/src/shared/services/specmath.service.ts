@@ -45,7 +45,7 @@ export class SpecMathService {
   /**
    * Performs a call to the operations/overlay endpoint
    *
-   * @param requestBody - An MergeRequest object which can contain
+   * @param requestBody - An OverlayRequest object which can contain
    * 1. An overlay file
    * 2. Spec used to complete the operation
    */
