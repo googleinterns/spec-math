@@ -22,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { ModalModule } from './components/modals/merge-modal/merge-modal.module';
+import { MergeModalModule } from './components/modals/merge-modal/merge-modal.module';
 import { DisplayResultsModule } from './components/display-results/display-results.module';
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
@@ -51,7 +51,7 @@ import { routes } from 'src/shared/routes';
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-    ModalModule,
+    MergeModalModule,
     DisplayResultsModule,
     YamlRenderModule,
     MatListModule,

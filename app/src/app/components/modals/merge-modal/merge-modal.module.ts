@@ -71,4 +71,4 @@ import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confir
   providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
   bootstrap: [MergeModalComponent]
 })
-export class ModalModule { }
+export class MergeModalModule { }
