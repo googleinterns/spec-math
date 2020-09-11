@@ -27,7 +27,6 @@ import { NgModule } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
-import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
@@ -35,6 +34,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confirm-operation.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,6 @@ import { RouterModule } from '@angular/router';
     SpecNameInputComponent,
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
-    ConfirmOperationComponent,
     ResolveConflictComponent
   ],
   imports: [
@@ -60,7 +59,8 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ConfirmOperationModule
   ],
   exports: [
     MergeModalComponent,

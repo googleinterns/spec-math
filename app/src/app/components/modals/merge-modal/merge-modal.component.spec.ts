@@ -18,7 +18,6 @@ import { MergeModalComponent } from './merge-modal.component';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ConfirmOperationComponent } from './confirm-operation/confirm-operation.component';
 import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -33,6 +32,8 @@ import { queryElement } from 'src/shared/functions';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confirm-operation.module';
+import { ConfirmOperationComponent } from '../shared-steps/confirm-operation/confirm-operation.component';
 
 describe('MergeModalComponent', () => {
   let fixture: ComponentFixture<MergeModalComponent>;
@@ -45,7 +46,6 @@ describe('MergeModalComponent', () => {
         SpecNameInputStubComponent,
         DefaultsFileUploadComponent,
         SpecFilesUploadComponent,
-        ConfirmOperationComponent
       ],
       imports: [
         BrowserAnimationsModule,
@@ -57,6 +57,7 @@ describe('MergeModalComponent', () => {
         MatStepperModule,
         MatTooltipModule,
         HttpClientTestingModule,
+        ConfirmOperationModule,
         RouterTestingModule.withRoutes([])
       ],
       providers: [

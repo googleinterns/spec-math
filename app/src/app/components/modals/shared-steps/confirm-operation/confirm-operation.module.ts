@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import '../../../../../shared/constants.scss';
-@import '../../modal-styling.scss';
+import { NgModule } from '@angular/core';
+import { ConfirmOperationComponent } from './confirm-operation.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserModule } from '@angular/platform-browser';
 
-.spec-name {
-  &-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-
-  &-field {
-    width: 100%;
-  }
-}
+@NgModule({
+  declarations: [ConfirmOperationComponent],
+  exports: [ConfirmOperationComponent],
+  imports: [MatChipsModule, MatIconModule, BrowserModule],
+})
+export class ConfirmOperationModule {}
