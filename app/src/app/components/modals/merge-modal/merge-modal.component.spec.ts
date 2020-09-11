@@ -22,7 +22,6 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { SpecNameInputOptions } from 'src/shared/interfaces';
@@ -49,7 +48,6 @@ describe('MergeModalComponent', () => {
         MatButtonModule,
         MatDialogModule,
         MatIconModule,
-        MatInputModule,
         MatStepperModule,
         MatTooltipModule,
         HttpClientTestingModule,

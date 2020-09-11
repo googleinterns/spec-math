@@ -15,11 +15,58 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
+enum Steps {
+  specNameInput = 0,
+  defaultsFileUpload = 1,
+  specFilesUpload = 2,
+  confirmOperation = 3,
+}
+
+type StepOptions = {
+  [key in Steps]: {
+    toolTipText?: string,
+    nextStep?: Steps,
+    previousStep?: Steps,
+    nextButtonText?: string,
+    lastBaseStep?: boolean,
+    stepLabel: string,
+  };
+};
+
+const stepList: StepOptions = {
+  [Steps.specNameInput]: {
+    toolTipText: 'You must name your new spec',
+    nextStep: Steps.defaultsFileUpload,
+    nextButtonText: 'Next',
+    stepLabel: 'Name new spec',
+  },
+  [Steps.defaultsFileUpload]: {
+    toolTipText: 'You must upload a default',
+    nextStep: Steps.specFilesUpload,
+    previousStep: Steps.specNameInput,
+    nextButtonText: 'Next',
+    stepLabel: 'Defaults file',
+  },
+  [Steps.specFilesUpload]: {
+    toolTipText: 'You must upload a spec file',
+    nextStep: Steps.confirmOperation,
+    previousStep: Steps.defaultsFileUpload,
+    nextButtonText: 'Next',
+    stepLabel: 'Spec files'
+  },
+  [Steps.confirmOperation]: {
+    previousStep: Steps.specFilesUpload,
+    nextButtonText: 'Confirm',
+    stepLabel: 'Confirm operation',
+    lastBaseStep: true,
+  },
+};
+
 @Component({
   selector: 'app-modal',
   templateUrl: './overlay-modal.component.html',
   styleUrls: ['./overlay-modal.component.scss']
 })
 export class OverlayModalComponent {
-
+  
 }
