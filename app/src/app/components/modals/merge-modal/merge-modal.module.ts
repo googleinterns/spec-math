@@ -14,7 +14,6 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,7 +25,6 @@ import { MergeModalComponent } from './merge-modal.component';
 import { NgModule } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
-import { SpecNameInputComponent } from './spec-name-input/spec-name-input.component';
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
@@ -35,11 +33,11 @@ import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confirm-operation.module';
+import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-input.module';
 
 @NgModule({
   declarations: [
     MergeModalComponent,
-    SpecNameInputComponent,
     DefaultsFileUploadComponent,
     SpecFilesUploadComponent,
     ResolveConflictComponent
@@ -50,8 +48,6 @@ import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confir
     MatDialogModule,
     MatIconModule,
     MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatTooltipModule,
     BrowserModule,
     MatChipsModule,
@@ -60,13 +56,11 @@ import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confir
     MatProgressSpinnerModule,
     HttpClientModule,
     RouterModule,
-    ConfirmOperationModule
+    ConfirmOperationModule,
+    SpecNameInputModule
   ],
   exports: [
     MergeModalComponent,
-    SpecNameInputComponent,
-    DefaultsFileUploadComponent,
-    SpecFilesUploadComponent,
   ],
   providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
   bootstrap: [MergeModalComponent]
