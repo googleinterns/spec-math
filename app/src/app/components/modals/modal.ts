@@ -80,12 +80,7 @@ const stepList: StepOptions = {
   }
 };
 
-@Component({
-  selector: 'app-merge-modal',
-  templateUrl: './merge-modal.component.html',
-  styleUrls: ['../modal-styling.scss']
-})
-export class MergeModalComponent {
+export class SpecMathModalComponent {
   currentStep = Steps.specNameInput;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
@@ -102,7 +97,7 @@ export class MergeModalComponent {
   mergeConflicts: MergeConflict[];
   loadingOperation = false;
 
-  constructor(readonly dialogRef: MatDialogRef<MergeModalComponent>,
+  constructor(readonly dialogRef: MatDialogRef<SpecMathModalComponent>,
               private cdr: ChangeDetectorRef,
               private specMathService: SpecMathService) {
     dialogRef.disableClose = true;
