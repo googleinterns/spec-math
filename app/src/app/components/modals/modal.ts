@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Directive } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import {
@@ -21,11 +21,8 @@ import {
   SpecFilesUploadOptions,
   MergeConflict,
   OperationSet,
-  ResolvedMergeConflictOptions,
-  MergeRequest,
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
-import { readFileAsString } from 'src/shared/functions';
 
 enum Steps {
   specNameInput = 0,
@@ -80,7 +77,7 @@ const stepList: StepOptions = {
   }
 };
 
-export class SpecMathModalComponent {
+export class SpecMathModal {
   currentStep = Steps.specNameInput;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
@@ -97,7 +94,7 @@ export class SpecMathModalComponent {
   mergeConflicts: MergeConflict[];
   loadingOperation = false;
 
-  constructor(readonly dialogRef: MatDialogRef<SpecMathModalComponent>,
+  constructor(readonly dialogRef: MatDialogRef<SpecMathModal>,
               readonly cdr: ChangeDetectorRef,
               readonly specMathService: SpecMathService) {
     dialogRef.disableClose = true;

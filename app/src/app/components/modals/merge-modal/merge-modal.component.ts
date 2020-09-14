@@ -26,7 +26,7 @@ import {
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';
-import { SpecMathModalComponent } from '../modal';
+import { SpecMathModal } from '../modal';
 
 enum Steps {
   specNameInput = 0,
@@ -86,7 +86,7 @@ const stepList: StepOptions = {
   templateUrl: './merge-modal.component.html',
   styleUrls: ['../modal-styling.scss']
 })
-export class MergeModalComponent extends SpecMathModalComponent {
+export class MergeModalComponent extends SpecMathModal {
   currentStep = Steps.specNameInput;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
@@ -102,6 +102,12 @@ export class MergeModalComponent extends SpecMathModalComponent {
   resultSpec: File;
   mergeConflicts: MergeConflict[];
   loadingOperation = false;
+
+  constructor(readonly dialogRef: MatDialogRef<MergeModalComponent>,
+              readonly cdr: ChangeDetectorRef,
+              readonly specMathService: SpecMathService) {
+    super(dialogRef, cdr, specMathService);
+  }
 
   async nextStep(stepper: MatStepper) {
     const currStep = stepList[this.currentStep];
