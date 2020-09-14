@@ -48,7 +48,7 @@ const MERGE_STEP_LIST: StepOptions = {
     previousStep: Steps.specFilesUpload,
     nextButtonText: 'Confirm',
     stepLabel: 'Confirm operation',
-    lastBaseStep: true,
+    lastStep: true,
   },
   [Steps.resolveConflicts]: {
     previousStep: Steps.confirmOperation,
@@ -66,8 +66,8 @@ const MERGE_STEP_LIST: StepOptions = {
 export class MergeModalComponent
   extends SpecMathModal
   implements OnInit, ModalInterface {
-    loadingOperation: boolean;
-    constructor(
+  loadingOperation: boolean;
+  constructor(
     readonly dialogRef: MatDialogRef<MergeModalComponent>,
     readonly cdr: ChangeDetectorRef,
     readonly specMathService: SpecMathService
@@ -78,7 +78,7 @@ export class MergeModalComponent
   async nextStep(stepper: MatStepper) {
     const currStep = this.stepList[this.currentStep];
 
-    if (currStep.lastBaseStep) {
+    if (currStep.lastStep) {
       this.loadingOperation = true;
       await this.mergeOperation();
       this.loadingOperation = false;

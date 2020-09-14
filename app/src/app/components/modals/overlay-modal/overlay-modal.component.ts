@@ -15,10 +15,8 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import {
-  OverlayRequest,
-  ModalInterface,
-} from 'src/shared/interfaces';
+import { readFileAsString } from 'src/shared/functions';
+import { OverlayRequest, ModalInterface } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { SpecMathModal, StepOptions, Steps } from '../modal';
 
@@ -47,7 +45,7 @@ const OVERLAY_STEP_LIST: StepOptions = {
     previousStep: Steps.specFilesUpload,
     nextButtonText: 'Confirm',
     stepLabel: 'Confirm operation',
-    lastBaseStep: true,
+    lastStep: true,
   },
 };
 
@@ -71,23 +69,38 @@ export class OverlayModalComponent
   async nextStep(stepper: MatStepper) {
     const currStep = this.stepList[this.currentStep];
 
-    if (currStep.lastBaseStep) {
+    if (currStep.lastStep) {
       this.loadingOperation = true;
-      await this.overlayOperation();
-      this.loadingOperation = false;
+      await this.overlayOperation().then(() => {
+        this.loadingOperation = false;
+      });
       this.cdr.detectChanges();
-
-      if (!this.hasMergeConflicts) {
-        this.finalizeSteps();
-        return;
-      }
+      this.finalizeSteps();
+      return;
     }
 
     stepper.selectedIndex = ++this.currentStep;
   }
 
+  async generateOverlaySet(): Promise<OverlayRequest> {
+    const requestBody: OverlayRequest = {
+      spec: await readFileAsString(this.specFilesUploadOptions.specFiles[0]),
+      overlay: await readFileAsString(
+        this.defaultsFileUploadOptions.defaultsFile
+      ),
+    };
+    return requestBody;
+  }
+
   async overlayOperation() {
-    
+    const overlaySet = await this.generateOverlaySet();
+    const callResponse = await this.specMathService
+      .overlaySpecs(overlaySet)
+      .toPromise();
+    this.resultSpec = new File(
+      [callResponse.result],
+      `${this.specNameInputOptions.newFileName}.yaml`
+    );
   }
 
   ngOnInit() {

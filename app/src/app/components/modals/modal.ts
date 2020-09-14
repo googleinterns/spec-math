@@ -38,7 +38,7 @@ export type StepOptions = {
     nextStep?: number;
     previousStep?: number;
     nextButtonText?: string;
-    lastBaseStep?: boolean;
+    lastStep?: boolean;
     stepLabel: string;
   };
 };
