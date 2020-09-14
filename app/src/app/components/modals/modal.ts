@@ -98,40 +98,9 @@ export class SpecMathModalComponent {
   loadingOperation = false;
 
   constructor(readonly dialogRef: MatDialogRef<SpecMathModalComponent>,
-              private cdr: ChangeDetectorRef,
-              private specMathService: SpecMathService) {
+              readonly cdr: ChangeDetectorRef,
+              readonly specMathService: SpecMathService) {
     dialogRef.disableClose = true;
-  }
-
-  async nextStep(stepper: MatStepper) {
-    const currStep = stepList[this.currentStep];
-
-    if (currStep.lastBaseStep) {
-      this.loadingOperation = true;
-      await this.mergeOperation();
-      this.loadingOperation = false;
-      this.cdr.detectChanges();
-
-      if (!this.hasMergeConflicts) {
-        this.finalizeSteps();
-        return;
-      }
-    }
-
-    if (this.mergeConflictsResolved) {
-      if (!this.hasMergeConflicts) {
-        this.finalizeSteps();
-        return;
-      }
-
-      this.loadingOperation = true;
-      await this.sendResolvedConflicts();
-      this.loadingOperation = false;
-      this.finalizeSteps();
-      return;
-    }
-
-    stepper.selectedIndex = ++this.currentStep;
   }
 
   previousStep(stepper: MatStepper) {
@@ -146,42 +115,6 @@ export class SpecMathModalComponent {
       valid: true,
     };
     this.dialogRef.close(finalOperationSet);
-  }
-
-  async mergeOperation() {
-    const mergeSet = await this.generateMergeSet();
-    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
-
-    switch (callResponse.status) {
-      case 'conflicts':
-        this.mergeConflicts = callResponse.conflicts;
-        break;
-      case 'success':
-        this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
-        break;
-    }
-  }
-
-  async sendResolvedConflicts() {
-    const mergeSet = await this.generateMergeSet();
-    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
-    this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
-  }
-
-  async generateMergeSet(): Promise<MergeRequest> {
-    const requestBody: MergeRequest = {
-      specs: await Promise.all(this.specFilesUploadOptions.specFiles.map((spec) => readFileAsString(spec)))
-    };
-
-    if (this.defaultsFileUploadOptions?.defaultsFile) {
-      requestBody.defaultsFile = await readFileAsString(this.defaultsFileUploadOptions.defaultsFile);
-    }
-
-    if (this.hasMergeConflicts) {
-      requestBody.conflictResolutions = this.mergeConflicts;
-    }
-
-    return requestBody;
   }
 
   get hasMergeConflicts() {
@@ -221,11 +154,6 @@ export class SpecMathModalComponent {
     return stepList[this.currentStep].stepLabel;
   }
 
-  get conflictsCount(): string {
-    const resolvedConflicts = this.mergeConflicts.filter(curr => curr.resolvedValue).length;
-    return `${resolvedConflicts}/${this.mergeConflicts.length}`;
-  }
-
   get shouldShowBackButton(): boolean {
     return this.currentStep > 0;
   }
@@ -248,9 +176,5 @@ export class SpecMathModalComponent {
 
   handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
     this.specFilesUploadOptions = specFilesUploadOptions;
-  }
-
-  handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
-    this.mergeConflicts[resolvedOptions.index].resolvedValue = resolvedOptions.value;
   }
 }

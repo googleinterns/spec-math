@@ -26,6 +26,7 @@ import {
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';
+import { SpecMathModalComponent } from '../modal';
 
 enum Steps {
   specNameInput = 0,
@@ -85,7 +86,7 @@ const stepList: StepOptions = {
   templateUrl: './merge-modal.component.html',
   styleUrls: ['../modal-styling.scss']
 })
-export class MergeModalComponent {
+export class MergeModalComponent extends SpecMathModalComponent {
   currentStep = Steps.specNameInput;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
@@ -101,12 +102,6 @@ export class MergeModalComponent {
   resultSpec: File;
   mergeConflicts: MergeConflict[];
   loadingOperation = false;
-
-  constructor(readonly dialogRef: MatDialogRef<MergeModalComponent>,
-              private cdr: ChangeDetectorRef,
-              private specMathService: SpecMathService) {
-    dialogRef.disableClose = true;
-  }
 
   async nextStep(stepper: MatStepper) {
     const currStep = stepList[this.currentStep];
@@ -137,20 +132,6 @@ export class MergeModalComponent {
     }
 
     stepper.selectedIndex = ++this.currentStep;
-  }
-
-  previousStep(stepper: MatStepper) {
-    stepper.selectedIndex = --this.currentStep;
-  }
-
-  finalizeSteps() {
-    const finalOperationSet: OperationSet = {
-      specFiles: this.specFilesUploadOptions.specFiles,
-      defaultsFile: this.defaultsFileUploadOptions?.defaultsFile,
-      resultSpec: this.resultSpec,
-      valid: true,
-    };
-    this.dialogRef.close(finalOperationSet);
   }
 
   async mergeOperation() {
@@ -218,21 +199,9 @@ export class MergeModalComponent {
     }
   }
 
-  get nextButtonText(): string {
-    return stepList[this.currentStep].nextButtonText;
-  }
-
-  get stepLabel(): string {
-    return stepList[this.currentStep].stepLabel;
-  }
-
   get conflictsCount(): string {
     const resolvedConflicts = this.mergeConflicts.filter(curr => curr.resolvedValue).length;
     return `${resolvedConflicts}/${this.mergeConflicts.length}`;
-  }
-
-  get shouldShowBackButton(): boolean {
-    return this.currentStep > 0;
   }
 
   get shouldDisplayConflictCounter(): boolean {
@@ -241,18 +210,6 @@ export class MergeModalComponent {
 
   get mergeConflictsResolved(): boolean {
     return !!this.mergeConflicts && this.mergeConflicts.every((conflict) => conflict.resolvedValue);
-  }
-
-  handleSpecNameInputOptions(specNameInputOptions: SpecNameInputOptions) {
-    this.specNameInputOptions = specNameInputOptions;
-  }
-
-  handleDefaultsFileUploadOptions(defaultsFileUploadOptions: DefaultsFileUploadOptions) {
-    this.defaultsFileUploadOptions = defaultsFileUploadOptions;
-  }
-
-  handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
-    this.specFilesUploadOptions = specFilesUploadOptions;
   }
 
   handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
