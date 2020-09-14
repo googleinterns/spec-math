@@ -66,9 +66,8 @@ const MERGE_STEP_LIST: StepOptions = {
 export class MergeModalComponent
   extends SpecMathModal
   implements OnInit, ModalInterface {
-  loadingOperation: boolean;
-
-  constructor(
+    loadingOperation: boolean;
+    constructor(
     readonly dialogRef: MatDialogRef<MergeModalComponent>,
     readonly cdr: ChangeDetectorRef,
     readonly specMathService: SpecMathService

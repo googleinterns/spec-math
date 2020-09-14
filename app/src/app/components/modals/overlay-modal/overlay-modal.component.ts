@@ -12,28 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
+import {
+  OverlayRequest,
+  ModalInterface,
+} from 'src/shared/interfaces';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { SpecMathModal, StepOptions, Steps } from '../modal';
 
-enum Steps {
-  specNameInput = 0,
-  defaultsFileUpload = 1,
-  specFilesUpload = 2,
-  confirmOperation = 3,
-}
-
-type StepOptions = {
-  [key in Steps]: {
-    toolTipText?: string,
-    nextStep?: Steps,
-    previousStep?: Steps,
-    nextButtonText?: string,
-    lastBaseStep?: boolean,
-    stepLabel: string,
-  };
-};
-
-const stepList: StepOptions = {
+const OVERLAY_STEP_LIST: StepOptions = {
   [Steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: Steps.defaultsFileUpload,
@@ -41,7 +30,7 @@ const stepList: StepOptions = {
     stepLabel: 'Name new spec',
   },
   [Steps.defaultsFileUpload]: {
-    toolTipText: 'You must upload a default',
+    toolTipText: 'You must upload a default file',
     nextStep: Steps.specFilesUpload,
     previousStep: Steps.specNameInput,
     nextButtonText: 'Next',
@@ -52,7 +41,7 @@ const stepList: StepOptions = {
     nextStep: Steps.confirmOperation,
     previousStep: Steps.defaultsFileUpload,
     nextButtonText: 'Next',
-    stepLabel: 'Spec files'
+    stepLabel: 'Spec files',
   },
   [Steps.confirmOperation]: {
     previousStep: Steps.specFilesUpload,
@@ -65,8 +54,43 @@ const stepList: StepOptions = {
 @Component({
   selector: 'app-modal',
   templateUrl: './overlay-modal.component.html',
-  styleUrls: ['./overlay-modal.component.scss']
+  styleUrls: ['./overlay-modal.component.scss'],
 })
-export class OverlayModalComponent {
-  
+export class OverlayModalComponent
+  extends SpecMathModal
+  implements OnInit, ModalInterface {
+  loadingOperation: boolean;
+  constructor(
+    readonly dialogRef: MatDialogRef<OverlayModalComponent>,
+    readonly cdr: ChangeDetectorRef,
+    readonly specMathService: SpecMathService
+  ) {
+    super(dialogRef, cdr, specMathService);
+  }
+
+  async nextStep(stepper: MatStepper) {
+    const currStep = this.stepList[this.currentStep];
+
+    if (currStep.lastBaseStep) {
+      this.loadingOperation = true;
+      await this.overlayOperation();
+      this.loadingOperation = false;
+      this.cdr.detectChanges();
+
+      if (!this.hasMergeConflicts) {
+        this.finalizeSteps();
+        return;
+      }
+    }
+
+    stepper.selectedIndex = ++this.currentStep;
+  }
+
+  async overlayOperation() {
+    
+  }
+
+  ngOnInit() {
+    this.stepList = OVERLAY_STEP_LIST;
+  }
 }

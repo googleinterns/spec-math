@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+:host {
+  min-width: 100%;
+}
+
 .defaults {
   &-container {
     width: 100%;
@@ -64,5 +68,9 @@
   &-file {
     padding-right: 32px;
     padding-left: 32px;
+  }
+
+  &-dropdown {
+    width: 100%;
   }
 }

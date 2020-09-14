@@ -33,13 +33,13 @@ export enum Steps {
 }
 
 export type StepOptions = {
-  [key in Steps]: {
-    toolTipText?: string,
-    nextStep?: Steps,
-    previousStep?: Steps,
-    nextButtonText?: string,
-    lastBaseStep?: boolean,
-    stepLabel: string,
+  [key in number]: {
+    toolTipText?: string;
+    nextStep?: number;
+    previousStep?: number;
+    nextButtonText?: string;
+    lastBaseStep?: boolean;
+    stepLabel: string;
   };
 };
 
