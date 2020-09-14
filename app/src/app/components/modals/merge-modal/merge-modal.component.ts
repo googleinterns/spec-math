@@ -12,42 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import {
-  SpecNameInputOptions,
-  DefaultsFileUploadOptions,
-  SpecFilesUploadOptions,
-  MergeConflict,
-  OperationSet,
   ResolvedMergeConflictOptions,
   MergeRequest,
+  ModalInterface,
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';
-import { SpecMathModal } from '../modal';
+import { SpecMathModal, StepOptions, Steps } from '../modal';
 
-enum Steps {
-  specNameInput = 0,
-  defaultsFileUpload = 1,
-  specFilesUpload = 2,
-  confirmOperation = 3,
-  resolveConflicts = 4,
-}
-
-type StepOptions = {
-  [key in Steps]: {
-    toolTipText?: string,
-    nextStep?: Steps,
-    previousStep?: Steps,
-    nextButtonText?: string,
-    lastBaseStep?: boolean,
-    stepLabel: string,
-  };
-};
-
-const stepList: StepOptions = {
+const MERGE_STEP_LIST: StepOptions = {
   [Steps.specNameInput]: {
     toolTipText: 'You must name your new spec',
     nextStep: Steps.defaultsFileUpload,
@@ -65,7 +42,7 @@ const stepList: StepOptions = {
     nextStep: Steps.confirmOperation,
     previousStep: Steps.defaultsFileUpload,
     nextButtonText: 'Next',
-    stepLabel: 'Spec files'
+    stepLabel: 'Spec files',
   },
   [Steps.confirmOperation]: {
     previousStep: Steps.specFilesUpload,
@@ -78,39 +55,29 @@ const stepList: StepOptions = {
     toolTipText: 'You must resolve all merge conflicts',
     nextButtonText: 'Resolve',
     stepLabel: 'Resolving conflicts',
-  }
+  },
 };
 
 @Component({
   selector: 'app-merge-modal',
   templateUrl: './merge-modal.component.html',
-  styleUrls: ['../modal-styling.scss']
+  styleUrls: ['../modal-styling.scss'],
 })
-export class MergeModalComponent extends SpecMathModal {
-  currentStep = Steps.specNameInput;
-  specNameInputOptions: SpecNameInputOptions = {
-    newFileName: '',
-    valid: false
-  };
-  defaultsFileUploadOptions: DefaultsFileUploadOptions = {
-    defaultsFile: null
-  };
-  specFilesUploadOptions: SpecFilesUploadOptions = {
-    specFiles: [],
-    valid: false,
-  };
-  resultSpec: File;
-  mergeConflicts: MergeConflict[];
-  loadingOperation = false;
+export class MergeModalComponent
+  extends SpecMathModal
+  implements OnInit, ModalInterface {
+  loadingOperation: boolean;
 
-  constructor(readonly dialogRef: MatDialogRef<MergeModalComponent>,
-              readonly cdr: ChangeDetectorRef,
-              readonly specMathService: SpecMathService) {
+  constructor(
+    readonly dialogRef: MatDialogRef<MergeModalComponent>,
+    readonly cdr: ChangeDetectorRef,
+    readonly specMathService: SpecMathService
+  ) {
     super(dialogRef, cdr, specMathService);
   }
 
   async nextStep(stepper: MatStepper) {
-    const currStep = stepList[this.currentStep];
+    const currStep = this.stepList[this.currentStep];
 
     if (currStep.lastBaseStep) {
       this.loadingOperation = true;
@@ -142,31 +109,47 @@ export class MergeModalComponent extends SpecMathModal {
 
   async mergeOperation() {
     const mergeSet = await this.generateMergeSet();
-    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
+    const callResponse = await this.specMathService
+      .mergeSpecs(mergeSet)
+      .toPromise();
 
     switch (callResponse.status) {
       case 'conflicts':
         this.mergeConflicts = callResponse.conflicts;
         break;
       case 'success':
-        this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
+        this.resultSpec = new File(
+          [callResponse.result],
+          `${this.specNameInputOptions.newFileName}.yaml`
+        );
         break;
     }
   }
 
   async sendResolvedConflicts() {
     const mergeSet = await this.generateMergeSet();
-    const callResponse = await this.specMathService.mergeSpecs(mergeSet).toPromise();
-    this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
+    const callResponse = await this.specMathService
+      .mergeSpecs(mergeSet)
+      .toPromise();
+    this.resultSpec = new File(
+      [callResponse.result],
+      `${this.specNameInputOptions.newFileName}.yaml`
+    );
   }
 
   async generateMergeSet(): Promise<MergeRequest> {
     const requestBody: MergeRequest = {
-      specs: await Promise.all(this.specFilesUploadOptions.specFiles.map((spec) => readFileAsString(spec)))
+      specs: await Promise.all(
+        this.specFilesUploadOptions.specFiles.map((spec) =>
+          readFileAsString(spec)
+        )
+      ),
     };
 
     if (this.defaultsFileUploadOptions?.defaultsFile) {
-      requestBody.defaultsFile = await readFileAsString(this.defaultsFileUploadOptions.defaultsFile);
+      requestBody.defaultsFile = await readFileAsString(
+        this.defaultsFileUploadOptions.defaultsFile
+      );
     }
 
     if (this.hasMergeConflicts) {
@@ -176,37 +159,10 @@ export class MergeModalComponent extends SpecMathModal {
     return requestBody;
   }
 
-  get hasMergeConflicts() {
-    return !!this.mergeConflicts;
-  }
-
-  get validFiles(): boolean {
-    return this.specFilesUploadOptions.valid;
-  }
-
-  get newFileName(): string {
-    return this.specNameInputOptions?.newFileName || '';
-  }
-
-  get nextButtonTooltipText(): string {
-    return stepList[this.currentStep].toolTipText;
-  }
-
-  get nextButtonEnabled(): boolean {
-    switch (this.currentStep) {
-      case Steps.specNameInput:
-        return this.specNameInputOptions?.valid;
-      case Steps.specFilesUpload:
-        return this.specFilesUploadOptions?.valid;
-      case Steps.resolveConflicts:
-        return this.mergeConflictsResolved;
-      default:
-        return true;
-    }
-  }
-
   get conflictsCount(): string {
-    const resolvedConflicts = this.mergeConflicts.filter(curr => curr.resolvedValue).length;
+    const resolvedConflicts = this.mergeConflicts.filter(
+      (curr) => curr.resolvedValue
+    ).length;
     return `${resolvedConflicts}/${this.mergeConflicts.length}`;
   }
 
@@ -214,11 +170,12 @@ export class MergeModalComponent extends SpecMathModal {
     return this.currentStep === Steps.resolveConflicts;
   }
 
-  get mergeConflictsResolved(): boolean {
-    return !!this.mergeConflicts && this.mergeConflicts.every((conflict) => conflict.resolvedValue);
+  handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
+    this.mergeConflicts[resolvedOptions.index].resolvedValue =
+      resolvedOptions.value;
   }
 
-  handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
-    this.mergeConflicts[resolvedOptions.index].resolvedValue = resolvedOptions.value;
+  ngOnInit() {
+    this.stepList = MERGE_STEP_LIST;
   }
 }

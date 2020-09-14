@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { ChangeDetectorRef, Directive } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import {
@@ -24,7 +24,7 @@ import {
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 
-enum Steps {
+export enum Steps {
   specNameInput = 0,
   defaultsFileUpload = 1,
   specFilesUpload = 2,
@@ -32,7 +32,7 @@ enum Steps {
   resolveConflicts = 4,
 }
 
-type StepOptions = {
+export type StepOptions = {
   [key in Steps]: {
     toolTipText?: string,
     nextStep?: Steps,
@@ -43,41 +43,8 @@ type StepOptions = {
   };
 };
 
-const stepList: StepOptions = {
-  [Steps.specNameInput]: {
-    toolTipText: 'You must name your new spec',
-    nextStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next',
-    stepLabel: 'Name new spec',
-  },
-  [Steps.defaultsFileUpload]: {
-    nextStep: Steps.specFilesUpload,
-    previousStep: Steps.specNameInput,
-    nextButtonText: 'Next',
-    stepLabel: 'Defaults file',
-  },
-  [Steps.specFilesUpload]: {
-    toolTipText: 'You must upload a set of spec files',
-    nextStep: Steps.confirmOperation,
-    previousStep: Steps.defaultsFileUpload,
-    nextButtonText: 'Next',
-    stepLabel: 'Spec files'
-  },
-  [Steps.confirmOperation]: {
-    previousStep: Steps.specFilesUpload,
-    nextButtonText: 'Confirm',
-    stepLabel: 'Confirm operation',
-    lastBaseStep: true,
-  },
-  [Steps.resolveConflicts]: {
-    previousStep: Steps.confirmOperation,
-    toolTipText: 'You must resolve all merge conflicts',
-    nextButtonText: 'Resolve',
-    stepLabel: 'Resolving conflicts',
-  }
-};
-
 export class SpecMathModal {
+  stepList: StepOptions;
   currentStep = Steps.specNameInput;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
@@ -92,7 +59,6 @@ export class SpecMathModal {
   };
   resultSpec: File;
   mergeConflicts: MergeConflict[];
-  loadingOperation = false;
 
   constructor(readonly dialogRef: MatDialogRef<SpecMathModal>,
               readonly cdr: ChangeDetectorRef,
@@ -127,7 +93,7 @@ export class SpecMathModal {
   }
 
   get nextButtonTooltipText(): string {
-    return stepList[this.currentStep].toolTipText;
+    return this.stepList[this.currentStep].toolTipText;
   }
 
   get nextButtonEnabled(): boolean {
@@ -144,19 +110,15 @@ export class SpecMathModal {
   }
 
   get nextButtonText(): string {
-    return stepList[this.currentStep].nextButtonText;
+    return this.stepList[this.currentStep].nextButtonText;
   }
 
   get stepLabel(): string {
-    return stepList[this.currentStep].stepLabel;
+    return this.stepList[this.currentStep].stepLabel;
   }
 
   get shouldShowBackButton(): boolean {
     return this.currentStep > 0;
-  }
-
-  get shouldDisplayConflictCounter(): boolean {
-    return this.currentStep === Steps.resolveConflicts;
   }
 
   get mergeConflictsResolved(): boolean {

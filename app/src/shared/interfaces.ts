@@ -1,3 +1,5 @@
+import { MatStepper } from '@angular/material/stepper';
+
 export interface MergeRequest {
   specs: string[];
   defaultsFile?: string;
@@ -50,4 +52,8 @@ export interface ResolvedMergeConflictOptions {
 export interface YamlLevel {
   attribute: string;
   level: number;
+}
+
+export interface ModalInterface {
+  nextStep(stepper: MatStepper): void;
 }
