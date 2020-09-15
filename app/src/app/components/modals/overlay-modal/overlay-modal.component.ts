@@ -52,7 +52,7 @@ const OVERLAY_STEP_LIST: StepOptions = {
 @Component({
   selector: 'app-modal',
   templateUrl: './overlay-modal.component.html',
-  styleUrls: ['./overlay-modal.component.scss'],
+  styleUrls: ['../modal.scss'],
 })
 export class OverlayModalComponent
   extends SpecMathModal

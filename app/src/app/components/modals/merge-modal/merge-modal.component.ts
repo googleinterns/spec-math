@@ -61,7 +61,7 @@ const MERGE_STEP_LIST: StepOptions = {
 @Component({
   selector: 'app-merge-modal',
   templateUrl: './merge-modal.component.html',
-  styleUrls: ['../modal-styling.scss'],
+  styleUrls: ['../modal.scss'],
 })
 export class MergeModalComponent
   extends SpecMathModal
