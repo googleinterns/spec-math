@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, EventEmitter, Output, ViewChild, DebugElement } from '@angular/core';
-import { DefaultsFileUploadOptions } from 'src/shared/interfaces';
+import { Component, EventEmitter, Output, ViewChild, DebugElement, Input } from '@angular/core';
+import { FileUploadOptions } from 'src/shared/interfaces';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+
+type FileType = 'defaults' | 'spec';
 
 @Component({
   selector: 'app-file-upload',
@@ -23,19 +25,21 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent  {
-  @ViewChild('defaultsInput') defaultsUpload: DebugElement;
-  defaultsFileUploadOptions?: DefaultsFileUploadOptions = {
-    defaultsFile: null
+  @ViewChild('fileInput') defaultsUpload: DebugElement;
+  fileUploadOptions?: FileUploadOptions = {
+    file: null,
+    type: null
   };
 
-  @Output() options: EventEmitter<DefaultsFileUploadOptions> = new EventEmitter();
+  @Input() type: FileType;
+  @Output() options: EventEmitter<FileUploadOptions> = new EventEmitter();
 
   constructor(readonly router: Router, readonly dialog: MatDialog) { }
 
   handleDefaultsFileInput(files: FileList) {
-    this.defaultsFileUploadOptions.defaultsFile = files[0];
+    this.fileUploadOptions.file = files[0];
     this.defaultsUpload.nativeElement.value = '';
-    this.options.emit(this.defaultsFileUploadOptions);
+    this.options.emit(this.fileUploadOptions);
   }
 
   navigateToDefaultsPage() {
@@ -43,7 +47,7 @@ export class FileUploadComponent  {
     this.router.navigateByUrl('defaults');
   }
 
-  removeDefaultsFile() {
-    this.defaultsFileUploadOptions.defaultsFile = null;
+  deleteFile() {
+    this.fileUploadOptions.file = null;
   }
 }

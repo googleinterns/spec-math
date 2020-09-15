@@ -45,7 +45,7 @@ describe('ConfirmOperationComponent', () => {
   });
 
   it('displays a defaults and spec file chips when a set of files is uploaded', () => {
-    component.defaultsFileUploadOptions = { defaultsFile: new File(['content'], 'defaults.yaml') };
+    component.fileUploadOptions = { file: new File(['content'], 'defaults.yaml') };
     component.specFilesUploadOptions = {
       specFiles: [
         new File(['content'], 'spec1.yaml'),
@@ -64,7 +64,7 @@ describe('ConfirmOperationComponent', () => {
   });
 
   it('does not display any chips if the set of files is invalid', () => {
-    component.defaultsFileUploadOptions = { defaultsFile: null };
+    component.fileUploadOptions = { file: null };
     component.specFilesUploadOptions = {
       specFiles: [],
       valid: false
@@ -77,7 +77,7 @@ describe('ConfirmOperationComponent', () => {
   });
 
   it('displays only spec file chips when a default file is missing', () => {
-    component.defaultsFileUploadOptions = { defaultsFile: null };
+    component.fileUploadOptions = { file: null };
     component.specFilesUploadOptions = {
       specFiles: [
         new File(['content'], 'spec1.yaml'),

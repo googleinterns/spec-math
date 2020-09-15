@@ -86,7 +86,7 @@ export class OverlayModalComponent
     const requestBody: OverlayRequest = {
       spec: await readFileAsString(this.specFilesUploadOptions.specFiles[0]),
       overlay: await readFileAsString(
-        this.defaultsFileUploadOptions.defaultsFile
+        this.fileUploadOptions.file
       ),
     };
     return requestBody;
@@ -105,5 +105,6 @@ export class OverlayModalComponent
 
   ngOnInit() {
     this.stepList = OVERLAY_STEP_LIST;
+    this.fileUploadOptions.type = 'spec';
   }
 }

@@ -28,8 +28,9 @@ export interface SpecNameInputOptions {
   valid: boolean;
 }
 
-export interface DefaultsFileUploadOptions {
-  defaultsFile: File;
+export interface FileUploadOptions {
+  file: File;
+  type: 'defaults' | 'spec' | null;
 }
 
 export interface SpecFilesUploadOptions {

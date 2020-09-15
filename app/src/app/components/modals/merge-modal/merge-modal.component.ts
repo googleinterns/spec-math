@@ -145,9 +145,9 @@ export class MergeModalComponent
       ),
     };
 
-    if (this.defaultsFileUploadOptions?.defaultsFile) {
+    if (this.fileUploadOptions?.file) {
       requestBody.defaultsFile = await readFileAsString(
-        this.defaultsFileUploadOptions.defaultsFile
+        this.fileUploadOptions.file
       );
     }
 
@@ -176,5 +176,6 @@ export class MergeModalComponent
 
   ngOnInit() {
     this.stepList = MERGE_STEP_LIST;
+    this.fileUploadOptions.type = 'defaults';
   }
 }

@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, Input, OnInit } from '@angular/core';
-import { DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
+import { Component, Input } from '@angular/core';
+import { FileUploadOptions, SpecFilesUploadOptions } from 'src/shared/interfaces';
 
 @Component({
   selector: 'app-confirm-operation',
@@ -21,6 +21,6 @@ import { DefaultsFileUploadOptions, SpecFilesUploadOptions } from 'src/shared/in
   styleUrls: ['./confirm-operation.component.scss']
 })
 export class ConfirmOperationComponent {
-  @Input() defaultsFileUploadOptions?: DefaultsFileUploadOptions;
+  @Input() fileUploadOptions?: FileUploadOptions;
   @Input() specFilesUploadOptions?: SpecFilesUploadOptions;
 }

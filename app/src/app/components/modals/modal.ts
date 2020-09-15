@@ -17,7 +17,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import {
   SpecNameInputOptions,
-  DefaultsFileUploadOptions,
+  FileUploadOptions,
   SpecFilesUploadOptions,
   MergeConflict,
   OperationSet,
@@ -50,8 +50,9 @@ export class SpecMathModal {
     newFileName: '',
     valid: false
   };
-  defaultsFileUploadOptions: DefaultsFileUploadOptions = {
-    defaultsFile: null
+  fileUploadOptions: FileUploadOptions = {
+    file: null,
+    type: null
   };
   specFilesUploadOptions: SpecFilesUploadOptions = {
     specFiles: [],
@@ -73,7 +74,7 @@ export class SpecMathModal {
   finalizeSteps() {
     const finalOperationSet: OperationSet = {
       specFiles: this.specFilesUploadOptions.specFiles,
-      defaultsFile: this.defaultsFileUploadOptions?.defaultsFile,
+      defaultsFile: this.fileUploadOptions?.file,
       resultSpec: this.resultSpec,
       valid: true,
     };
@@ -129,8 +130,8 @@ export class SpecMathModal {
     this.specNameInputOptions = specNameInputOptions;
   }
 
-  handleDefaultsFileUploadOptions(defaultsFileUploadOptions: DefaultsFileUploadOptions) {
-    this.defaultsFileUploadOptions = defaultsFileUploadOptions;
+  handleDefaultsFileUploadOptions(fileUploadOptions: FileUploadOptions) {
+    this.fileUploadOptions = fileUploadOptions;
   }
 
   handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {

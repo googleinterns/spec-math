@@ -19,9 +19,9 @@ limitations under the License. -->
     </div>
     <div class="confirm-operation-container">
       <mat-chip-list id="confirm-operation-chip-container">
-        <mat-chip *ngIf="defaultsFileUploadOptions.defaultsFile">
+        <mat-chip *ngIf="fileUploadOptions.file">
           <mat-icon class="modal-step-chip-icon defaults">api</mat-icon>
-          {{ defaultsFileUploadOptions.defaultsFile.name }}
+          {{ fileUploadOptions.file.name }}
         </mat-chip>
         <mat-chip
           *ngFor="let file of specFilesUploadOptions.specFiles; let i = index"
