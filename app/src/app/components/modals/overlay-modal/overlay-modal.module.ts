@@ -12,4 +12,47 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { BrowserModule } from '@angular/platform-browser';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgModule } from '@angular/core';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpecMathService } from 'src/shared/services/specmath.service';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confirm-operation.module';
+import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-input.module';
+import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module';
+import { OverlayModalComponent } from './overlay-modal.component';
+import { MatIconModule } from '@angular/material/icon';
 
+@NgModule({
+  declarations: [
+    OverlayModalComponent
+  ],
+  imports: [
+    MatStepperModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatTooltipModule,
+    BrowserModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    RouterModule,
+    ConfirmOperationModule,
+    SpecNameInputModule,
+    FileUploadModule,
+    MatIconModule
+  ],
+  exports: [
+    OverlayModalComponent,
+  ],
+  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
+  bootstrap: [OverlayModalComponent]
+})
+export class OverlayModalModule { }

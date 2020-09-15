@@ -16,7 +16,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { readFileAsString } from 'src/shared/functions';
-import { OverlayRequest, ModalInterface } from 'src/shared/interfaces';
+import { OverlayRequest, ModalInterface, FileUploadOptions } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { SpecMathModal, StepOptions, Steps } from '../modal';
 
@@ -101,6 +101,13 @@ export class OverlayModalComponent
       [callResponse.result],
       `${this.specNameInputOptions.newFileName}.yaml`
     );
+  }
+
+  handleSpecFilesUploadOptions(fileUploadOptions: FileUploadOptions) {
+    this.specFilesUploadOptions = {
+      specFiles: [fileUploadOptions.file],
+      valid: true,
+    };
   }
 
   ngOnInit() {

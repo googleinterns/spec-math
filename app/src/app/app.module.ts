@@ -35,6 +35,7 @@ import { DisplayResultsComponent } from './components/display-results/display-re
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { SideNavService } from 'src/shared/services/sidenav.service';
 import { routes } from 'src/shared/routes';
+import { OverlayModalModule } from './components/modals/overlay-modal/overlay-modal.module';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { routes } from 'src/shared/routes';
     YamlRenderModule,
     MatListModule,
     MatExpansionModule,
+    OverlayModalModule,
     RouterModule.forRoot([
       {
         path: routes.aboutSpecMath,

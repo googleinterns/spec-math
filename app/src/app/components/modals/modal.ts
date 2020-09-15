@@ -130,11 +130,7 @@ export class SpecMathModal {
     this.specNameInputOptions = specNameInputOptions;
   }
 
-  handleDefaultsFileUploadOptions(fileUploadOptions: FileUploadOptions) {
+  handleFileUploadOptions(fileUploadOptions: FileUploadOptions) {
     this.fileUploadOptions = fileUploadOptions;
-  }
-
-  handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
-    this.specFilesUploadOptions = specFilesUploadOptions;
   }
 }

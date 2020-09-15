@@ -19,6 +19,7 @@ import {
   ResolvedMergeConflictOptions,
   MergeRequest,
   ModalInterface,
+  SpecFilesUploadOptions
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';
@@ -172,6 +173,10 @@ export class MergeModalComponent
   handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
     this.mergeConflicts[resolvedOptions.index].resolvedValue =
       resolvedOptions.value;
+  }
+
+  handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
+    this.specFilesUploadOptions = specFilesUploadOptions;
   }
 
   ngOnInit() {
