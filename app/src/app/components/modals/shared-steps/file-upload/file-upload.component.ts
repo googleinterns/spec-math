@@ -50,4 +50,26 @@ export class FileUploadComponent  {
   deleteFile() {
     this.fileUploadOptions.file = null;
   }
+
+  get stepFileLabel(): string {
+    switch (this.type) {
+      case 'defaults':
+        return 'Select an optional defaults file';
+      case 'spec':
+        return 'Select a spec file';
+    }
+  }
+
+  get shouldDisplayLearnMoreLink(): boolean {
+    return this.type === 'defaults';
+  }
+
+  get fileTypeIcon(): string {
+    switch (this.type) {
+      case 'defaults':
+        return 'api';
+      case 'spec':
+        return 'description';
+    }
+  }
 }

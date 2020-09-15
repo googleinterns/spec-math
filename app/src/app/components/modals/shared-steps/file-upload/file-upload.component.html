@@ -16,9 +16,10 @@ limitations under the License. -->
   <div class="modal-step-content">
     <div class="modal-step-instructions">
       <p class="mat-body-2">
-        Select an optional defaults file
+        {{ stepFileLabel }}
       </p>
       <a
+        *ngIf="shouldDisplayLearnMoreLink"
         (click)="navigateToDefaultsPage()"
         id="learn-more-defaults"
         class="mat-body-2"
@@ -45,7 +46,7 @@ limitations under the License. -->
             [removable]="true"
             (removed)="deleteFile()"
           >
-            <mat-icon class="file-chip-icon">api</mat-icon>
+            <mat-icon class="file-chip-icon">{{ fileTypeIcon }} </mat-icon>
             {{ fileUploadOptions.file.name }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>

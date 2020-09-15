@@ -17,16 +17,12 @@ limitations under the License. -->
     <div *ngIf="loadingOperation" class="modal-step-loading-overlay">
       <div class="modal-step-loading-label">
         <mat-spinner></mat-spinner>
-        <h4>
-          Processing operation
-        </h4>
+        <h4>Processing operation</h4>
       </div>
     </div>
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
-        <h3>
-          Merge specs
-        </h3>
+        <h3>Merge specs</h3>
         <p class="mat-caption">
           {{ stepLabel }}
         </p>
@@ -50,6 +46,7 @@ limitations under the License. -->
       <mat-step [optional]="true">
         <app-file-upload
           (options)="handleDefaultsFileUploadOptions($event)"
+          type="defaults"
         ></app-file-upload>
       </mat-step>
       <mat-step>
@@ -72,13 +69,14 @@ limitations under the License. -->
       </mat-step>
     </mat-horizontal-stepper>
     <div class="modal-step-footer-container">
-      <div class="modal-step-conflicts-count" *ngIf="shouldDisplayConflictCounter">
+      <div
+        class="modal-step-conflicts-count"
+        *ngIf="shouldDisplayConflictCounter"
+      >
         <b>
           {{ conflictsCount }}
         </b>
-        <p class="modal-step-conflicts-label">
-          conflicts resolved
-        </p>
+        <p class="modal-step-conflicts-label">conflicts resolved</p>
       </div>
       <div class="modal-step-controls-container">
         <button
