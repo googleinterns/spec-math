@@ -36,7 +36,7 @@ export class FileUploadComponent  {
 
   constructor(readonly router: Router, readonly dialog: MatDialog) { }
 
-  handleDefaultsFileInput(files: FileList) {
+  handleFileInput(files: FileList) {
     this.fileUploadOptions.file = files[0];
     this.fileUploadOptions.type = this.fileType;
     this.defaultsUpload.nativeElement.value = '';

@@ -15,7 +15,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { OverlayModalComponent } from './overlay-modal.component';
 
-import { BrowserModule, By } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +29,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-input.module';
 import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module';
+import { queryElement } from 'src/shared/functions';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('OverlayModalComponent', () => {
   let fixture: ComponentFixture<OverlayModalComponent>;
@@ -51,7 +55,10 @@ describe('OverlayModalComponent', () => {
         ConfirmOperationModule,
         SpecNameInputModule,
         FileUploadModule,
-        MatIconModule
+        MatIconModule,
+        BrowserAnimationsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
       ],
       providers: [
         {
@@ -69,5 +76,40 @@ describe('OverlayModalComponent', () => {
 
   it('creates the overlay modal component', () => {
     expect(modal).toBeTruthy();
+  });
+
+  it('is opened', () => {
+    expect(queryElement(fixture, '.modal-container')).toBeTruthy();
+  });
+
+  it('is closed when then cancel button is pressed', () => {
+    const spy = spyOn(modal.dialogRef, 'close').and.callThrough();
+    const cancelButton = queryElement(fixture, '#modal-cancel-button').nativeElement;
+
+    cancelButton.click();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('calls the dialog close method when the final step is reached', () => {
+    const spy = spyOn(modal.dialogRef, 'close');
+
+    modal.fileUploadOptions = {
+      file: new File(['content'], 'defaults.yaml'),
+      type: 'defaults',
+    };
+    modal.specFilesUploadOptions = {
+      specFiles: [
+        new File(['content'], 'spec1.yaml'),
+      ],
+      valid: true
+    };
+    modal.specNameInputOptions = {
+      newFileName: 'test',
+      valid: true,
+    };
+
+    fixture.detectChanges();
+    modal.finalizeSteps();
+    expect(spy).toHaveBeenCalled();
   });
 });

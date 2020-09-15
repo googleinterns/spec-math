@@ -19,7 +19,6 @@ import {
   ResolvedMergeConflictOptions,
   MergeRequest,
   ModalInterface,
-  SpecFilesUploadOptions
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';

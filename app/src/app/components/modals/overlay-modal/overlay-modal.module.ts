@@ -28,6 +28,7 @@ import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-i
 import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module';
 import { OverlayModalComponent } from './overlay-modal.component';
 import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogModule,
     MatTooltipModule,
     BrowserModule,
+    BrowserAnimationsModule,
     MatProgressSpinnerModule,
     HttpClientModule,
     RouterModule,
