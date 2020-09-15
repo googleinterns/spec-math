@@ -18,11 +18,11 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-defaults-file-upload',
-  templateUrl: './defaults-file-upload.component.html',
-  styleUrls: ['./defaults-file-upload.component.scss']
+  selector: 'app-file-upload',
+  templateUrl: './file-upload.component.html',
+  styleUrls: ['./file-upload.component.scss']
 })
-export class DefaultsFileUploadComponent  {
+export class FileUploadComponent  {
   @ViewChild('defaultsInput') defaultsUpload: DebugElement;
   defaultsFileUploadOptions?: DefaultsFileUploadOptions = {
     defaultsFile: null

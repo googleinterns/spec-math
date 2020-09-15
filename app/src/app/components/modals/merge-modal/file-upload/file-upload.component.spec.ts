@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { DefaultsFileUploadComponent } from './defaults-file-upload.component';
+import { FileUploadComponent } from './file-upload.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,13 +23,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { queryElement } from 'src/shared/functions';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
-describe('DefaultsFileUploadComponent', () => {
-  let fixture: ComponentFixture<DefaultsFileUploadComponent>;
-  let component: DefaultsFileUploadComponent;
+describe('FileUploadComponent', () => {
+  let fixture: ComponentFixture<FileUploadComponent>;
+  let component: FileUploadComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DefaultsFileUploadComponent],
+      declarations: [FileUploadComponent],
       imports: [
         MatIconModule,
         BrowserModule,
@@ -47,7 +47,7 @@ describe('DefaultsFileUploadComponent', () => {
     })
       .compileComponents()
       .then(() => {
-        fixture = TestBed.createComponent(DefaultsFileUploadComponent);
+        fixture = TestBed.createComponent(FileUploadComponent);
         component = fixture.componentInstance;
       });
   }));

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { BrowserModule } from '@angular/platform-browser';
-import { DefaultsFileUploadComponent } from './defaults-file-upload/defaults-file-upload.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,7 +38,7 @@ import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-i
 @NgModule({
   declarations: [
     MergeModalComponent,
-    DefaultsFileUploadComponent,
+    FileUploadComponent,
     SpecFilesUploadComponent,
     ResolveConflictComponent
   ],
