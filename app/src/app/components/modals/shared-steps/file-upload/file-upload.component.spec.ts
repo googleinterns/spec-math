@@ -69,6 +69,9 @@ describe('FileUploadComponent', () => {
   });
 
   it('closes the modal and navigates to /defaults when the Lean more link is clicked', () => {
+    component.fileType = 'defaults';
+
+    fixture.detectChanges();
     const dialogSpy = spyOn(component.dialog, 'closeAll');
     const routerSpy = spyOn(component.router, 'navigateByUrl');
     const learnMoreLink = queryElement(fixture, '#learn-more-defaults')

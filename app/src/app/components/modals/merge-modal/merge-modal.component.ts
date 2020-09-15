@@ -44,7 +44,7 @@ const MERGE_STEP_LIST: StepOptions = {
     nextStep: Steps.specFilesUpload,
     previousStep: Steps.specNameInput,
     nextButtonText: 'Next',
-    stepLabel: 'Defaults file',
+    stepLabel: 'Defaults file (optional)',
   },
   [Steps.specFilesUpload]: {
     toolTipText: 'You must upload a set of spec files',

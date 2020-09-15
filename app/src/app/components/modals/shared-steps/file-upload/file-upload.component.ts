@@ -31,14 +31,14 @@ export class FileUploadComponent  {
     type: null
   };
 
-  @Input() type: FileType;
+  @Input() fileType: FileType;
   @Output() options: EventEmitter<FileUploadOptions> = new EventEmitter();
 
   constructor(readonly router: Router, readonly dialog: MatDialog) { }
 
   handleDefaultsFileInput(files: FileList) {
     this.fileUploadOptions.file = files[0];
-    this.fileUploadOptions.type = this.type;
+    this.fileUploadOptions.type = this.fileType;
     this.defaultsUpload.nativeElement.value = '';
     this.options.emit(this.fileUploadOptions);
   }
@@ -53,20 +53,20 @@ export class FileUploadComponent  {
   }
 
   get stepFileLabel(): string {
-    switch (this.type) {
+    switch (this.fileType) {
       case 'defaults':
-        return 'Select an optional defaults file';
+        return 'Select a defaults file';
       case 'spec':
         return 'Select a spec file';
     }
   }
 
   get shouldDisplayLearnMoreLink(): boolean {
-    return this.type === 'defaults';
+    return this.fileType === 'defaults';
   }
 
   get fileTypeIcon(): string {
-    switch (this.type) {
+    switch (this.fileType) {
       case 'defaults':
         return 'api';
       case 'spec':

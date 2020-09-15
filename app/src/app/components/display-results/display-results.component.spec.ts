@@ -57,7 +57,8 @@ describe('DisplayResultsComponent', () => {
           new File(['openapi: 3.0.0'], 'spec2.yaml')
         ],
         resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
-        valid: true
+        valid: true,
+        type: 'merge'
       });
 
       fixture = TestBed.createComponent(DisplayResultsComponent);
