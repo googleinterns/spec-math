@@ -69,10 +69,10 @@ export class DisplayResultsComponent {
   }
 
   specLabel(index: number) {
-    return `Spec ${index + 1}`;
+    return this.specFiles.length > 1 ? `Spec ${index + 1}` : 'Spec';
   }
 
-  get mergeDescription(): string {
+  get operationDescription(): string {
     const defaults = this.defaultsFileValid ? `using ${this.defaultsFileName} and ` : '';
     const specs = this.specFiles.map(spec => spec.name).join(', ');
 

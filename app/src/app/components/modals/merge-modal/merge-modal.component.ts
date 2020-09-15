@@ -198,7 +198,7 @@ export class MergeModalComponent
 
   ngOnInit() {
     this.stepList = MERGE_STEP_LIST;
-    this.fileUploadOptions.type = 'defaults';
     this.currentStep = Steps.specNameInput;
+    this.operationType = 'merge';
   }
 }

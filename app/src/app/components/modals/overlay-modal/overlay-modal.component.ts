@@ -146,5 +146,6 @@ export class OverlayModalComponent
   ngOnInit() {
     this.stepList = OVERLAY_STEP_LIST;
     this.currentStep = Steps.specNameInput;
+    this.operationType = 'overlay';
   }
 }

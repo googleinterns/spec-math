@@ -1,4 +1,5 @@
 import { MatStepper } from '@angular/material/stepper';
+export type OperationType = 'merge' | 'overlay';
 
 export interface MergeRequest {
   specs: string[];
@@ -43,6 +44,7 @@ export interface OperationSet {
   defaultsFile?: File;
   resultSpec: File;
   valid: boolean;
+  type: OperationType;
 }
 
 export interface ResolvedMergeConflictOptions {

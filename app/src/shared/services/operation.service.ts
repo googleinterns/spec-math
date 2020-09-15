@@ -21,6 +21,7 @@ export class OperationService {
     specFiles: [],
     resultSpec: null,
     valid: false,
+    type: null,
   };
 
   /**

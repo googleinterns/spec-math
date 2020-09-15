@@ -21,6 +21,7 @@ import {
   SpecFilesUploadOptions,
   MergeConflict,
   OperationSet,
+  OperationType
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 
@@ -52,6 +53,7 @@ export class SpecMathModal {
   };
   resultSpec: File;
   mergeConflicts: MergeConflict[];
+  operationType: OperationType;
 
   constructor(readonly dialogRef: MatDialogRef<SpecMathModal>,
               readonly cdr: ChangeDetectorRef,
@@ -69,6 +71,7 @@ export class SpecMathModal {
       defaultsFile: this.fileUploadOptions?.file,
       resultSpec: this.resultSpec,
       valid: true,
+      type: this.operationType
     };
     this.dialogRef.close(finalOperationSet);
   }
