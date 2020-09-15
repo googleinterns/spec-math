@@ -1,0 +1,11 @@
+There were conflicts in the union process
+
+Please see the file src/test/resources/fakeFileName.yaml_CONFLICTS for more information
+
+To resolve the conflicts you have three choices:
+1: Updating the "resolvedValue" property in src/test/resources/fakeFileName.yaml_CONFLICTS with your desired option, and then passing that file into the union as an additional parameter using the -c flag
+
+2: Looking at src/test/resources/fakeFileName.yaml_CONFLICTS and manually updating the input YAML files
+
+3: Updating/creating a defaults file with overrides for the conflicting keypaths in src/test/resources/fakeFileName.yaml_CONFLICTS, and passing in the new defaults file into the union as an additional parameter using the -d flag
+

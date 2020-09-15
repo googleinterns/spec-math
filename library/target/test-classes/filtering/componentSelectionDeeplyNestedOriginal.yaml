@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    name: MIT
+servers:
+  - url: http://petstore.swagger.io/v1
+paths:
+  /pets:
+    get:
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets1"
+components:
+  schemas:
+    Pets1:
+      type: array
+      items:
+        $ref: "#/components/schemas/Pets2"
+    Pets2:
+      type: array
+      items:
+        $ref: "#/components/schemas/Pets3"
+    Pets3:
+      type: array
+      items:
+        $ref: '../not/a/component/'
+    Pets4:
+      type: array
