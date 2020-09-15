@@ -16,9 +16,20 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { readFileAsString } from 'src/shared/functions';
-import { OverlayRequest, ModalInterface, FileUploadOptions } from 'src/shared/interfaces';
+import {
+  OverlayRequest,
+  ModalInterface,
+  FileUploadOptions,
+} from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
-import { SpecMathModal, StepOptions, Steps } from '../modal';
+import { SpecMathModal, StepOptions } from '../modal';
+
+enum Steps {
+  specNameInput = 0,
+  defaultsFileUpload = 1,
+  specFileUpload = 2,
+  confirmOperation = 3,
+}
 
 const OVERLAY_STEP_LIST: StepOptions = {
   [Steps.specNameInput]: {
@@ -28,21 +39,21 @@ const OVERLAY_STEP_LIST: StepOptions = {
     stepLabel: 'Name new spec',
   },
   [Steps.defaultsFileUpload]: {
-    toolTipText: 'You must upload a default file',
-    nextStep: Steps.specFilesUpload,
+    toolTipText: 'You must upload a defaults file',
+    nextStep: Steps.specFileUpload,
     previousStep: Steps.specNameInput,
     nextButtonText: 'Next',
     stepLabel: 'Defaults file',
   },
-  [Steps.specFilesUpload]: {
+  [Steps.specFileUpload]: {
     toolTipText: 'You must upload a spec file',
     nextStep: Steps.confirmOperation,
     previousStep: Steps.defaultsFileUpload,
     nextButtonText: 'Next',
-    stepLabel: 'Spec files',
+    stepLabel: 'Spec file',
   },
   [Steps.confirmOperation]: {
-    previousStep: Steps.specFilesUpload,
+    previousStep: Steps.specFileUpload,
     nextButtonText: 'Confirm',
     stepLabel: 'Confirm operation',
     lastStep: true,
@@ -85,9 +96,7 @@ export class OverlayModalComponent
   async generateOverlaySet(): Promise<OverlayRequest> {
     const requestBody: OverlayRequest = {
       spec: await readFileAsString(this.specFilesUploadOptions.specFiles[0]),
-      overlay: await readFileAsString(
-        this.fileUploadOptions.file
-      ),
+      overlay: await readFileAsString(this.fileUploadOptions.file),
     };
     return requestBody;
   }
@@ -103,15 +112,39 @@ export class OverlayModalComponent
     );
   }
 
-  handleSpecFilesUploadOptions(fileUploadOptions: FileUploadOptions) {
-    this.specFilesUploadOptions = {
-      specFiles: [fileUploadOptions.file],
-      valid: true,
-    };
+  handleFileUploadOptions(fileUploadOptions: FileUploadOptions) {
+    switch (fileUploadOptions.type) {
+      case 'defaults':
+        this.fileUploadOptions = fileUploadOptions;
+        break;
+      case 'spec':
+        this.specFilesUploadOptions = {
+          specFiles: [fileUploadOptions.file],
+          valid: true,
+        };
+        break;
+    }
+  }
+
+  get defaultsFileValid(): boolean {
+    return this.fileUploadOptions.file !== null;
+  }
+
+  get nextButtonEnabled(): boolean {
+    switch (this.currentStep) {
+      case Steps.specNameInput:
+        return this.specNameInputOptions.valid;
+      case Steps.specFileUpload:
+        return this.specFilesUploadOptions.valid;
+      case Steps.defaultsFileUpload:
+        return this.defaultsFileValid;
+      default:
+        return true;
+    }
   }
 
   ngOnInit() {
     this.stepList = OVERLAY_STEP_LIST;
-    this.fileUploadOptions.type = 'spec';
+    this.currentStep = Steps.specNameInput;
   }
 }

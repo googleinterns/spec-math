@@ -22,7 +22,7 @@ limitations under the License. -->
     </div>
     <div class="modal-step-header-container">
       <div class="modal-step-header-labels">
-        <h3>Overlay spec</h3>
+        <h3>Overlay</h3>
         <p class="mat-caption">
           {{ stepLabel }}
         </p>
@@ -46,12 +46,12 @@ limitations under the License. -->
       <mat-step>
         <app-file-upload
           (options)="handleFileUploadOptions($event)"
-          type="spec"
+          type="defaults"
         ></app-file-upload>
       </mat-step>
       <mat-step>
         <app-file-upload
-          (options)="handleSpecFilesUploadOptions($event)"
+          (options)="handleFileUploadOptions($event)"
           type="spec"
         ></app-file-upload>
       </mat-step>

@@ -23,7 +23,15 @@ import {
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';
-import { SpecMathModal, StepOptions, Steps } from '../modal';
+import { SpecMathModal, StepOptions } from '../modal';
+
+enum Steps {
+  specNameInput = 0,
+  defaultsFileUpload = 1,
+  specFilesUpload = 2,
+  confirmOperation = 3,
+  resolveConflicts = 4,
+}
 
 const MERGE_STEP_LIST: StepOptions = {
   [Steps.specNameInput]: {
@@ -170,17 +178,27 @@ export class MergeModalComponent
     return this.currentStep === Steps.resolveConflicts;
   }
 
+  get nextButtonEnabled(): boolean {
+    switch (this.currentStep) {
+      case Steps.specNameInput:
+        return this.specNameInputOptions.valid;
+      case Steps.specFilesUpload:
+        return this.specFilesUploadOptions.valid;
+      case Steps.resolveConflicts:
+        return this.mergeConflictsResolved;
+      default:
+        return true;
+    }
+  }
+
   handleResolvedOptions(resolvedOptions: ResolvedMergeConflictOptions) {
     this.mergeConflicts[resolvedOptions.index].resolvedValue =
       resolvedOptions.value;
   }
 
-  handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
-    this.specFilesUploadOptions = specFilesUploadOptions;
-  }
-
   ngOnInit() {
     this.stepList = MERGE_STEP_LIST;
     this.fileUploadOptions.type = 'defaults';
+    this.currentStep = Steps.specNameInput;
   }
 }

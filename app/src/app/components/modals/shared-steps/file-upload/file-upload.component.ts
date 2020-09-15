@@ -38,6 +38,7 @@ export class FileUploadComponent  {
 
   handleDefaultsFileInput(files: FileList) {
     this.fileUploadOptions.file = files[0];
+    this.fileUploadOptions.type = this.type;
     this.defaultsUpload.nativeElement.value = '';
     this.options.emit(this.fileUploadOptions);
   }

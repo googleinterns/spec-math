@@ -24,14 +24,6 @@ import {
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 
-export enum Steps {
-  specNameInput = 0,
-  defaultsFileUpload = 1,
-  specFilesUpload = 2,
-  confirmOperation = 3,
-  resolveConflicts = 4,
-}
-
 export type StepOptions = {
   [key in number]: {
     toolTipText?: string;
@@ -45,7 +37,7 @@ export type StepOptions = {
 
 export class SpecMathModal {
   stepList: StepOptions;
-  currentStep = Steps.specNameInput;
+  currentStep: number;
   specNameInputOptions: SpecNameInputOptions = {
     newFileName: '',
     valid: false
@@ -97,19 +89,6 @@ export class SpecMathModal {
     return this.stepList[this.currentStep].toolTipText;
   }
 
-  get nextButtonEnabled(): boolean {
-    switch (this.currentStep) {
-      case Steps.specNameInput:
-        return this.specNameInputOptions?.valid;
-      case Steps.specFilesUpload:
-        return this.specFilesUploadOptions?.valid;
-      case Steps.resolveConflicts:
-        return this.mergeConflictsResolved;
-      default:
-        return true;
-    }
-  }
-
   get nextButtonText(): string {
     return this.stepList[this.currentStep].nextButtonText;
   }
@@ -132,5 +111,9 @@ export class SpecMathModal {
 
   handleFileUploadOptions(fileUploadOptions: FileUploadOptions) {
     this.fileUploadOptions = fileUploadOptions;
+  }
+
+  handleSpecFilesUploadOptions(specFilesUploadOptions: SpecFilesUploadOptions) {
+    this.specFilesUploadOptions = specFilesUploadOptions;
   }
 }
