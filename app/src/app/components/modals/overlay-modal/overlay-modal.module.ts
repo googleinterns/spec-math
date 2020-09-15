@@ -15,7 +15,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
@@ -38,7 +37,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatStepperModule,
     MatButtonModule,
     MatDialogModule,
-    MatInputModule,
     MatTooltipModule,
     BrowserModule,
     MatProgressSpinnerModule,

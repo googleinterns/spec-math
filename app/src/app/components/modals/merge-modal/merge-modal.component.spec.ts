@@ -52,7 +52,7 @@ describe('MergeModalComponent', () => {
         MatTooltipModule,
         HttpClientTestingModule,
         ConfirmOperationModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule
       ],
       providers: [
         {
@@ -72,7 +72,7 @@ describe('MergeModalComponent', () => {
     fixture.debugElement.query(By.directive(SpecNameInputStubComponent))
       .injector.get(SpecNameInputStubComponent);
 
-  it('creates the modal component', () => {
+  it('creates the merge modal component', () => {
     expect(modal).toBeTruthy();
   });
 
