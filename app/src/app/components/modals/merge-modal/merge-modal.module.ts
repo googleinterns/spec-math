@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import { BrowserModule } from '@angular/platform-browser';
-import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,11 +33,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confirm-operation.module';
 import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-input.module';
+import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module';
 
 @NgModule({
   declarations: [
     MergeModalComponent,
-    FileUploadComponent,
     SpecFilesUploadComponent,
     ResolveConflictComponent
   ],
@@ -57,7 +56,8 @@ import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-i
     HttpClientModule,
     RouterModule,
     ConfirmOperationModule,
-    SpecNameInputModule
+    SpecNameInputModule,
+    FileUploadModule
   ],
   exports: [
     MergeModalComponent,
