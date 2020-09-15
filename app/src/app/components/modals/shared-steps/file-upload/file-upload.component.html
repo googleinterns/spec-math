@@ -26,44 +26,44 @@ limitations under the License. -->
         Learn more
       </a>
     </div>
-    <div class="defaults-file-content">
+    <div class="file-content">
       <div *ngIf="!fileUploadOptions.file">
         <button
           (click)="fileInput.click()"
           mat-button
-          class="defaults-file-button"
-          id="defaults-file-upload-button-large"
+          class="file-button"
+          id="file-upload-button-large"
         >
-          <mat-icon class="defaults-file-icon">note_add</mat-icon>
+          <mat-icon class="file-icon">note_add</mat-icon>
         </button>
       </div>
       <div *ngIf="fileUploadOptions.file">
         <mat-chip-list id="defaults-chip-container">
           <mat-chip
-            id="defaults-file-chip"
+            id="file-chip"
             [selectable]="true"
             [removable]="true"
             (removed)="deleteFile()"
           >
-            <mat-icon class="defaults-file-chip-icon">api</mat-icon>
+            <mat-icon class="file-chip-icon">api</mat-icon>
             {{ fileUploadOptions.file.name }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
         </mat-chip-list>
       </div>
     </div>
-    <div class="defaults-file-input-container">
+    <div class="file-input-container">
       <input
         #fileInput
-        class="defaults-file-upload-input"
+        class="file-upload-input"
         type="file"
         accept=".yaml"
-        id="defaults-file-input"
+        id="file-input"
         (change)="handleDefaultsFileInput($event.target.files)"
       />
-      <label for="defaults-file-input">
+      <label for="file-input">
         <button
-          id="defaults-file-upload-button"
+          id="file-upload-button"
           (click)="fileInput.click()"
           mat-button
           class="modal-step-button-secondary"

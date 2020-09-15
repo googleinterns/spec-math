@@ -56,15 +56,16 @@ describe('FileUploadComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('shows the defaults file chip when a file is uploaded', () => {
+  it('shows the a file chip when a file is uploaded', () => {
     fixture.detectChanges();
-    component.defaultsFileUploadOptions = {
-      defaultsFile: new File(['content'], 'defaults.yaml'),
+    component.fileUploadOptions = {
+      file: new File(['content'], 'defaults.yaml'),
+      type: 'defaults'
     };
     fixture.detectChanges();
-    const defaultsFileChip = queryElement(fixture, '#defaults-file-chip')
+    const fileChip = queryElement(fixture, '#file-chip')
       .nativeElement;
-    expect(defaultsFileChip).toBeTruthy();
+    expect(fileChip).toBeTruthy();
   });
 
   it('closes the modal and navigates to /defaults when the Lean more link is clicked', () => {
