@@ -15,7 +15,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MergeRequest, OverlayRequest, OperationResponse } from '../interfaces';
-import { routes, SPEC_MATH_URL } from '../routes';
+import { routes } from '../routes';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -38,7 +38,7 @@ export class SpecMathService {
    * 3. In the case that merge conflicts occur, an object containing conflict resolutions
    */
   mergeSpecs(requestBody: MergeRequest): Observable<OperationResponse> {
-    return this.http.post(`${SPEC_MATH_URL}${routes.version}${routes.mergeSpecs}`, requestBody, requestOptions)
+    return this.http.post(`${routes.version}${routes.mergeSpecs}`, requestBody, requestOptions)
       .pipe(map(response => response as any as OperationResponse));
   }
 
@@ -50,7 +50,7 @@ export class SpecMathService {
    * 2. Spec used to complete the operation
    */
   overlaySpecs(requestBody: OverlayRequest): Observable<OperationResponse> {
-    return this.http.post(`${SPEC_MATH_URL}${routes.version}${routes.overlaySpecs}`, requestBody, requestOptions)
+    return this.http.post(`${routes.version}${routes.overlaySpecs}`, requestBody, requestOptions)
       .pipe(map(response => response as any as OperationResponse));
   }
 }
