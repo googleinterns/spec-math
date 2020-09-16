@@ -26,7 +26,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { SpecFilesUploadComponent } from './spec-files-upload/spec-files-upload.component';
 import { ResolveConflictComponent } from './resolve-conflict/resolve-conflict.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientModule } from '@angular/common/http';

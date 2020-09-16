@@ -18,7 +18,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
-import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { HttpClientModule } from '@angular/common/http';
