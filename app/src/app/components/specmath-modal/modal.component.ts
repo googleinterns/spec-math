@@ -22,7 +22,7 @@ import {
   MergeConflict,
   OperationSet,
   ResolvedMergeConflictOptions,
-  SpecMathMergeRequest,
+  MergeRequest,
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';
@@ -173,8 +173,8 @@ export class ModalComponent {
     this.resultSpec = new File([callResponse.result], `${this.specNameInputOptions.newFileName}.yaml`);
   }
 
-  async generateMergeSet(): Promise<SpecMathMergeRequest> {
-    const requestBody: SpecMathMergeRequest = {
+  async generateMergeSet(): Promise<MergeRequest> {
+    const requestBody: MergeRequest = {
       specs: await Promise.all(this.specFilesUploadOptions.specFiles.map((spec) => readFileAsString(spec)))
     };
 

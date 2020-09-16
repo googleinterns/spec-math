@@ -16,10 +16,10 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
 import { SpecMathService } from './specmath.service';
-import { mergeSpecsMockRequest } from '../../tests/mocks/mockRequests';
-import { mergeSpecsMockResponse } from '../../tests/mocks/mockResponses';
+import { mergeSpecsMockRequest, overlaySpecsMockRequest } from '../../tests/mocks/mockRequests';
+import { operationMockResponse } from '../../tests/mocks/mockResponses';
 import { routes, SPEC_MATH_URL } from '../routes';
-import { SpecMathMergeResponse, SpecMathMergeRequest } from 'src/shared/interfaces';
+import { OperationResponse, MergeRequest, OverlayRequest } from 'src/shared/interfaces';
 
 describe('SpecMathService', () => {
   let service: SpecMathService;
@@ -36,29 +36,54 @@ describe('SpecMathService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('uploadFiles()', () => {
+  describe('mergeSpecs', () => {
     let httpMockObject: HttpTestingController;
-    let mergeSpecsMockCall: Observable<SpecMathMergeResponse>;
+    let mergeSpecsMockCall: Observable<OperationResponse>;
 
     beforeEach(() => {
       httpMockObject = TestBed.inject(HttpTestingController);
       service = TestBed.inject(SpecMathService);
-      const mockSpeckSet: SpecMathMergeRequest = {
-        specs: mergeSpecsMockRequest.specs,
-        defaultsFile: mergeSpecsMockRequest.defaultsFile
-      };
+      const mockMergeSet: MergeRequest = mergeSpecsMockRequest;
 
-      mergeSpecsMockCall = service.mergeSpecs(mockSpeckSet);
+      mergeSpecsMockCall = service.mergeSpecs(mockMergeSet);
     });
 
     it('receives a response when a POST request is sent to the merge endpoint', () => {
       mergeSpecsMockCall.subscribe((res: object) => {
-        expect(res).toEqual(mergeSpecsMockResponse);
+        expect(res).toEqual(operationMockResponse);
       });
 
-      const mockRequest = httpMockObject.expectOne(`${SPEC_MATH_URL}${routes.mergeSpecs}`);
+      const mockRequest = httpMockObject.expectOne(`${SPEC_MATH_URL}${routes.version}${routes.mergeSpecs}`);
       expect(mockRequest.request.method).toBe('POST');
-      mockRequest.flush(mergeSpecsMockResponse);
+      mockRequest.flush(operationMockResponse);
+    });
+
+    afterEach(() => {
+      // Verifies that there are no pending requests at the end of each test
+      httpMockObject.verify();
+    });
+  });
+
+  describe('overlaySpecs', () => {
+    let httpMockObject: HttpTestingController;
+    let overlaySpecsMockCall: Observable<OperationResponse>;
+
+    beforeEach(() => {
+      httpMockObject = TestBed.inject(HttpTestingController);
+      service = TestBed.inject(SpecMathService);
+      const mockOverlaySet: OverlayRequest = overlaySpecsMockRequest;
+
+      overlaySpecsMockCall = service.overlaySpecs(mockOverlaySet);
+    });
+
+    it('receives a response when a POST request is sent to the overlay endpoint', () => {
+      overlaySpecsMockCall.subscribe((res: object) => {
+        expect(res).toEqual(operationMockResponse);
+      });
+
+      const mockRequest = httpMockObject.expectOne(`${SPEC_MATH_URL}${routes.version}${routes.overlaySpecs}`);
+      expect(mockRequest.request.method).toBe('POST');
+      mockRequest.flush(operationMockResponse);
     });
 
     afterEach(() => {
