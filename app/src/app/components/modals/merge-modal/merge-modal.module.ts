@@ -62,7 +62,7 @@ import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module
   exports: [
     MergeModalComponent,
   ],
-  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
+  providers: [SpecMathService],
   bootstrap: [MergeModalComponent]
 })
 export class MergeModalModule { }

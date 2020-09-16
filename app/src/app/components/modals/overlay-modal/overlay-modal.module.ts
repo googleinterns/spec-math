@@ -52,7 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   exports: [
     OverlayModalComponent,
   ],
-  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
+  providers: [SpecMathService],
   bootstrap: [OverlayModalComponent]
 })
 export class OverlayModalModule { }
