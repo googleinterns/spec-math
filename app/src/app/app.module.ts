@@ -75,7 +75,6 @@ import { routes } from 'src/shared/routes';
           component: EmptyPageComponent,
         },
       ],
-      { useHash: true }
     ),
   ],
   providers: [OperationService, SideNavService],
