@@ -31,8 +31,10 @@ export class DisplayResultsComponent {
   operationSet: OperationSet;
 
   constructor(operations: OperationService, router: Router) {
-    const results = operations.getResults();
-    results.valid ? this.operationSet = results : router.navigateByUrl(routes.home);
+    operations.getResults.subscribe((results) => {
+      console.log(results);
+      results.valid ? this.operationSet = results : router.navigateByUrl(routes.home);
+    });
   }
 
   async downloadFile(yamlFile: File) {

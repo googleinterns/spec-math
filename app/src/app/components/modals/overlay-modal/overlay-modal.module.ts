@@ -28,6 +28,7 @@ import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module
 import { OverlayModalComponent } from './overlay-modal.component';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   exports: [
     OverlayModalComponent,
   ],
-  providers: [SpecMathService],
+  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
   bootstrap: [OverlayModalComponent]
 })
 export class OverlayModalModule { }

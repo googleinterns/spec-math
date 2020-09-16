@@ -33,6 +33,7 @@ import { RouterModule } from '@angular/router';
 import { ConfirmOperationModule } from '../shared-steps/confirm-operation/confirm-operation.module';
 import { SpecNameInputModule } from '../shared-steps/spec-name-input/spec-name-input.module';
 import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module';
+import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { FileUploadModule } from '../shared-steps/file-upload/file-upload.module
   exports: [
     MergeModalComponent,
   ],
-  providers: [SpecMathService],
+  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
   bootstrap: [MergeModalComponent]
 })
 export class MergeModalModule { }

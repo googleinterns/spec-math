@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { OperationSet } from '../interfaces';
 
 @Injectable()
@@ -24,6 +25,12 @@ export class OperationService {
     type: null,
   };
 
+  readonly getResults: Observable<OperationSet> = new Observable((observer) => {
+    console.log(this.results)
+    observer.next(this.results);
+    observer.complete();
+  });
+
   /**
    * Sets the results which are used by DisplayResultsComponent after the completion of an operation
    *
@@ -31,14 +38,5 @@ export class OperationService {
    */
   setResults(results: OperationSet) {
     this.results = results;
-  }
-
-  /**
-   * Obtains the results which may be used in other components
-   *
-   * @returns an OperationSet object
-   */
-  getResults() {
-    return this.results;
   }
 }
