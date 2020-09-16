@@ -1,4 +1,3 @@
-# Spec Math
 <p align="center">
   <img src="./app/src/assets/img/specmath_logo.svg" width="350" title="Spec Math logo">
 </p>
