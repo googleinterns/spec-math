@@ -22,7 +22,7 @@ import {
 } from 'src/shared/interfaces';
 import { SpecMathService } from 'src/shared/services/specmath.service';
 import { readFileAsString } from 'src/shared/functions';
-import { SpecMathModal, StepOptions } from '../modal';
+import { SpecMathModal, StepOptions } from '../spec-math-modal';
 
 enum Steps {
   specNameInput = 0,
@@ -69,7 +69,7 @@ const MERGE_STEP_LIST: StepOptions = {
 @Component({
   selector: 'app-merge-modal',
   templateUrl: './merge-modal.component.html',
-  styleUrls: ['../modal.scss'],
+  styleUrls: ['../spec-math-modal.scss'],
 })
 export class MergeModalComponent
   extends SpecMathModal

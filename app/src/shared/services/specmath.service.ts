@@ -15,9 +15,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MergeRequest, OverlayRequest, OperationResponse } from '../interfaces';
-import { routes, SPEC_MATH_URL } from '../routes';
+import { routes } from '../routes';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 const requestOptions = {
   headers: new HttpHeaders({
@@ -27,7 +26,7 @@ const requestOptions = {
 
 @Injectable()
 export class SpecMathService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    * Performs a call to the operations/merge endpoint
@@ -38,19 +37,27 @@ export class SpecMathService {
    * 3. In the case that merge conflicts occur, an object containing conflict resolutions
    */
   mergeSpecs(requestBody: MergeRequest): Observable<OperationResponse> {
-    return this.http.post(`${SPEC_MATH_URL}${routes.version}${routes.mergeSpecs}`, requestBody, requestOptions)
-      .pipe(map(response => response as any as OperationResponse));
+    return this.http
+      .post<OperationResponse>(
+        `${routes.version}${routes.mergeSpecs}`,
+        requestBody,
+        requestOptions
+      );
   }
 
   /**
    * Performs a call to the operations/overlay endpoint
    *
-   * @param requestBody - An MergeRequest object which can contain
+   * @param requestBody - An OverlayRequest object which can contain
    * 1. An overlay file
    * 2. Spec used to complete the operation
    */
   overlaySpecs(requestBody: OverlayRequest): Observable<OperationResponse> {
-    return this.http.post(`${SPEC_MATH_URL}${routes.version}${routes.overlaySpecs}`, requestBody, requestOptions)
-      .pipe(map(response => response as any as OperationResponse));
+    return this.http
+      .post<OperationResponse>(
+        `${routes.version}${routes.overlaySpecs}`,
+        requestBody,
+        requestOptions
+      );
   }
 }
