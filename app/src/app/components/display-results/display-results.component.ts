@@ -31,7 +31,7 @@ export class DisplayResultsComponent {
   operationSet: OperationSet;
 
   constructor(operations: OperationService, router: Router) {
-    operations.getResults.subscribe((results) => {
+    operations.results.subscribe((results) => {
       results.valid ? this.operationSet = results : router.navigateByUrl(routes.home);
     });
   }

@@ -13,21 +13,16 @@
 // limitations under the License.
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OperationSet } from '../interfaces';
 
 @Injectable()
 export class OperationService {
-  private results: OperationSet = {
+  private resultsObservable = new BehaviorSubject({
     specFiles: [],
     resultSpec: null,
     valid: false,
     type: null,
-  };
-
-  readonly getResults: Observable<OperationSet> = new Observable((observer) => {
-    observer.next(this.results);
-    observer.complete();
   });
 
   /**
@@ -36,6 +31,14 @@ export class OperationService {
    * @param results - an OperationSet object
    */
   setResults(results: OperationSet) {
-    this.results = results;
+    this.resultsObservable.next(results);
+  }
+
+  /**
+   * Returns the latest update to results as an observable
+   *
+   */
+  get results(): Observable<OperationSet> {
+    return this.resultsObservable;
   }
 }

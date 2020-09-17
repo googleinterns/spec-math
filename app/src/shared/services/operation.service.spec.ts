@@ -40,7 +40,7 @@ describe('OperationService', () => {
       type: 'merge'
     });
 
-    service.getResults.subscribe((results) => {
+    service.results.subscribe((results) => {
       expect(results).toEqual({
         specFiles: [
           new File(['openapi: 3.0.0'], 'spec1.yaml'),
