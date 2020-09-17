@@ -16,9 +16,7 @@ limitations under the License. -->
   <div class="results-header-container">
     <div class="results-header-text">
       <h2 class="results-label mat-display-3 card-subtitle">
-        <h4>
-          New {{ operationSet.type }} operation
-        </h4>
+        <h4>New {{ operationSet.type }} operation</h4>
         {{ resultsSpecFileDisplayName }}
       </h2>
       <mat-divider class="results-header-divider"></mat-divider>
@@ -48,24 +46,14 @@ limitations under the License. -->
             {{ resultSpecFileName }}
           </h2>
           <button
-            class="results-tab-menu-button"
-            id="results-options-menu"
-            [mat-menu-trigger-for]="resultsMenu"
+            id="results-download"
+            (click)="downloadFile(operationSet.resultSpec)"
             mat-icon-button
-            aria-label="More button for result file"
+            class="secondary"
+            aria-label="download result spec"
           >
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon>arrow_circle_down</mat-icon>
           </button>
-          <mat-menu xPosition="before" overlapTrigger #resultsMenu="matMenu">
-            <button mat-menu-item>Code diff</button>
-            <button
-              id="results-options-download"
-              (click)="downloadFile(operationSet.resultSpec)"
-              mat-menu-item
-            >
-              Download
-            </button>
-          </mat-menu>
         </div>
         <app-yaml-render
           class="results-tab-file-container"
@@ -80,23 +68,14 @@ limitations under the License. -->
             {{ defaultsFileName }}
           </h2>
           <button
-            id="defaults-options-menu"
-            class="results-tab-menu-button"
-            [mat-menu-trigger-for]="defaultsMenu"
+            id="defaults-download"
+            (click)="downloadFile(operationSet.defaultsFile)"
             mat-icon-button
-            aria-label="More button for defaults file"
+            class="primary"
+            aria-label="download defaults file"
           >
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon>arrow_circle_down</mat-icon>
           </button>
-          <mat-menu xPosition="before" overlapTrigger #defaultsMenu="matMenu">
-            <button
-              id="defaults-options-download"
-              (click)="downloadFile(operationSet.defaultsFile)"
-              mat-menu-item
-            >
-              Download
-            </button>
-          </mat-menu>
         </div>
         <app-yaml-render
           class="results-tab-file-container"
@@ -114,23 +93,14 @@ limitations under the License. -->
             {{ spec.name }}
           </h2>
           <button
-            class="results-tab-menu-button"
-            [mat-menu-trigger-for]="specMenu"
+            class="primary"
+            [id]="'spec-' + i + '-download'"
+            (click)="downloadFile(spec)"
             mat-icon-button
-            aria-label="More button for spec files"
-            [id]="'spec-' + i + 'options-menu'"
+            aria-label="download spec file"
           >
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon>arrow_circle_down</mat-icon>
           </button>
-          <mat-menu xPosition="before" overlapTrigger #specMenu="matMenu">
-            <button
-              [id]="'spec-' + i + 'options-download'"
-              (click)="downloadFile(spec)"
-              mat-menu-item
-            >
-              Download
-            </button>
-          </mat-menu>
         </div>
         <app-yaml-render
           class="results-tab-file-container"

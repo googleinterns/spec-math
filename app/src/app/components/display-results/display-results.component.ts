@@ -32,7 +32,6 @@ export class DisplayResultsComponent {
 
   constructor(operations: OperationService, router: Router) {
     operations.getResults.subscribe((results) => {
-      console.log(results);
       results.valid ? this.operationSet = results : router.navigateByUrl(routes.home);
     });
   }

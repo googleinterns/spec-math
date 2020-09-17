@@ -26,7 +26,7 @@ export class OperationService {
   };
 
   readonly getResults: Observable<OperationSet> = new Observable((observer) => {
-    console.log(this.results)
+    console.log(this.results);
     observer.next(this.results);
     observer.complete();
   });
