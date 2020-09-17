@@ -37,6 +37,7 @@ describe('OperationService', () => {
       ],
       resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
       valid: true,
+      type: 'merge'
     });
 
     const results = service.getResults();
@@ -48,6 +49,7 @@ describe('OperationService', () => {
       ],
       resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
       valid: true,
+      type: 'merge'
     });
   });
 });

@@ -1,3 +1,6 @@
+import { MatStepper } from '@angular/material/stepper';
+export type OperationType = 'merge' | 'overlay';
+
 export interface MergeRequest {
   specs: string[];
   defaultsFile?: string;
@@ -11,7 +14,7 @@ export interface MergeConflict {
 }
 
 export interface OperationResponse {
-  status: 'success' | 'conflicts' | 'operation error';
+  status: 'success' | 'conflicts';
   result?: string;
   conflicts?: MergeConflict [];
 }
@@ -26,8 +29,9 @@ export interface SpecNameInputOptions {
   valid: boolean;
 }
 
-export interface DefaultsFileUploadOptions {
-  defaultsFile: File;
+export interface FileUploadOptions {
+  file: File;
+  type: 'defaults' | 'spec' | null;
 }
 
 export interface SpecFilesUploadOptions {
@@ -40,6 +44,7 @@ export interface OperationSet {
   defaultsFile?: File;
   resultSpec: File;
   valid: boolean;
+  type: OperationType;
 }
 
 export interface ResolvedMergeConflictOptions {
@@ -50,4 +55,8 @@ export interface ResolvedMergeConflictOptions {
 export interface YamlLevel {
   attribute: string;
   level: number;
+}
+
+export interface ModalInterface {
+  nextStep(stepper: MatStepper): void;
 }

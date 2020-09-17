@@ -28,20 +28,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalModule } from './components/specmath-modal/modal.module';
 import { queryElement } from 'src/shared/functions';
-import { DisplayResultsModule } from './components/spec-math-display-results/display-results.module';
+import { DisplayResultsModule } from './components/display-results/display-results.module';
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { Router } from '@angular/router';
-import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
+import { DisplayResultsComponent } from './components/display-results/display-results.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OperationService } from 'src/shared/services/operation.service';
 import { SideNavService } from 'src/shared/services/sidenav.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MergeModalModule } from './components/modals/merge-modal/merge-modal.module';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -64,7 +64,7 @@ describe('AppComponent', () => {
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
-        ModalModule,
+        MergeModalModule,
         DisplayResultsModule,
         YamlRenderModule,
         MatListModule,
@@ -133,10 +133,8 @@ describe('AppComponent', () => {
   }));
 
   it('opens the About page when its button is clicked', fakeAsync(() => {
-    const aboutButton = queryElement(
-      fixture,
-      '#about-spec-math-button'
-    ).nativeElement;
+    const aboutButton = queryElement(fixture, '#about-spec-math-button')
+      .nativeElement;
 
     aboutButton.click();
 
@@ -153,10 +151,7 @@ describe('AppComponent', () => {
   }));
 
   it('opens the Empty page when the logo is clicked', fakeAsync(() => {
-    const logo = queryElement(
-      fixture,
-      '#spec-math-logo'
-    ).nativeElement;
+    const logo = queryElement(fixture, '#spec-math-logo').nativeElement;
 
     logo.click();
 

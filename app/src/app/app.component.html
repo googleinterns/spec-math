@@ -47,9 +47,16 @@ limitations under the License. -->
         <button
           id="operation-menu-merge-button"
           mat-menu-item
-          (click)="openDialog()"
+          (click)="openModal('merge')"
         >
           Merge
+        </button>
+        <button
+          id="operation-menu-overlay-button"
+          mat-menu-item
+          (click)="openModal('overlay')"
+        >
+          Overlay
         </button>
       </mat-menu>
     </div>

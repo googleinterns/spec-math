@@ -1,0 +1,111 @@
+<!-- Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+
+<div class="modal-container">
+  <mat-dialog-content>
+    <div *ngIf="loadingOperation" class="modal-step-loading-overlay">
+      <div class="modal-step-loading-label">
+        <mat-spinner></mat-spinner>
+        <h4>Processing operation</h4>
+      </div>
+    </div>
+    <div class="modal-step-header-container">
+      <div class="modal-step-header-labels">
+        <h3>Merge</h3>
+        <p class="mat-caption">
+          {{ stepLabel }}
+        </p>
+      </div>
+      <button
+        id="modal-cancel-button"
+        mat-dialog-close
+        mat-icon-button
+        color="grey"
+        aria-label="Close modal button"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <mat-horizontal-stepper id="modal-stepper" linear #stepper>
+      <mat-step>
+        <app-spec-name-input
+          (options)="handleSpecNameInputOptions($event)"
+        ></app-spec-name-input>
+      </mat-step>
+      <mat-step [optional]="true">
+        <app-file-upload
+          (options)="handleFileUploadOptions($event)"
+          fileType="defaults"
+        ></app-file-upload>
+      </mat-step>
+      <mat-step>
+        <app-spec-files-upload
+          (options)="handleSpecFilesUploadOptions($event)"
+        ></app-spec-files-upload>
+      </mat-step>
+      <mat-step>
+        <app-confirm-operation
+          *ngIf="validFiles"
+          [fileUploadOptions]="fileUploadOptions"
+          [specFilesUploadOptions]="specFilesUploadOptions"
+        ></app-confirm-operation>
+      </mat-step>
+      <mat-step *ngIf="mergeConflicts">
+        <app-resolve-conflict
+          (resolvedOptions)="handleResolvedOptions($event)"
+          [mergeConflicts]="mergeConflicts"
+        ></app-resolve-conflict>
+      </mat-step>
+    </mat-horizontal-stepper>
+    <div class="modal-step-footer-container">
+      <div
+        class="modal-step-conflicts-count"
+        *ngIf="shouldDisplayConflictCounter"
+      >
+        <b>
+          {{ conflictsCount }}
+        </b>
+        <p class="modal-step-conflicts-label">conflicts resolved</p>
+      </div>
+      <div class="modal-step-controls-container">
+        <button
+          id="modal-button-back"
+          mat-button
+          class="modal-step-button-secondary"
+          aria-label="Back button to go back to the previous step"
+          (click)="previousStep(stepper)"
+          *ngIf="shouldShowBackButton"
+        >
+          Back
+        </button>
+        <div
+          [matTooltip]="nextButtonTooltipText"
+          matTooltipPosition="above"
+          [matTooltipDisabled]="nextButtonEnabled"
+        >
+          <button
+            id="modal-button-next"
+            mat-button
+            class="modal-step-button-main"
+            aria-label="Next button to go to the next step"
+            (click)="nextStep(stepper)"
+            [disabled]="!nextButtonEnabled"
+          >
+            {{ nextButtonText }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

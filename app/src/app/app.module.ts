@@ -22,19 +22,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { ModalModule } from './components/specmath-modal/modal.module';
-import { DisplayResultsModule } from './components/spec-math-display-results/display-results.module';
+import { MergeModalModule } from './components/modals/merge-modal/merge-modal.module';
+import { DisplayResultsModule } from './components/display-results/display-results.module';
 import { YamlRenderModule } from './components/yaml-render/yaml-render.module';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OperationService } from 'src/shared/services/operation.service';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { DefaultsPageComponent } from './components/defaults-page/defaults-page.component';
-import { DisplayResultsComponent } from './components/spec-math-display-results/display-results.component';
+import { DisplayResultsComponent } from './components/display-results/display-results.component';
 import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 import { SideNavService } from 'src/shared/services/sidenav.service';
 import { routes } from 'src/shared/routes';
+import { OverlayModalModule } from './components/modals/overlay-modal/overlay-modal.module';
 
 @NgModule({
   declarations: [
@@ -51,11 +52,12 @@ import { routes } from 'src/shared/routes';
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-    ModalModule,
+    MergeModalModule,
     DisplayResultsModule,
     YamlRenderModule,
     MatListModule,
     MatExpansionModule,
+    OverlayModalModule,
     RouterModule.forRoot([
       {
         path: routes.aboutSpecMath,
