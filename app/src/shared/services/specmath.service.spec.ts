@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 import { SpecMathService } from './specmath.service';
 import { mergeSpecsMockRequest, overlaySpecsMockRequest } from '../../tests/mocks/mockRequests';
 import { operationMockResponse } from '../../tests/mocks/mockResponses';
-import { routes, SPEC_MATH_URL } from '../routes';
+import { routes } from '../routes';
 import { OperationResponse, MergeRequest, OverlayRequest } from 'src/shared/interfaces';
 
 describe('SpecMathService', () => {
@@ -53,7 +53,7 @@ describe('SpecMathService', () => {
         expect(res).toEqual(operationMockResponse);
       });
 
-      const mockRequest = httpMockObject.expectOne(`${SPEC_MATH_URL}${routes.version}${routes.mergeSpecs}`);
+      const mockRequest = httpMockObject.expectOne(`${routes.version}${routes.mergeSpecs}`);
       expect(mockRequest.request.method).toBe('POST');
       mockRequest.flush(operationMockResponse);
     });
@@ -81,7 +81,7 @@ describe('SpecMathService', () => {
         expect(res).toEqual(operationMockResponse);
       });
 
-      const mockRequest = httpMockObject.expectOne(`${SPEC_MATH_URL}${routes.version}${routes.overlaySpecs}`);
+      const mockRequest = httpMockObject.expectOne(`${routes.version}${routes.overlaySpecs}`);
       expect(mockRequest.request.method).toBe('POST');
       mockRequest.flush(operationMockResponse);
     });

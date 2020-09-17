@@ -1,4 +1,10 @@
-# Spec Math
+<p align="center">
+  <img src="./app/src/assets/img/specmath_logo.svg" width="350" title="Spec Math logo">
+</p>
+
+---
+
+## Spec Math
 ## Overview
 Spec Math is a platform for performing operations on OpenAPI specifications. 
 [OpenAPI](https://github.com/OAI/OpenAPI-Specification) is an industry-standard
