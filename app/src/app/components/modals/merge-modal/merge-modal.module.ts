@@ -62,7 +62,7 @@ import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
   exports: [
     MergeModalComponent,
   ],
-  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
+  providers: [SpecMathService],
   bootstrap: [MergeModalComponent]
 })
 export class MergeModalModule { }

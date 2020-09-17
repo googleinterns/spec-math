@@ -52,7 +52,7 @@ import { StubSpecMathService } from 'src/tests/mocks/stub-specmath.service';
   exports: [
     OverlayModalComponent,
   ],
-  providers: [{ provide: SpecMathService, useClass: StubSpecMathService }],
+  providers: [SpecMathService],
   bootstrap: [OverlayModalComponent]
 })
 export class OverlayModalModule { }
