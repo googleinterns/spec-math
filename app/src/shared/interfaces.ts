@@ -14,7 +14,7 @@ export interface MergeConflict {
 }
 
 export interface OperationResponse {
-  status: 'success' | 'conflicts' | 'operation error';
+  status: 'success' | 'conflicts';
   result?: string;
   conflicts?: MergeConflict [];
 }
