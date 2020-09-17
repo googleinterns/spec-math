@@ -30,8 +30,8 @@ import { routes } from 'src/shared/routes';
 export class DisplayResultsComponent {
   operationSet: OperationSet;
 
-  constructor(operations: OperationService, router: Router) {
-    operations.results.subscribe((results) => {
+  constructor(operationService: OperationService, router: Router) {
+    operationService.results.subscribe((results) => {
       if (results.valid) {
         this.operationSet = results;
       } else {

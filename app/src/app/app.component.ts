@@ -48,7 +48,7 @@ export class AppComponent implements AfterViewInit {
   constructor(
     readonly router: Router,
     readonly dialog: MatDialog,
-    readonly operations: OperationService,
+    readonly operationService: OperationService,
     readonly sideNavService: SideNavService,
     readonly media: MediaMatcher
   ) {
@@ -63,7 +63,7 @@ export class AppComponent implements AfterViewInit {
       .afterClosed()
       .subscribe((results?: OperationSet) => {
         if (results) {
-          this.operations.setResults(results);
+          this.operationService.setResults(results);
           this.router.navigateByUrl(this.localRoutes.results);
         }
       });
