@@ -40,16 +40,16 @@ describe('OperationService', () => {
       type: 'merge'
     });
 
-    const results = service.getResults();
-
-    expect(results).toEqual({
-      specFiles: [
-        new File(['openapi: 3.0.0'], 'spec1.yaml'),
-        new File(['openapi: 3.0.0'], 'spec2.yaml'),
-      ],
-      resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
-      valid: true,
-      type: 'merge'
+    service.results.subscribe((results) => {
+      expect(results).toEqual({
+        specFiles: [
+          new File(['openapi: 3.0.0'], 'spec1.yaml'),
+          new File(['openapi: 3.0.0'], 'spec2.yaml'),
+        ],
+        resultSpec: new File(['openapi: 3.0.0'], 'results.yaml'),
+        valid: true,
+        type: 'merge'
+      });
     });
   });
 });

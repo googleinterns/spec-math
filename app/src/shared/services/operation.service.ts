@@ -13,16 +13,17 @@
 // limitations under the License.
 
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OperationSet } from '../interfaces';
 
 @Injectable()
 export class OperationService {
-  private results: OperationSet = {
+  private resultsObservable = new BehaviorSubject({
     specFiles: [],
     resultSpec: null,
     valid: false,
     type: null,
-  };
+  });
 
   /**
    * Sets the results which are used by DisplayResultsComponent after the completion of an operation
@@ -30,15 +31,14 @@ export class OperationService {
    * @param results - an OperationSet object
    */
   setResults(results: OperationSet) {
-    this.results = results;
+    this.resultsObservable.next(results);
   }
 
   /**
-   * Obtains the results which may be used in other components
+   * Returns the latest update to results as an observable
    *
-   * @returns an OperationSet object
    */
-  getResults() {
-    return this.results;
+  get results(): Observable<OperationSet> {
+    return this.resultsObservable;
   }
 }

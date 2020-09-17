@@ -30,9 +30,14 @@ import { routes } from 'src/shared/routes';
 export class DisplayResultsComponent {
   operationSet: OperationSet;
 
-  constructor(operations: OperationService, router: Router) {
-    const results = operations.getResults();
-    results.valid ? this.operationSet = results : router.navigateByUrl(routes.home);
+  constructor(operationService: OperationService, router: Router) {
+    operationService.results.subscribe((results) => {
+      if (results.valid) {
+        this.operationSet = results;
+      } else {
+        router.navigateByUrl(routes.home);
+      }
+    });
   }
 
   async downloadFile(yamlFile: File) {

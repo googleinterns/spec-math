@@ -82,11 +82,8 @@ describe('DisplayResultsComponent', () => {
   it('downloads each separate file when each file type download button is clicked', () => {
     fixture.detectChanges();
     const spy = spyOn(component, 'downloadFile');
-    const resultsMenu = queryElement(fixture, '#results-options-menu').nativeElement;
-    resultsMenu.click();
 
-    fixture.detectChanges();
-    const resultsDownload = queryElement(fixture, '#results-options-download').nativeElement;
+    const resultsDownload = queryElement(fixture, '#results-download').nativeElement;
     resultsDownload.click();
     expect(spy).toHaveBeenCalledWith(component.operationSet.resultSpec);
   });
