@@ -163,6 +163,9 @@ By default, when the user provides a list of filter criteria, all matches
 will be included. Future work includes the ability to provide an “exclude” option, which will exclude
 paths matching the criteria in the resultant spec.
 
+## Disclaimer
+This is not an officially supported Google Product. Any enhancement requests or bugs should only be reported via issues on this project. 
+
 ## Copyright
 
 Copyright 2020, Google LLC.
