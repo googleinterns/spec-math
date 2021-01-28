@@ -24,6 +24,8 @@ of your choosing. For more specific documentation and installation instructions,
 at the respective folder in the directory structure
 described below.
 
+NOTE: This is not an officially supported Google product.
+
 ## Directory structure
 - The [library](library) folder contains the "Spec Math Library", an implementation of Spec Math in Java.
 - The [web](web) folder showcases an example usage of the Spec Math Library through an API which is connected
